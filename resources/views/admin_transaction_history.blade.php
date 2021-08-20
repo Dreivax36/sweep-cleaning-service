@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>SWEEP</title>
+    <title>Admin Transaction History</title>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -33,108 +33,79 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 </head>
 <body >
-<header>
-    <div class="logo"> SWEEP </div>
-    <nav>
-        <ul>
-            <li><a  href="admin_dashboard">Home</a></li>
-            <li><a  href="admin_services">Services</a></li>
-            <li><a class="active" href="admin_transaction">Transaction</a></li>
-            <li><a href="admin_user">User</a></li>
-            <li><a href="admin_payroll">Payroll</a></li>
-            <div class="profile_button" style="margin-left: 315px; margin-top: 8px;">
-                <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
-                    <img class="profile" src="{{ asset('images/profile-icon-white-7.png') }}">
-                    <span class="caret"></span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a>
+    <header>
+        <div class="logo"> SWEEP </div>
+        <nav>
+            <ul>
+                <li><a  href="admin_dashboard">Home</a></li>
+                <li><a  href="admin_services">Services</a></li>
+                <li><a class="active" href="admin_transaction">Transaction</a></li>
+                <li><a href="admin_user">User</a></li>
+                <li><a href="admin_payroll">Payroll</a></li>
+                <div class="profile_btn">
+                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
+                        <img class="profile_img" src="/img/user.png">
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a>
+                    </div>
                 </div>
-            </div>
-        </ul>
-    </nav>
-    <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
-</header>
-<div class="row"> 
-    <a class="usertypebutton"  href="admin_transaction">TRANSACTION <p class="totalvalue">(63)</p></a>
-    <a class="usertypebutton" id="active" href="admin_transaction_history">HISTORY <p class="totalvalue">(63)</p></a>
-</div>
-    <div class="search">
-        <input class="searchbar" type="text" placeholder="Search..">
-        <button class="searchbutton">Search</button>
+            </ul>
+        </nav>
+        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
+    </header>
+    <div class="row"> 
+        <a class="user_type_btn"  href="admin_transaction">
+            TRANSACTION 
+            <p class="total_value">(63)</p>
+        </a>
+        <a class="user_type_btn" id="active" href="admin_transaction_history">
+            HISTORY 
+            <p class="total_value">(63)</p>
+        </a>
     </div>
-      <p class="show"> Showing 1-10 of 63 results </p>
-     <div class="result">
-         <p class="show"> Results per page: </p>
-         <button class="dropdown"  id="number">10<span class="caret"></span></button>
+    <div class="search_con">
+        <div>
+            <input class="searchbar" type="text" placeholder="Search..">
+            <button class="search_btn">Search</button>
+        </div>
     </div>
-    <div class="trans-his">
-        <table class=" table table-responsive-md table-hover">
-        <thead class="row-title">
-            <tr class="table-trans-his">
-            <th scope="col">Customer Name</th>
-            <th scope="col">Service Name</th>
-            <th scope="col">Property Type</th>
-            <th scope="col">Service Fee</th>
-            <th scope="col">Mode of Payment</th>
-            <th scope="col">Cleaner ID</th>
-            <th scope="col">Status</th>
-            </tr>
-        </thead>
+    <p class="show_info"> Showing 1-10 of 63 results </p>
+    <div class="result_con">
+        <p class="show_info"> Results per page: </p>
+        <button class="dropdown" id="number">10<span class="caret"></span></button>
+    </div>
+    <div class="trans_his_con">
+        <table class="table table-responsive-md table-hover">
+            <thead class="row_title">
+                <tr class="table_trans_his_row">
+                <th scope="col" class="user_table_trans_his_header">Customer Name</th>
+                <th scope="col" class="user_table_trans_his_header">Service Name</th>
+                <th scope="col" class="user_table_trans_his_header">Property Type</th>
+                <th scope="col" class="user_table_trans_his_header">Service Fee</th>
+                <th scope="col" class="user_table_trans_his_header">Mode of Payment</th>
+                <th scope="col" class="user_table_trans_his_header">Cleaner ID</th>
+                <th scope="col" class="user_table_trans_his_header">Status</th>
+                </tr>
+            </thead>
         <tbody>
-            <tr class="table-trans-his">
-            <th>Leah L. Cortez</th>
-            <td>Light Cleaning</td>
-            <td>Apartments </td>
-            <td>P342.00</td>
-            <td>GCash</td>
-            <td>CL001, CL002</td>
-            <td>Completed</td>
+            <tr class="table_trans_his_row">
+                <th class="user_table_trans_his_header">Leah L. Cortez</th>
+                <td class="user_table_data">Light Cleaning</td>
+                <td class="user_table_data">Apartments </td>
+                <td class="user_table_data">P342.00</td>
+                <td class="user_table_data">GCash</td>
+                <td class="user_table_data">CL001, CL002</td>
+                <td class="user_table_data">Completed</td>
             </tr>
-            <tr class="table-trans-his">
-            <th>Leah L. Cortez</th>
-            <td>Light Cleaning</td>
-            <td>Apartments </td>
-            <td>P342.00</td>
-            <td>GCash</td>
-            <td>CL001, CL002</td>
-            <td>Completed</td>
-            </tr>
-            <tr class="table-trans-his">
-            <th>Leah L. Cortez</th>
-            <td>Light Cleaning</td>
-            <td>Apartments </td>
-            <td>P342.00</td>
-            <td>GCash</td>
-            <td>CL001, CL002</td>
-            <td>Completed</td>
-            </tr>
-            <tr class="table-trans-his">
-            <th>Leah L. Cortez</th>
-            <td>Light Cleaning</td>
-            <td>Apartments </td>
-            <td>P342.00</td>
-            <td>GCash</td>
-            <td>CL001, CL002</td>
-            <td>Completed</td>
-            </tr>
-            <tr class="table-trans-his">
-            <th>Leah L. Cortez</th>
-            <td>Light Cleaning</td>
-            <td>Apartments </td>
-            <td>P342.00</td>
-            <td>GCash</td>
-            <td>CL001, CL002</td>
-            <td>Completed</td>
-            </tr>
+           
         </tbody>
         </table>
     </div>
-
-
-
 </body>
+</html>

@@ -12,7 +12,7 @@
     <div class="login_con">
         <div class="row" style="margin-top:45px">
             <h4 class="signin_label">Sign In</h4>
-            <form action="{{ route('auth.check') }}" method="post">
+            <form action="{{ route('cleaner.cleaner_check') }}" method="post">
                 @if(Session::get('fail'))
                     <div class="alert alert-danger">
                         {{ Session::get('fail') }}
@@ -30,7 +30,7 @@
                 </div>
                 <button type="submit" class="login_btn">Login</button>
                 <br>
-                
+                <a class="register_link_btn" href="{{ route('cleaner.cleaner_register') }}"> I don't have an Account, Create New</a>
         </div>
     </div>
 </body>
