@@ -37,7 +37,7 @@ Route::post('cleaner/book',[MainController::class, 'book'])->name('book');
 
 
 Route::group(['middleware'=>['AuthCheck']], function(){
-    Route::get('sweep_welcome',[MainController::class, 'sweep_welcome'])->name('sweep_welcome');
+    Route::get('/',[MainController::class, 'sweep_welcome'])->name('sweep_welcome');
     //Route for Admin Pages
     Route::get('/auth/login',[MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register',[MainController::class, 'register'])->name('auth.register');
