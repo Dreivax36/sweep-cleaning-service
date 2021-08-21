@@ -17,7 +17,7 @@ use App\Http\Controllers\MainController;
 
 
 //Admin
-Route::post('/auth/save',[MainController::class, 'save'])->name('auth.save');
+Route::POST('/auth/save',[MainController::class, 'save'])->name('auth.save');
 Route::post('/auth/check',[MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
 Route::post('/addService',[MainController::class, 'addService'])->name('addService');
