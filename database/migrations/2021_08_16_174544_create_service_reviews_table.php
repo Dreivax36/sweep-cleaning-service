@@ -14,9 +14,11 @@ class CreateServiceReviewsTable extends Migration
     public function up()
     {
         Schema::create('service_reviews', function (Blueprint $table) {
-            $table->bigIncrements('service_reviews_id');
+            $table->bigIncrements('service_review_id');
             $table->String('service_name');
-            $table->bigInteger('review_id');
+            $table->unsignedBigInteger('review_id');
+            $table->foreign('review_id')->references('review_id')->on('reviews')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

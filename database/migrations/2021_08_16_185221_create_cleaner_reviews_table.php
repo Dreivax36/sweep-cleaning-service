@@ -14,9 +14,11 @@ class CreateCleanerReviewsTable extends Migration
     public function up()
     {
         Schema::create('cleaner_reviews', function (Blueprint $table) {
-            $table->bigIncrements('cleaner_reviews_id');
+            $table->bigIncrements('cleaner_review_id');
             $table->String('cleaner_name');
-            $table->bigInteger('review_id');
+            $table->unsignedBigInteger('review_id');
+            $table->foreign('review_id')->references('review_id')->on('reviews')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

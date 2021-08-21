@@ -16,7 +16,10 @@ class CreateClearancesTable extends Migration
         Schema::create('clearances', function (Blueprint $table) {
             $table->bigIncrements('clearance_id');
             $table->String('description');
-            $table->bigInteger('cleaner_id');
+            $table->string('requirement');
+            $table->unsignedBigInteger('cleaner_id');
+            $table->foreign('cleaner_id')->references('cleaner_id')->on('cleaners')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

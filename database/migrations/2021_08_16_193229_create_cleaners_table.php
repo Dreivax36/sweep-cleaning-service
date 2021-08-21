@@ -17,7 +17,9 @@ class CreateCleanersTable extends Migration
             $table->bigIncrements('cleaner_id');
             $table->integer('age');
             $table->String('address');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

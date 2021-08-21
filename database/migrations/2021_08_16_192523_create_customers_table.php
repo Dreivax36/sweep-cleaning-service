@@ -15,7 +15,9 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('customer_id');
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

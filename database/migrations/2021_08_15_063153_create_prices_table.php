@@ -14,11 +14,13 @@ class CreatePricesTable extends Migration
     public function up()
     {
         Schema::create('prices', function (Blueprint $table) {
-            $table->id('price_id');
-            $table->text('property_type');
+            $table->bigIncrements('price_id');
+            $table->string('property_type');
             $table->decimal('price');
             $table->int('number_of_cleaner');
-            $table->biginteger('service_id');
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('service_id')->on('services')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

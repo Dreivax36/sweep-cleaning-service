@@ -15,8 +15,10 @@ class CreateIdentificationsTable extends Migration
     {
         Schema::create('identifications', function (Blueprint $table) {
             $table->bigIncrements('identification_id');
-            $table->bytea('valid_id');
-            $table->bigInteger('user_id');
+            $table->string('valid_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
