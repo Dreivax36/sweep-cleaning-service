@@ -1,1 +1,1 @@
-web: node sweep_welcome
+web: vendor/bin/heroku-php-apache2 public/
