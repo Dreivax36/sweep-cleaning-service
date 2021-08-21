@@ -17,7 +17,7 @@ class CreatePricesTable extends Migration
             $table->bigIncrements('price_id');
             $table->string('property_type');
             $table->decimal('price');
-            $table->int('number_of_cleaner');
+            $table->integer('number_of_cleaner');
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('service_id')->on('services')
                 ->onUpdate('cascade')->onDelete('cascade');
