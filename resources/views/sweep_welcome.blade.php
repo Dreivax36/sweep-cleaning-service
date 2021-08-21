@@ -33,7 +33,7 @@
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_welcome.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 </head>
 <body>
     <!-- Navbar -->  
@@ -59,9 +59,9 @@
             <h5 class="welcome_sub">Making your comfort zones squeaky clean one step at a time.</h5>
         </div>
         <div class="signup_con">
-            <a class="register_link_btn" href="{{ route('customer.customer_login') }}"> Login as Customer</a><br>
-            <a class="register_link_btn" href="{{ route('cleaner.cleaner_login') }}"> Login as Cleaner</a><br>
-            <a class="register_link_btn" href="{{ route('auth.login') }}"> Login as Admin</a>
+            <a class="links" href="{{ route('customer.customer_login') }}"> Login as Customer</a><br>
+            <a class="links" href="{{ route('cleaner.cleaner_login') }}"> Login as Cleaner</a><br>
+            <a class="links" href="{{ route('auth.login') }}"> Login as Admin</a>
         </div>
     </div>
     <div class="fixed_footer">

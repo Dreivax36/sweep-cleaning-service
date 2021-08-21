@@ -720,3 +720,62 @@ a:hover {
         margin-left: 20px;
     }
 }
+
+
+/* Welcome Page */
+
+.welcome_con {
+    margin-top: 9vw;
+    margin-left: 350px;
+}
+.welcome_title_con {
+    width: 700px;
+    text-align: center;
+}
+.welcome_title {
+    font-weight: bold;
+    color: #042A6B;
+
+}
+.welcome_sub_con {
+    width: 400px;
+    text-align: center;
+    margin-left: 150px;
+}
+.welcome_sub {
+    font-weight: 300;
+}
+.signup_con {
+    width: 200px;
+    margin-left: 250px;
+    margin-top: 20px;
+   
+}
+.links{
+    font-size: 20px;
+}
+.signup_btn {
+    background-color: #FFB703;
+    border: #FFB703;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 16px;
+    width: 100x;
+    height: 40px;
+}
+.fixed_footer{
+    width: 100%;
+    position: fixed;        
+    background-color: #042A6B;
+    padding: 10px 0;
+    color: #fff;
+    height: 10%;
+    bottom: 0;
+}
+.footer_content {
+    float:left;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+}
