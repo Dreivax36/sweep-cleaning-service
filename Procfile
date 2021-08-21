@@ -1,1 +1,1 @@
-web: node sweep_welcome.blade.php
+web: node sweep_welcome
