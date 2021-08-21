@@ -15,6 +15,7 @@ use App\Http\Controllers\MainController;
 |
 */
 
+
 //Admin
 Route::post('/auth/save',[MainController::class, 'save'])->name('auth.save');
 Route::post('/auth/check',[MainController::class, 'check'])->name('auth.check');
@@ -33,7 +34,10 @@ Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->na
 Route::post('/cleaner/cleaner_check',[MainController::class, 'cleaner_check'])->name('cleaner.cleaner_check');
 Route::post('cleaner/book',[MainController::class, 'book'])->name('book');
 
+
+
 Route::group(['middleware'=>['AuthCheck']], function(){
+    Route::get('sweep_welcome',[MainController::class, 'sweep_welcome'])->name('sweep_welcome');
     //Route for Admin Pages
     Route::get('/auth/login',[MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register',[MainController::class, 'register'])->name('auth.register');

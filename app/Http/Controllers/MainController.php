@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Hash;
 class MainController extends Controller
 {
     //Admin Pages
+    function sweep_welcome(){
+        return view('sweep_welcome');
+    }
     function login(){
         return view('auth.login');
     }
