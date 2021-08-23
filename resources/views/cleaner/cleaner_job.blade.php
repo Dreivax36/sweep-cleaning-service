@@ -94,29 +94,34 @@
         $service_data = Service::Where('service_id', $value->service_id )->get();
         $user_data = User::Where('user_id', $value->customer_id )->get();
         $address_data = Address::Where('customer_id', $value->customer_id )->get();
-        $price = Price::Where('property_type', $value->property_type )->get();
+        $price = Price::Where('property_type', $value->property_type )-> Where('service_id', $value->service_id )->get();
         $cleaner_data = User::Where('user_type', 'Cleaner' )->get();
     ?>
-    @foreach($service_data as $key => $data)
-    @foreach($price as $key => $price_data)
-    @foreach($user_data as $key => $user)
-    @foreach($address_data as $key => $address)
+    
     <div class="cleaner_job_con">
         <div class="column col_cleaner_job">
             <div class="row row_cleaner_job">
                 <div class="card p-4 card_cleaner_job">
                     <div class="d-flex">
                         <img src="/img/broom.png" class="cleaner_job_broom_img p-1">
+                        
+                            
+                            
                         <div class="d-flex flex-column">
                             <h5 class="cleaner_job_status">{{ $value->status }}</h5>
+                            @foreach($service_data as $key => $data)
                             <h3 class="cleaner_job_title">{{ $data->service_name}}</h3>
+                           
                             <h6 class="cleaner_job_date_1_1">{{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}</h6>
+                             @foreach($price as $key => $price_data)
                             <h6 class="cleaner_job_price_1">P{{ $price_data->price }}</h6>
                             <div class="d-flex view_details_con">
                                 <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10">
                                     DETAILS
                                 </button>
                                 <!-- Modal -->
+                                @foreach($user_data as $key => $user)
+                            @foreach($address_data as $key => $address)
                                 <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                     <!-- Modal content-->

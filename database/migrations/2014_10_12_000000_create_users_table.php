@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('contact_number');
             $table->string('profile_picture');
-            $table->boolean('account_status');
+            $table->string('account_status');
             $table->string('user_type');
             $table->timestamps();
         });

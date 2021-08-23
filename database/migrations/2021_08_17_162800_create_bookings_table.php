@@ -16,7 +16,7 @@ class CreateBookingsTable extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->bigIncrements('booking_id');
             $table->date('schedule_date');
-            $table->dateTime('schedule_time');
+            $table->time('schedule_time');
             $table->string('mode_of_payment');
             $table->string('status');
             $table->boolean('is_paid');

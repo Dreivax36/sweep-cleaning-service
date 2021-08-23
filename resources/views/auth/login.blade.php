@@ -30,7 +30,6 @@
                 </div>
                 <button type="submit" class="login_btn">Login</button>
                 <br>
-                <a class="register_link_btn" href="{{ route('auth.register') }}"> I don't have an Account, Create New</a>
         </div>
     </div>
 </body>

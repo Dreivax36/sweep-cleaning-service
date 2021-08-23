@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
+    <link rel="shortcut icon" href="#">
     <title> SWEEP </title>
 </head>
 <body class="reg_body">

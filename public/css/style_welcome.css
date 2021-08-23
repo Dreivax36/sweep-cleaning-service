@@ -1,122 +1,35 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: #EDF1F8;
-    overflow-x: hidden;
-}
-
-/* Welcome Navbar */
-
-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0 100px;
-    width: 100%;
-    height: 10%;
-    box-sizing: border-box;
-    background: #d2dff5;
-}
-.logo {
-    color: #042A6B;
-    height: 50px;
-    line-height: 50px;
-    font-size: 30px;
-    float: left;
-    font-weight: bold;
-    font-style: italic;
-    margin-right: 160px;
-    margin-top: 5px;
-}
-.nav_con {
-    width: 125px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 5px;
-}
-header nav ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-header nav ul li {
-    list-style: none;
-}
-nav ul li a {
-    margin-left: 10px;
-    height: 50px;
-    line-height: 50px;
-    padding: 0 20px;
-    color: #042A6B;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: bold;
-}
-nav ul li a:hover 
-nav ul li a:active {
-    color: #FFFFFF;
-    background: #042A6B;
-}
-.menu-toggle {
-    color: #FFFFFF;
-    float: right;
-    line-height: 50px;
-    font-size: 24px;
-    cursor: pointer;
-    display: none;
-}
-.login_con {
-    margin-left: 200px;
-    margin-top: 10px;
-}
-.login_inside_con {
-    width: 150px;
-}
-.login_btn {
-    background-color: #042A6B;
-    border: #042A6B;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px; 
-    font-size: 16px;
-    width: 100x;
-    height: 40px;
-}
-a:hover {
-    text-decoration: underline;
-}
-.active {
-    text-decoration: underline;
-}
 
 /* Welcome Page */
 
 .welcome_con {
     margin-top: 9vw;
-    margin-left: 13vw;
+    margin-left: 350px;
 }
 .welcome_title_con {
-    width: 500px;
+    width: 700px;
     text-align: center;
 }
 .welcome_title {
     font-weight: bold;
     color: #042A6B;
+
 }
 .welcome_sub_con {
-    width: 320px;
+    width: 400px;
     text-align: center;
-    margin-left: 80px;
+    margin-left: 150px;
 }
 .welcome_sub {
     font-weight: 300;
 }
 .signup_con {
     width: 200px;
-    margin-left: 140px;
+    margin-left: 250px;
     margin-top: 20px;
+   
+}
+.links{
+    font-size: 20px;
 }
 .signup_btn {
     background-color: #FFB703;
@@ -134,12 +47,12 @@ a:hover {
     background-color: #042A6B;
     padding: 10px 0;
     color: #fff;
-    height: 30%;
+    height: 10%;
     bottom: 0;
 }
 .footer_content {
     float:left;
     margin-left: 20px;
-    margin-top: 150px;
+    margin-top: 10px;
     font-size: 14px;
 }

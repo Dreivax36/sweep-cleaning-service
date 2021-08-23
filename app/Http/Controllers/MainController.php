@@ -79,10 +79,11 @@ class MainController extends Controller
             session()->pull('LoggedUser');
             return redirect('/auth/login');
         }
+        return redirect('/auth/login');
     }
 
     function admin_dashboard(){
-        $data = ['LoggedUserInfo'=>Admin::where('id','=', session('LoggedUser'))->first()];
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_dashboard', $data);
     }
 
@@ -106,7 +107,7 @@ class MainController extends Controller
         //Insert data into database
         $services = new Service();
         $services->service_name = $request->service_name;
-        $services->description = $request->description;
+        $services->service_description = $request->description;
         $services->equipment = $request->equipment;
         $services->material = $request->material;
         $services->personal_protection = $request->personal_protection;
@@ -143,12 +144,12 @@ class MainController extends Controller
 
     function admin_service(){
         //Retrieve Services Data from database  
-        $data = ['LoggedUserInfo'=>Admin::where('id','=', session('LoggedUser'))->first()];
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_services', $data);
     }
     function admin_transaction(){
         //Retrieve Services Data from database  
-        $data = ['LoggedUserInfo'=>Admin::where('id','=', session('LoggedUser'))->first()];
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_transaction', $data);
     }
     function updateStatus(Request $request){
@@ -157,7 +158,7 @@ class MainController extends Controller
         //$comp_ids = implode(' ,',(array)$request->get('full_name')); 
         $id = User::Where('full_name', $request->full_name)->value('user_id');
         $user = Cleaner::Where('user_id', $id)->value('cleaner_id');
-        $updateStatus= Booking::Where('service_id', $request->service_id )->update(['status' => $request->status, 'cleaner_id' => '2'] );
+        $updateStatus= Booking::Where('service_id', $request->service_id )->update(['status' => $request->status, 'cleaner_id' => '1'] );
         
         if($updateStatus){
             return back()->with('success', 'Booking Status Updated');

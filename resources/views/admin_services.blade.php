@@ -173,7 +173,7 @@ use App\Models\Price;
                     </div>
                     <div>
                         <p class="service_description">
-                        {{ $value->description }}
+                        {{ $value->service_description }}
                         </p>
                     </div>
                     <div class="view_details_con">
@@ -194,7 +194,7 @@ use App\Models\Price;
                                 </div>
                                 <div class="modal-body p-4">
                                     <p class="service_description">
-                                    {{ $value->description }}
+                                    {{ $value->service_description }}
                                     </p>
                                     <ul class="package_list">
                                         <li><b>Equipment:</b> {{ $value->equipment }}</li>
