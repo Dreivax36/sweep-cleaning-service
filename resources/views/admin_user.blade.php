@@ -1,3 +1,6 @@
+<?php
+use App\Models\User;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,25 +86,26 @@
                 <thead>
                     <tr class="user_table_row">
                         <th class="text-center user_table_header">Full Name</th>
-                        <th class="text-center user_table_header">Age</th>
-                        <th class="text-center user_table_header">Address</th>
                         <th class="text-center user_table_header">Email Address</th>
                         <th class="text-center user_table_header">Contact Number</th>
                         <th class="text-center user_table_header">Valid ID</th>
                         <th class="text-center user_table_header">Status</th>
                     </tr>
                 </thead>
+                <?php
+                    $user_data = User::all();
+                ?>
+                @foreach($user_data as $key => $value)
                 <tbody>
                     <tr class="user_table_row">
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
+                        <td class="user_table_data">{{ $value->full_name }}</td>
+                        <td class="user_table_data">{{ $value->email }}</td>
+                        <td class="user_table_data">{{ $value->contact_number }}</td>
+                        <td class="user_table_data">{{ $value->valid_id }}</td>
+                        <td class="user_table_data">{{ $value->account_status }}</td>
                     </tr>
                 </tbody>
+                @endforeach
             </table>
         </div>
     </div>

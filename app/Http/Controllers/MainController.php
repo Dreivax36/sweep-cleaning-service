@@ -77,9 +77,9 @@ class MainController extends Controller
     function logout(){
         if(session()->has('LoggedUser')){
             session()->pull('LoggedUser');
-            return redirect('/auth/login');
+            return redirect('/');
         }
-        return redirect('/auth/login');
+        return redirect('/');
     }
 
     function admin_dashboard(){
@@ -87,66 +87,8 @@ class MainController extends Controller
         return view('admin_dashboard', $data);
     }
 
-    function addService(Request $request){
-        
-        //Validate Requests
-        $request->validate([
-            'service_name'=>'required',
-            'description'=>'required',
-            'equipment'=>'required',
-            'material'=>'required',
-            'personal_protection'=>'required',
-            'resident_number_of_cleaner'=>'required',
-            'apartment_number_of_cleaner'=>'required',
-            'condo_number_of_cleaner'=>'required',
-            'resident_price'=>'required',
-            'apartment_price'=>'required',
-            'condo_price'=>'required'
-        ]);
 
-        //Insert data into database
-        $services = new Service();
-        $services->service_name = $request->service_name;
-        $services->service_description = $request->description;
-        $services->equipment = $request->equipment;
-        $services->material = $request->material;
-        $services->personal_protection = $request->personal_protection;
-        $addService = $services->save();
-
-        $id = $services->service_id;
-
-        $prices = new Price();
-        $prices->property_type = 'Medium-Upper Class Residential Areas';
-        $prices->price = $request->resident_price;
-        $prices->service_id = $id;
-        $prices->number_of_cleaner = $request->resident_number_of_cleaner;
-        $addService = $prices->save();
-        $prices = new Price();
-        $prices->property_type = 'Apartments';
-        $prices->price = $request->apartment_price;
-        $prices->service_id = $id;
-        $prices->number_of_cleaner = $request->apartment_number_of_cleaner;
-        $addService = $prices->save();
-        $prices = new Price();
-        $prices->property_type = 'Condominiums';
-        $prices->price = $request->condo_price;
-        $prices->service_id = $id;
-        $prices->number_of_cleaner = $request->condo_number_of_cleaner;
-        $addService = $prices->save();
-
-        if($addService){
-            return back()->with('success', 'New Service has been successfuly added to database');
-        }
-        else {
-            return back()->with('fail','Something went wrong, try again later ');
-        }
-    }
-
-    function admin_service(){
-        //Retrieve Services Data from database  
-        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
-        return view('admin_services', $data);
-    }
+    
     function admin_transaction(){
         //Retrieve Services Data from database  
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];

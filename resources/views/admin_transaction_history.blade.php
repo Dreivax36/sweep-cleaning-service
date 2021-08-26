@@ -93,6 +93,18 @@
                 <th scope="col" class="user_table_trans_his_header">Status</th>
                 </tr>
             </thead>
+            <?php
+        $booking_data = Booking::Where('status', 'Done')->get();
+        ?>
+        @foreach($booking_data as $key => $value)
+        <?php
+            $service_data = Service::Where('service_id', $value->service_id )->get();
+            $user_data = User::Where('user_id', $value->customer_id )->get();
+            $price = Price::Where('property_type', $value->property_type )->get();
+        ?>
+        @foreach($service_data as $key => $data)
+        @foreach($price as $key => $price_data)
+        @foreach($user_data as $key => $user)
         <tbody>
             <tr class="table_trans_his_row">
                 <th class="user_table_trans_his_header">Leah L. Cortez</th>
@@ -105,6 +117,10 @@
             </tr>
            
         </tbody>
+        @endforeach
+        @endforeach
+        @endforeach
+        @endforeach
         </table>
     </div>
 </body>

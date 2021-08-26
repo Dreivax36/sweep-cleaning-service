@@ -12,4 +12,8 @@ class Service extends Model
     public $timestamps = false;
     protected $primaryKey = 'service_id';
 
+    protected $fillable = [
+        'service_name', 'service_description', 'equipment', 'material', 'personal_protection'
+    ];
+
 }

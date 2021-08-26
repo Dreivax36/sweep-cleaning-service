@@ -1,72 +1,133 @@
+<?php
+use App\Models\User;
+use App\Models\Address;
+use App\Models\Customer;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>SWEEP</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Admin Customer Page</title>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function(){
+                $('.menu-toggle').click(function(){
+                    $('nav').toggleClass('active')
+                })
+            })
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+    <!-- Fonts -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 </head>
-
 <body>
-<!-- Navbar -->  
-<header>
-    <div class="logo"> SWEEP </div>
-    <nav>
-        <ul>
-            <li><a href="admin_dashboard">Home</a></li>
-            <li><a href="admin_services">Services</a></li>
-            <li><a href="admin_transaction">Transaction</a></li>
-            <li><a  class="active" href="admin_user">User</a></li>
-            <li><a href="admin_payroll">Payroll</a></li>
-            <div class="profile_button" style="margin-left: 315px; margin-top: 8px;">
-                <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
-                <img src="/img/user.png" class="profile_img">
-                    <span class="caret"></span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a>
-                </div>
-            </div>
-        </ul>
-    </nav>
-    <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
-</header>
-
-<div class="row"> 
-    <a class="usertypebutton" href="admin_user">ALL <p class="totalvalue">(63)</p></a>
-    <a class="usertypebutton" id="active"  href="admin_customer">CUSTOMER <p class="totalvalue">(63)</p></a>
-    <a class="usertypebutton" href="admin_cleaner">CLEANER <p class="totalvalue">(63)</p></a>
-</div>
-    <div class="search">
-        <input class="searchbar" type="text" placeholder="Search..">
-        <button class="searchbutton">Search</button>
+    <!-- Navbar -->  
+    <header>
+        <div class="logo"> SWEEP </div>
+        <nav>
+            <ul>
+                <li><a  href="admin_dashboard">Home</a></li>
+                <li><a href="admin_services">Services</a></li>
+                <li><a href="admin_transaction">Transaction</a></li>
+                <li><a  class="active" href="admin_user">User</a></li>
+                <li><a href="admin_payroll">Payroll</a></li>
+                <div class="profile_btn">
+                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
+                        <img class="profile_img" src="/img/user.png">
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Profile</a>
+                    <a class="dropdown-item" href="{{ route('auth.logout') }}">Logout</a>
+                    </div>
+                </div> 
+            </ul>
+        </nav>
+        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
+    </header>
+    <div class="row"> 
+        <a class="user_type_btn_customer"  href="admin_user">
+            ALL 
+            <p class="total_value">(63)</p>
+        </a>
+        <a class="user_type_btn_customer" id="active" href="admin_customer">
+            CUSTOMER 
+            <p class="total_value">(63)</p>
+        </a>
+        <a class="user_type_btn_customer" href="admin_cleaner">
+            CLEANER 
+            <p class="total_value">(63)</p>
+        </a>
     </div>
-      <p class="show"> Showing 1-10 of 63 results </p>
-     <div class="result">
-         <p class="show"> Results per page: </p>
-         <button class="dropdown"  id="number">10<span class="caret"></span></button>
+    <div class="search_con">
+        <div>
+            <input class="searchbar" type="text" placeholder="Search..">
+            <button class="search_btn">Search</button>
+        </div>
+    </div>
+    <p class="show_info"> Showing 1-10 of 63 results </p>
+    <div class="result_con">
+        <p class="show_info"> Results per page: </p>
+        <button class="dropdown" id="number">10<span class="caret"></span></button>
     </div>
 
-<div class="usertable">
-    <div class="tabledetail">
-        <table class="table" id="table">
-            <thead>
-                <tr>
-                    <th class="text-center">First Name</th>
-                    <th class="text-center">Last Name</th>
-                    <th class="text-center">Age</th>
-                    <th class="text-center">Address</th>
-                    <th class="text-center">Email Address</th>
-                    <th class="text-center">Contact Number</th>
-                    <th class="text-center">Valid ID</th>
-                    <th class="text-center"></th>
-                </tr>
-            </thead>
+    <div class="user_table_con">
+        <div class="table_detail_con">
+            <table class="table user_table" id="user_table">
+                <thead>
+                    <tr class="user_table_row">
+                        <th class="text-center user_table_header">Full Name</th>
+                        <th class="text-center user_table_header">Address</th>
+                        <th class="text-center user_table_header">Email Address</th>
+                        <th class="text-center user_table_header">Contact Number</th>
+                        <th class="text-center user_table_header">Valid ID</th>
+                        <th class="text-center user_table_header"></th>
+                        
+                        
+                    </tr>
+                </thead>
+                <?php
+                    $user_data = User::Where('user_type', 'Customer')->get();
+                ?>
+                @foreach($user_data as $key => $value)
+                <?php
+                    $customer_id = Customer::Where('user_id', $value->user_id)->value('customer_id');
+                    $address_data = Address::Where('customer_id', $customer_id)->get();
+                ?>
+                @foreach($address_data as $key => $data)
+                <tbody>
+                    <tr class="user_table_row">
+                        <td class="user_table_data">{{ $value->full_name }}</td>
+                        <td class="user_table_data">{{ $data->address }}</td>
+                        <td class="user_table_data">{{ $value->email }}</td>
+                        <td class="user_table_data">{{ $value->contact_number }}</td>
+                        <td class="user_table_data">{{ $value->valid_id }}</td>
+                        <td class="user_table_data">
+                            @if($value->account_status == "to_verify")
+                            <button class="verifybutton">VERIFY</button>
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+                @endforeach
+                @endforeach 
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+   
             <tbody>
                 <tr>
                     <td></td>
@@ -74,13 +135,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
                     <td>
-                        <button class="verifybutton">VERIFY</button>
+                        
                     </td>
                 </tr>
-               
+            </tbody>  
+            
         </table>
     </div>
 </div>

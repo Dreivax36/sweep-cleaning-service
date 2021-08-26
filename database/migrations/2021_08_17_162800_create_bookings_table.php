@@ -17,14 +17,14 @@ class CreateBookingsTable extends Migration
             $table->bigIncrements('booking_id');
             $table->date('schedule_date');
             $table->time('schedule_time');
-            $table->string('mode_of_payment');
+            $table->string('mode_of_payment')->nullable();;
             $table->string('status');
             $table->boolean('is_paid');
             $table->string('property_type');
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('service_id')->on('services')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('cleaner_id');
+            $table->json('cleaner_id')->nullable();;
             $table->foreign('cleaner_id')->references('cleaner_id')->on('cleaners')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('customer_id');

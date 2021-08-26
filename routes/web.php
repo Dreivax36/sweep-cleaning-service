@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ServiceController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,12 +16,22 @@ use App\Http\Controllers\MainController;
 |
 */
 
+//Service Module
+Route::resource('services', ServiceController::class);
+Route::post('/store',[ServiceController::class, 'store'])->name('store');
+Route::get('/destroy/{id}',[ServiceController::class, 'destroy'])->name('destroy');
+Route::post('/update',[ServiceController::class, 'update'])->name('update');
+Route::get('/update',[ServiceController::class, 'update'])->name('update');
+Route::get('/admin_services',[ServiceController::class, 'admin_services'])->name('admin_services'); 
+
 
 //Admin
 Route::POST('/auth/save',[MainController::class, 'save'])->name('auth.save');
 Route::POST('/auth/check',[MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
 Route::post('/addService',[MainController::class, 'addService'])->name('addService');
+Route::post('/deleteService',[MainController::class, 'deleteService'])->name('deleteService');
+Route::get('/deleteService/{service_id}',[MainController::class, 'deleteService'])->name('deleteService');
 Route::post('/updateStatus',[MainController::class, 'updateStatus'])->name('updateStatus');
 
 
@@ -42,8 +53,6 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/auth/login',[MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register',[MainController::class, 'register'])->name('auth.register');
     Route::get('/admin_dashboard',[MainController::class, 'admin_dashboard'])->name('admin_dashboard'); 
-    Route::get('/admin_services',[MainController::class, 'admin_service'])->name('admin_services'); 
-    Route::get('/admin_transaction',[MainController::class, 'admin_transaction'])->name('admin_transaction'); 
 
     //Route for Customer Pages
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');

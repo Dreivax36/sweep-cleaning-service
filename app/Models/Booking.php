@@ -10,4 +10,8 @@ class Booking extends Model
     use HasFactory;
     protected $table ='bookings';
     protected $primaryKey = 'booking_id';
+
+    protected $casts = [
+        'cleaner_id' => 'array'
+    ];
 }

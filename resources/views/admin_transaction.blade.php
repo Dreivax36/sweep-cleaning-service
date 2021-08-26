@@ -84,13 +84,9 @@
             <button class="search_btn">Search</button>
         </div>
     </div>
-    <p class="show_info"> Showing 1-10 of 63 results </p>
-    <div class="result_con">
-        <p class="show_info"> Results per page: </p>
-        <button class="dropdown" id="number">10<span class="caret"></span></button>
-    </div>
+   
     <?php
-        $booking_data = Booking::all();
+        $booking_data = Booking::Where('status', '!=' , 'Done')->get();
     ?>
     @foreach($booking_data as $key => $value)
     <?php

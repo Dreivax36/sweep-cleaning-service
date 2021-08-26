@@ -87,7 +87,7 @@
         </div>
     </div>
     <?php
-        $booking_data = Booking::all();
+        $booking_data = Booking::Where('status', '!=', 'Done')->get();
     ?>
     @foreach($booking_data as $key => $value)
     <?php
