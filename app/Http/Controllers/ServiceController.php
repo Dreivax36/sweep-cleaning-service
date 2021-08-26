@@ -24,6 +24,11 @@ class ServiceController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+    function customer_services(){
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('customer.customer_services', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

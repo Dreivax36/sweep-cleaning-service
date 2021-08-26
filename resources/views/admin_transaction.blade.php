@@ -110,7 +110,7 @@
                         <h5 class="service_status">{{ $value->status }}</h5>
                     </div>
                     <div> 
-                        <h6 class="booking_date"><b>Data Created:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}</h6>
+                        <h6 class="booking_date"><b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}</h6>
                     </div>
                     <div>
                         <table class="table table-striped user_info_table">
@@ -222,11 +222,17 @@
                                                                     
                                                                     @csrf
                                                                 @foreach($cleaner_data as $key => $cleaner)
-                    
+                                                                <?php
+                                                                    $cleaner_id = Cleaner::Where('user_id', $cleaner->user_id )->value('cleaner_id');
+                                                                ?>
+                                                                 @foreach($cleaner_id as $key => $id)
                                                                 <br>
-                                                                <input type="hidden" name="service_id" value="{{ $value->service_id }}">
-                                                                <input type="checkbox" id="full_name" name="full_name" value="{{ $cleaner->full_name }}">
-                                                                <label for="full_name"> {{ $cleaner->full_name }}</label><br>
+                                                                <fieldset>
+                                                                    <input type="hidden" name="service_id" value="{{ $value->service_id }}">
+                                                                    <input type="checkbox" id="full_name" name="cleaner_id[]" value="{{ $id->cleaner_id }}">
+                                                                    <label for="full_name"> {{ $cleaner->full_name }}</label><br>
+                                                                </fieldset>
+                                                                @endforeach
                                                                 @endforeach
                                                                 
                                                                 <br>

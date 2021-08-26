@@ -23,17 +23,19 @@ Route::get('/destroy/{id}',[ServiceController::class, 'destroy'])->name('destroy
 Route::post('/update',[ServiceController::class, 'update'])->name('update');
 Route::get('/update',[ServiceController::class, 'update'])->name('update');
 Route::get('/admin_services',[ServiceController::class, 'admin_services'])->name('admin_services'); 
-
+Route::get('/customer/customer_services',[ServiceController::class, 'customer_services'])->name('customer.customer_services');
 
 //Admin
 Route::POST('/auth/save',[MainController::class, 'save'])->name('auth.save');
 Route::POST('/auth/check',[MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
-Route::post('/addService',[MainController::class, 'addService'])->name('addService');
-Route::post('/deleteService',[MainController::class, 'deleteService'])->name('deleteService');
-Route::get('/deleteService/{service_id}',[MainController::class, 'deleteService'])->name('deleteService');
-Route::post('/updateStatus',[MainController::class, 'updateStatus'])->name('updateStatus');
 
+//Booking Module
+Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
+Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
+Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
+Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
+Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
 
 //Customer
 Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
@@ -58,17 +60,14 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');
     Route::get('/customer/customer_register',[MainController::class, 'customer_register'])->name('customer.customer_register');
     Route::get('/customer/customer_dashboard',[MainController::class, 'customer_dashboard'])->name('customer.customer_dashboard');
-    Route::get('/customer/customer_services',[MainController::class, 'customer_services'])->name('customer.customer_services');
-    Route::get('/customer/customer_transaction',[MainController::class, 'customer_transaction'])->name('customer.customer_transaction');
-    Route::get('/customer/customer_history',[MainController::class, 'customer_history'])->name('customer.customer_history');
+   
     Route::get('/customer/customer_profile',[MainController::class, 'customer_profile'])->name('customer.customer_profile');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
     Route::get('/cleaner/cleaner_register',[MainController::class, 'cleaner_register'])->name('cleaner.cleaner_register');
     Route::get('/cleaner/cleaner_dashboard',[MainController::class, 'cleaner_dashboard'])->name('cleaner.cleaner_dashboard');
-    Route::get('/cleaner/cleaner_job',[MainController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
-    Route::get('/cleaner/cleaner_history',[MainController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
+    
 
 });
 

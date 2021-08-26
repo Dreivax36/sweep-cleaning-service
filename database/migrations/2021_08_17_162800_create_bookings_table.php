@@ -24,9 +24,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('service_id')->on('services')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->json('cleaner_id')->nullable();;
-            $table->foreign('cleaner_id')->references('cleaner_id')->on('cleaners')
-                ->onUpdate('cascade')->onDelete('cascade');
+            $table->json('cleaner_id')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('customer_id')->on('customers')
                 ->onUpdate('cascade')->onDelete('cascade');
