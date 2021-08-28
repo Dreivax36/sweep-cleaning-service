@@ -11,6 +11,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "paypal/paypal-checkout-sdk": "1.0.1",
         "santigarcor/laratrust": "^6.3"
     },
     "require-dev": {
@@ -61,4 +62,3 @@
     "minimum-stability": "dev",
     "prefer-stable": true
 }
-

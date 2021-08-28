@@ -124,8 +124,8 @@
                                                     <h3 class="customer_trans_title_pay">{{ $data->service_name}}</h3>
                                                     <h6 class="customer_trans_price_pay_1">Total Amount: P{{ $price_data->price }}</h6>
                                                     <div class="d-flex payments_con">
-                                                        <img src="/img/gcash.png" class="gcash_img">
-                                                        <img src="/img/paypal.png" class="paypal_img">
+                                                        <button ><img src="/img/gcash.png" class="gcash_img"></button>
+                                                        <button  href="{{ route('paypal.checkout', $value->booking_id) }}" ><img src="/img/paypal.png" class="paypal_img"></button>
                                                     </div> 
                                                     <div class="d-flex cancel_confirm_pay_con">
                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> CANCEL </button>

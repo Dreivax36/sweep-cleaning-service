@@ -10,4 +10,8 @@ class Identification extends Model
     use HasFactory;
     protected $table ='identifications';
     protected $primaryKey = 'identification_id';
+
+    protected $fillable = [
+        'valid_id', 'user_id'
+    ];
 }

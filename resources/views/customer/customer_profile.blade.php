@@ -81,7 +81,7 @@
     <div class="d-flex">
         <div class="customer_profile_con">
             <div class="card customer_profile_avatar_con">
-                <img class="card-img-top profile_avatar_img" src="{{ URL::asset('storage/images'.$LoggedUserInfo['profile_picture']) }}" />
+                <img class="card-img-top profile_avatar_img" src="{{asset('/storage/user/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
             </div>
         </div>
         <div class="d-flex flex-column">
@@ -118,9 +118,7 @@
                 UPDATE
             </button>
         </div>
-        
-        
-
+         
     </div>
         
 

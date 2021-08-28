@@ -10,4 +10,8 @@ class Clearance extends Model
     use HasFactory;
     protected $table ='clearances';
     protected $primaryKey = 'clearance_id';
+
+    protected $fillable = [
+        'requirement', 'description', 'cleaner_id'
+    ];
 }

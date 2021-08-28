@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Cleaner;
+use App\Models\Customer;
 class BookingController extends Controller
 {
     function admin_transaction(){

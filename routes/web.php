@@ -5,6 +5,8 @@ use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,12 +42,12 @@ Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_histor
 //Customer
 Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
 Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
-Route::post('customer/book',[MainController::class, 'book'])->name('book');
+Route::post('customer/book',[BookingController::class, 'book'])->name('book');
 
 //Cleaner
 Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->name('cleaner.cleaner_save');
 Route::post('/cleaner/cleaner_check',[MainController::class, 'cleaner_check'])->name('cleaner.cleaner_check');
-Route::post('cleaner/book',[MainController::class, 'book'])->name('book');
+Route::post('cleaner/book',[BookingController::class, 'book'])->name('book');
 
 
 
@@ -60,18 +62,15 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');
     Route::get('/customer/customer_register',[MainController::class, 'customer_register'])->name('customer.customer_register');
     Route::get('/customer/customer_dashboard',[MainController::class, 'customer_dashboard'])->name('customer.customer_dashboard');
-   
     Route::get('/customer/customer_profile',[MainController::class, 'customer_profile'])->name('customer.customer_profile');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
     Route::get('/cleaner/cleaner_register',[MainController::class, 'cleaner_register'])->name('cleaner.cleaner_register');
     Route::get('/cleaner/cleaner_dashboard',[MainController::class, 'cleaner_dashboard'])->name('cleaner.cleaner_dashboard');
-    
 
 });
-
-
+ 
 // Route for the User Page
 Route::get('admin_user', function () {
     return view('admin_user');

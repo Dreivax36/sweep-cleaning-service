@@ -86,7 +86,7 @@
     </div>
    
     <?php
-        $booking_data = Booking::Where('status', '!=' , 'Done')->get();
+        $booking_data = Booking::Where('status', '!=' , 'Completed')->get();
     ?>
     @foreach($booking_data as $key => $value)
     <?php
@@ -236,10 +236,18 @@
                                                                 @endforeach
                                                                 
                                                                 <br>
+                                                                @if($value->status == "Pending")
                                                                 <div class="modal-footer trans_modal_footer">
                                                                     <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal"> Cancel </button>
                                                                     <button form="my" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted"> Confirm </button>
-                                                                </div>
+                                                                </div>  
+                                                                @endif
+
+                                                                @if($value->status == "Done")
+                                                                <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
+                                                                    COMPLETED
+                                                                </button> 
+                                                                @endif
                                                                 
                                                             </div>
                                                         </div>

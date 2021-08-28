@@ -12,7 +12,7 @@
     <div class="reg_con">
         <div class="row row_reg">
             <h4 class="register_label">Register</h4>
-            <form action="{{ route('cleaner.cleaner_save') }}" method="post">
+            <form action="{{ route('cleaner.cleaner_save') }}" method="post" enctype="multipart/form-data">
                 @if(Session::get('success'))
                 <div class="alert alert-success">
                     {{ Session::get('success') }}
