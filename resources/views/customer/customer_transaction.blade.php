@@ -134,7 +134,7 @@
                                                 </div>
                                                 <button type="button" class="close pl-2" data-dismiss="modal">&times;</button>
                                             </div>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                                 <!-- Modal -->
