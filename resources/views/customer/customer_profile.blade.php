@@ -1,3 +1,8 @@
+<?php
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Address;
+?>
 @extends('head_extention_customer') 
 
 @section('content')
@@ -78,9 +83,15 @@
             </div>
         </div>
         <div class="d-flex flex-column">
+        <div class="customer_profile_con">
+            <div class="card customer_profile_avatar_con">
+                <img class="card-img-top profile_avatar_img" src="{{asset('/storage/user/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
+            </div>
+        </div>
+        <div class="d-flex flex-column">
             <div class="p-2 customer_profile_name_con">
-                <h2 class="customer_profile_name">
-                    Lyka C. Casilao
+                <h2 class="customer_profile_name" >
+                    {{$LoggedUserInfo['full_name']}}
                 </h2>
             </div>
             <div class="d-flex p-3 customer_profile_info_con">
@@ -88,7 +99,7 @@
                     <i class="bi bi-person-fill"></i>
                 </div>
                 <h5 class="customer_profile_info">
-                    lycasilao@gbox.adnu.edu.ph
+                    {{$LoggedUserInfo['email']}}
                 </h5>
             </div>
             <div class="d-flex p-3 customer_profile_info_con">
@@ -96,19 +107,26 @@
                     <i class="bi bi-telephone"></i>
                 </div>
                 <h5 class="customer_profile_info">
-                    09083095858
+                    {{$LoggedUserInfo['contact_number']}}
                 </h5>
             </div>
+
+            <?php
+                $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
+                $address_data = Address::Where('customer_id', $customer_id )->get();
+            ?>
+
+            @foreach($address_data as $key => $value)
             <div class="d-flex p-3 customer_profile_info_con">
                 <div class="customer_profile_info_icon">
                     <i class="bi bi-house-door-fill"></i>
                 </div>
                 <h5 class="customer_profile_info">
-                    Pacol, Naga City
+                    {{$value->address}}
                 </h5>
             </div>
+            @endforeach
         </div>
-       
         <div class="update_btn_con"> <!-- Update Button -->
             <button type="button" class="btn btn-link customer_update_btn" data-toggle="modal" data-target="#exampleModalLong10">
                 UPDATE
