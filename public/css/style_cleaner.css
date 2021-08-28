@@ -16,7 +16,7 @@ header {
     padding: 0 100px;
     width: 100%;
     box-sizing: border-box;
-    background: #04192E;
+    background: #1A5184;
 }
 .logo {
     color: #FFFFFF;
@@ -50,6 +50,13 @@ nav ul li a:hover
 nav ul li a:active {
     color: #FFFFFF;
     background: #04192E;
+}
+a:hover {
+    text-decoration: none;
+    color: #FFB703;
+}
+.active {
+    color: #FFB703;
 }
 .menu-toggle {
     color: #FFFFFF;
@@ -89,7 +96,20 @@ nav ul li a:active {
     width: 5px;
     height: 5px;
 }
-
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropdown-menu .dropdown-item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-menu a:hover {background-color: #ddd;}
 
 /* Cleaner Search Bar */
 
@@ -343,12 +363,23 @@ nav ul li a:active {
 
 /* Cleaner Profile Page */
 
+.main_profile_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 85%;
+    height: 380px;
+    margin-left: 100px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+}
 .cleaner_profile_avatar_con {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: 14rem;
-    height: 15rem;
+    margin-top: 30px;
+    width: 12rem;
+    height: 13rem;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-left: -80px;
+    background-color: #EDF1F8;
 }
 .profile_avatar_img {
     height: 160px;
@@ -364,7 +395,7 @@ nav ul li a:active {
     border: none;
     outline: none;
     border-bottom: 5px solid #219EBC;
-    background-color: #EDF1F8;
+    background-color: #fff;
 }
 .cleaner_profile_name {
     color: #FFB703;
@@ -378,7 +409,7 @@ nav ul li a:active {
     border: none;
     outline: none;
     border-bottom: 1px solid black;
-    background-color: #EDF1F8;
+    background-color: #fff;
 }
 .cleaner_profile_info {
     font-size: 15px;
@@ -433,6 +464,57 @@ nav ul li a:active {
 .local_time {
     text-align: center;
 }
+.side_con_title {
+    margin-top: 20px;
+    font-family: sans-serif;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 25px;
+}
+.available_job_con {
+    height: auto;
+    width: 300px;
+    background-color: rgba(255, 183, 3, .5);
+    margin: 18px;
+    border-left: 15px solid #FFB703;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.service_name {
+    font-size: 20px;
+    font-weight: bolder;
+    color:#042A6B;
+}
+.customer_info {
+    font-size: 13px;
+}
+.arrow_right_con {
+    float: right;
+    margin-right: 20px;
+    margin-top: 30px;
+}
+.right {
+    display: inline-block;
+    width: 2.3em;
+    height: 2.3em;
+    border: 0.3em solid #042A6B;
+    border-radius: 50%;
+    margin-left: 1.5em;
+}
+.right:after {
+    content: '';
+    display: inline-block;
+    margin-top: 0.30em;
+    margin-left: 0.2em;
+    width: 1em;
+    height: 1em;
+    border-top: 0.2em solid #042A6B;
+    border-right: 0.2em solid #042A6B;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}  
 
 
 
@@ -483,3 +565,6 @@ nav ul li a:active {
 }   
 
 
+
+
+      
