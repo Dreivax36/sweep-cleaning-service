@@ -1,8 +1,8 @@
-@extends('head_extention_customer') 
+@extends('head_extention_cleaner') 
 
 @section('content')
     <title>
-        Customer Profile Page
+        Cleaner Profile Page
     </title>
 
 <body>
@@ -13,22 +13,17 @@
         <nav>
             <ul>
                 <li>
-                    <a href="customer_dashboard">
+                    <a href="cleaner_dashboard">
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="customer_services">
-                        Services
+                    <a href="cleaner_job">
+                        Jobs
                     </a>
                 </li>
                 <li>
-                    <a href="customer_transaction">
-                        Transaction
-                    </a>
-                </li>
-                <li>
-                    <a href="customer_history">
+                    <a href="cleaner_history">
                         History
                     </a>
                 </li>
@@ -50,12 +45,12 @@
                         <span class="caret"></span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="customer_profile">
-                            Profile
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            Logout
-                        </a>
+                    <a class="dropdown-item" href="cleaner_profile">
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        Logout
+                    </a>
                     </div>
                 </div>
             </ul>
@@ -63,54 +58,61 @@
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
 
-    <div class="col-2 d-flex customer_profile_title_con">
+    <div class="col-2 d-flex cleaner_profile_title_con">
         <div>
-            <h1 class="customer_cards_title">
+            <h1 class="cleaner_cards_title">
                 My Profile
             </h1> 
         </div>
     </div>
-
     <div class="main_profile_con d-flex">
-        <div class="customer_profile_con">
-            <div class="card customer_profile_avatar_con">
+        <div class="cleaner_profile_con">
+            <div class="card cleaner_profile_avatar_con">
                 <img class="card-img-top profile_avatar_img" src="/img/profile_avatar.png">
             </div>
         </div>
         <div class="d-flex flex-column">
-            <div class="p-2 customer_profile_name_con">
-                <h2 class="customer_profile_name">
+            <div class="p-2 cleaner_profile_name_con">
+                <h2 class="cleaner_profile_name">
                     Lyka C. Casilao
                 </h2>
             </div>
-            <div class="d-flex p-3 customer_profile_info_con">
-                <div class="customer_profile_info_icon">
+            <div class="d-flex p-3 cleaner_profile_info_con">
+                <div class="cleaner_profile_info_icon">
                     <i class="bi bi-person-fill"></i>
                 </div>
-                <h5 class="customer_profile_info">
+                <h5 class="cleaner_profile_info">
                     lycasilao@gbox.adnu.edu.ph
                 </h5>
             </div>
-            <div class="d-flex p-3 customer_profile_info_con">
-                <div class="customer_profile_info_icon">
+            <div class="d-flex p-3 cleaner_profile_info_con">
+                <div class="cleaner_profile_info_icon">
                     <i class="bi bi-telephone"></i>
                 </div>
-                <h5 class="customer_profile_info">
+                <h5 class="cleaner_profile_info">
                     09083095858
                 </h5>
             </div>
-            <div class="d-flex p-3 customer_profile_info_con">
-                <div class="customer_profile_info_icon">
+            <div class="d-flex p-3 cleaner_profile_info_con">
+                <div class="cleaner_profile_info_icon">
                     <i class="bi bi-house-door-fill"></i>
                 </div>
-                <h5 class="customer_profile_info">
+                <h5 class="cleaner_profile_info">
                     Pacol, Naga City
                 </h5>
             </div>
+            <div class="d-flex p-3 cleaner_profile_info_con">
+                <div class="cleaner_profile_info_icon">
+                    <i class="bi bi-person-lines-fill"></i>
+                </div>
+                <h5 class="cleaner_profile_info">
+                    20
+                </h5>
+            </div>
         </div>
-       
+        
         <div class="update_btn_con"> <!-- Update Button -->
-            <button type="button" class="btn btn-link customer_update_btn" data-toggle="modal" data-target="#exampleModalLong10">
+            <button type="button" class="btn btn-link cleaner_update_btn" data-toggle="modal" data-target="#exampleModalLong10">
                 UPDATE
             </button>
         </div> <!-- End of Update Button -->

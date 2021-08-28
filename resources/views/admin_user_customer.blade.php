@@ -1,11 +1,13 @@
 <?php
     use App\Models\User;
+    use App\Models\Address;
+    use App\Models\Customer;
 ?>
 @extends('head_extention_admin') 
 
 @section('content')
     <title>
-        Admin User Page
+        Admin Customer Page
     </title>
 
 <body>
@@ -92,11 +94,12 @@
             Results per page: 
         </p>
         <button class="dropdown" id="number">
-            10<span class="caret"></span>
+            10
+            <span class="caret"></span>
         </button>
-    </div> <!-- End of Sub Header -->
-  
-    <div class="user_table_con"> <!-- User Table -->
+    </div> <!-- End of Sub Header --> 
+
+    <div class="user_table_con"> <!-- Customer Table -->
         <div class="table_detail_con">
             <table class="table user_table" id="user_table">
                 <thead>
@@ -122,21 +125,27 @@
                         <th class="text-center user_table_header">
                             Valid ID
                         </th>
-                        <th class="text-center user_table_header">
-                            Status
-                        </th>
                     </tr>
                 </thead>
-                
+               
                 <?php
-                    $user_data = User::all();
+                    $user_data = User::Where('user_type', 'Customer')->get();
                 ?>
                 @foreach($user_data as $key => $value)
-
+                
+                <?php
+                    $customer_id = Customer::Where('user_id', $value->user_id)->value('customer_id');
+                    $address_data = Address::Where('customer_id', $customer_id)->get();
+                ?>
+                @foreach($address_data as $key => $data)
+                
                 <tbody>
                     <tr class="user_table_row">
                         <td class="user_table_data">
                             {{ $value->full_name }}
+                        </td>
+                        <td class="user_table_data">
+                            {{ $data->address }}
                         </td>
                         <td class="user_table_data">
                             {{ $value->email }}
@@ -148,13 +157,20 @@
                             {{ $value->valid_id }}
                         </td>
                         <td class="user_table_data">
-                            {{ $value->account_status }}
+                            @if($value->account_status == "to_verify")
+                            <div class="verify_con">
+                                <button class="verifybutton">
+                                    VERIFY
+                                </button>
+                            </div>
+                            @endif
                         </td>
                     </tr>
                 </tbody>
                 @endforeach
+                @endforeach 
             </table>
         </div>
-    </div> <!-- End of User Table --> 
+    </div> <!-- End of Customer Table -->
 </body>
 @endsection

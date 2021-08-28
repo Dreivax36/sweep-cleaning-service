@@ -232,17 +232,17 @@
             <div class="row">
                 <div class="footer_nav_con">
                     <h5>
-                        <a href="#" class="footer_nav_title">
+                        <a href="/sweep_contact_us" class="footer_nav_title">
                             Contact Us
                         </a>
                     </h5>
                     <h5>
-                        <a href="#" class="footer_nav_title">
+                        <a href="/sweep_faqs" class="footer_nav_title">
                             FAQs
                         </a>
                     </h5>
                     <h5>
-                        <a href="#" class="footer_nav_title">
+                        <a href="/sweep_about_us" class="footer_nav_title">
                             About Us
                         </a>
                     </h5>
@@ -252,3 +252,5 @@
     </div>  <!-- End of Footer --> 
 </body>
 @endsection
+
+    

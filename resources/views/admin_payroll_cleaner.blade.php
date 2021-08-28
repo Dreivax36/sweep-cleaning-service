@@ -1,11 +1,8 @@
-<?php
-    use App\Models\User;
-?>
 @extends('head_extention_admin') 
 
 @section('content')
     <title>
-        Admin User Page
+        Admin Payroll Cleaner Page
     </title>
 
 <body>
@@ -31,12 +28,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="admin_user" class="active">
+                    <a href="admin_user">
                         User
                     </a>
                 </li>
                 <li>
-                    <a href="admin_payroll">
+                    <a href="admin_payroll" class="active">
                         Payroll
                     </a>
                 </li>
@@ -57,19 +54,19 @@
     </header> <!-- End of Navbar -->
 
     <div class="row"> <!-- Sub Header --> 
-        <a class="user_type_btn_cleaner" id="active" href="admin_user">
+        <a class="user_type_btn_cleaner" id="active" href="admin_payroll">
             ALL 
             <p class="total_value">
                 (63)
             </p>
         </a>
-        <a class="user_type_btn_cleaner" href="admin_user_customer">
-            CUSTOMER 
+        <a class="user_type_btn_cleaner" href="admin_payroll_employee">
+            EMPLOYEE
             <p class="total_value">
                 (63)
             </p>
         </a>
-        <a class="user_type_btn_cleaner" href="admin_user_cleaner">
+        <a class="user_type_btn_cleaner" href="admin_payroll_cleaner">
             CLEANER 
             <p class="total_value">
                 (63)
@@ -92,11 +89,12 @@
             Results per page: 
         </p>
         <button class="dropdown" id="number">
-            10<span class="caret"></span>
+            10
+            <span class="caret"></span>
         </button>
     </div> <!-- End of Sub Header -->
-  
-    <div class="user_table_con"> <!-- User Table -->
+
+    <div class="user_table_con"> <!-- Payroll Cleaner Table -->
         <div class="table_detail_con">
             <table class="table user_table" id="user_table">
                 <thead>
@@ -108,53 +106,27 @@
                             Last Name
                         </th>
                         <th class="text-center user_table_header">
-                            Age
+                            Total Job
                         </th>
                         <th class="text-center user_table_header">
-                            Address
+                            Total Job Fee
                         </th>
                         <th class="text-center user_table_header">
-                            Email Address
-                        </th>
-                        <th class="text-center user_table_header">
-                            Contact Number
-                        </th>
-                        <th class="text-center user_table_header">
-                            Valid ID
-                        </th>
-                        <th class="text-center user_table_header">
-                            Status
+                            Total Salary
                         </th>
                     </tr>
                 </thead>
-                
-                <?php
-                    $user_data = User::all();
-                ?>
-                @foreach($user_data as $key => $value)
-
                 <tbody>
                     <tr class="user_table_row">
-                        <td class="user_table_data">
-                            {{ $value->full_name }}
-                        </td>
-                        <td class="user_table_data">
-                            {{ $value->email }}
-                        </td>
-                        <td class="user_table_data">
-                            {{ $value->contact_number }}
-                        </td>
-                        <td class="user_table_data">
-                            {{ $value->valid_id }}
-                        </td>
-                        <td class="user_table_data">
-                            {{ $value->account_status }}
-                        </td>
+                        <td class="user_table_data"></td>
+                        <td class="user_table_data"></td>
+                        <td class="user_table_data"></td>
+                        <td class="user_table_data"></td>
+                        <td class="user_table_data"></td>
                     </tr>
                 </tbody>
-                @endforeach
             </table>
         </div>
-    </div> <!-- End of User Table --> 
+    </div> <!-- End of Payroll Cleaner Table -->
 </body>
 @endsection
