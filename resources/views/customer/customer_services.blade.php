@@ -227,6 +227,7 @@
                                                                         Time:
                                                                     </label>
                                                                         <input type="time" id="schedule_time" name="schedule_time">
+</form>    
                                                                     <div class="d-flex cancel_confirm_con">
                                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
                                                                             Cancel 

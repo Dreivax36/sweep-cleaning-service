@@ -189,6 +189,7 @@ class MainController extends Controller
         }
     }
 
+    
     public function updateProfile(Request $request)
     {
         $request->validate([

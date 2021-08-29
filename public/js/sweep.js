@@ -14,4 +14,3 @@ $(document).ready(function(){
 var gwtpstReady = function(){
     new gwtpstTime('pst-time');
 }
-
