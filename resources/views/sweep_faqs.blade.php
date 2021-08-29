@@ -2,9 +2,8 @@
 
 @section('content')
     <title>
-        Welcome Page
+        FAQs Page
     </title>
-
 <body>
     <header> <!-- Navbar --> 
         <div class="logo"> 
@@ -13,7 +12,7 @@
         <nav>
             <ul>
                 <li>
-                    <a class="nav_con active" href="sweep_welcome">
+                    <a class="nav_con" href="sweep_welcome">
                         Home
                     </a>
                 </li>
@@ -28,7 +27,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="nav_con" href="sweep_faqs">
+                    <a class="nav_con active" href="sweep_faqs">
                         FAQs
                     </a>
                 </li>
@@ -37,41 +36,64 @@
                         About Us
                     </a>
                 </li>
-                <div class="dropdown login_con">
-                    <div class="login_inside_con">
-                        <button class="login_btn">
-                            Log In
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="#">Customer</a>
-                            <a href="#">Cleaner</a>
-                        </div>
-                    </div>
-                </div>
             </ul>
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar --> 
     
-    <div class="welcome_con">
-        <div class="welcome_title_con">
-            <h1 class="welcome_title">
-                The Road to Cleanliness has never been easier.
-            </h1>
-        </div>
-        <div class="welcome_sub_con">
-            <h5 class="welcome_sub">
-                Making your comfort zones squeaky clean one step at a time.
-            </h5>
-        </div>
-        <div class="signup_con">
-            <button type="button" class="btn btn-block btn-primary signup_btn"> 
-                Sign Up 
-            </button>
-        </div>
+    <div class="faqs_con">
+        <h3 class="faqs_title">
+            Frequently Asked Questions
+        </h3>
+        <table class="table table-hover faqs_table">
+            <tbody>
+                <tr>
+                    <td class="faqs_row"> 
+                        Q: <b>How to book a cleaning service?</b>
+                        <br>
+                        A:
+                    </td>
+                </tr>
+                <tr>
+                    <td class="faqs_row">
+                        Q: <b>Can I cancel a booked service?</b>
+                        <br>
+                        A:
+                    </td>
+                </tr>
+                <tr>
+                    <td class="faqs_row">
+                        Q: <b>How long a cleaning service will last?</b>
+                        <br>
+                        A:
+                    </td>
+                </tr>
+                <tr>
+                    <td class="faqs_row">
+                        Q: <b>Is SWEEP safe?</b>
+                        <br>
+                        A:
+                    </td>
+                </tr>
+                <tr>
+                    <td class="faqs_row">
+                        Q: <b>How to pay a booked service?</b>
+                        <br>
+                        A:
+                    </td>
+                </tr>
+                <tr>
+                    <td class="faqs_row">
+                        Q: <b>What are the cleaning services offered?</b>
+                        <br>
+                        A:
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-   
-    <div class="welcome_fixed_footer"> <!-- Footer --> 
+
+    <div class="fixed_footer"> <!-- Footer --> 
         <div class="d-flex">
             <div class="footer_info_con">
                 <h5>

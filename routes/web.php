@@ -70,30 +70,34 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/cleaner/cleaner_dashboard',[MainController::class, 'cleaner_dashboard'])->name('cleaner.cleaner_dashboard');
 
 });
- 
-// Route for the User Page
-Route::get('admin_user', function () {
-    return view('admin_user');
+
+
+
+//Route for the Sweep Welcome Page
+Route::get('sweep_welcome', function () {
+    return view('sweep_welcome');
+}); 
+//Route for the About Us Page
+Route::get('sweep_about_us', function () {
+    return view('sweep_about_us');
+}); 
+//Route for the FAQs Page
+Route::get('sweep_faqs', function () {
+    return view('sweep_faqs');
+}); 
+//Route for the Contact Us Page
+Route::get('sweep_contact_us', function () {
+    return view('sweep_contact_us');
+}); 
+
+
+//Route for the Admin Dashboard Page
+Route::get('admin_dashboard', function () {
+    return view('admin_dashboard');
 });
-//Route for the Customer User Page
-Route::get('admin_customer', function () {
-    return view('admin_customer');
-});
-//Route for the Cleaner User Page
-Route::get('admin_cleaner', function () {
-    return view('admin_cleaner');
-});
-//Route for the Payroll Page
-Route::get('admin_payroll', function () {
-    return view('admin_payroll');
-});
-//Route for the Employee Payroll Page
-Route::get('admin_employee_payroll', function () {
-    return view('admin_employee_payroll');
-});
-//Route for the Cleaner Payroll Page
-Route::get('admin_cleaner_payroll', function () {
-    return view('admin_cleaner_payroll');
+// Route for the Services Page
+Route::get('admin_services', function () {
+    return view('admin_services');
 });
 //Route for the Transaction Page
 Route::get('admin_transaction', function () {
@@ -103,3 +107,88 @@ Route::get('admin_transaction', function () {
 Route::get('admin_transaction_history', function () {
     return view('admin_transaction_history');
 });
+//Route for the Cleaner Payroll Page
+Route::get('admin_payroll_cleaner', function () {
+    return view('admin_payroll_cleaner');
+});
+//Route for the Employee Payroll Page
+Route::get('admin_payroll_employee', function () {
+    return view('admin_payroll_employee');
+});
+//Route for the Payroll Page
+Route::get('admin_payroll', function () {
+    return view('admin_payroll');
+});
+// Route for the User Page
+Route::get('admin_user', function () {
+    return view('admin_user');
+});
+//Route for the Cleaner User Page
+Route::get('admin_user_cleaner', function () {
+    return view('admin_user_cleaner');
+});
+//Route for the Customer User Page
+Route::get('admin_user_customer', function () {
+    return view('admin_user_customer');
+});
+
+
+
+//Route for the Cleaner Login Page
+Route::get('cleaner/cleaner_login', function () {
+    return view('cleaner/cleaner_login');
+});
+//Route for the Cleaner Register Page
+Route::get('cleaner/cleaner_register', function () {
+    return view('cleaner/cleaner_register');
+});
+//Route for the Cleaner Dashboard Page
+Route::get('cleaner/cleaner_dashboard', function () {
+    return view('cleaner/cleaner_dashboard');
+});
+//Route for the Cleaner Job Page
+Route::get('cleaner/cleaner_job', function () {
+    return view('cleaner/cleaner_job');
+});
+//Route for the Cleaner History Page
+Route::get('cleaner/cleaner_history', function () {
+    return view('cleaner/cleaner_history');
+});
+//Route for the Cleaner Profile Page
+Route::get('cleaner/cleaner_profile', function () {
+    return view('cleaner/cleaner_profile');
+});
+
+
+//Route for the Customer Login Page
+Route::get('customer/customer_login', function () {
+    return view('customer/customer_login');
+});
+//Route for the Customer Register Page
+Route::get('customer/customer_register', function () {
+    return view('customer/customer_register');
+});
+//Route for the Customer Dashboard Page
+Route::get('customer/customer_dashboard', function () {
+    return view('customer/customer_dashboard');
+});
+//Route for the Customer Services Page
+Route::get('customer/customer_services', function () {
+    return view('customer/customer_services');
+});
+//Route for the Customer Transaction Page
+Route::get('customer/customer_transaction', function () {
+    return view('customer/customer_transaction');
+});
+//Route for the Customer History Page
+Route::get('customer/customer_history', function () {
+    return view('customer/customer_history');
+});
+//Route for the Customer Profile Page
+Route::get('customer/customer_profile', function () {
+    return view('customer/customer_profile');
+});
+
+
+
+

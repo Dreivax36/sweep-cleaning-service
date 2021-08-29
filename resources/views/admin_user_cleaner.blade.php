@@ -1,11 +1,13 @@
 <?php
     use App\Models\User;
+    use App\Models\Clearance;
+    use App\Models\Cleaner;
 ?>
 @extends('head_extention_admin') 
 
 @section('content')
     <title>
-        Admin User Page
+        Admin Cleaner Page
     </title>
 
 <body>
@@ -94,9 +96,9 @@
         <button class="dropdown" id="number">
             10<span class="caret"></span>
         </button>
-    </div> <!-- End of Sub Header -->
-  
-    <div class="user_table_con"> <!-- User Table -->
+    </div> <!-- End of Sub Header --> 
+
+    <div class="user_table_con"> <!-- Cleaner Tabler --> 
         <div class="table_detail_con">
             <table class="table user_table" id="user_table">
                 <thead>
@@ -123,20 +125,35 @@
                             Valid ID
                         </th>
                         <th class="text-center user_table_header">
-                            Status
+                            Requirement
                         </th>
+                        <th class="text-center user_table_header"></th>
                     </tr>
                 </thead>
-                
+
                 <?php
-                    $user_data = User::all();
+                    $user_data = User::Where('user_type', 'Cleaner')->get();
                 ?>
                 @foreach($user_data as $key => $value)
+
+                <?php
+                    $cleaner_id = Cleaner::Where('user_id', $value->user_id)->value('cleaner_id');
+                    $cleaner_id = Cleaner::Where('user_id', $value->user_id)->get();
+                    $clearance_data = Clearance::Where('cleaner_id', $cleaner_id)->get();
+                ?>
+                @foreach($cleaner_id as $key => $cleaner)
+                @foreach($clearance_data as $key => $clearance)
 
                 <tbody>
                     <tr class="user_table_row">
                         <td class="user_table_data">
                             {{ $value->full_name }}
+                        </td>
+                        <td class="user_table_data">
+                            {{ $cleaner->age }}
+                        </td>
+                        <td class="user_table_data">
+                            {{ $cleaner->address }}
                         </td>
                         <td class="user_table_data">
                             {{ $value->email }}
@@ -148,13 +165,27 @@
                             {{ $value->valid_id }}
                         </td>
                         <td class="user_table_data">
-                            {{ $value->account_status }}
+                            {{ $clearance->description }}
+                        </td>
+                        <td class="user_table_data">
+                            {{ $clearance->requirement }}
+                        </td>
+                        <td class="user_table_data">
+                            @if($value->account_status == "to_verify")
+                            <div class="verify_con">
+                                <button class="verifybutton">
+                                    VERIFY
+                                </button>
+                            </div>
+                            @endif
                         </td>
                     </tr>
                 </tbody>
                 @endforeach
+                @endforeach
+                @endforeach 
             </table>
         </div>
-    </div> <!-- End of User Table --> 
+    </div> <!-- End of Cleaner Table -->
 </body>
 @endsection
