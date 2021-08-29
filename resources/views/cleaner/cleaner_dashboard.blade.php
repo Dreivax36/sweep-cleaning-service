@@ -49,7 +49,7 @@
                     <a class="dropdown-item" href="cleaner_profile">
                         Profile
                     </a>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('auth.logout') }}">
                         Logout
                     </a>
                     </div>

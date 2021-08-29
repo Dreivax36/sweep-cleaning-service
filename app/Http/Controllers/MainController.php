@@ -85,12 +85,32 @@ class MainController extends Controller
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_dashboard', $data);
     }
-
-    //Customer Pages
-    function customer_register(){
-        return view('customer.customer_register');
+    function admin_user(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_user', $data);
+    }
+    function admin_user_customer(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_user_customer', $data);
+    }
+    function admin_user_cleaner(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_user_cleaner', $data);
+    }
+    function admin_payroll(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_payroll', $data);
+    }
+    function admin_payroll_employee(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_payroll_employee', $data);
+    }
+    function admin_payroll_cleaner(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_payroll_cleaner', $data);
     }
 
+    //Customer Pages
     function customer_save(Request $request){
         
         //Validate Requests
@@ -169,10 +189,33 @@ class MainController extends Controller
         }
     }
 
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'full_name'=>'required',
+            'email'=>'required',
+            'contact_number'=>'required',
+            'address'=>'required',
+        ]);
+
+        $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
+        $id= Customer::Where('user_id', $request->user_id )->value('customer_id');
+        $update= Address::Where('customer_id', $id )->update(['address' => $request->address]);
+
+        if($update){   
+            return back()->with('success', 'Address Updated');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+
     function customer_login(){
         return view('customer.customer_login');
     }
-    
+    function customer_register(){
+        return view('customer.customer_register');
+    }
     function customer_dashboard(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_dashboard', $data);
@@ -270,6 +313,40 @@ class MainController extends Controller
             }else{
                 return back()->with('fail', 'Incorrect password');
             }
+        }
+    }
+    function cleaner_profile(){
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('cleaner.cleaner_profile', $data);
+    }
+    public function updateCleaner(Request $request)
+    {
+        $request->validate([
+            'full_name'=>'required',
+            'email'=>'required',
+            'contact_number'=>'required',
+            'address'=>'required',
+            'age'=>'required'
+        ]);
+
+        $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
+        $update= Cleaner::Where('user_id', $request->user_id )->update(['address' => $request->address, 'age' => $request->age]);
+
+        if($update){   
+            return back()->with('success', 'Cleaner Profile Updated');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+    function update_account(Request $request){
+
+        $update = User::Where('user_id', $request->route('id'))->update(['account_status' => 'Verified']);
+
+        if($update){
+            return back()->with('success', 'New User has been successfuly added to database');
+        }else{
+            return back()->with('fail','Something went wrong, try again later ');
         }
     }
 

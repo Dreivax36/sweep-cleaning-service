@@ -20,7 +20,7 @@
             <h4 class="signin_label">
                 Sign In
             </h4>
-            <form action="{{ route('auth.check') }}" method="post">
+            <form action="{{ route('cleaner.cleaner_check') }}" method="post">
                 @if(Session::get('fail'))
                     <div class="alert alert-danger">
                         {{ Session::get('fail') }}

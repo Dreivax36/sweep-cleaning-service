@@ -55,24 +55,29 @@
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
-
+    <?php
+        $user_data = User::all();
+        $user_count = User::all()->count();
+        $customer_count = User::Where('user_type', '=', 'Customer')->count();
+        $cleaner_count = User::Where('user_type', '=', 'Cleaner')->count();
+    ?>
     <div class="row"> <!-- Sub Header --> 
         <a class="user_type_btn_cleaner" id="active" href="admin_user">
             ALL 
             <p class="total_value">
-                (63)
+            ({{ $user_count }})
             </p>
         </a>
         <a class="user_type_btn_cleaner" href="admin_user_customer">
             CUSTOMER 
             <p class="total_value">
-                (63)
+            ({{ $customer_count }})
             </p>
         </a>
         <a class="user_type_btn_cleaner" href="admin_user_cleaner">
             CLEANER 
             <p class="total_value">
-                (63)
+            ({{ $cleaner_count }})
             </p>
         </a>
     </div>
@@ -102,16 +107,7 @@
                 <thead>
                     <tr class="user_table_row">
                         <th class="text-center user_table_header">
-                            First Name
-                        </th>
-                        <th class="text-center user_table_header">
-                            Last Name
-                        </th>
-                        <th class="text-center user_table_header">
-                            Age
-                        </th>
-                        <th class="text-center user_table_header">
-                            Address
+                            Full Name
                         </th>
                         <th class="text-center user_table_header">
                             Email Address
@@ -120,7 +116,7 @@
                             Contact Number
                         </th>
                         <th class="text-center user_table_header">
-                            Valid ID
+                            User Type
                         </th>
                         <th class="text-center user_table_header">
                             Status
@@ -128,9 +124,7 @@
                     </tr>
                 </thead>
                 
-                <?php
-                    $user_data = User::all();
-                ?>
+                
                 @foreach($user_data as $key => $value)
 
                 <tbody>
@@ -145,7 +139,7 @@
                             {{ $value->contact_number }}
                         </td>
                         <td class="user_table_data">
-                            {{ $value->valid_id }}
+                            {{ $value->user_type }}
                         </td>
                         <td class="user_table_data">
                             {{ $value->account_status }}

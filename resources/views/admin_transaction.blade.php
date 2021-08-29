@@ -62,18 +62,22 @@
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
-
+    <?php
+        $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->get();
+        $transaction_count = Booking::Where('status', '!=', 'Completed')->orWhere('status', '!=', 'Declined')->count();
+        $history_count = Booking::Where('status', '=', 'Completed')->orWhere('status', '=', 'Declined')->count();
+    ?>
     <div class="row"> <!-- Sub Header -->  
-        <a class="user_type_btn"  href="admin_transaction">
+        <a class="user_type_btn" id="active"  href="admin_transaction">
             TRANSACTION 
             <p class="total_value">
-                (63)
+                ({{ $transaction_count }})
             </p>
         </a>
-        <a class="user_type_btn" id="active" href="admin_transaction_history">
+        <a class="user_type_btn"  href="admin_transaction_history">
             HISTORY 
             <p class="total_value">
-                (63)
+                ({{ $history_count }})
             </p>
         </a>
     </div>
@@ -85,374 +89,22 @@
             </button>
         </div>
     </div> <!-- End of Search Field -->
-    <p class="show_info"> 
-        Showing 1-10 of 63 results 
-    </p>
-    <div class="result_con">
-        <p class="show_info"> 
-            Results per page: 
-        </p>
-        <button class="dropdown" id="number">
-            10
-            <span class="caret"></span>
-        </button>
-    </div>  <!-- End of Sub Header -->
-
-    <?php
-        $booking_data = Booking::all();
-    ?>
-    @foreach($booking_data as $key => $value)
+    
+    <div class="transaction_con">
+    
+        <div class="row row_transaction">
+        @foreach($booking_data as $key => $value)
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
         $user_data = User::Where('user_id', $value->customer_id )->get();
         $address_data = Address::Where('customer_id', $value->customer_id )->get();
-        $price = Price::Where('property_type', $value->property_type )->get();
+        $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
         $cleaner_data = User::Where('user_type', 'Cleaner' )->get();
     ?>
     @foreach($service_data as $key => $data)
     @foreach($price as $key => $price_data)
     @foreach($user_data as $key => $user)
     @foreach($address_data as $key => $address)
-
-    <div class="transaction_con">
-        <div class="row row_transaction">
-            <div class="column col_transaction">
-                <div class="card card_transaction p-4">
-                    <div class="d-flex">
-                        <i class="bi bi-card-checklist check_icon_outside"></i>
-                        <h3 class="service_title_trans">
-                            Light Cleaning
-                        </h3>
-                        <h5 class="service_status">
-                            Pending
-                        </h5>
-                    </div>
-                    <div> 
-                        <h6 class="booking_date">
-                            <b>Data Created:</b> July 31, 2021
-                        </h6>
-                    </div>
-                    <div>
-                        <table class="table table-striped user_info_table">
-                            <tbody>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Customer:
-                                    </th>
-                                    <td class="user_table_data">
-                                        D. Bondad
-                                    </td>
-                                </tr>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Address:
-                                    </th>
-                                    <td class="user_table_data">
-                                        Palestina, Pili, Camarines Sur
-                                    </td>
-                                </tr>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Contact Info:
-                                    </th>
-                                    <td class="user_table_data">
-                                        09341562384
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="view_details_con">
-                        <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#exampleModalLong10">
-                            View Details
-                        </button>
-                        <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content p-3 trans_modal_content"> <!-- Modal Content-->
-                                <div class="modal-header trans_modal_header">
-                                <div class="d-flex pt-5">
-                                    <i class="bi bi-card-checklist check_icon_inside"></i>
-                                    <h4 class="modal_service_title_trans">
-                                        Light Cleaning
-                                    </h4>
-                                </div>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body p-4">
-                                    <ul class="customer_detail">
-                                        <li>
-                                            <b>Customer:</b>
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Name:</b> Duane Xavier Bondad
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Contact Number:</b> 09341562384
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Address:</b> Palestina, Pili, Camarines Sur
-                                        </li>
-                                        <br>
-                                        <li>
-                                            <b>Service:</b>
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Date:</b> July 31, 2021
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Cleaner/s:</b> 2
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Property Type:</b> Apartment
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Status:</b> Pending
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Price:</b> P376.00
-                                        </li>     
-                                    </ul>
-                                </div>
-                                <div class="modal-footer trans_modal_footer">
-                                    <button type="button" class="btn btn-block btn-primary accept_btn" data-dismiss="modal">
-                                        ACCEPT 
-                                    </button>
-                                    <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal">
-                                        DECLINE 
-                                    </button>
-                                </div>
-                            </div> <!-- End of Modal Content -->
-                            </div>
-                        </div> <!-- End of Modal -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="column col_transaction">
-                <div class="card card_transaction p-4">
-                    <div class="d-flex">
-                        <i class="bi bi-card-checklist check_icon_outside"></i>
-                        <h3 class="service_title_trans">
-                            Light Cleaning
-                        </h3>
-                        <h5 class="service_status">
-                            Pending
-                        </h5>
-                    </div>
-                    <div> 
-                        <h6 class="booking_date">
-                            <b>Data Created:</b> July 31, 2021
-                        </h6>
-                    </div>
-                    <div>
-                        <table class="table table-striped user_info_table">
-                            <tbody>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Customer:
-                                    </th>
-                                    <td class="user_table_data">
-                                        D. Bondad
-                                    </td>
-                                </tr>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Address:
-                                    </th>
-                                    <td class="user_table_data">
-                                        Palestina, Pili, Camarines Sur
-                                    </td>
-                                </tr>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Contact Info:
-                                    </th>
-                                    <td class="user_table_data">
-                                        09341562384
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="view_details_con">
-                        <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#exampleModalLong10">
-                            View Details
-                        </button>
-                        <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content p-3 trans_modal_content"> <!-- Modal Content-->
-                                <div class="modal-header trans_modal_header">
-                                <div class="d-flex pt-5">
-                                    <i class="bi bi-card-checklist check_icon_inside"></i>
-                                    <h4 class="modal_service_title_trans">
-                                        Light Cleaning
-                                    </h4>
-                                </div>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body p-4">
-                                    <ul class="customer_detail">
-                                        <li>
-                                            <b>Customer:</b>
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Name:</b> Duane Xavier Bondad
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Contact Number:</b> 09341562384
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Address:</b> Palestina, Pili, Camarines Sur
-                                        </li>
-                                        <br>
-                                        <li>
-                                            <b>Service:</b>
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Date:</b> July 31, 2021
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Cleaner/s:</b> 2
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Property Type:</b> Apartment
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Status:</b> Pending
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Price:</b> P376.00
-                                        </li>     
-                                    </ul>
-                                </div>
-                                <div class="modal-footer trans_modal_footer">
-                                    <button type="button" class="btn btn-block btn-primary accept_btn" data-dismiss="modal">
-                                        ACCEPT 
-                                    </button>
-                                    <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal">
-                                        DECLINE 
-                                    </button>
-                                </div>
-                            </div> <!-- End of Modal Content -->
-                            </div>
-                        </div> <!-- End of Modal -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="column col_transaction">
-                <div class="card card_transaction p-4">
-                    <div class="d-flex">
-                        <i class="bi bi-card-checklist check_icon_outside"></i>
-                        <h3 class="service_title_trans">
-                            Light Cleaning
-                        </h3>
-                        <h5 class="service_status">
-                            Pending
-                        </h5>
-                    </div>
-                    <div> 
-                        <h6 class="booking_date">
-                            <b>Data Created:</b> July 31, 2021
-                        </h6>
-                    </div>
-                    <div>
-                        <table class="table table-striped user_info_table">
-                            <tbody>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Customer:
-                                    </th>
-                                    <td class="user_table_data">
-                                        D. Bondad
-                                    </td>
-                                </tr>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Address:
-                                    </th>
-                                    <td class="user_table_data">
-                                        Palestina, Pili, Camarines Sur
-                                    </td>
-                                </tr>
-                                <tr class="user_table_row">
-                                    <th scope="row" class="user_table_header">
-                                        Contact Info:
-                                    </th>
-                                    <td class="user_table_data">
-                                        09341562384
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="view_details_con">
-                        <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#exampleModalLong10">
-                            View Details
-                        </button>
-                        <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content p-3 trans_modal_content"> <!-- Modal Content-->
-                                <div class="modal-header trans_modal_header">
-                                <div class="d-flex pt-5">
-                                    <i class="bi bi-card-checklist check_icon_inside"></i>
-                                    <h4 class="modal_service_title_trans">
-                                        Light Cleaning
-                                    </h4>
-                                </div>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body p-4">
-                                    <ul class="customer_detail">
-                                        <li>
-                                            <b>Customer:</b>
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Name:</b> Duane Xavier Bondad
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Contact Number:</b> 09341562384
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Address:</b> Palestina, Pili, Camarines Sur
-                                        </li>
-                                        <br>
-                                        <li>
-                                            <b>Service:</b>
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Date:</b> July 31, 2021
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Cleaner/s:</b> 2
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Property Type:</b> Apartment
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Status:</b> Pending
-                                        </li>
-                                        <li class="list_booking_info">
-                                            <b>Price:</b> P376.00
-                                        </li>     
-                                    </ul>
-                                </div>
-                                <div class="modal-footer trans_modal_footer">
-                                    <button type="button" class="btn btn-block btn-primary accept_btn" data-dismiss="modal">
-                                        ACCEPT 
-                                    </button>
-                                    <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal">
-                                        DECLINE 
-                                    </button>
-                                </div>
-                            </div> <!-- End of Modal Content -->
-                            </div>
-                        </div> <!-- End of Modal -->
-                    </div>
-                </div>
-            </div>
-
-
             <div class="column col_transaction">
                 <div class="card card_transaction p-4">
                     <div class="d-flex">
@@ -499,10 +151,10 @@
                         </table>
                     </div>
                     <div class="view_details_con">
-                        <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#exampleModalLong10">
+                        <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->service_id }}">
                             View Details
                         </button>
-                        <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                        <div class="modal fade" id="exampleModalLong10-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                             <div class="modal-dialog" role="document">
                             <div class="modal-content p-3 trans_modal_content"> <!-- Modal Content-->
                                 <div class="modal-header trans_modal_header">
@@ -579,29 +231,30 @@
                                             </li>       
                                         </ul>
                                     </div>
-                                
-                                <div class="modal-footer trans_modal_footer">
-                                    <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#exampleModalLong101">
-                                        ACCEPT
-                                    </button>
-                                    <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Decline">
-                                        DECLINE
-                                    </button>
-                                </div>
+                                @if($value->status == "Pending")
+                                    <div class="modal-footer trans_modal_footer">
+                                        <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}">
+                                            ACCEPT
+                                        </button>
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
+                                            DECLINE
+                                        </button>
+                                    </div>
+                                @endif
                                 <div class="modal-footer customer_services_modal_footer">
-                                <div class="modal fade" id="exampleModalLong101" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
+                                <div class="modal fade" id="exampleModalLong101-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content p-3 trans_modal_content">  <!-- Modal content-->
                                             <div class="modal-header trans_modal_header">
                                                 <div class="d-flex pt-5">
                                                     <h4 class="modal_service_title_trans">
-                                                        Assign {{ $price_data->number_of_cleaner}} Cleaners
+                                                        Assign {{ $price_data->number_of_cleaner}} Cleaner
                                                     </h4>
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
                                             
-                                            <form action="{{ route('updateStatus') }}" method="post" id="my">
+                                            <form action="{{ route('updateStatus') }}" method="post" >
                                                 @if(Session::get('success'))
                                                     <div class="alert alert-success">
                                                         {{ Session::get('success') }}
@@ -615,12 +268,16 @@
                                                 @endif
                                                                     
                                                 @csrf
+                                                {{ csrf_field() }}
                                                 @foreach($cleaner_data as $key => $cleaner)
                     
                                                 <br>
                                                 <input type="hidden" name="service_id" value="{{ $value->service_id }}">
-                                                <input type="checkbox" id="full_name" name="full_name" value="{{ $cleaner->full_name }}">
-                                                <label for="full_name"> {{ $cleaner->full_name }}</label><br>
+                                                <input type="hidden" name="status" value="Accepted">
+                                                <fieldser>
+                                                    <input type="checkbox" id="full_name" name="full_name[]" value="{{ $cleaner->full_name }}">
+                                                    <label for="full_name"> {{ $cleaner->full_name }}</label><br>
+                                                </fieldset>
                                                 @endforeach
                                                                 
                                                 <br>
@@ -628,11 +285,11 @@
                                                     <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal"> 
                                                         Cancel 
                                                     </button>
-                                                    <button form="my" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted"> 
+                                                    <button type="submit" class="btn btn-block btn-primary accept_btn"> 
                                                         Confirm 
                                                     </button>
                                                 </div>
-                                                  
+                                                </form> 
                                         </div> <!-- End of Modal Content --> 
                                     </div>
                                 </div>
@@ -640,16 +297,21 @@
                             </div> <!-- End of Modal Content -->   
                             </div>
                         </div> <!-- End of Modal -->
+                        @endforeach
+                        @endforeach
                     </div>
                 </div>
+                
+    
             </div>
-            
+           
+           
+            @endforeach
         </div>
+        
+    @endforeach
+    @endforeach    
     </div>
-    @endforeach
-    @endforeach
-    @endforeach
-    @endforeach
-    @endforeach
+    
 </body>
 @endsection

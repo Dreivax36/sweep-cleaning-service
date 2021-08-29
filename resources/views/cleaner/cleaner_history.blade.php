@@ -1,3 +1,12 @@
+<?php
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+?>
 @extends('head_extention_cleaner') 
 
 @section('content')
@@ -48,7 +57,7 @@
                     <a class="dropdown-item" href="cleaner_profile">
                         Profile
                     </a>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('auth.logout') }}">
                         Logout
                     </a>
                     </div>
@@ -72,285 +81,9 @@
         </div>
     </div>
     <div class="cleaner_job_con">
-        <div class="column col_cleaner_job">
-            <div class="row row_cleaner_job">
-                <div class="card p-4 card_cleaner_job">
-                    <div class="d-flex">
-                        <img src="/img/broom.png" class="cleaner_job_broom_img p-1">
-                        <div class="d-flex flex-column">
-                            <h5 class="cleaner_job_status">
-                                Pending
-                            </h5>
-                            <h3 class="cleaner_job_title">
-                                Light Cleaning
-                            </h3>
-                            <h6 class="cleaner_job_date_1_1">
-                                July 22, 2021
-                            </h6>
-                            <h6 class="cleaner_job_price_1">
-                                P545.00
-                            </h6>
-                            <div class="d-flex view_details_con">
-                                <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10">
-                                    DETAILS
-                                </button>
-                                <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content p-4 cleaner_job_modal_content"> <!-- Modal Content-->
-                                        <div class="modal-header cleaner_job_modal_header">
-                                        <div class="d-flex pt-5">
-                                            <img src="/img/broom.png" class="cleaner_job_broom_2_1_img p-1">
-                                            <div class="d-flex flex-column">
-                                                <h4 class="cleaner_job_modal_title">
-                                                    Light Cleaning
-                                                </h4>
-                                                <h6 class="cleaner_job_modal_date_1_1">
-                                                    July 22, 2021
-                                                </h6>
-                                                <h6 class="cleaner_job_modal_amount_1">
-                                                    Total Amount: P545.00
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body d-flex p-4">
-                                            <div class="cleaner_job_modal_body_1_con">
-                                                <ul class="cleaner_detail">
-                                                    <li>
-                                                        <b>Customer:</b>
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Name:</b> Duane Xavier Bondad
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Contact Number:</b> 09341562384
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Address:</b> Palestina, Pili, Camarines Sur
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <b>Service Details:</b>
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Property Type:</b> Apartments
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Time:</b> 1:00 PM
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Cleaner/s:</b> 3
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Status:</b> On Progress
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <b>Feedback:</b>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer cleaner_job_modal_footer">
-
-                                        </div>
-                                    </div> <!-- End of Modal Content --> 
-                                    </div>
-                                </div> <!-- End of Modal -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column col_cleaner_job">
-            <div class="row row_cleaner_job">
-                <div class="card p-4 card_cleaner_job">
-                    <div class="d-flex">
-                        <img src="/img/broom.png" class="cleaner_job_broom_img p-1">
-                        <div class="d-flex flex-column">
-                            <h5 class="cleaner_job_status">
-                                Pending
-                            </h5>
-                            <h3 class="cleaner_job_title">
-                                Light Cleaning
-                            </h3>
-                            <h6 class="cleaner_job_date_1_1">
-                                July 22, 2021
-                            </h6>
-                            <h6 class="cleaner_job_price_1">
-                                P545.00
-                            </h6>
-                            <div class="d-flex view_details_con">
-                                <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10">
-                                    DETAILS
-                                </button>
-                                <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content p-4 cleaner_job_modal_content"> <!-- Modal Content-->
-                                        <div class="modal-header cleaner_job_modal_header">
-                                        <div class="d-flex pt-5">
-                                            <img src="/img/broom.png" class="cleaner_job_broom_2_1_img p-1">
-                                            <div class="d-flex flex-column">
-                                                <h4 class="cleaner_job_modal_title">
-                                                    Light Cleaning
-                                                </h4>
-                                                <h6 class="cleaner_job_modal_date_1_1">
-                                                    July 22, 2021
-                                                </h6>
-                                                <h6 class="cleaner_job_modal_amount_1">
-                                                    Total Amount: P545.00
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body d-flex p-4">
-                                            <div class="cleaner_job_modal_body_1_con">
-                                                <ul class="cleaner_detail">
-                                                    <li>
-                                                        <b>Customer:</b>
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Name:</b> Duane Xavier Bondad
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Contact Number:</b> 09341562384
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Address:</b> Palestina, Pili, Camarines Sur
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <b>Service Details:</b>
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Property Type:</b> Apartments
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Time:</b> 1:00 PM
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Cleaner/s:</b> 3
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Status:</b> On Progress
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <b>Feedback:</b>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer cleaner_job_modal_footer">
-
-                                        </div>
-                                    </div> <!-- End of Modal Content --> 
-                                    </div>
-                                </div> <!-- End of Modal -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column col_cleaner_job">
-            <div class="row row_cleaner_job">
-                <div class="card p-4 card_cleaner_job">
-                    <div class="d-flex">
-                        <img src="/img/broom.png" class="cleaner_job_broom_img p-1">
-                        <div class="d-flex flex-column">
-                            <h5 class="cleaner_job_status">
-                                Pending
-                            </h5>
-                            <h3 class="cleaner_job_title">
-                                Light Cleaning
-                            </h3>
-                            <h6 class="cleaner_job_date_1_1">
-                                July 22, 2021
-                            </h6>
-                            <h6 class="cleaner_job_price_1">
-                                P545.00
-                            </h6>
-                            <div class="d-flex view_details_con">
-                                <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10">
-                                    DETAILS
-                                </button>
-                                <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content p-4 cleaner_job_modal_content"> <!-- Modal Content-->
-                                        <div class="modal-header cleaner_job_modal_header">
-                                        <div class="d-flex pt-5">
-                                            <img src="/img/broom.png" class="cleaner_job_broom_2_1_img p-1">
-                                            <div class="d-flex flex-column">
-                                                <h4 class="cleaner_job_modal_title">
-                                                    Light Cleaning
-                                                </h4>
-                                                <h6 class="cleaner_job_modal_date_1_1">
-                                                    July 22, 2021
-                                                </h6>
-                                                <h6 class="cleaner_job_modal_amount_1">
-                                                    Total Amount: P545.00
-                                                </h6>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body d-flex p-4">
-                                            <div class="cleaner_job_modal_body_1_con">
-                                                <ul class="cleaner_detail">
-                                                    <li>
-                                                        <b>Customer:</b>
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Name:</b> Duane Xavier Bondad
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Contact Number:</b> 09341562384
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Address:</b> Palestina, Pili, Camarines Sur
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <b>Service Details:</b>
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Property Type:</b> Apartments
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Time:</b> 1:00 PM
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Cleaner/s:</b> 3
-                                                    </li>
-                                                    <li class="list_booking_info">
-                                                        <b>Status:</b> On Progress
-                                                    </li>
-                                                    <br>
-                                                    <li>
-                                                        <b>Feedback:</b>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer cleaner_job_modal_footer">
-
-                                        </div>
-                                    </div> <!-- End of Modal Content --> 
-                                    </div>
-                                </div> <!-- End of Modal -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <?php
-            $booking_data = Booking::Where('status', 'Done')->get();
+            $booking_data = Booking::Where('cleaner_id', $LoggedUserInfo['cleaner_id'] )->Where('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
         ?>
         @foreach($booking_data as $key => $value)
 
@@ -442,8 +175,7 @@
                                                             <br>
                                                             <li><b>Service Details:</b></li>
                                                             <li class="list_booking_info">
-                                                                <b>Property Type:</b> {{ $value->property_type}}<
-                                                                    /li>
+                                                                <b>Property Type:</b> {{ $value->property_type}}</li>
                                                             <li class="list_booking_info">
                                                                 <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                                             </li>

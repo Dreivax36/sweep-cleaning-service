@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\Price;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
  
 class ServiceController extends Controller
@@ -16,15 +17,23 @@ class ServiceController extends Controller
      */
     function admin_services(){
         //Retrieve Services Data from database  
-       // $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
-       // return view('admin_services', $data);
+       $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_services', $data);
 
-        $services = Service::latest()->paginate(5);
+      //  $services = Service::latest()->paginate(5);
     
-        return view('admin_services',compact('services'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+      //  return view('admin_services',compact('services'))
+         //   ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-
+    function admin_transaction(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_transaction', $data);
+    }
+    function admin_transaction_history(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_transaction_history', $data);
+    }
+    
     function customer_services(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_services', $data);

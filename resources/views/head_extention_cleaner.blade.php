@@ -26,6 +26,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_cleaner.css')}}">
+    <link rel="shortcut icon" href="#">
     
     <main>
         @yield('content')

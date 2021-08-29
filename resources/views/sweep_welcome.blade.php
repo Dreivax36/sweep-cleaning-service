@@ -43,8 +43,8 @@
                             Log In
                         </button>
                         <div class="dropdown-content">
-                            <a href="#">Customer</a>
-                            <a href="#">Cleaner</a>
+                            <a href="/customer/customer_login">Customer</a>
+                            <a href="/cleaner/cleaner_login">Cleaner</a>
                         </div>
                     </div>
                 </div>

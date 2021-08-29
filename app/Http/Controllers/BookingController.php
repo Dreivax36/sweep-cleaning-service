@@ -42,8 +42,8 @@ class BookingController extends Controller
         //$comp_ids = implode(' ,',(array)$request->get('full_name')); 
         $id = User::Where('full_name', $request->full_name)->value('user_id');
         $user = Cleaner::Where('user_id', $id)->value('cleaner_id');
-        $updateStatus= Booking::Where('service_id', $request->service_id )->update(['status' => $request->status, 'cleaner_id' => $request->cleaner_id] );
-        
+       // $updateStatus= Booking::Where('service_id', $request->service_id )->update(['status' => $request->status, 'cleaner_id' => $request->cleaner_id] );
+        error_log(request('full_name'));
         if($updateStatus){
             return back()->with('success', 'Booking Status Updated');
         }
@@ -60,9 +60,8 @@ class BookingController extends Controller
             'schedule_date'=>'required',
             'schedule_time'=>'required',
         ]);
-
+        
         $id = Customer::Where('user_id', $request->user_id )->value('customer_id');
-
         $bookings = new Booking();
         $bookings->service_id = $request->service_id;
         $bookings->customer_id = $id;

@@ -1,3 +1,13 @@
+<?php
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+?>
+
 @extends('head_extention_admin') 
 
 @section('content')
@@ -52,18 +62,22 @@
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
-
+    <?php
+        $booking_data = Booking::Where('status', '=', 'Completed')->Where('status', '=', 'Declined')->get();
+        $transaction_count = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->count();
+        $history_count = Booking::Where('status', '=', 'Completed')->orWhere('status', '=', 'Declined')->count();
+    ?>
     <div class="row"> <!-- Sub Header -->  
         <a class="user_type_btn"  href="admin_transaction">
             TRANSACTION 
             <p class="total_value">
-                (63)
+                ({{ $transaction_count }})
             </p>
         </a>
         <a class="user_type_btn" id="active" href="admin_transaction_history">
             HISTORY 
             <p class="total_value">
-                (63)
+                ({{ $history_count }})
             </p>
         </a>
     </div>
@@ -117,41 +131,43 @@
             </thead>
 
             <?php
-                $booking_data = Booking::Where('status', 'Completed')->get();
+                $booking_data = Booking::Where('status', 'Completed')->orWhere('status', '=', 'Declined')->get();
             ?>
             @foreach($booking_data as $key => $value)
 
             <?php
-                $service_data = Service::Where('service_id', $value->service_id )->get();
-                $user_data = User::Where('user_id', $value->customer_id )->get();
-                $price = Price::Where('property_type', $value->property_type )->get();
+                $service = Service::Where('service_id', $value->service_id )->get();
+                $user = User::Where('user_id', $value->customer_id )->get();
             ?>
-            @foreach($service_data as $key => $data)
+            @foreach($service as $key => $service_data)
+            
+            <?php
+                $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();            
+            ?>
             @foreach($price as $key => $price_data)
-            @foreach($user_data as $key => $user)
-
+            @foreach($user as $key => $user_data)
             <tbody>
                 <tr class="table_trans_his_row">
                     <th class="user_table_trans_his_header">
-                        Leah L. Cortez
+                    {{ $user_data -> full_name }}
                     </th>
                     <td class="user_table_data">
-                        Light Cleaning
+                    {{ $service_data -> service_name }}
                     </td>
                     <td class="user_table_data">
-                        Apartments 
+                    {{ $value -> property_type }}
                     </td>
                     <td class="user_table_data">
-                        P342.00
+                        P{{ $price_data -> price }}
                     </td>
                     <td class="user_table_data">
-                        GCash
+                        {{ $value -> mode_of_payment }}
                     </td>
                     <td class="user_table_data">
-                        CL001, CL002
+                        {{ $value -> cleaner_id }}
                     </td>
                     <td class="user_table_data">
-                        Completed
+                    {{ $value -> status }}
                     </td>
                 </tr>
             </tbody>

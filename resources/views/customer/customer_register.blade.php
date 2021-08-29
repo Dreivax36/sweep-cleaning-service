@@ -20,7 +20,7 @@
             <h4 class="register_label">
                 Register
             </h4>
-            <form action="{{ route('auth.save') }}" method="post">
+            <form action="{{ route('customer.customer_save') }}" method="post" enctype="multipart/form-data">
                 @if(Session::get('success'))
                     <div class="alert alert-success">
                         {{ Session::get('success') }}
