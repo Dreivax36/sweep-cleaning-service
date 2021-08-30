@@ -159,64 +159,64 @@
                                             </div> 
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
-                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong101">
+                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong101">
                                                 BOOK NOW
                                             </button>
-                                            <div class="modal fade" id="exampleModalLong101" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
-                                                        <div class="modal-header customer_services_modal_header_inside">
-                                                            <div class="p-3 customer_services_modal_inside_con">
-                                                                <h3 class="customer_services_modal_title">
-                                                                    Light Cleaning
-                                                                </h3>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Medium-Upper Class Residential Areas
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Apartments
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Condominiums
-                                                                    </label>
-                                                                </div>
-                                                                <div class="appoint_con">
-                                                                    <div class="date_con">
-                                                                        <label for="date" class="date_label">
-                                                                            Date:
-                                                                        </label>
-                                                                        <input type="date" id="date" name="date" class="date_field">
-                                                                    </div>
-                                                                    <div class="date_con">
-                                                                        <label for="time" class="date_label">
-                                                                            Time:
-                                                                        </label>
-                                                                        <input type="time" id="time" name="time" class="time_field">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-flex cancel_confirm_con">
-                                                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                                        Cancel 
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                                        Confirm 
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End of Modal Content -->
-                                                </div>
-                                            </div> <!-- End of Modal -->
                                         </div>
                                     </div> <!-- End of Modal Content -->  
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                <div class="modal fade" id="exampleModalLong101" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
+                                            <div class="modal-header customer_services_modal_header_inside">
+                                                <div class="p-3 customer_services_modal_inside_con">
+                                                    <h3 class="customer_services_modal_title">
+                                                        Light Cleaning
+                                                    </h3>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Medium-Upper Class Residential Areas
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Apartments
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Condominiums
+                                                        </label>
+                                                    </div>
+                                                    <div class="appoint_con">
+                                                        <div class="date_con">
+                                                            <label for="date" class="date_label">
+                                                                Date:
+                                                            </label>
+                                                            <input type="date" id="date" name="date" class="date_field">
+                                                        </div>
+                                                        <div class="date_con">
+                                                            <label for="time" class="date_label">
+                                                                Time:
+                                                            </label>
+                                                            <input type="time" id="time" name="time" class="time_field">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex cancel_confirm_con">
+                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
+                                                            Cancel 
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"> 
+                                                            Confirm 
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
                             </div>
@@ -309,64 +309,64 @@
                                             </div> 
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
-                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong102">
+                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong102">
                                                 BOOK NOW
                                             </button>
-                                            <div class="modal fade" id="exampleModalLong102" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
-                                                        <div class="modal-header customer_services_modal_header_inside">
-                                                            <div class="p-3 customer_services_modal_inside_con">
-                                                                <h3 class="customer_services_modal_title">
-                                                                    Deep Home Cleaning
-                                                                </h3>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Medium-Upper Class Residential Areas
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Apartments
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Condominiums
-                                                                    </label>
-                                                                </div>
-                                                                <div class="appoint_con">
-                                                                    <div class="date_con">
-                                                                        <label for="date" class="date_label">
-                                                                            Date:
-                                                                        </label>
-                                                                        <input type="date" id="date" name="date" class="date_field">
-                                                                    </div>
-                                                                    <div class="date_con">
-                                                                        <label for="time" class="date_label">
-                                                                            Time:
-                                                                        </label>
-                                                                        <input type="time" id="time" name="time" class="time_field">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-flex cancel_confirm_con">
-                                                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                                        Cancel 
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                                        Confirm 
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End of Modal Content -->
-                                                </div>
-                                            </div> <!-- End of Modal -->
                                         </div>
                                     </div> <!-- End of Modal Content --> 
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                <div class="modal fade" id="exampleModalLong102" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
+                                            <div class="modal-header customer_services_modal_header_inside">
+                                                <div class="p-3 customer_services_modal_inside_con">
+                                                    <h3 class="customer_services_modal_title">
+                                                        Deep Home Cleaning
+                                                    </h3>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Medium-Upper Class Residential Areas
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Apartments
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Condominiums
+                                                        </label>
+                                                    </div>
+                                                    <div class="appoint_con">
+                                                        <div class="date_con">
+                                                            <label for="date" class="date_label">
+                                                                Date:
+                                                            </label>
+                                                            <input type="date" id="date" name="date" class="date_field">
+                                                        </div>
+                                                        <div class="date_con">
+                                                            <label for="time" class="date_label">
+                                                                Time:
+                                                            </label>
+                                                            <input type="time" id="time" name="time" class="time_field">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex cancel_confirm_con">
+                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
+                                                            Cancel 
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"> 
+                                                            Confirm 
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
                             </div>
@@ -459,64 +459,64 @@
                                             </div> 
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
-                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong103">
+                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong103">
                                                 BOOK NOW
                                             </button>
-                                            <div class="modal fade" id="exampleModalLong103" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
-                                                        <div class="modal-header customer_services_modal_header_inside">
-                                                            <div class="p-3 customer_services_modal_inside_con">
-                                                                <h3 class="customer_services_modal_title">
-                                                                    Deep Kitchen Cleaning
-                                                                </h3>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Medium-Upper Class Residential Areas
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Apartments
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Condominiums
-                                                                    </label>
-                                                                </div>
-                                                                <div class="appoint_con">
-                                                                    <div class="date_con">
-                                                                        <label for="date" class="date_label">
-                                                                            Date:
-                                                                        </label>
-                                                                        <input type="date" id="date" name="date" class="date_field">
-                                                                    </div>
-                                                                    <div class="date_con">
-                                                                        <label for="time" class="date_label">
-                                                                            Time:
-                                                                        </label>
-                                                                        <input type="time" id="time" name="time" class="time_field">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-flex cancel_confirm_con">
-                                                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                                        Cancel 
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                                        Confirm 
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End of Modal Content -->
-                                                </div>
-                                            </div> <!-- End of Modal -->
                                         </div>
                                     </div> <!-- End of Modal Content -->   
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                <div class="modal fade" id="exampleModalLong103" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
+                                            <div class="modal-header customer_services_modal_header_inside">
+                                                <div class="p-3 customer_services_modal_inside_con">
+                                                    <h3 class="customer_services_modal_title">
+                                                        Deep Kitchen Cleaning
+                                                    </h3>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Medium-Upper Class Residential Areas
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Apartments
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Condominiums
+                                                        </label>
+                                                    </div>
+                                                    <div class="appoint_con">
+                                                        <div class="date_con">
+                                                            <label for="date" class="date_label">
+                                                                Date:
+                                                            </label>
+                                                            <input type="date" id="date" name="date" class="date_field">
+                                                        </div>
+                                                        <div class="date_con">
+                                                            <label for="time" class="date_label">
+                                                                Time:
+                                                            </label>
+                                                            <input type="time" id="time" name="time" class="time_field">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex cancel_confirm_con">
+                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
+                                                            Cancel 
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"> 
+                                                            Confirm 
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
                             </div>
@@ -609,64 +609,64 @@
                                             </div> 
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
-                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong104">
+                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong104">
                                                 BOOK NOW
                                             </button>
-                                            <div class="modal fade" id="exampleModalLong104" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
-                                                        <div class="modal-header customer_services_modal_header_inside">
-                                                            <div class="p-3 customer_services_modal_inside_con">
-                                                                <h3 class="customer_services_modal_title">
-                                                                    Upholstery Cleaning
-                                                                </h3>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Medium-Upper Class Residential Areas
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Apartments
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Condominiums
-                                                                    </label>
-                                                                </div>
-                                                                <div class="appoint_con">
-                                                                    <div class="date_con">
-                                                                        <label for="date" class="date_label">
-                                                                            Date:
-                                                                        </label>
-                                                                        <input type="date" id="date" name="date" class="date_field">
-                                                                    </div>
-                                                                    <div class="date_con">
-                                                                        <label for="time" class="date_label">
-                                                                            Time:
-                                                                        </label>
-                                                                        <input type="time" id="time" name="time" class="time_field">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-flex cancel_confirm_con">
-                                                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                                        Cancel 
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                                        Confirm 
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End of Modal Content -->
-                                                </div>
-                                            </div> <!-- End of Modal -->
                                         </div>
                                     </div>  <!-- End of Modal Content --> 
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                <div class="modal fade" id="exampleModalLong104" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
+                                            <div class="modal-header customer_services_modal_header_inside">
+                                                <div class="p-3 customer_services_modal_inside_con">
+                                                    <h3 class="customer_services_modal_title">
+                                                        Upholstery Cleaning
+                                                    </h3>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Medium-Upper Class Residential Areas
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Apartments
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Condominiums
+                                                        </label>
+                                                    </div>
+                                                    <div class="appoint_con">
+                                                        <div class="date_con">
+                                                            <label for="date" class="date_label">
+                                                                Date:
+                                                            </label>
+                                                            <input type="date" id="date" name="date" class="date_field">
+                                                        </div>
+                                                        <div class="date_con">
+                                                            <label for="time" class="date_label">
+                                                                Time:
+                                                            </label>
+                                                            <input type="time" id="time" name="time" class="time_field">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex cancel_confirm_con">
+                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
+                                                            Cancel 
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"> 
+                                                            Confirm 
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
                             </div>
@@ -842,64 +842,64 @@
                                             </div> 
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
-                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong105">
+                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong105">
                                                 BOOK NOW
                                             </button>
-                                            <div class="modal fade" id="exampleModalLong105" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content modal_inside customer_services_modal_content_inside"> <!-- Modal Content-->
-                                                        <div class="modal-header customer_services_modal_header_inside">
-                                                            <div class="p-3 customer_services_modal_inside_con">
-                                                                <h3 class="customer_services_modal_title">
-                                                                    Maid for a Day
-                                                                </h3>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Medium-Upper Class Residential Areas
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Apartments
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Condominiums
-                                                                    </label>
-                                                                </div>
-                                                                <div class="appoint_con">
-                                                                    <div class="date_con">
-                                                                        <label for="date" class="date_label">
-                                                                            Date:
-                                                                        </label>
-                                                                        <input type="date" id="date" name="date" class="date_field">
-                                                                    </div>
-                                                                    <div class="date_con">
-                                                                        <label for="time" class="date_label">
-                                                                            Time:
-                                                                        </label>
-                                                                        <input type="time" id="time" name="time" class="time_field">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-flex cancel_confirm_con">
-                                                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                                        Cancel 
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                                        Confirm 
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End of Modal Content -->
-                                                </div>
-                                            </div> <!-- End of Modal -->
                                         </div>
                                     </div> <!-- End of Modal Content -->   
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                <div class="modal fade" id="exampleModalLong105" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content modal_inside customer_services_modal_content_inside"> <!-- Modal Content-->
+                                            <div class="modal-header customer_services_modal_header_inside">
+                                                <div class="p-3 customer_services_modal_inside_con">
+                                                    <h3 class="customer_services_modal_title">
+                                                        Maid for a Day
+                                                    </h3>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Medium-Upper Class Residential Areas
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Apartments
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Condominiums
+                                                        </label>
+                                                    </div>
+                                                    <div class="appoint_con">
+                                                        <div class="date_con">
+                                                            <label for="date" class="date_label">
+                                                                Date:
+                                                            </label>
+                                                            <input type="date" id="date" name="date" class="date_field">
+                                                        </div>
+                                                        <div class="date_con">
+                                                            <label for="time" class="date_label">
+                                                                Time:
+                                                            </label>
+                                                            <input type="time" id="time" name="time" class="time_field">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex cancel_confirm_con">
+                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
+                                                            Cancel 
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"> 
+                                                            Confirm 
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
                             </div>
@@ -992,64 +992,64 @@
                                             </div> 
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
-                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong106">
+                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong106">
                                                 BOOK NOW
                                             </button>
-                                            <div class="modal fade" id="exampleModalLong106" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
-                                                        <div class="modal-header customer_services_modal_header_inside">
-                                                            <div class="p-3 customer_services_modal_inside_con">
-                                                                <h3 class="customer_services_modal_title">
-                                                                    Sanitation and Germ Proofing
-                                                                </h3>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                                        Medium-Upper Class Residential Areas
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Apartments
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                                        Condominiums
-                                                                    </label>
-                                                                </div>
-                                                                <div class="appoint_con">
-                                                                    <div class="date_con">
-                                                                        <label for="date" class="date_label">
-                                                                            Date:
-                                                                        </label>
-                                                                        <input type="date" id="date" name="date" class="date_field">
-                                                                    </div>
-                                                                    <div class="date_con">
-                                                                        <label for="time" class="date_label">
-                                                                            Time:
-                                                                        </label>
-                                                                        <input type="time" id="time" name="time" class="time_field">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-flex cancel_confirm_con">
-                                                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                                        Cancel 
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                                        Confirm 
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> <!-- End of Modal Content -->
-                                                </div>
-                                            </div> <!-- End of Modal -->
                                         </div>
                                     </div> <!-- End of Modal Content -->
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                <div class="modal fade" id="exampleModalLong106" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content-->
+                                            <div class="modal-header customer_services_modal_header_inside">
+                                                <div class="p-3 customer_services_modal_inside_con">
+                                                    <h3 class="customer_services_modal_title">
+                                                        Sanitation and Germ Proofing
+                                                    </h3>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                            Medium-Upper Class Residential Areas
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Apartments
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                            Condominiums
+                                                        </label>
+                                                    </div>
+                                                    <div class="appoint_con">
+                                                        <div class="date_con">
+                                                            <label for="date" class="date_label">
+                                                                Date:
+                                                            </label>
+                                                            <input type="date" id="date" name="date" class="date_field">
+                                                        </div>
+                                                        <div class="date_con">
+                                                            <label for="time" class="date_label">
+                                                                Time:
+                                                            </label>
+                                                            <input type="time" id="time" name="time" class="time_field">
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex cancel_confirm_con">
+                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
+                                                            Cancel 
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"> 
+                                                            Confirm 
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
                             </div>

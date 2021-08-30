@@ -14,11 +14,11 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 </head>
-<body class="reg_body">
+<body class="reg_cleaner_body">
     <div class="register_con">
         <div class="row">
             <h4 class="register_label">
-                Register
+                Create an Account
             </h4>
             <form action="{{ route('auth.save') }}" method="post">
                 @if(Session::get('success'))
@@ -35,10 +35,10 @@
                 
                 @csrf
                 <div class="form-group">
-                        <input type="text" class="form-control reg_fields" name="full_name" placeholder="Full Name" value="{{ old('full_name') }}">
-                        <span class="text-danger">
-                            @error('full_name'){{ $message }} @enderror
-                        </span>
+                    <input type="text" class="form-control reg_fields" name="full_name" placeholder="Full Name" value="{{ old('full_name') }}">
+                    <span class="text-danger">
+                        @error('full_name'){{ $message }} @enderror
+                    </span>
                 </div>
                 <div class="form-group">
                     <input type="number" class="form-control reg_fields" name="age" placeholder="Age" value="{{ old('age') }}">
@@ -73,23 +73,34 @@
                 <div class="form-group">
                     <input id="password" type="password" class="form-control login_fields @error('password') is-invalid @enderror" name="password_confirmation" placeholder="Confirm Password" required autocomplete="current-password">
                 </div>
-                <div class="form-group">
-                    <label class="upload_label">
-                        Profile Picture:
-                    </label>
-                    <input type="file" name="profile_picture" class="form-control">
-                    <span class="text-danger">
-                        @error('profile_picture'){{ $message }} @enderror
-                    </span>
-                </div>
-                <div class="form-group">
-                    <label class="upload_label">
-                        Valid ID:
-                    </label>
-                    <input type="file" name="valid_id" class="form-control">
-                    <span class="text-danger">
-                        @error('valid_id'){{ $message }} @enderror
-                    </span>
+                <div class="upload_con">
+                    <div class="form-group">
+                        <label class="upload_label">
+                            Profile Picture
+                        </label>
+                        <input type="file" name="profile_picture" class="form-control upload_file">
+                        <span class="text-danger">
+                            @error('profile_picture'){{ $message }} @enderror
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="upload_label">
+                            Valid ID
+                        </label>
+                        <input type="file" name="valid_id" class="form-control upload_file">
+                        <span class="text-danger">
+                            @error('valid_id'){{ $message }} @enderror
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="upload_label">
+                            Requirement
+                        </label>
+                        <input type="file" name="requirement" class="form-control upload_file">
+                        <span class="text-danger">
+                            @error('requirement'){{ $message }} @enderror
+                        </span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control reg_fields" name="description" placeholder="Description" value="{{ old('description') }}">
@@ -97,16 +108,7 @@
                         @error('description'){{ $message }} @enderror
                     </span>
                 </div>
-                <div class="form-group">
-                    <label class="upload_label">
-                        Requirement:
-                    </label>
-                    <input type="file" name="requirement" class="form-control">
-                    <span class="text-danger">
-                        @error('requirement'){{ $message }} @enderror
-                    </span>
-                </div>
-                <button type="submit" class="register_btn">
+                <button type="submit" class="register_cleaner_btn">
                     Sign Up
                 </button>
                 <br>

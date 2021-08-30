@@ -18,7 +18,7 @@
     <div class="login_con">
         <div class="row">
             <h4 class="signin_label">
-                Sign In
+                Admin Area 🔐
             </h4>
             <form action="{{ route('auth.check') }}" method="post">
                 @if(Session::get('fail'))
