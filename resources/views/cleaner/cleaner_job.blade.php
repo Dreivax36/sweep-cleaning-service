@@ -83,7 +83,8 @@
     </div>
 
     <?php
-        $booking_data = Booking::Where('cleaner_id', $LoggedUserInfo['cleaner_id'] )->Where('status', '!=', 'Declined' )->Where('status', '!=', 'Done' )->Where('status', '!=' ,'Completed' )->get();
+        $id = $LoggedUserInfo['cleaner_id'];
+        $booking_data = Booking::Where('cleaner_id->value', '$id')->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
     ?>
     
     <div class="cleaner_job_con">
@@ -118,13 +119,13 @@
                             </h6>
 
                             <div class="d-flex view_details_con">
-                                <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10">
+                                <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
                                     DETAILS
                                 </button>
                                 @foreach($user_data as $key => $user)
                                 @foreach($address_data as $key => $address)
                                
-                                <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong10-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                     <div class="modal-dialog" role="document">
 
                                     <form action="{{ route('updateStatus') }}" method="post" id="myform"> <!-- Modal Content-->
@@ -142,7 +143,7 @@
 
                                         @csrf
 
-                                        <input type="hidden" name="service_id" value="{{ $value->service_id }}">
+                                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                             <div class="modal-content p-4 cleaner_job_modal_content">
                                                 <div class="modal-header cleaner_job_modal_header">
                                                 <div class="d-flex pt-5">
@@ -195,6 +196,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+                                                
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                     <div class="on_progress_con">
                                                         @if($value->status == "Accepted")
@@ -210,6 +212,7 @@
                                                         @endif
                                                     </div>
                                                 </div>
+                                                </form>
                                             </div>  
                                         
                                     

@@ -131,7 +131,7 @@
             </thead>
 
             <?php
-                $booking_data = Booking::Where('status', 'Completed')->orWhere('status', '=', 'Declined')->get();
+                $booking_data = Booking::Select('service_id','customer_id','property_type','mode_of_payment',)->Where('status', 'Completed')->orWhere('status', '=', 'Declined')->get();
             ?>
             @foreach($booking_data as $key => $value)
 
@@ -164,7 +164,7 @@
                         {{ $value -> mode_of_payment }}
                     </td>
                     <td class="user_table_data">
-                        {{ $value -> cleaner_id }}
+                 <!-- {{ $value -> cleaner_id }} -->       
                     </td>
                     <td class="user_table_data">
                     {{ $value -> status }}

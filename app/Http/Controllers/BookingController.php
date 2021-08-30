@@ -39,16 +39,25 @@ class BookingController extends Controller
     function updateStatus(Request $request){
  
         //Update data into database
-        //$comp_ids = implode(' ,',(array)$request->get('full_name')); 
-        $id = User::Where('full_name', $request->full_name)->value('user_id');
-        $user = Cleaner::Where('user_id', $id)->value('cleaner_id');
-       // $updateStatus= Booking::Where('service_id', $request->service_id )->update(['status' => $request->status, 'cleaner_id' => $request->cleaner_id] );
-        error_log(request('full_name'));
-        if($updateStatus){
-            return back()->with('success', 'Booking Status Updated');
+        $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
+      
+       if($updateStatus){
+           return back()->with('success', 'Booking Status Updated');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+    function assign(Request $request){
+ 
+        //Update data into database
+        $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status, 'cleaner_id'=> $request->cleaner_id] );
+       
+       if($updateStatus){
+           return back()->with('success', 'Booking Status Updated');
+        }
+        else {
+          return back()->with('fail','Something went wrong, try again later ');
         }
     }
 

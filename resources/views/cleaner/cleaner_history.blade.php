@@ -83,7 +83,7 @@
     <div class="cleaner_job_con">
 
         <?php
-            $booking_data = Booking::Where('cleaner_id', $LoggedUserInfo['cleaner_id'] )->Where('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
+            $booking_data = Booking::Where('cleaner_id->value', $LoggedUserInfo['cleaner_id'] )->Where('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
         ?>
         @foreach($booking_data as $key => $value)
 

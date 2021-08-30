@@ -227,16 +227,16 @@
                                                                         Time:
                                                                     </label>
                                                                         <input type="time" id="schedule_time" name="schedule_time">
-</form>    
                                                                     <div class="d-flex cancel_confirm_con">
                                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
                                                                             Cancel 
                                                                         </button>
-                                                                        <button form="book" type="submit" class="btn btn-block btn-primary confirm_btn"> 
+                                                                        <button  type="submit" class="btn btn-block btn-primary confirm_btn"> 
                                                                             Confirm 
                                                                         </button>
                                                                     </div>
-                                                                
+                                                                    </form>    
+
                                                             </div>
                                                         </div>
                                                     </div> <!-- End of Modal Content -->

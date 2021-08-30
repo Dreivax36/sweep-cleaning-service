@@ -37,6 +37,7 @@ Route::get('/update_account/{id}',[MainController::class, 'update_account'])->na
 
 //Booking Module
 Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
+Route::post('/assign',[BookingController::class, 'assign'])->name('assign');
 Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
 Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
 Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');

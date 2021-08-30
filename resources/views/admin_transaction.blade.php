@@ -64,8 +64,8 @@
     </header> <!-- End of Navbar -->
     <?php
         $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->get();
-        $transaction_count = Booking::Where('status', '!=', 'Completed')->orWhere('status', '!=', 'Declined')->count();
-        $history_count = Booking::Where('status', '=', 'Completed')->orWhere('status', '=', 'Declined')->count();
+        $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
+        $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->count();
     ?>
     <div class="row"> <!-- Sub Header -->  
         <a class="user_type_btn" id="active"  href="admin_transaction">
@@ -101,14 +101,11 @@
         $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
         $cleaner_data = User::Where('user_type', 'Cleaner' )->get();
     ?>
-    @foreach($service_data as $key => $data)
-    @foreach($price as $key => $price_data)
-    @foreach($user_data as $key => $user)
-    @foreach($address_data as $key => $address)
             <div class="column col_transaction">
                 <div class="card card_transaction p-4">
                     <div class="d-flex">
                         <i class="bi bi-card-checklist check_icon_outside"></i>
+                        @foreach($service_data as $key => $data)
                         <h3 class="service_title_trans">
                             {{ $data->service_name }}
                         </h3>
@@ -122,6 +119,8 @@
                     </div>
                     <div>
                         <table class="table table-striped user_info_table">
+                            @foreach($user_data as $key => $user)
+                            @foreach($address_data as $key => $address)
                             <tbody>
                                 <tr class="user_table_row">
                                     <th scope="row" class="user_table_header">
@@ -164,6 +163,7 @@
                                             {{ $data->service_name }}
                                         </h4>
                                     </div>
+                                    @endforeach
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 
@@ -182,7 +182,7 @@
 
                                     @csrf
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
-
+                                    @foreach($price as $key => $price_data)
                                     <div class="modal-body p-4">
                                         <ul class="customer_detail">
                                             <li>
@@ -231,7 +231,12 @@
                                             </li>       
                                         </ul>
                                     </div>
-                                @if($value->status == "Pending")
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                    <input type="hidden" name="status" value="Declined">
+                                </form>
+                                @endforeach
+                                @endforeach
+                                
                                     <div class="modal-footer trans_modal_footer">
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}">
                                             ACCEPT
@@ -240,7 +245,7 @@
                                             DECLINE
                                         </button>
                                     </div>
-                                @endif
+                                
                                 <div class="modal-footer customer_services_modal_footer">
                                 <div class="modal fade" id="exampleModalLong101-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
                                     <div class="modal-dialog" role="document">
@@ -253,8 +258,8 @@
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
-                                            
-                                            <form action="{{ route('updateStatus') }}" method="post" >
+                                            @endforeach
+                                            <form action="{{ route('assign') }}" method="post" >
                                                 @if(Session::get('success'))
                                                     <div class="alert alert-success">
                                                         {{ Session::get('success') }}
@@ -269,15 +274,21 @@
                                                                     
                                                 @csrf
                                                 {{ csrf_field() }}
+                                                <?php
+                                                    $index = 0;
+                                                ?>
                                                 @foreach($cleaner_data as $key => $cleaner)
-                    
+                                                
                                                 <br>
-                                                <input type="hidden" name="service_id" value="{{ $value->service_id }}">
+                                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                 <input type="hidden" name="status" value="Accepted">
                                                 <fieldser>
-                                                    <input type="checkbox" id="full_name" name="full_name[]" value="{{ $cleaner->full_name }}">
+                                                    <input type="checkbox" id="cleaner_id" name="cleaner_id[{{ $index }}][value]" value="{{ $cleaner->user_id }}">
                                                     <label for="full_name"> {{ $cleaner->full_name }}</label><br>
                                                 </fieldset>
+                                                <?php
+                                                    $index ++;
+                                                ?>
                                                 @endforeach
                                                                 
                                                 <br>
@@ -297,20 +308,12 @@
                             </div> <!-- End of Modal Content -->   
                             </div>
                         </div> <!-- End of Modal -->
-                        @endforeach
-                        @endforeach
                     </div>
                 </div>
-                
-    
             </div>
-           
-           
-            @endforeach
+            @endforeach  
         </div>
-        
-    @endforeach
-    @endforeach    
+  
     </div>
     
 </body>
