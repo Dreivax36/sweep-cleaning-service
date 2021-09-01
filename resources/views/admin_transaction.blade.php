@@ -217,9 +217,14 @@
                                                 <b>Price:</b> P{{ $price_data->price }}
                                             </li>
                                             <br>
-
+                                        
                                             <?php
-                                                $cleaner_id = Cleaner::Where('cleaner_id', $value->cleaner_id )->value('user_id');
+                                                $id = Booking::Where('server_id', $value->service_id )->value('cleaner_id->value');
+                                            ?>
+                                            @foreach($id as $key => $cleaner)
+                                            <?php
+
+                                                $cleaner_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id )->value('user_id');
                                                 $full = User::Where('user_id', $cleaner_id )->value('full_name');
                                             ?>
                                             
@@ -228,7 +233,8 @@
                                             </li>
                                             <li class="list_booking_info">
                                                 <b>Name:</b> {{ $full }}
-                                            </li>       
+                                            </li>
+                                            @endforeach      
                                         </ul>
                                     </div>
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">

@@ -44,6 +44,9 @@
                     Login
                 </button>
                 <br>
+                <a class="login_link_btn" href="{{ route('auth.register') }}"> 
+                    Create Account
+                </a>
         </div>
     </div>
 </body>
