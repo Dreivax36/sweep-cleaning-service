@@ -110,10 +110,7 @@
                 <thead>
                     <tr class="user_table_row">
                         <th class="text-center user_table_header">
-                            First Name
-                        </th>
-                        <th class="text-center user_table_header">
-                            Last Name
+                            Full Name
                         </th>
                         <th class="text-center user_table_header">
                             Age
@@ -131,9 +128,14 @@
                             Valid ID
                         </th>
                         <th class="text-center user_table_header">
+                            Description
+                        </th>
+                        <th class="text-center user_table_header">
                             Requirement
                         </th>
-                        <th class="text-center user_table_header"></th>
+                        <th class="text-center user_table_header">
+                            
+                        </th>
                     </tr>
                 </thead>
 

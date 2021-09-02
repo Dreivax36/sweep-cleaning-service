@@ -219,7 +219,7 @@
                                             <br>
                                         
                                             <?php
-                                                $id = Booking::Where('server_id', $value->service_id )->value('cleaner_id->value');
+                                                $id = Booking::Where('service_id', $value->service_id )->get();
                                             ?>
                                             @foreach($id as $key => $cleaner)
                                             <?php

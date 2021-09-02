@@ -96,8 +96,8 @@
                         <div class="d-flex flex-column">
                             
                             <?php
-                                $price_start = Price::Where('property_type', 'Apartments' )->value('price');
-                                $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas' )->value('price');
+                                $price_start = Price::Where('property_type', 'Apartments' )->Where('service_id', $value->service_id )->value('price');
+                                $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas' )->Where('service_id', $value->service_id )->value('price');
                             ?>
 
                             <h3 class="customer_services_title">
