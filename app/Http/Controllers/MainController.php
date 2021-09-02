@@ -253,8 +253,10 @@ class MainController extends Controller
         ]);
 
             // Save the file locally in the storage/public/ folder under a new folder named /product
-            $request->profile_picture->store('user', 'public');
-            $request->valid_id->store('user', 'public');
+            $profile = time().'.'.$request->profile_picture->extension();
+            $request->profile_picture->move(public_path('profile_picture'),$profile);
+            $validId = time().'.'.$request->valid_id->extension();
+            $request->valid_id->move(public_path('valid_id'),$validId);
 
             //Insert data into database
             $users = new User;
@@ -262,7 +264,7 @@ class MainController extends Controller
             $users->email = $request->email;
             $users->contact_number = $request->contact_number;
             $users->password = Hash::make($request->password);
-            $users->profile_picture = $request->profile_picture->hashName();
+            $users->profile_picture = $profile;
             $users->account_status = 'To_verify';
             $users->user_type = 'Cleaner';
             $cleaner_save = $users->save();
@@ -271,7 +273,7 @@ class MainController extends Controller
 
             $identifications = new Identification;
             $identifications->user_id = $id;
-            $identifications->valid_id = $request->valid_id->hashName();
+            $identifications->valid_id = $validId;
             $customer_save = $identifications->save();
         
             $cleaners = new Cleaner;

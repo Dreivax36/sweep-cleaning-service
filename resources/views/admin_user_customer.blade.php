@@ -175,7 +175,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="card admin_profile_avatar_con">
-                                    <img class="card-img-top profile_avatar_img" src="{{asset('/storage/user/'.$valid_id ) }}" alt="profile_picture" />
+                                    <img class="card-img-top profile_avatar_img" src="{{asset('/public/user/'.$valid_id ) }}" alt="profile_picture" />
                                     
                                 </div>
                             </div>
