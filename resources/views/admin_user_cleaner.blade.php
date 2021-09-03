@@ -188,7 +188,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="card admin_profile_avatar_con">
-                                    <img class="card-img-top profile_avatar_img" src="{{asset('/storage/user/'.$clearance->requirement ) }}" alt="profile_picture" />
+                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$valid_id ) }}" alt="profile_picture" />
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -203,12 +203,12 @@
                         </td>
                         <td class="user_table_data">
                              <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter-{{ $value->user_id }}">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter1-{{ $value->user_id }}">
                         view
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="exampleModalCenter1-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -219,7 +219,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="card admin_profile_avatar_con">
-                                    <img class="card-img-top profile_avatar_img" src="{{asset('/storage/user/'.$clearance->requirement ) }}" alt="profile_picture" />
+                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$clearance->requirement ) }}" alt="profile_picture" />
                                 </div>
                             </div>
                             <div class="modal-footer">

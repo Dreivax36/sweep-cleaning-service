@@ -124,13 +124,9 @@ class MainController extends Controller
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
             // Save the file locally in the storage/public/ folder under a new folder named /user
-            $request->profile_picture->store('user', 'public');
-            $request->valid_id->store('user', 'public');
+            $profile = time().'.'.$request->profile_picture->extension();
+            $request->profile_picture->move(public_path('images'),$profile);
             
-           
-            //$profile_path = $request->file('profile_picture')->store('public/images');
-          //  $id_path = $request->file('valid_id')->store('public/images');
-
             //Insert data into database
             $users = new User;
             $users->full_name = $request->full_name;
@@ -138,16 +134,18 @@ class MainController extends Controller
             $users->contact_number = $request->contact_number;
             $users->password = Hash::make($request->password);
             // Store the record, using the new file hashname which will be it's new filename identity.
-            $users->profile_picture = $request->profile_picture->hashName();
+            $users->profile_picture = $profile;
             $users->account_status = 'To_verify';
             $users->user_type = 'Customer';
             $customer_save = $users->save();
 
             $id = $users->user_id;
+            $validID = time().'.'.$request->valid_id->extension();
+            $request->valid_id->move(public_path('images'),$validID);
 
             $identifications = new Identification;
             $identifications->user_id = $id;
-            $identifications->valid_id =  $request->valid_id->hashName();
+            $identifications->valid_id =  $validID;
             $customer_save = $identifications->save();
            
             $customers = new Customer;
@@ -249,14 +247,15 @@ class MainController extends Controller
             'contact_number'=>'required',
             'password'=>'required|confirmed|min:5|max:12',
             'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg', // Only allow .jpg, .bmp and .png file types.
-            'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
+            'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'description'=>'required',
+            'requirement' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
 
             // Save the file locally in the storage/public/ folder under a new folder named /product
             $profile = time().'.'.$request->profile_picture->extension();
-            $request->profile_picture->move(public_path('profile_picture'),$profile);
-            $validId = time().'.'.$request->valid_id->extension();
-            $request->valid_id->move(public_path('valid_id'),$validId);
+            $request->profile_picture->move(public_path('images'),$profile);
+            
 
             //Insert data into database
             $users = new User;
@@ -270,7 +269,9 @@ class MainController extends Controller
             $cleaner_save = $users->save();
 
             $id = $users->user_id;
-
+            $validId = time().'.'.$request->valid_id->extension();
+            $request->valid_id->move(public_path('images'),$validId);
+            
             $identifications = new Identification;
             $identifications->user_id = $id;
             $identifications->valid_id = $validId;
@@ -281,11 +282,13 @@ class MainController extends Controller
             $cleaners->age = $request->age;
             $cleaners->address = $request->address;
             $cleaner_save = $cleaners->save();
-
+            
+            $require = time().'.'.$request->requirement->extension();
+            $request->requirement->move(public_path('images'),$require);
             $id = $cleaners->cleaner_id;
             $clearances = new Clearance;
             $clearances->cleaner_id = $id;
-            $clearances->requirement = $request->requirement;
+            $clearances->requirement = $require;
             $clearances->description = $request->description;
             $cleaner_save = $clearances->save();
 
