@@ -14,7 +14,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 </head>
-<body class="login_body">
+<body class="login_customer_body">
     <div class="login_con">
         <div class="row">
             <h4 class="signin_label">
@@ -40,7 +40,7 @@
                         @error('password'){{ $message }} @enderror
                     </span>
                 </div>
-                <button type="submit" class="login_btn">
+                <button type="submit" class="login_customer_btn">
                     Login
                 </button>
                 <br>

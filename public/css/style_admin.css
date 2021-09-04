@@ -156,14 +156,41 @@ a:hover {
 
 .login_body, 
 .reg_body {
-    background-color: #CCCCCC;
+    background-color: #bdcae0;
 }
-.login_con, 
+.login_customer_body {
+    background-image: url("/img/customer_bg.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+.reg_customer_body {
+    background-color: #219EBC;
+}
+.login_cleaner_body {
+    background-image: url("/img/cleaner_bg.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+.reg_cleaner_body {
+    background-color: #e0996f;
+}
+.login_con {
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    width: 400px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 10px;
+    padding: 20px;
+}
 .register_con {
     margin: 0 auto;
     margin-top: 5%;
     margin-bottom: 10%;
-    width: 350px;
+    width: 450px;
     height: auto;
     background-color: #FFFFFF;
     border-radius: 20px;
@@ -180,19 +207,29 @@ a:hover {
     width: 100%;
     padding: 3px;
 }
+.upload_con {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
 .upload_label {
     font-size: 15px;
-    float: left;
+    font-weight: bold;
     margin-top: 10px;
-    margin-right: 50px;
-    margin-left: 13px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.upload_file {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .login_btn, 
 .register_btn{
     width: 100%;
     height: 30px;
-    background-color: #c0aea4;
+    background-color: #e0996f;
     color: #fff;
     font-weight: bolder;
     font-size: 15px;
@@ -204,21 +241,60 @@ a:hover {
 .login_btn:hover, 
 .register_btn:hover
 {
-    border: #c0aea4 2px solid;
-    color: #c0aea4;
+    border: #e0996f 2px solid;
+    color: #e0996f;
     background-color: #fff;
 }
-
+.login_customer_btn, 
+.register_customer_btn{
+    width: 100%;
+    height: 30px;
+    background-color: #FB8500;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 15px;
+    border: none;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.login_customer_btn:hover, 
+.register_customer_btn:hover
+{
+    border: #FB8500 2px solid;
+    color: #FB8500;
+    background-color: #fff;
+}
+.login_cleaner_btn, 
+.register_cleaner_btn{
+    width: 100%;
+    height: 30px;
+    background-color: #219EBC;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 15px;
+    border: none;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.login_cleaner_btn:hover, 
+.register_cleaner_btn:hover
+{
+    border: #219EBC 2px solid;
+    color: #219EBC;
+    background-color: #fff;
+}
 .signin_label, 
 .register_label{
     color: #1A5184;
+    font-size: 25px;
 }
 .login_link_btn,
 .register_link_btn  {
     font-size: 12px;
     font-style: italic;
 }
-
 
 
 /* Admin Dashboard */

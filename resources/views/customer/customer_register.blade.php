@@ -14,11 +14,11 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 </head>
-<body class="reg_body">
+<body class="reg_customer_body">
     <div class="register_con">
         <div class="row">
             <h4 class="register_label">
-                Register
+                Create an Account
             </h4>
             <form action="{{ route('customer.customer_save') }}" method="post" enctype="multipart/form-data">
                 @if(Session::get('success'))
@@ -67,25 +67,27 @@
                 <div class="form-group">
                     <input id="password" type="password" class="form-control login_fields @error('password') is-invalid @enderror" name="password_confirmation" placeholder="Confirm Password" required autocomplete="current-password">
                 </div>
-                <div class="form-group">
-                    <label class="upload_label">
-                        Profile Picture:
-                    </label>
-                    <input type="file" name="profile_picture" class="form-control">
-                    <span class="text-danger">
-                        @error('profile_picture'){{ $message }} @enderror
-                    </span>
+                <div class="upload_con">
+                    <div class="form-group">
+                        <label class="upload_label">
+                            Profile Picture
+                        </label>
+                        <input type="file" name="profile_picture" class="form-control upload_file">
+                        <span class="text-danger">
+                            @error('profile_picture'){{ $message }} @enderror
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label class="upload_label">
+                            Valid ID
+                        </label>
+                        <input type="file" name="valid_id" class="form-control upload_file">
+                        <span class="text-danger">
+                            @error('valid_id'){{ $message }} @enderror
+                        </span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="upload_label">
-                        Valid ID:
-                    </label>
-                    <input type="file" name="valid_id" class="form-control">
-                    <span class="text-danger">
-                        @error('valid_id'){{ $message }} @enderror
-                    </span>
-                </div>
-                <button type="submit" class="register_btn">
+                <button type="submit" class="register_customer_btn">
                     Sign Up
                 </button>
                 <br>
