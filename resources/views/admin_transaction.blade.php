@@ -260,7 +260,7 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
-                                        <button type="button" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
                                     @endif    
