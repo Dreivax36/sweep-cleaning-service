@@ -173,7 +173,7 @@
                                     
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-                                @foreach($price as $price_data)
+                                
                                 <form action="{{ route('updateStatus') }}" method="post" id="myform">
                                     @if(Session::get('success'))
                                         <div class="alert alert-success">
@@ -212,7 +212,7 @@
                                             <li class="list_booking_info">
                                                 <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                             </li>
-                                            
+                                            @foreach($price as $price_data)
                                             <li class="list_booking_info">
                                                 <b>Cleaner/s:</b> {{ $price_data->number_of_cleaner}}
                                             </li>
@@ -265,11 +265,11 @@
                                             ACCEPT
                                         </button>
                                     @endif
-                                      
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Pending">
+                                    @if($value->status == "Pending")    
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
                                             DECLINE
                                         </button>
-                                   
+                                    @endif
                                 </div>
                             </div>
                         @endforeach  
@@ -326,13 +326,12 @@
                                                 @foreach($cleanerid as $id)
                                                     <?php
                                                           $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');
-                                                          if ( $user != $cleaner->user_id ){
+                                                    ?>
+                                                        @if ( $user != $cleaner->user_id )
                                                               $userid = $cleaner->user_id;
                                                               $fullname = User::Where('user_id', $userid )->value('full_name');
-                                                          }                       
-                                                    ?>
-                                                
-                                                <option  value="{{  $userid }}">{{ $fullname }}</option>
+                                                              <option  value="{{  $userid }}">{{ $fullname }}</option>
+                                                        @endif
                                                 @endforeach    
                                                 @endforeach
                                                 
