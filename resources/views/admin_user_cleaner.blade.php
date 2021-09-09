@@ -77,7 +77,7 @@
             ({{ $customer_count }})
             </p>
         </a>
-        <a class="user_type_btn_cleaner" id="active"  href="admin_user_cleaner">
+         <a class="user_type_btn_cleaner" id="active"  href="admin_user_cleaner">
             CLEANER 
             <p class="total_value">
             ({{ $cleaner_count }})
@@ -142,28 +142,26 @@
                 <?php
                     $user_data = User::Where('user_type', 'Cleaner')->get();
                 ?>
-                @foreach($user_data as $key => $value)
-
+                @foreach($user_data as $value)
                 <?php
                     $id = Cleaner::Where('user_id', $value->user_id)->value('cleaner_id');
                     $cleaner_id = Cleaner::Where('user_id', $value->user_id)->get();
                     $clearance_data = Clearance::Where('cleaner_id', $id)->get();
-                    $valid_id = Identification::Where('user_id', $value->user_id )->value('valid_id');
+                    $valid_id = Identification::Where('user_id', $value->user_id )->get();
                 ?>
-                @foreach($cleaner_id as $key => $cleaner)
-                @foreach($clearance_data as $key => $clearance)
-
                 <tbody>
                     <tr class="user_table_row">
                         <td class="user_table_data">
                             {{ $value->full_name }}
                         </td>
+                        @foreach($cleaner_id as $key => $cleaner)
                         <td class="user_table_data">
                             {{ $cleaner->age }}
                         </td>
                         <td class="user_table_data">
                             {{ $cleaner->address }}
                         </td>
+                        @endforeach
                         <td class="user_table_data">
                             {{ $value->email }}
                         </td>
@@ -172,12 +170,12 @@
                         </td>
                         <td class="user_table_data">
                                  <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter-{{ $value->user_id }}">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#validID-{{ $value->user_id }}">
                         view
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="validID-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -186,11 +184,13 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            @foreach($valid_id as $identity)
                             <div class="modal-body">
                                 <div class="card admin_profile_avatar_con">
-                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$valid_id ) }}" alt="profile_picture" />
+                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$identity->valid_id ) }}" alt="profile_picture" />
                                 </div>
                             </div>
+                            @endforeach
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
@@ -198,37 +198,39 @@
                         </div>
                         </div>
                         </td>
+                        @foreach($clearance_data as $clearance)
                         <td class="user_table_data">
                             {{ $clearance->description }}
                         </td>
                         <td class="user_table_data">
                              <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter1-{{ $value->user_id }}">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requirement-{{ $value->user_id }}">
                         view
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter1-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Requirement</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="card admin_profile_avatar_con">
-                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$clearance->requirement ) }}" alt="profile_picture" />
+                        <div class="modal fade" id="requirement-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Requirement</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card admin_profile_avatar_con">
+                                            <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$clearance->requirement ) }}" alt="profile_picture" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-                            </div>
-                        </div>
                         </div>
                         </td>
+                        @endforeach
                         <td class="user_table_data">
                             @if($value->account_status == "To_verify")
                             <div class="verify_con">
@@ -243,8 +245,6 @@
                         </td>
                     </tr>
                 </tbody>
-                @endforeach
-                @endforeach
                 @endforeach 
             </table>
         </div>
