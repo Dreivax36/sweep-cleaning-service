@@ -268,7 +268,7 @@
                                         <button form="updatestatus" type="submit" class="btn btn-block btn-primary decline_btn" name="booking_id" value="{{ $value->booking_id }}" name="status" value="Pending">
                                        
                                         </button>
-                                    @endif
+                                  
                                 </div>
                                 
                             </div>
