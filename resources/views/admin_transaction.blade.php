@@ -264,11 +264,11 @@
                                             ACCEPT
                                         </button>
                                     @endif
-                                    @if($value->status == "Pending")    
+                                    
                                         <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Pending">
                                             DECLINE
                                         </button>
-                                    @endif
+                                   
                                 </div>
                             </div>
                         @endforeach  
