@@ -248,9 +248,7 @@
                                     @endif
 
                                     @csrf
-                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                      
-
                                     </form>
                                 <?php
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
@@ -262,13 +260,13 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
-                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
+                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary accept_btn" name="booking_id" value="{{ $value->booking_id }}" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
                                     @endif
-                                    @if($value->status == "Pending")    
-                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
-                                            DECLINE
+                                    
+                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary decline_btn" name="booking_id" value="{{ $value->booking_id }}" name="status" value="Pending">
+                                       
                                         </button>
                                     @endif
                                 </div>
