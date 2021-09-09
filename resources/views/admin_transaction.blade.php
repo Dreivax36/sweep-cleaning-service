@@ -188,6 +188,7 @@
                                     @endif
 
                                     @csrf
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                     
                                     <div class="modal-body p-4">
@@ -248,8 +249,8 @@
                                             
                                         </ul>
                                     </div>
-                                    <input type="text" name="booking_id" value="{{ $value->booking_id }}">
-                                </form>
+                                    
+                                
                                 <?php
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
@@ -264,12 +265,13 @@
                                             ACCEPT
                                         </button>
                                     @endif
-                                    
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Pending">
+                                    @if($value->status == "Pending")    
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
                                             DECLINE
                                         </button>
-                                   
+                                    @endif
                                 </div>
+                                </form>
                             </div>
                         @endforeach  
                         @endforeach 
