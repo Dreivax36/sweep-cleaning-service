@@ -327,7 +327,7 @@
                                                 
                                                 </select> <br>    
                                                 <?php
-                                                    $total_cleaner --;
+                                                    $total --;
                                                 ?>
                                                 @endwhile
                                                 <br>
