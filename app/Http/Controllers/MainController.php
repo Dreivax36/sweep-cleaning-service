@@ -65,7 +65,7 @@ class MainController extends Controller
         }else{
             //check password
             if(Hash::check($request->password, $userInfo->password)){
-                $request->session()->put('LoggedUser', $userInfo->id);
+                $request->session()->put('LoggedUser', $userInfo->admin_id);
                 return redirect('/admin_dashboard');
             }else{
                 return back()->with('fail', 'Incorrect password');
@@ -172,7 +172,7 @@ class MainController extends Controller
             'password'=>'required|min:5|max:12'
         ]);
 
-        $userInfo = User::where('email','=', $request->email)->first();
+        $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Customer')->first();
 
         if(!$userInfo){
             return back()->with('fail', 'We do not recognize your email address');
@@ -307,7 +307,7 @@ class MainController extends Controller
             'password'=>'required|min:5|max:12'
         ]);
 
-        $userInfo = User::where('email','=', $request->email)->first();
+        $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Cleaner')->first();
 
         if(!$userInfo){
             return back()->with('fail', 'We do not recognize your email address');

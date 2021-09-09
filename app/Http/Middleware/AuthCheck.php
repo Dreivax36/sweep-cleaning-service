@@ -17,29 +17,27 @@ class AuthCheck
     public function handle(Request $request, Closure $next)
     {
       
-        if($request->path() =='sweep_welcome' || $request->path() =='auth/login' || $request->path() =='auth/register'){
-            if(!session()->has('LoggedUser')  && ($request->path() !='auth/login' && $request->path() !='auth/register')){
+        if(!session()->has('LoggedUser' ) && $request->path() !='/' ) {
+            if ( $request->path() =='cleaner/cleaner_dashboard' || $request->path() =='cleaner/cleaner_history' ||  $request->path() =='cleaner/cleaner_profile' || $request->path() =='cleaner/cleaner_job'){
+                return redirect('cleaner/cleaner_login')->with('fail', 'You must be logged in');
+            }
+            if ( $request->path() =='customer/customer_dashboard' || $request->path() =='customer/customer_history' || $request->path() =='customer/customer_profile' ||  $request->path() =='customer/customer_services' || $request->path() =='customer/customer_transaction' ){
+                return redirect('customer/customer_login')->with('fail', 'You must be logged in');
+            }
+            if ($request->path() =='admin_dashboard' || $request->path() =='admin_payroll_cleaner' || $request->path() =='admin_payroll_employee' && $request->path() =='admin_payroll' && $request->path() =='admin_services' && $request->path() =='admin_transaction_history' && $request->path() =='admin_transaction' && $request->path() =='admin_user_cleaner' && $request->path() =='admin_user_customer' && $request->path() =='admin_user' ){
                 return redirect('auth/login')->with('fail', 'You must be logged in');
             }
-            if(session()->has('LoggedUser')  && ($request->path() =='auth/login' || $request->path() =='auth/register')){
+            
+        }
+        
+        elseif(session()->has('LoggedUser')){ 
+            if ($request->path() =='auth/login' || $request->path() =='auth/register' || $request->path() =='/' ){
                 return back();
             }
-        }
-
-        elseif($request->path() =='sweep_welcome' || $request->path() =='customer/customer_login' || $request->path() =='customer/customer_register'){
-            if(!session()->has('LoggedUser')  && ($request->path() !='customer/customer_login' && $request->path() !='customer/customer_register')){
-                return redirect('/customer/customer_login')->with('fail', 'You must be logged in');
-            }
-            elseif(session()->has('LoggedUser')  && ($request->path() =='customer/customer_login' || $request->path() =='customer/customer_register')){
+            elseif ($request->path() =='customer/customer_login' || $request->path() =='customer/customer_register' || $request->path() =='/'){
                 return back();
             }
-        }
-
-        elseif($request->path() =='sweep_welcome' || $request->path() =='cleaner/cleaner_login' || $request->path() =='cleaner/cleaner_register'){
-            if(!session()->has('LoggedUser')  && ($request->path() !='cleaner/cleaner_login' && $request->path() !='cleaner/cleaner_register')){
-                return redirect('/cleaner/cleaner_login')->with('fail', 'You must be logged in');
-            }
-            elseif(session()->has('LoggedUser')  && ($request->path() =='cleaner/cleaner_login' || $request->path() =='cleaner/cleaner_register')){
+            elseif ($request->path() =='cleaner/cleaner_login' || $request->path() =='cleaner/cleaner_register' || $request->path() =='/'){
                 return back();
             }
         }

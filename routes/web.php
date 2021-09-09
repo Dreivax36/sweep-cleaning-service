@@ -21,7 +21,7 @@ use App\Http\Controllers\BookingController;
 Route::resource('services', ServiceController::class);
 Route::post('/store',[ServiceController::class, 'store'])->name('store');
 Route::get('/store',[ServiceController::class, 'store'])->name('store');
-Route::get('/destroy/{id}',[ServiceController::class, 'destroy'])->name('destroy');
+Route::post('/destroy',[ServiceController::class, 'destroy'])->name('destroy');
 Route::post('/update',[ServiceController::class, 'update'])->name('update');
 Route::get('/update',[ServiceController::class, 'update'])->name('update');
 Route::get('/admin_services',[ServiceController::class, 'admin_services'])->name('admin_services'); 
@@ -37,7 +37,8 @@ Route::get('/update_account/{id}',[MainController::class, 'update_account'])->na
 
 //Booking Module
 Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
-Route::post('/assign',[BookingController::class, 'assign'])->name('assign');
+Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
+Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
 Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
 Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');

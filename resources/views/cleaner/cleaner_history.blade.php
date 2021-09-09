@@ -6,6 +6,7 @@
     use App\Models\Address;
     use App\Models\User;
     use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
 ?>
 @extends('head_extention_cleaner') 
 
@@ -80,10 +81,14 @@
             </h1> 
         </div>
     </div>
+    <?php
+        $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+        $booking = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', 'Declined')->get();
+    ?>
     <div class="cleaner_job_con">
-
+        @foreach($booking as $key => $booking)
         <?php
-            $booking_data = Booking::Where('cleaner_id->value', $LoggedUserInfo['cleaner_id'] )->Where('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
+            $booking_data = Booking::where('booking_id', $booking->booking_id)->orWhere('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
         ?>
         @foreach($booking_data as $key => $value)
 
@@ -207,6 +212,7 @@
         </div>
 
     </div>
+    @endforeach
     @endforeach
     @endforeach
     @endforeach

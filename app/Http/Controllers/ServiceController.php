@@ -139,7 +139,7 @@ class ServiceController extends Controller
             'condo_price'=>'required'
         ]);
 
-        $id = Service::Where('service_name', $request->service_name)->value('service_id');
+        $id = $request->service_id;
         $update= Service::Where('service_id', $id )->update(['service_name' => $request->service_name, 'service_description' => $request->description,'equipment' => $request->equipment, 'material' => $request->material, 'personal_protection' => $request->personal_protection]);
         $update= Price::Where('service_id', $id )->Where('property_type', 'Medium-Upper Class Residential Areas' )->update(['price' => $request->resident_price, 'number_of_cleaner' => $request->resident_number_of_cleaner]);
         $update= Price::Where('service_id', $id )->Where('property_type', 'Apartments' )->update(['price' => $request->apartment_price, 'number_of_cleaner' => $request->apartment_number_of_cleaner]);
@@ -161,8 +161,9 @@ class ServiceController extends Controller
      */
     public function destroy(Request $request, Service $service)
     {
-        $deleteService= Price::Where('service_id', $request->route('id') )->delete(); 
-        $deleteService= Service::Where('service_id', $request->route('id') )->delete(); 
+        $id =  $request->service_id;
+        $deleteService= Price::Where('service_id', $id )->delete(); 
+        $deleteService= Service::Where('service_id', $id )->delete(); 
     
         if($deleteService){   
             return back()->with('success', 'Service Updated');

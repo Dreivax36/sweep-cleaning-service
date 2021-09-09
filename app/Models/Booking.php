@@ -12,11 +12,7 @@ class Booking extends Model
     protected $primaryKey = 'booking_id';
 
     protected $fillable = [
-        'customer_id', 'cleaner', 'service_id', 'property_type', 'schedule_date', 'schedule_time', 'mode_of_payment'.'status', 'is_paid'
-    ];
-
-    protected $casts = [
-        'cleaner_id' => 'array'
+        'customer_id', 'service_id', 'property_type', 'schedule_date', 'schedule_time', 'mode_of_payment'.'status', 'is_paid'
     ];
 
 }

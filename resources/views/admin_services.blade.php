@@ -239,8 +239,7 @@
                                     <button type="button" data-toggle="modal" data-target="#updateService-{{ $value->service_id }}" class="btn btn-block btn-primary update_btn" class="close-modal">
                                         UPDATE
                                     </button>
-                                    @method('DELETE')
-                                    <button type="button" onclick='return confirm("Are you sure?")' href="{{ route('destroy', $value->service_id) }}" class="btn btn-block btn-primary delete_btn"  data-dismiss="modal">
+                                    <button type="button" data-toggle="modal" data-target="#delete-{{ $value->service_id }}"  class="btn btn-block btn-primary delete_btn" data-dismiss="modal">
                                         DELETE
                                     </button>
                                 </div>
@@ -249,6 +248,42 @@
                         </div> <!-- End of Modal -->
                     </div>
                 </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="delete-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <form action="{{ route('destroy') }}" method="post" id="delete">
+                        @if(Session::get('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
+
+                        @if(Session::get('fail'))
+                            <div class="alert alert-danger">
+                                {{ Session::get('fail') }}
+                            </div>
+                        @endif
+                        @csrf
+                    Are you sure you want to delete a service?
+   
+                </form> 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                    <button form="delete" type="submit"  name="service_id" value="{{$value->service_id}}" class="btn btn-danger">YES</button>
+                </div>
+                </div>
+            </div>
             </div>
             
             <!-- Modal for Updating a Service -->
@@ -285,7 +320,7 @@
                             </div>
                         @endif
                         @csrf
-                            
+                        <input type="hidden" name="service_id" value="{{ $value->service_id }}">   
                         <div class="form-group">
                             <input type="text" class="form-control w-100 add_service_form" id="service_title" name="service_name" placeholder="Service Name" value="{{ old('service_name',$value->service_name) }}">
                             <span class="text-danger">

@@ -8,6 +8,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Cleaner;
 use App\Models\Customer;
+use App\Models\Assigned_cleaner;
 class BookingController extends Controller
 {
     function admin_transaction(){
@@ -48,12 +49,29 @@ class BookingController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
-    function assign(Request $request){
+    function cleaner(Request $request){
  
         //Update data into database
-        $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status, 'cleaner_id'=> $request->cleaner_id] );
-       
-       if($updateStatus){
+        $updateCleaner = Assigned_cleaner::Where('booking_id', '=', $request->booking_id )->Where('cleaner_id', '=', $request->cleaner_id )->update(['status'=> $request->status ] );
+
+        if($updateCleaner){
+           return back()->with('success', 'Booking Status Updated');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+    function assignCleaner(Request $request){
+
+        foreach($request->input('cleaner_id') AS $cleaner_id){
+        $id = Cleaner::Where('user_id', $cleaner_id )->value('cleaner_id');
+        $assigned_cleaners = new Assigned_cleaner();
+        $assigned_cleaners->booking_id = $request->booking_id;
+        $assigned_cleaners->status = $request->status;
+        $assigned_cleaners->cleaner_id = $id;
+        $assign = $assigned_cleaners->save();
+        }
+       if($assign){
            return back()->with('success', 'Booking Status Updated');
         }
         else {
@@ -89,4 +107,6 @@ class BookingController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+
+    
 }

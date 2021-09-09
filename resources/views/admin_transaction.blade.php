@@ -6,6 +6,7 @@
     use App\Models\Address;
     use App\Models\User;
     use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
 ?>
 
 @extends('head_extention_admin') 
@@ -63,9 +64,10 @@
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
     <?php
-        $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->get();
+       
+        $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->get();
         $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
-        $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->count();
+        $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
     <div class="row"> <!-- Sub Header -->  
         <a class="user_type_btn" id="active"  href="admin_transaction">
@@ -96,10 +98,11 @@
         @foreach($booking_data as $key => $value)
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
-        $user_data = User::Where('user_id', $value->customer_id )->get();
-        $address_data = Address::Where('customer_id', $value->customer_id )->get();
+        $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
+        $user_data = User::Where('user_id', $userId )->get();
+        $address = Address::Where('customer_id', $value->customer_id )->value('address');
         $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
-        $cleaner_data = User::Where('user_type', 'Cleaner' )->get();
+        $cleaner_data = User::Where('user_type', 'Cleaner')->get();
     ?>
             <div class="column col_transaction">
                 <div class="card card_transaction p-4">
@@ -119,8 +122,8 @@
                     </div>
                     <div>
                         <table class="table table-striped user_info_table">
-                            @foreach($user_data as $key => $user)
-                            @foreach($address_data as $key => $address)
+                            @foreach($user_data as $user)
+                            
                             <tbody>
                                 <tr class="user_table_row">
                                     <th scope="row" class="user_table_header">
@@ -135,7 +138,7 @@
                                         Address:
                                     </th>
                                     <td class="user_table_data">
-                                        {{ $address->address }}
+                                        {{ $address }}
                                     </td>
                                 </tr>
                                 <tr class="user_table_row">
@@ -149,12 +152,16 @@
                             </tbody>
                         </table>
                     </div>
+                  
                     <div class="view_details_con">
-                        <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->service_id }}">
+                        <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
                             View Details
                         </button>
-                        <div class="modal fade" id="exampleModalLong10-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                            <div class="modal-dialog" role="document">
+                    </div> 
+                </div>
+            </div>          
+                    <div class="modal fade" id="details-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                        <div class="modal-dialog" role="document">
                             <div class="modal-content p-3 trans_modal_content"> <!-- Modal Content-->
                                 <div class="modal-header trans_modal_header">
                                     <div class="d-flex pt-5">
@@ -163,10 +170,10 @@
                                             {{ $data->service_name }}
                                         </h4>
                                     </div>
-                                    @endforeach
+                                    
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-                                
+                                @foreach($price as $price_data)
                                 <form action="{{ route('updateStatus') }}" method="post" id="myform">
                                     @if(Session::get('success'))
                                         <div class="alert alert-success">
@@ -182,7 +189,7 @@
 
                                     @csrf
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
-                                    @foreach($price as $key => $price_data)
+                                    
                                     <div class="modal-body p-4">
                                         <ul class="customer_detail">
                                             <li>
@@ -195,7 +202,7 @@
                                                 <b>Contact Number:</b> {{ $user->contact_number }}
                                             </li>
                                             <li class="list_booking_info">
-                                                <b>Address:</b> {{ $address->address }}
+                                                <b>Address:</b> {{ $address }}
                                             </li>
                                             <br>
                                             <li>
@@ -204,6 +211,7 @@
                                             <li class="list_booking_info">
                                                 <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                             </li>
+                                            
                                             <li class="list_booking_info">
                                                 <b>Cleaner/s:</b> {{ $price_data->number_of_cleaner}}
                                             </li>
@@ -217,43 +225,56 @@
                                                 <b>Price:</b> P{{ $price_data->price }}
                                             </li>
                                             <br>
-                                        
+                                            
                                             <?php
-                                                $id = Booking::Where('service_id', $value->service_id )->get();
-                                            ?>
-                                            @foreach($id as $key => $cleaner)
+                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->get();
+                                            ?> 
+                                            @if($id != null )
+                                            <li>
+                                                <b>Cleaners:</b>
+                                            </li>
+                                            @foreach($id as $cleaner)
                                             <?php
 
                                                 $cleaner_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id )->value('user_id');
                                                 $full = User::Where('user_id', $cleaner_id )->value('full_name');
+
                                             ?>
-                                            
-                                            <li>
-                                                <b>Cleaners:</b>
-                                            </li>
                                             <li class="list_booking_info">
                                                 <b>Name:</b> {{ $full }}
                                             </li>
-                                            @endforeach      
+                                            @endforeach  
+                                            @endif  
+                                            
                                         </ul>
                                     </div>
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                    <input type="hidden" name="status" value="Declined">
                                 </form>
-                                @endforeach
-                                @endforeach
-                                
-                                    <div class="modal-footer trans_modal_footer">
-                                        <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}">
+                                <div class="modal-footer trans_modal_footer">
+                                    @if($value->status == "Pending")
+                                        <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
+                                            ASSIGN
+                                        </button>
+                                    @endif
+                                    <?php
+                                        $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
+                                    ?>
+                                    @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
+                                        <button type="button" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
+                                    @endif    
                                         <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
                                             DECLINE
                                         </button>
-                                    </div>
-                                
-                                <div class="modal-footer customer_services_modal_footer">
-                                <div class="modal fade" id="exampleModalLong101-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
+                                </div>
+                            </div>
+                        @endforeach  
+                        @endforeach 
+                        </div> <!-- End of Modal Content -->   
+                    </div><!-- End of Modal -->
+                            <div class="modal-footer customer_services_modal_footer">
+                                <div class="modal fade" id="assign-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content p-3 trans_modal_content">  <!-- Modal content-->
                                             <div class="modal-header trans_modal_header">
@@ -264,8 +285,8 @@
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
-                                            @endforeach
-                                            <form action="{{ route('assign') }}" method="post" >
+                                            
+                                            <form action="{{ route('assignCleaner') }}" method="post" >
                                                 @if(Session::get('success'))
                                                     <div class="alert alert-success">
                                                         {{ Session::get('success') }}
@@ -281,22 +302,22 @@
                                                 @csrf
                                                 {{ csrf_field() }}
                                                 <?php
-                                                    $index = 0;
+                                                    $total_cleaner = $price_data->number_of_cleaner;
                                                 ?>
-                                                @foreach($cleaner_data as $key => $cleaner)
-                                                
+                                                @while($total_cleaner > 0)
                                                 <br>
                                                 <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                <input type="hidden" name="status" value="Accepted">
-                                                <fieldser>
-                                                    <input type="checkbox" id="cleaner_id" name="cleaner_id[{{ $index }}][value]" value="{{ $cleaner->user_id }}">
-                                                    <label for="full_name"> {{ $cleaner->full_name }}</label><br>
-                                                </fieldset>
-                                                <?php
-                                                    $index ++;
-                                                ?>
+                                                <input type="hidden" name="status" value="Pending">
+                                                <label for="cleaner">Cleaner: </label>
+                                                <select name="cleaner_id[]" id="cleaner" >
+                                                @foreach($cleaner_data as $key => $cleaner)
+                                                    <option  value="{{  $cleaner->user_id }}">{{ $cleaner->full_name }}</option>
                                                 @endforeach
-                                                                
+                                                </select> <br>    
+                                                <?php
+                                                    $total_cleaner --;
+                                                ?>
+                                                @endwhile
                                                 <br>
                                                 <div class="modal-footer trans_modal_footer">
                                                     <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal"> 
@@ -306,21 +327,14 @@
                                                         Confirm 
                                                     </button>
                                                 </div>
-                                                </form> 
+                                            </form> 
                                         </div> <!-- End of Modal Content --> 
                                     </div>
                                 </div>
-                                </div>
-                            </div> <!-- End of Modal Content -->   
                             </div>
-                        </div> <!-- End of Modal -->
-                    </div>
-                </div>
-            </div>
+                    @endforeach       
             @endforeach  
         </div>
-  
     </div>
-    
 </body>
 @endsection
