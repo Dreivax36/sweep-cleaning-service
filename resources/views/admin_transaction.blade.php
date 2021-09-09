@@ -248,27 +248,29 @@
                                     @endif
 
                                     @csrf
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                      
                                     </form>
-                                <?php
-                                    $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
-                                ?>
+                               
                                 <div class="modal-footer trans_modal_footer">
+                                    <?php
+                                        $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
+                                    ?>
                                     @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
-                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary accept_btn" name="booking_id" value="{{ $value->booking_id }}" name="status" value="Accepted">
+                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
                                     @endif
-                                    
-                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary decline_btn" name="booking_id" value="{{ $value->booking_id }}" name="status" value="Pending">
-                                       
+                                    @if($value->status == "Pending")    
+                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
+                                            DECLINE
                                         </button>
-                                  
+                                    @endif
                                 </div>
                                 
                             </div>
