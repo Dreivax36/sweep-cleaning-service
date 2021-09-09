@@ -174,22 +174,7 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 @foreach($price as $price_data)
-                                <form action="{{ route('updateStatus') }}" method="post" id="myform">
-                                    @if(Session::get('success'))
-                                        <div class="alert alert-success">
-                                            {{ Session::get('success') }}
-                                        </div>
-                                    @endif
-
-                                    @if(Session::get('fail'))
-                                        <div class="alert alert-danger">
-                                            {{ Session::get('fail') }}
-                                        </div>
-                                    @endif
-
-                                    @csrf
-                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                    <input type="hidden" name="service_id" value="{{ $value->service_id }}">
+                                
                                     
                                     <div class="modal-body p-4">
                                         <ul class="customer_detail">
@@ -249,8 +234,24 @@
                                             
                                         </ul>
                                     </div>
-                                    
-                                
+                                    <form action="{{ route('updateStatus') }}" method="post" id="updatestatus">
+                                    @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
+
+                                    @csrf
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                     
+
+                                    </form>
                                 <?php
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
@@ -261,17 +262,17 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
+                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
                                     @endif
                                     @if($value->status == "Pending")    
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
+                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
                                             DECLINE
                                         </button>
                                     @endif
                                 </div>
-                                </form>
+                                
                             </div>
                         @endforeach  
                         @endforeach 
