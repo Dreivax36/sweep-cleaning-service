@@ -304,22 +304,18 @@
                                                 <?php
                                                     if($statuscount == 0 && $statuscount == $price_data->number_of_cleaner){
                                                         $total = $price_data->number_of_cleaner;
+                                                        $cleaner_data = User::Where('user_type', 'Cleaner')->get();
                                                     }
                                                     else {
                                                         $total = ($price_data->number_of_cleaner) - $statuscount;
+                                                        $cleaner = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
+                                                        foreach($cleaner as $key => $id){
+                                                            $user = Cleaner::Where('cleaner_id', $id -> cleaner_id )->value('user_id');
+                                                            $cleaner_data = User::Where('user_id', $user)->get();
+                                                        }
                                                     }
-                                                
                                                 ?>
-                                                
                                                 @while($total > 0)
-                                                <?php
-                                                $cleaner = Assigned_cleaner::Where('status', 'Accepted')->orWhere('status', 'Declined')->value('cleaner_id');
-                                                ?>   
-                                                @foreach($cleaner as $key => $id)
-                                                <?php
-                                                    $user = Cleaner::Where('cleaner_id', $id -> cleaner-id )->get();
-                                                    $cleaner_data = User::Where('user_id', $user->user_id)->get();
-                                                ?>
                                                 <br>
                                                 <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                 <input type="hidden" name="status" value="Pending">
@@ -328,7 +324,7 @@
                                                 @foreach($cleaner_data as $key => $cleaner)
                                                     <option  value="{{  $cleaner->user_id }}">{{ $cleaner->full_name }}</option>
                                                 @endforeach
-                                                @endforeach
+                                                
                                                 </select> <br>    
                                                 <?php
                                                     $total_cleaner --;
