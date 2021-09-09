@@ -248,7 +248,7 @@
                                             
                                         </ul>
                                     </div>
-                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                    <input type="text" name="booking_id" value="{{ $value->booking_id }}">
                                 </form>
                                 <?php
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
@@ -263,10 +263,12 @@
                                         <button form="myform" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
-                                    @endif    
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
+                                    @endif
+                                    @if($value->status == "Pending")    
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Pending">
                                             DECLINE
                                         </button>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach  
@@ -328,8 +330,9 @@
                                                               $fullname = User::Where('user_id', $userid )->value('full_name');
                                                           }                       
                                                     ?>
-                                                @endforeach    
+                                                
                                                 <option  value="{{  $userid }}">{{ $fullname }}</option>
+                                                @endforeach    
                                                 @endforeach
                                                 
                                                 </select> <br>    
