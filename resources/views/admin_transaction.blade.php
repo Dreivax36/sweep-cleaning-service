@@ -252,10 +252,9 @@
                                 </form>
                                 <?php
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
-                                    $statuscountassign = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->orWhere('status', '=', "Pending")->count();
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $statuscountassign != $price_data->number_of_cleaner)
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
@@ -302,7 +301,42 @@
                                                                     
                                                 @csrf
                                                 {{ csrf_field() }}
-                                               
+                                                <?php
+                                                $cleaner_data = User::Where('user_type', 'Cleaner')->get();
+                                                if($statuscount == 0 && $statuscount == $price_data->number_of_cleaner){
+                                                    $total = $price_data->number_of_cleaner;
+                                                }
+                                                else {
+                                                    $total = ($price_data->number_of_cleaner) - $statuscount;
+                                                }
+                                            ?>
+                                            @while($total > 0)
+                                            <br>
+                                            <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                            <input type="hidden" name="status" value="Pending">
+                                            <label for="cleaner">Cleaner: </label>
+                                            <select name="cleaner_id[]" id="cleaner" >
+                                            @foreach($cleaner_data as $cleaner)
+                                                <?php 
+                                                      $cleanerid = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
+                                                ?>
+                                                @foreach($cleanerid as $id)
+                                                    <?php
+                                                          $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');
+                                                          if ( $user != $cleaner->user_id ){
+                                                              $userid = $cleaner->user_id;
+                                                              $fullname = User::Where('user_id', $userid )->value('full_name');
+                                                          }                       
+                                                    ?>
+                                                @endforeach    
+                                                <option  value="{{  $userid }}">{{ $fullname }}</option>
+                                                @endforeach
+                                                
+                                                </select> <br>    
+                                                <?php
+                                                    $total --;
+                                                ?>
+                                                @endwhile
                                                 <br>
                                                 <div class="modal-footer trans_modal_footer">
                                                     <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal"> 
