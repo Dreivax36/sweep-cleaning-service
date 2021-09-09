@@ -174,7 +174,22 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 @foreach($price as $price_data)
-                                
+                                <form action="{{ route('updateStatus') }}" method="post" id="myform">
+                                    @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
+
+                                    @csrf
+                                    <input type="text" name="booking_id" value="{{ $value->booking_id }}">
+                                    <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                     
                                     <div class="modal-body p-4">
                                         <ul class="customer_detail">
@@ -234,45 +249,28 @@
                                             
                                         </ul>
                                     </div>
-                                    <form action="{{ route('updateStatus') }}" method="post" id="updatestatus">
-                                    @if(Session::get('success'))
-                                        <div class="alert alert-success">
-                                            {{ Session::get('success') }}
-                                        </div>
-                                    @endif
-
-                                    @if(Session::get('fail'))
-                                        <div class="alert alert-danger">
-                                            {{ Session::get('fail') }}
-                                        </div>
-                                    @endif
-
-                                    @csrf
-                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                     
-                                    </form>
-                               
+                                    
+                                </form>
+                                <?php
+                                    $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
+                                ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    <?php
-                                        $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
-                                    ?>
                                     @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
-                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
                                     @endif
-                                       
-                                        <button form="updatestatus" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Pending">
+                                      
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Pending">
                                             DECLINE
                                         </button>
-                                    
+                                   
                                 </div>
-                                
                             </div>
                         @endforeach  
                         @endforeach 
