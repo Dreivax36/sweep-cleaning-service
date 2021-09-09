@@ -328,8 +328,10 @@
                                                           $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');
                                                     ?>
                                                         @if ( $user != $cleaner->user_id )
+                                                        <?php
                                                               $userid = $cleaner->user_id;
                                                               $fullname = User::Where('user_id', $userid )->value('full_name');
+                                                          ?>    
                                                               <option  value="{{  $userid }}">{{ $fullname }}</option>
                                                         @endif
                                                 @endforeach    
