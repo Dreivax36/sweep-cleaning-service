@@ -246,9 +246,12 @@
                                                     <input type="hidden" name="cleaner_id" value="{{ $booking->cleaner_id }}">
                                                     
                                                 </form>
+                                                <?php
+                                                    $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $booking->cleaner_id)->Where('status', '=', "Accepted")->count();       
+                                                ?>
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                     <div class="on_progress_con">
-                                                        @if($value->status == "Pending")
+                                                        @if($value->status == "Pending" && $statuscount != 1 )
                                                             <button form="cleaner" class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                                                 ACCEPT
                                                             </button> 
