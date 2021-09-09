@@ -303,27 +303,32 @@
                                                 @csrf
                                                 {{ csrf_field() }}
                                                 <?php
-                                                    if($statuscount == 0 && $statuscount == $price_data->number_of_cleaner){
-                                                        $total = $price_data->number_of_cleaner;
-                                                        $cleaner_data = User::Where('user_type', 'Cleaner')->get();
-                                                    }
-                                                    else {
-                                                        $total = ($price_data->number_of_cleaner) - $statuscount;
-                                                        $cleaner = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
-                                                        foreach($cleaner as $key => $id){
-                                                            $user = Cleaner::Where('cleaner_id', $id -> cleaner_id )->value('user_id');
-                                                            $cleaner_data = User::Where('user_id', $user)->get();
-                                                        }
-                                                    }
+                                                $cleaner_data = User::Where('user_type', 'Cleaner')->get();
+                                                if($statuscount == 0 && $statuscount == $price_data->number_of_cleaner){
+                                                    $total = $price_data->number_of_cleaner;
+                                                }
+                                                else {
+                                                    $total = ($price_data->number_of_cleaner) - $statuscount;
+                                                }
+                                            ?>
+                                            @while($total > 0)
+                                            <br>
+                                            <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                            <input type="hidden" name="status" value="Pending">
+                                            <label for="cleaner">Cleaner: </label>
+                                            <select name="cleaner_id[]" id="cleaner" >
+                                            @foreach($cleaner_data as $key => $cleaner)
+                                                <?php 
+                                                      $cleaner = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
+                                                      foreach($cleaner as $key => $id){
+                                                          $user = Cleaner::Where('cleaner_id', $id -> cleaner_id )->value('user_id');
+                                                          if ( $user != $cleaner->user_id ){
+                                                              $userid = $cleaner->user_id;
+                                                              $fullname = User::Where('user_id', $userid )->value('full_name');
+                                                          }                       
+                                                      }
                                                 ?>
-                                                @while($total > 0)
-                                                <br>
-                                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                <input type="hidden" name="status" value="Pending">
-                                                <label for="cleaner">Cleaner: </label>
-                                                <select name="cleaner_id[]" id="cleaner" >
-                                                @foreach($cleaner_data as $key => $cleaner)
-                                                    <option  value="{{  $cleaner->user_id }}">{{ $cleaner->full_name }}</option>
+                                                <option  value="{{  $userid }}">{{ $fullname }}</option>
                                                 @endforeach
                                                 
                                                 </select> <br>    
