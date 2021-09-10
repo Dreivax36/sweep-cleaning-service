@@ -18,31 +18,15 @@ use App\Http\Controllers\BookingController;
 */
 
 //Service Module
-Route::resource('services', ServiceController::class);
-Route::post('/store',[ServiceController::class, 'store'])->name('store');
-Route::get('/store',[ServiceController::class, 'store'])->name('store');
-Route::post('/destroy',[ServiceController::class, 'destroy'])->name('destroy');
-Route::post('/update',[ServiceController::class, 'update'])->name('update');
-Route::get('/update',[ServiceController::class, 'update'])->name('update');
-Route::get('/admin_services',[ServiceController::class, 'admin_services'])->name('admin_services'); 
-Route::get('/admin_transaction',[ServiceController::class, 'admin_transaction'])->name('admin_transaction');
-Route::get('/admin_transaction_history',[ServiceController::class, 'admin_transaction_history'])->name('admin_transaction_history'); 
-Route::get('/customer/customer_services',[ServiceController::class, 'customer_services'])->name('customer.customer_services');
+
 
 //Admin
 Route::POST('/auth/save',[MainController::class, 'save'])->name('auth.save');
 Route::POST('/auth/check',[MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
-Route::get('/update_account/{id}',[MainController::class, 'update_account'])->name('update_account');
 
 //Booking Module
-Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
-Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
-Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
-Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
-Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
-Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
-Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
+
 
 //Customer
 
@@ -77,6 +61,10 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
     Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
     Route::post('/book',[BookingController::class, 'book'])->name('book');
+    Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
+    Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
+    Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
+    Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
@@ -86,7 +74,22 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
     Route::post('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
 
+    Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
+    Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
+    Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
+    Route::get('/update_account/{id}',[MainController::class, 'update_account'])->name('update_account');
 
+    Route::get('/update',[ServiceController::class, 'update'])->name('update');
+Route::get('/admin_services',[ServiceController::class, 'admin_services'])->name('admin_services'); 
+Route::get('/admin_transaction',[ServiceController::class, 'admin_transaction'])->name('admin_transaction');
+Route::get('/admin_transaction_history',[ServiceController::class, 'admin_transaction_history'])->name('admin_transaction_history'); 
+Route::get('/customer/customer_services',[ServiceController::class, 'customer_services'])->name('customer.customer_services');
+
+Route::resource('services', ServiceController::class);
+Route::post('/store',[ServiceController::class, 'store'])->name('store');
+Route::get('/store',[ServiceController::class, 'store'])->name('store');
+Route::post('/destroy',[ServiceController::class, 'destroy'])->name('destroy');
+Route::post('/update',[ServiceController::class, 'update'])->name('update');
 });
 
 //Route for the Sweep Welcome Page
