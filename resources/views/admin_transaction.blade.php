@@ -267,16 +267,15 @@
                                         </button>
                                     @endif
                                     <?php
-                                        $statusonprogress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
                                         $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
 
                                     ?>
                                     @if($value->status == "Accepted" && $statuscount == $price_data->number_of_cleaner )
-                                    <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Accepted" >
+                                    <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                              ON-PROGRESS
                                          </button>    
                                      @endif    
-                                    @if($value->status == "Accepted" && $statusonprogress == $price_data->number_of_cleaner)
+                                    @if($value->status == "On-Progress" && $statusdone == $price_data->number_of_cleaner)
                                      <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                               DONE
                                      </button> 

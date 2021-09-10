@@ -217,7 +217,7 @@
                                                 ?>
                                                 
                                                 <div class="modal-footer cleaner_job_modal_footer">
-                                                        @if($value->status == "Pending" && $statuscount != 1 )
+                                                        @if($value->status == "Pending" && $statuscount != 1 $value->status == "On-Progress")
                                                             <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                                                 ACCEPT
                                                             </button> 

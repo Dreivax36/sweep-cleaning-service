@@ -110,7 +110,7 @@
                         @error('description'){{ $message }} @enderror
                     </span>
                 </div>
-                <button type="submit" class="register_cleaner_btn">
+                <button type="submit" class="register_cleaner_btn btn-primary">
                     Sign Up
                 </button>
                 <br>
