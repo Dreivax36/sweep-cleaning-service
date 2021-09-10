@@ -155,24 +155,7 @@
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
-                                                <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
-                                                @if(Session::get('success'))
-                                                    <div class="alert alert-success">
-                                                        {{ Session::get('success') }}
-                                                    </div>
-                                                @endif
-
-                                                @if(Session::get('fail'))
-                                                    <div class="alert alert-danger">
-                                                        {{ Session::get('fail') }}
-                                                    </div>
-                                                @endif 
-                                                    @csrf
-                                                    
-                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                    <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
-                                                    
-                                                </form>
+                                               
                                                     <div class="cleaner_job_modal_body_1_con">
                                                         <ul class="cleaner_detail">
                                                         @foreach($user_data as $key => $user)
@@ -210,6 +193,23 @@
                                                     </div>
                                                 
                                                 @endforeach 
+                                                <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
+                                                @if(Session::get('success'))
+                                                    <div class="alert alert-success">
+                                                        {{ Session::get('success') }}
+                                                    </div>
+                                                @endif
+
+                                                @if(Session::get('fail'))
+                                                    <div class="alert alert-danger">
+                                                        {{ Session::get('fail') }}
+                                                    </div>
+                                                @endif 
+                                                    @csrf
+                                                    
+                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                                    <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
+                                                    
                                                 
                                                 
                                                 <?php
@@ -218,26 +218,25 @@
                                                 
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                         @if($value->status == "Pending" && $statuscount != 1 )
-                                                            <button form="cleaner" class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
+                                                            <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                                                 ACCEPT
                                                             </button> 
-                                                            <button form="cleaner" class="btn btn-block btn-danger decline_btn" type="submit" name="status" value="Declined" >
+                                                            <button  class="btn btn-block btn-danger decline_btn" type="submit" name="status" value="Declined" >
                                                                 DECLINE
                                                             </button> 
                                                             @endif   
                                                             @if($value->status == "Accepted" )
-                                                            <button form="cleaner" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Accepted" >
+                                                            <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                                                 ON-PROGRESS
                                                             </button>    
                                                             @endif    
                                                             @if($value->status == "On-Progress")
-                                                            <button form="cleaner" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
+                                                            <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                                                 DONE
                                                             </button> 
                                                             @endif   
-                                                             
                                                 </div> 
-                            
+                                                </form>
                                             </div><!-- End of Modal Content -->
                                             </div> 
                                 </div>

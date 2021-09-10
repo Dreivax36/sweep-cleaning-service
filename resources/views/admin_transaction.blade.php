@@ -170,7 +170,7 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 
-                                <form action="{{ route('updateStatus') }}" method="post" id="myform">
+                                <form action="{{ route('updateStatus') }}" method="post" >
                                     @if(Session::get('success'))
                                         <div class="alert alert-success">
                                             {{ Session::get('success') }}
@@ -246,7 +246,7 @@
                                         </ul>
                                     
                                     
-                                </form>
+                                
                                 <?php
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
@@ -257,12 +257,12 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
+                                        <button  type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
                                     @endif
                                     @if($value->status == "Pending")    
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
+                                        <button  type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
                                             DECLINE
                                         </button>
                                     @endif
@@ -272,21 +272,22 @@
 
                                     ?>
                                     @if($value->status == "Accepted" && $statuscount == $price_data->number_of_cleaner )
-                                    <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Accepted" >
+                                    <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Accepted" >
                                              ON-PROGRESS
                                          </button>    
                                      @endif    
                                     @if($value->status == "On-Progress" && $statusonprogress == $price_data->number_of_cleaner)
-                                     <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
+                                     <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                               DONE
                                      </button> 
                                      @endif 
                                      @if($value->status == "Done" && $statusdone == $price_data->number_of_cleaner)
-                                     <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
+                                     <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
                                               COMPLETE
                                      </button> 
                                      @endif 
                                 </div>
+                                </form>
                             </div>
                         @endforeach  
                         @endforeach 
@@ -328,18 +329,14 @@
                                                 else {
                                                     $total = ($price_data->number_of_cleaner) - $statuscount;
                                                 }
-                                            ?>
-                                            @while($total > 0)
-                                            <br>
-                                            <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                            <input type="hidden" name="status" value="Pending">
-                                            <label for="cleaner">Cleaner: </label>
-                                            <select name="cleaner_id[]" id="cleaner" >
-                                                <?php 
-                                                      $cleanerid = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
-                                                      $previousID = 0;
-                                                      
                                                 ?>
+                                                @while($total > 0)
+                                                <br>
+                                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                                <input type="hidden" name="status" value="Pending">
+                                                <label for="cleaner">Cleaner: </label>
+                                                <select name="cleaner_id[]" id="cleaner" >
+                                                   
                                                 @foreach($cleaner_data as $cleaner)
                                               
                                                      <?php
