@@ -93,10 +93,10 @@
         <div class="row row_cleaner_job">
         @foreach($bookingID as $key => $booking)
         <?php
-            $booking_data = Booking::where('booking_id', '=', $booking->booking_id )->Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
+            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
         ?>
-        
         @foreach($booking_data as $key => $value)
+        @if($booking->booking_id == $value->booking_id)
         <?php
             $service_name = Service::Where('service_id', $value->service_id )->value('service_name');
             $userID = Customer::Where('customer_id', $value->customer_id )->value('user_id');
@@ -245,7 +245,7 @@
                                                 <?php
                                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();       
                                                 ?>
-                                                </div>
+                                                
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                         @if($value->status == "Pending" && $statuscount != 1 )
                                                             <button form="cleaner" class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
@@ -256,11 +256,12 @@
                                                             </button>    
                                                         @endif
                                                 </div> 
-                                                
+                                                </div>
                                             </div><!-- End of Modal Content -->
                                             </div> 
 </div>
                                 </div><!-- End of Modal --> 
+            @endif
             @endforeach 
             @endforeach      
         </div>   
