@@ -1,12 +1,62 @@
 @extends('head_extention_cleaner') 
 
 @section('content')
-<head>
-<title>
-        Cleaner Dashboard
+    <title>
+        Cleaner Job Page
     </title>
-    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
-</head>
+
+<body>
+    <header> <!-- Navbar -->
+        <div class="logo"> 
+            SWEEP 
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="cleaner_dashboard" class="active">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="cleaner_job" >
+                        Jobs
+                    </a>
+                </li>
+                <li>
+                    <a href="cleaner_history">
+                        History
+                    </a>
+                </li>
+                <div class="customer_notif_icon">
+                    <button class="btn dropdown-toggle dropdown_notif_icon" type="button" id="menu2" data-toggle="dropdown" >
+                        <i class="bi bi-bell"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">
+                        Notification 1
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        Notification 2
+                    </a>
+                </div>
+                <div class="profile_btn">
+                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
+                        <img src="/img/user.png" class="profile_img">
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="cleaner_profile">
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="{{ route('auth.logout') }}">
+                        Logout
+                    </a>
+                    </div>
+                </div>
+            </ul>
+        </nav>
+        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
+    </header> <!-- End of Navbar -->
 
 <body>
     

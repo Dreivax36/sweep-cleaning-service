@@ -191,7 +191,7 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </div>
+                                                
                                                 @endforeach 
                                                 <form action="{{ route('updateStatus') }}" method="post" id="updatestatus"> <!-- Modal Content-->
                                                     @if(Session::get('success'))
@@ -211,8 +211,6 @@
                                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                 </form>
                                                 <div class="modal-footer cleaner_job_modal_footer">
-                                                    <div class="on_progress_con">
-                                                    
                                                         @if($value->status == "Accepted")
                                                             <button form="updatestatus" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Pending" >
                                                                 ON-PROGRESS
@@ -224,7 +222,6 @@
                                                                 DONE
                                                             </button> 
                                                         @endif
-                                                    </div>     
                                                 </div>
                                                 <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
                                                     @if(Session::get('success'))
@@ -248,8 +245,8 @@
                                                 <?php
                                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();       
                                                 ?>
+                                                </div>
                                                 <div class="modal-footer cleaner_job_modal_footer">
-                                                    <div class="on_progress_con">
                                                         @if($value->status == "Pending" && $statuscount != 1 )
                                                             <button form="cleaner" class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                                                 ACCEPT
@@ -258,7 +255,6 @@
                                                                 DECLINE
                                                             </button>    
                                                         @endif
-                                                    </div>
                                                 </div> 
                                                 
                                             </div><!-- End of Modal Content -->

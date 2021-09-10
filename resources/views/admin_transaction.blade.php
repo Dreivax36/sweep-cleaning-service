@@ -171,8 +171,8 @@
                                     
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-                                
-                                <form action="{{ route('updateStatus') }}" method="post" id="myform">
+                                    <div class="modal-body p-4">
+                                    <form action="{{ route('updateStatus') }}" method="post" id="myform">
                                     @if(Session::get('success'))
                                         <div class="alert alert-success">
                                             {{ Session::get('success') }}
@@ -188,8 +188,6 @@
                                     @csrf
                                     <input type="text" name="booking_id" value="{{ $value->booking_id }}">
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
-                                    
-                                    <div class="modal-body p-4">
                                         <ul class="customer_detail">
                                             <li>
                                                 <b>Customer:</b>
@@ -249,9 +247,11 @@
                                     </div>
                                     
                                 </form>
+
                                 <?php
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
+                                </div>
                                 <div class="modal-footer trans_modal_footer">
                                     @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
@@ -269,7 +269,7 @@
                                         </button>
                                     @endif
                                 </div>
-                            </div>
+                            
                         @endforeach  
                         @endforeach 
                         </div> <!-- End of Modal Content -->   
@@ -286,7 +286,7 @@
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
-                                            
+                                            <div class="modal-body p-4">
                                             <form action="{{ route('assignCleaner') }}" method="post" >
                                                 @if(Session::get('success'))
                                                     <div class="alert alert-success">
@@ -339,6 +339,8 @@
                                                     $total --;
                                                 ?>
                                                 @endwhile
+                                                </form> 
+                                            </div>
                                                 <br>
                                                 <div class="modal-footer trans_modal_footer">
                                                     <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal"> 
@@ -348,7 +350,7 @@
                                                         Confirm 
                                                     </button>
                                                 </div>
-                                            </form> 
+                                            
                                         </div> <!-- End of Modal Content --> 
                                     </div>
                                 </div>
