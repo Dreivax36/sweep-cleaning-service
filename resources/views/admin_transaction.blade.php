@@ -266,6 +266,19 @@
                                             DECLINE
                                         </button>
                                     @endif
+                                    <?php
+                                        $statusonprogress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
+                                    ?>
+                                    @if($value->status == "Accepted" && $statuscount == $price_data->number_of_cleaner )
+                                    <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Accepted" >
+                                             ON-PROGRESS
+                                         </button>    
+                                     @endif    
+                                    @if($value->status == "On-Progress" && $statusonprogress == $price_data->number_of_cleaner)
+                                     <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
+                                              DONE
+                                     </button> 
+                                     @endif 
                                 </div>
                             </div>
                         @endforeach  

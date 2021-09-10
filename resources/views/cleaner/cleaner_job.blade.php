@@ -193,28 +193,19 @@
                                                     </div>
                                                 
                                                 @endforeach 
-                                                <form action="{{ route('updateStatus') }}" method="post" id="updatestatus"> <!-- Modal Content-->
-                                        
-
-                                                    @csrf
-
-                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                </form>
-                                                <div class="modal-footer cleaner_job_modal_footer">
-                                                        @if($value->status == "Accepted")
-                                                            <button form="updatestatus" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
-                                                                ON-PROGRESS
-                                                            </button>    
-                                                        @endif
-
-                                                        @if($value->status == "On-Progress")
-                                                            <button form="updatestatus" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
-                                                                DONE
-                                                            </button> 
-                                                        @endif
-                                                </div>
+                                                
                                                 <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
+                                                @if(Session::get('success'))
+                                                    <div class="alert alert-success">
+                                                        {{ Session::get('success') }}
+                                                    </div>
+                                                @endif
 
+                                                @if(Session::get('fail'))
+                                                    <div class="alert alert-danger">
+                                                        {{ Session::get('fail') }}
+                                                    </div>
+                                                @endif 
                                                     @csrf
                                                     
                                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
@@ -224,7 +215,7 @@
                                                 <?php
                                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();       
                                                 ?>
-                                                
+                                                x
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                         @if($value->status == "Pending" && $statuscount != 1 )
                                                             <button form="cleaner" class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
@@ -232,10 +223,21 @@
                                                             </button> 
                                                             <button form="cleaner" class="btn btn-block btn-danger decline_btn" type="submit" name="status" value="Declined" >
                                                                 DECLINE
+                                                            </button> 
+                                                            @endif   
+                                                            @if($value->status == "Accepted" )
+                                                            <button form="cleaner" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Accepted" >
+                                                                ON-PROGRESS
                                                             </button>    
-                                                        @endif
+                                                            @endif    
+                                                            @if($value->status == "On-Progress")
+                                                            <button form="cleaner" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
+                                                                DONE
+                                                            </button> 
+                                                            @endif   
+                                                             
                                                 </div> 
-                                                
+                            
                                             </div><!-- End of Modal Content -->
                                             </div> 
                                 </div>

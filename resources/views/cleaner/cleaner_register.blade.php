@@ -139,7 +139,7 @@
                     </div>
                     <div>
                         <h5>Description</h5>
-                        <input type="text" class="input" name="email" value="{{ old('email') }}">
+                        <input type="text" class="input" name="description" value="{{ old('description') }}">
                         <span class="text-danger">
                         @error('desciption'){{ $message }} @enderror
                     </span>
