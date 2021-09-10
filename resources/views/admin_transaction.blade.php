@@ -347,8 +347,7 @@
                                                         ?>    
                                                             <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
                                                 
-                                                        
-                                                @endforeach    
+           
                                                 @endforeach
                                                 
                                                 </select> <br>    
