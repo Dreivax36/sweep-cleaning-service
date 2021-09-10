@@ -85,7 +85,7 @@
 
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' , '!=' , 'Declined')->value('booking_id');
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' , '!=' , 'Declined')->get();
     ?>
     
     <div class="cleaner_job_con">
@@ -259,7 +259,7 @@
                                                 </div>
                                             </div><!-- End of Modal Content -->
                                             </div> 
-</div>
+                                </div>
                                 </div><!-- End of Modal --> 
             @endif
             @endforeach 
