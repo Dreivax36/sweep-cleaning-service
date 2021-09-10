@@ -139,8 +139,9 @@
                                                     </h6>
                                                     <div class="d-flex payments_con">
                                                         <img src="/img/gcash.png" class="gcash_img">
-                                                        <script src="https://www.paypal.com/sdk/js?client-id=test"></script>
+                                                       <!-- <script src="https://www.paypal.com/sdk/js?client-id=test"></script>
                                                         <script>paypal.Buttons().render('body');</script>
+                                                        -->
                                                     </div> 
                                                     <div class="d-flex cancel_confirm_pay_con">
                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
