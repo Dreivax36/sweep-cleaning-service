@@ -63,12 +63,11 @@
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
-    <div class="col-sm-9">
+     <div class="col-sm-9">
             <div class="adjust_con"> <!-- Search Field -->
                 <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
             </div> 
         </div>
-    </div>
     <?php
        
         $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->get();
@@ -88,7 +87,7 @@
                 ({{ $history_count }})
             </p>
         </a>
-    
+</div>
     <div class="transaction_con">
     
         <div class="row row_transaction">
