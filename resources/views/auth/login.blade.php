@@ -50,9 +50,7 @@
                     Login
                 </button>
                 <br>
-                <a class="login_link_btn" href="{{ route('auth.register') }}"> 
-                    create
-                </a>
+                
         </div>
     </div>
     <!-- Toggle Password Visibility -->
