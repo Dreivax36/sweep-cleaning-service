@@ -22,7 +22,7 @@
             <h4 class="register_label">
                 Create an Account
             </h4>
-            <form action="{{ route('customer.customer_save') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('cleaner.cleaner_save') }}" method="post" enctype="multipart/form-data">
                 @if(Session::get('success'))
                     <div class="alert alert-success">
                         {{ Session::get('success') }}
