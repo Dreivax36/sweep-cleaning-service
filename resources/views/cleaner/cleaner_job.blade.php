@@ -85,15 +85,15 @@
 
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' ,'Pending')->orWhere('status' ,'Accepted')->value('booking_id');
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' ,'Pending')->orWhere('status' ,'Accepted')->get();
     ?>
     
     <div class="cleaner_job_con">
         
         <div class="row row_cleaner_job">
-       
+        @foreach($bookingID as $key => $booking)
         <?php
-            $booking_data = Booking::where('booking_id', $bookingID )->Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status','=', 'On-Progress' )->get();
+            $booking_data = Booking::where('booking_id', $booking->booking_id )->Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
         ?>
         
         @foreach($booking_data as $key => $value)
@@ -265,6 +265,7 @@
                                             </div> 
 </div>
                                 </div><!-- End of Modal --> 
+            @endforeach 
             @endforeach      
         </div>   
     </div>

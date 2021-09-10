@@ -109,51 +109,48 @@ a:hover {
 /* Admin Search Bar */
 
 .search_con {
-    margin-top: -30px;
+    margin-top: 80px;
     float: right;
-    margin-right: 30px;
+    margin-right: -300px;
 }
 .adjust_con {
-    margin-top: 30px;
     float: right;
-    margin-right: 30px;
+    margin-top: 70px;
+    margin-right: 100px;
 }
-.searchbar, ::placeholder { 
-    width: 200px;
-    height: 30px;
+.adjust_con_dash {
+    margin-top: 30px;
+}
+.searchbar { 
+    width: 300px;
+    height: 38px;
     border-radius: 5px;
-    color: gray;
     opacity: 1;
     border: none;
     padding-left: 10px;
     font-size: 15px;
+    background-color: #DAE1EC;
+    border-radius: 20px;
 }
 .searchbar:focus {
     outline: none;
 }
-.search_btn {
-    height: 30px;
-    width: 100px;
-    border-radius: 8px;
-    background-color: #FFB703;
+.searchbar_dash { 
+    width: 100%;
+    height: 38px;
+    opacity: 1;
     border: none;
-    color: rgba(255, 255, 255, .8);
-    font-weight: bold;
+    padding-left: 10px;
+    font-size: 15px;
+    background-color: #DAE1EC;
+    border-radius: 5px;
 }
-.adjust_con:hover .search_btn {
-    border: #FFB703 2px solid;
-    color: #FFB703;
-    background-color: #EDF1F8;
-}
-.search_con:hover .search_btn {
-    border: #FFB703 2px solid;
-    color: #FFB703;
-    background-color: #EDF1F8;
+.searchbar_dash:focus {
+    outline: none;
 }
 
 
 /* Admin Login and Register Page */
-
 .login_body, 
 .reg_body {
     background-color: #bdcae0;
@@ -208,9 +205,7 @@ a:hover {
     padding: 3px;
 }
 .upload_con {
-    width: 200px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
     margin-top: 30px;
 }
 .upload_label {
@@ -295,16 +290,95 @@ a:hover {
     font-size: 12px;
     font-style: italic;
 }
+.text-danger {
+    color: red;
+    font-size: 14px;
+}
+.alert-danger {
+    font-size: 14px;
+    width: 100%;
+    height: 30px;
+    background-color: rgb(228, 139, 139);
+    padding-top: 10px;
+    border-radius: 5px;
+}
+.alert-success {
+    font-size: 14px;
+    width: 100%;
+    height: 30px;
+    background-color: rgb(130, 228, 155);
+    padding-top: 10px;
+    border-radius: 5px;
+}
+.file_upload_con {
+    width: 60px;
+    height: 50px;
+    background-color: rgb(187, 179, 179);
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.bi-person-badge-fill, .bi-file-earmark-image, .bi-file-richtext {
+    height:1rem;
+    font-size: 2.5rem;
+}
+.further_info_id_con {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    width: 100%;
+    background-color: rgb(165, 193, 253);
+    font-size: 14px;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+.further_info_con {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 70px;
+    width: 100%;
+    background-color: rgb(245, 245, 143);
+    font-size: 14px;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+.further_info {
+    font-size: 11px;
+}
+.password_con {
+    display: flex;
+    align-items: center;
+}
+.eye_con {
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+    outline: none;
+    height: 20px;
+    margin-top: 26px;
+    background-color: #FFFFFF;
+    padding-right: 5px;
+}
+.bi-eye-slash {
+    cursor: default;
+    font-size: 1rem;
+    cursor: pointer;
+}
 
 
 /* Admin Dashboard */
 
 .row_dashboard {
-    margin-top: 50px;
+    margin-top: 30px;
+    padding: 20px;
 }
 .col_dashboard_main {
     background-color: #FFFFFF;
-    height: 100%;
 }
 .col-dashboard {
     margin: 40px;
@@ -320,18 +394,21 @@ a:hover {
     font-size: 20px;
 }
 .active_services_con {
-    height: 105px;
-    width: 280px;
+    height: 100%;
+    width: 100%;
+    margin: 15px;;
     background-color: rgba(255, 183, 3, .5);
-    margin: 18px;
     border-left: 15px solid #FFB703;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 .service_name {
     font-size: 20px;
     font-weight: bolder;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
 }
 .transaction_id {
     font-size: 12px;
@@ -341,17 +418,14 @@ a:hover {
     font-weight: bold;
 }
 .arrow_right_con {
-    float: right;
-    margin-right: 20px;
-    margin-top: 25px;
+    width: 100%;
 }
 .right {
     display: inline-block;
-    width: 2.3em;
-    height: 2.3em;
-    border: 0.3em solid #FFB703;
+    width: 2.2em;
+    height: 2.2em;
+    border: 4px solid #219EBC;
     border-radius: 50%;
-    margin-left: 1.5em;
 }
 .right:after {
     content: '';
@@ -360,15 +434,15 @@ a:hover {
     margin-left: 0.2em;
     width: 1em;
     height: 1em;
-    border-top: 0.2em solid #FFB703;
-    border-right: 0.2em solid #FFB703;
+    border-top: 0.2em solid #219EBC;
+    border-right: 0.2em solid #219EBC;
     -moz-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-} 
+}
 #report {
-    margin-left: 50px;
-    margin-top: 20px;
+    margin-left: 80px;
+    margin-top: 60px;
     margin-bottom: 50px;
     color: #FFFFFF;
 }
@@ -395,7 +469,6 @@ a:hover {
     padding: 13px;
     border-radius: 10px;
     margin-right: 50px;
-    margin-top: 10px;
 }
 .sweep_cleaner{
     height: 90px;
@@ -404,7 +477,6 @@ a:hover {
     padding: 13px;
     border-radius: 10px;
     margin-right: 50px;
-    margin-top: 10px;
 }
 .value {
     font-size: 25px;
@@ -427,6 +499,9 @@ a:hover {
 
 /* Admin User Page */
 
+.user_btn_con {
+    margin-left: 10px;
+}
 .user_type_btn, 
 .user_type_btn_cleaner, 
 .user_type_btn_employee, 
@@ -464,8 +539,11 @@ a:hover {
 }
 .user_table_con{
     margin-top: 40px;
-    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
     height: auto;
+    margin-bottom: 10%;
 }
 .user_table {
     height: auto;
@@ -481,28 +559,44 @@ a:hover {
 .user_table_data {
     border: 1px solid rgba(211, 211, 211, .5);
 }
+.active_sub {
+    color: #FFB703;
+    text-decoration: underline;
+}
 
 
  /* Admin Cleaner Page */
 
-.verify_btn {
-    margin-right: -10px;
-    width: 100px;
+ .verify_btn {
+    width: 100%;
     height: 30px;
-    display: inline-flex;
+    text-align: center;
     background-color: #2B81B0;
     border-radius: 8px;
     border: none;
     font-weight: bold;
     color: #FFFFFF;
-    padding: 2px;
-    padding-left: 24px;
-    padding-top: 4px;
+}
+.verify_btn:focus {
+    outline: none;
 }
 .verify_con:hover .verify_btn {
     border: #2B81B0 2px solid;
     color: #2B81B0;
     background-color: #EDF1F8;
+}
+.view_btn {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    background-color: #4ee6ac;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.view_btn:focus {
+    outline: none;
 }
                                                         
 
@@ -530,7 +624,7 @@ a:hover {
     font-weight: bold;
 }
 .services_title_con {
-    margin-top: 7vw;
+    margin-top: 9vw;
     margin-left: 8vw;
 }
 .add_service_btn {
@@ -543,7 +637,7 @@ a:hover {
 }
 .add_service_con {
     padding-left: 815px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .add_service_form {
     border: none;
@@ -740,17 +834,22 @@ a:hover {
 
 .trans_his_con {
     margin-top: 40px;
-    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
     height: auto;
+    margin-bottom: 10%;
 }
-.row_title {
-    background-color: #BEE7FD;
+.history_table {
+    height: auto;
+    width: 100%;
+    font-size: 15px;
 }
 .table_trans_his_row {
-    text-align: center;
+    border: 1px solid rgba(211, 211, 211, .5);
 }
 .user_table_trans_his_header {
-    text-align: center;
+    background-color: rgb(177, 224, 243);
 }
 
 

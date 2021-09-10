@@ -10,8 +10,9 @@
 
     <!-- Scripts -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 </head>
 <body class="login_body">
@@ -35,7 +36,12 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control login_fields" name="password" placeholder="Password">
+                    <div class="password_con">
+                        <input type="password" class="form-control login_fields" name="password" id="password" placeholder="Password" />
+                        <div class="eye_con">
+                            <i class="bi bi-eye-slash" id="togglePassword"></i>
+                        </div>
+                    </div>
                     <span class="text-danger">
                         @error('password'){{ $message }} @enderror
                     </span>
@@ -44,10 +50,20 @@
                     Login
                 </button>
                 <br>
-                <a class="login_link_btn" href="{{ route('auth.register') }}"> 
-                    Create Account
-                </a>
         </div>
     </div>
+    <!-- Toggle Password Visibility -->
+    <script type="text/javascript">
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            // toggle the eye / eye slash icon
+            this.classList.toggle('bi-eye');
+        });
+    </script>
 </body>
 </html>

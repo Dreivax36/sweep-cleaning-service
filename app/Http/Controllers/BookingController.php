@@ -40,7 +40,7 @@ class BookingController extends Controller
     function updateStatus(Request $request){
  
         //Update data into database
-        $updateStatus= Booking::Where('booking_id', $request->route('id') )->update(['status' => $request->status]);
+        $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
         
        if($updateStatus){
            return back()->with('success', 'Booking Status Updated');

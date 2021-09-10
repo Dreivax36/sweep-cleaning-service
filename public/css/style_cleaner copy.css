@@ -1,0 +1,570 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #EDF1F8;
+    overflow-x: hidden;
+}
+
+/* Cleaner Navbar */
+
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 100px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #1A5184;
+}
+.logo {
+    color: #FFFFFF;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    float: left;
+    font-weight: bold;
+    font-style: italic;
+    width: 73%;
+}
+header nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+header nav ul li {
+    list-style: none;
+}
+nav ul li a {
+    margin-left: 10px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+}
+nav ul li a:hover 
+nav ul li a:active {
+    color: #FFFFFF;
+    background: #04192E;
+}
+a:hover {
+    text-decoration: none;
+    color: #FFB703;
+}
+.active {
+    color: #FFB703;
+}
+.menu-toggle {
+    color: #FFFFFF;
+    float: right;
+    line-height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+.customer_notif_icon {
+    color: white;
+    margin-top: 8px;
+}
+.dropdown_notif_icon::after {
+    display: none;
+}
+.profile_btn {
+    margin-top: -35px;
+    margin-left: 50px;
+}
+.profile_img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+.dropdown-toggle {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: #FFFFFF ;
+}
+.caret {
+    color: #FFFFFF ;
+    width: 5px;
+    height: 5px;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropdown-menu .dropdown-item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-menu a:hover {background-color: #ddd;}
+
+/* Cleaner Search Bar */
+
+.customer_search_con {
+    position: relative;
+    float: right;
+    margin-top: -60px;
+    margin-right: 50px;
+}
+.customer_adjusted_search_con {
+    position: relative;
+    float: right;
+    margin-top: -780px;
+    margin-right: 50px;
+}
+.customer_search_field {
+    width: 400px;
+    height: 40px;
+    border-radius: 20px; 
+    font-size: 15px;
+    text-indent: 10px;
+    border: none;
+    background-color: #DAE1EC;
+}
+.customer_search_field:focus {
+    outline:none!important;
+}
+
+
+/* Cleaner Jobs Page */
+
+.cleaner_cards_title {
+    display: block;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+.cleaner_job_title_con,
+.cleaner_profile_title_con {
+    margin-top: 10vw;
+    margin-left: 8vw;
+}
+.cleaner_job_con,
+.cleaner_profile_con {
+    margin-left: 110px;
+    margin-top: 20px;
+}
+.col_cleaner_job {
+    float: left;
+    width: 30%;
+    padding: 0 10px;
+    padding-top: 2%;
+}
+.row_cleaner_job {
+    margin: 0 -5px;
+}
+.row_cleaner_job:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+@media screen and (max-width: 991px) {
+    .col_cleaner_job {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+.cleaner_job_broom_img {
+    width: 110px;
+    height: 150px;
+    margin-right: 15px; 
+    background-color: #FFB703; 
+}
+.cleaner_job_broom_2_1_img {
+    width: 80px;
+    height: 90px;
+    margin-right: 5px; 
+    background-color: #FFB703;  
+    border-radius: 10px; 
+}
+.cleaner_job_broom_2_img {
+    width: 110px;
+    height: 150px;
+    margin-right: 15px; 
+    background-color: #2B81B0; 
+}
+.cleaner_job_broom_2_2_img {
+    width: 80px;
+    height: 90px;
+    margin-right: 5px; 
+    background-color: #2B81B0;  
+    border-radius: 10px; 
+}
+.cleaner_job_broom_3_img {
+    width: 110px;
+    height: 150px;
+    margin-right: 15px; 
+    background-color: #FB8500; 
+}
+.cleaner_job_broom_2_3_img {
+    width: 80px;
+    height: 90px;
+    margin-right: 5px; 
+    background-color: #FB8500;  
+    border-radius: 10px; 
+}
+.cleaner_job_title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 20px;
+    width: 190px;
+}
+.card_cleaner_job {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    background-color: #FFFFFF;
+    margin-bottom: 10px;
+    height: 200px
+}
+.cleaner_job_status {
+    margin-right: 15px;
+    margin-top: 5px;
+    font-size: 15px;
+    font-style: italic;
+    color: blue;
+    text-align: right;
+}
+.cleaner_job_date_1_1, 
+.cleaner_job_date_2_2, 
+.cleaner_job_date_3_3 {
+    font-size: 13px;
+    margin-left: 20px;
+    margin-bottom: -9px;
+}
+.cleaner_job_price_1 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFB703;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+.cleaner_job_price_2 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2B81B0;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+.cleaner_job_price_3 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #FB8500;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+.cleaner_view_details_btn {
+    width:105px;
+    color: black;
+    font-size: 15px;
+    text-decoration: underline;
+    margin-top: 18px;
+    outline: none;
+    font-weight: bold;
+}
+.cleaner_view_details_btn:focus {
+    outline: none !important;
+    box-shadow: none
+}
+.cleaner_job_modal_title {
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 20px;
+    margin-bottom: -5px;
+    color: #042A6B;
+}
+.cleaner_job_modal_date_1_1, 
+.cleaner_job_modal_date_2_2,
+.cleaner_job_modal_date_3_3 {
+    font-size: 13px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.cleaner_job_modal_amount_1 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFB703;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.cleaner_job_modal_amount_2 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2B81B0;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.cleaner_job_modal_amount_3 {
+    font-size: 13px;
+    font-weight: bold;
+    color: #FB8500;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.cleaner_job_description {
+    text-align: justify;
+    text-indent: 50px;
+    font-size: 15px;
+    margin-top: 5px;
+}
+.customer_package_list {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 15px;
+}
+.cleaner_detail{
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 15px;
+}
+.list_booking_info {
+    text-indent: 50px;
+}
+.on_progress_con {
+    width: 420px;
+}
+.on_progress_btn {
+    background-color: #219EBC;
+    border: #219EBC;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 20px;
+    width:400px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.cleaner_job_modal_header, 
+.cleaner_job_modal_footer {
+    border: 0 none;
+}
+.cleaner_job_modal_content {
+    border-radius: 15px;
+    width: 500px;
+}
+
+
+
+
+/* Cleaner Profile Page */
+
+.main_profile_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 85%;
+    height: 380px;
+    margin-left: 100px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+.cleaner_profile_avatar_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    width: 12rem;
+    height: 13rem;
+    border-radius: 10px;
+    margin-left: -80px;
+    background-color: #EDF1F8;
+}
+.profile_avatar_img {
+    height: 160px;
+    width: 160px;
+    margin: auto;
+    text-align: center;
+}
+.cleaner_profile_name_con {
+    width: 270%;
+    height: 60px;
+    margin-left: 30px;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    border-bottom: 5px solid #219EBC;
+    background-color: #fff;
+}
+.cleaner_profile_name {
+    color: #FFB703;
+    font-weight: bold;
+    font-size: 35px;
+}
+.cleaner_profile_info_con {
+    width: 90%;
+    height: 50px;
+    margin-left: 30px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    background-color: #fff;
+}
+.cleaner_profile_info {
+    font-size: 15px;
+    margin-top: 5px;
+}
+.update_btn_con {
+    width: 120px;
+    height: 60px;
+    margin-top: 220px;
+    margin-left: 450px;
+}
+.cleaner_update_btn {
+    width: 105px;
+    color: #042A6B;
+    font-size: 18px;
+    margin-top: 30px;
+    outline: none;
+}
+.cleaner_update_btn:focus {
+    outline: none !important;
+    box-shadow: none;
+} 
+.cleaner_profile_info_icon {
+    margin-right: 10px;
+}
+
+
+
+/* Cleaner Dashboard */
+
+.cleaner_row_dashboard {
+    margin-top: 3.6vw;
+}
+.cleaner_side_con {
+    height: 800px;
+    background-color: #d2dff5;
+}
+.local_time_con {
+    height: 105px;
+    width: 330px;
+    background-color: #2B81B0;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    color: white;
+}
+.local_time_title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.local_time {
+    text-align: center;
+}
+.side_con_title {
+    margin-top: 20px;
+    font-family: sans-serif;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 25px;
+}
+.available_job_con {
+    height: auto;
+    width: 300px;
+    background-color: rgba(255, 183, 3, .5);
+    margin: 18px;
+    border-left: 15px solid #FFB703;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.service_name {
+    font-size: 20px;
+    font-weight: bolder;
+    color:#042A6B;
+}
+.customer_info {
+    font-size: 13px;
+}
+.arrow_right_con {
+    float: right;
+    margin-right: 20px;
+    margin-top: 30px;
+}
+.right {
+    display: inline-block;
+    width: 2.3em;
+    height: 2.3em;
+    border: 0.3em solid #042A6B;
+    border-radius: 50%;
+    margin-left: 1.5em;
+}
+.right:after {
+    content: '';
+    display: inline-block;
+    margin-top: 0.30em;
+    margin-left: 0.2em;
+    width: 1em;
+    height: 1em;
+    border-top: 0.2em solid #042A6B;
+    border-right: 0.2em solid #042A6B;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}  
+
+
+
+
+
+/* Responsiveness */
+
+@media (max-width: 991px){
+    header {
+        padding: 0 20px;
+    }
+    .menu-toggle {
+        display: block;
+        margin-top: -50px;       
+    }
+    nav {
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 50px);
+        background: #04192E;
+        top: 50px;
+        left: -100%;
+        transition: 0.3s;
+    }
+    header nav.active{
+        left: 0;
+    }
+    header nav ul{
+        display: block;
+        text-align: center;
+    }
+    header nav ul li a{
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+    }
+    .profile_btn {
+        margin-top: 10px;
+        padding-right: 30px;
+    }
+    .cleaner_search_con {
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
+    .cleaner_job_con {
+        margin-left: 30px;
+        margin-top: 2px;
+
+    }
+}   
+
+
+
+
+      

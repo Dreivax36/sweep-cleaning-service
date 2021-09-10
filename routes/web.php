@@ -36,7 +36,7 @@ Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout'
 Route::get('/update_account/{id}',[MainController::class, 'update_account'])->name('update_account');
 
 //Booking Module
-Route::post('/updateStatus/{id}',[BookingController::class, 'updateStatus'])->name('updateStatus');
+Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
 Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
 Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
@@ -89,6 +89,29 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
 });
 
+//Route for the Sweep Welcome Page
+Route::get('sweep_welcome', function () {
+    return view('sweep_welcome');
+}); 
+Route::get('/services', function () {
+    return view('services');
+});
+
+Route::get('/jobs', function () {
+    return view('jobs');
+});
+
+Route::get('/about_us', function () {
+    return view('about_us');
+});
+
+Route::get('/contact_us', function () {
+    return view('contact_us');
+});
+//Route for the FAQs Page
+Route::get('/faqs', function () {
+    return view('sweep_faqs');
+}); 
 
 
 

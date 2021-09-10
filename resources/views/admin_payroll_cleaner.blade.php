@@ -53,23 +53,23 @@
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
 
-    <div class="row"> <!-- Sub Header --> 
-        <a class="user_type_btn_cleaner" id="active" href="admin_payroll">
+    <div class="row user_btn_con"> <!-- Sub Header --> 
+        <a class="user_type_btn_cleaner" href="admin_payroll">
             ALL 
             <p class="total_value">
-                (63)
+                ()
             </p>
         </a>
         <a class="user_type_btn_cleaner" href="admin_payroll_employee">
             EMPLOYEE
             <p class="total_value">
-                (63)
+                ()
             </p>
         </a>
-        <a class="user_type_btn_cleaner" href="admin_payroll_cleaner">
+        <a class="user_type_btn_cleaner active_sub" href="admin_payroll_cleaner">
             CLEANER 
             <p class="total_value">
-                (63)
+                ()
             </p>
         </a>
     </div>
@@ -128,5 +128,20 @@
             </table>
         </div>
     </div> <!-- End of Payroll Cleaner Table -->
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>
+    
+    <!-- Datatables Scripts -->
+    <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Datatable -->
+    <script>
+        $(document).ready( function () {
+            $('#user_table').DataTable();
+        } );
+    </script>
 </body>
 @endsection

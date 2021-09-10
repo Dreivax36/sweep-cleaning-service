@@ -24,13 +24,16 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="fullcalendar/4.4.0/core/main.min.css">
     <link rel="stylesheet" href="fullcalendar/4.4.0/daygrid/main.min.css">
     <link rel="stylesheet" href="fullcalendar/4.4.0/bootstrap/main.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
-    <link rel="icon" href="data:,">
+    
     
     <main>
         @yield('content')

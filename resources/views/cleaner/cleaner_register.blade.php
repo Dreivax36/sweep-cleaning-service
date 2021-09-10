@@ -12,15 +12,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/customer_login.css')}}">
 </head>
-<body class="reg_cleaner_body">
+<body class="reg_customer_body">
     <div class="register_con">
-        <div class="row">
             <h4 class="register_label">
                 Create an Account
             </h4>
-            <form action="{{ route('cleaner.cleaner_save') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('customer.customer_save') }}" method="post" enctype="multipart/form-data">
                 @if(Session::get('success'))
                     <div class="alert alert-success">
                         {{ Session::get('success') }}
@@ -34,44 +36,82 @@
                 @endif
                 
                 @csrf
-                <div class="form-group">
-                    <input type="text" class="form-control reg_fields" name="full_name" placeholder="Full Name" value="{{ old('full_name') }}">
-                    <span class="text-danger">
-                        @error('full_name'){{ $message }} @enderror
-                    </span>
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control reg_fields" name="age" placeholder="Age" value="{{ old('age') }}">
-                    <span class="text-danger">
-                        @error('age'){{ $message }} @enderror
-                    </span>
-                </div>
-                <div class="form-group">
-                        <input type="text" class="form-control reg_fields" name="address" placeholder="Address" value="{{ old('address') }}">
+                <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h5>Full Name</h5>
+                        <input type="text" class="input" name="full_name" value="{{ old('full_name') }}">
                         <span class="text-danger">
-                            @error('address'){{ $message }} @enderror
+                            @error('full_name'){{ $message }} @enderror
                         </span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control reg_fields" name="email" placeholder="Email Address" value="{{ old('email') }}">
-                    <span class="text-danger">
+                <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <div>
+                        <h5>Address</h5>
+                        <input type="text" class="input" name="address" value="{{ old('address') }}">
+                        <span class="text-danger">
+                        @error('address'){{ $message }} @enderror
+                    </span>
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>Email</h5>
+                        <input type="text" class="input" name="email" value="{{ old('email') }}">
+                        <span class="text-danger">
                         @error('email'){{ $message }} @enderror
                     </span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control reg_fields" name="contact_number" placeholder="Contact Number" value="{{ old('contact_number') }}">
-                    <span class="text-danger">
+                <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>Contact Number</h5>
+                        <input type="text" class="input" name="contact_number" value="{{ old('contact_number') }}">
+                        <span class="text-danger">
                         @error('contact_number'){{ $message }} @enderror
                     </span>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control login_fields @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
-                    <span class="text-danger">
+                <div class="input-div">
+                    <div class="icon">
+                    <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <h5>Password</h5>
+                        <div class="password_con">
+                            <input type="password" class="input @error('password') is-invalid @enderror" name="password" id="password" required autocomplete="current-password">
+                            <div class="eye_con">
+                                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                            </div>
+                        </div>
+                        <span class="text-danger">
+                            @error('password'){{ $message }} @enderror
+                        </span>
+                    </div>
+                </div> 
+                <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <h5>Confirm Password</h5>
+                        <input id="password" type="password" class="input @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password">
+                        <span class="text-danger">
                         @error('password'){{ $message }} @enderror
                     </span>
-                </div>
-                <div class="form-group">
-                    <input id="password" type="password" class="form-control login_fields @error('password') is-invalid @enderror" name="password_confirmation" placeholder="Confirm Password" required autocomplete="current-password">
+                    </div>
                 </div>
                 <div class="upload_con">
                     <div class="form-group">
@@ -92,30 +132,52 @@
                             @error('valid_id'){{ $message }} @enderror
                         </span>
                     </div>
-                    <div class="form-group">
+                </div>
+                <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-pen"></i>
+                    </div>
+                    <div>
+                        <h5>Description</h5>
+                        <input type="text" class="input" name="email" value="{{ old('email') }}">
+                        <span class="text-danger">
+                        @error('desciption'){{ $message }} @enderror
+                    </span>
+                    </div>
+                </div>
+                <div class="form-group">
                         <label class="upload_label">
                             Requirement
                         </label>
+                        <div class="file_upload_con">
+                            <i class="bi bi-file-richtext"></i>
+                        </div>
                         <input type="file" name="requirement" class="form-control upload_file">
                         <span class="text-danger">
                             @error('requirement'){{ $message }} @enderror
                         </span>
+                        <div class="further_info_con">
+                            <strong>Recommended Document</strong>
+                            <br>
+                            <i class="further_info">
+                                NSO/PSA Birth Certificate, Barangay Clearance, Medical Certificate, Good Moral Certificate and Matriculation Form (if currently enrolled).
+                            </i>
+                            <br>
+                            <p class="further_info">
+                                *Please identify what requirement did you uploaded through the description field below.
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control reg_fields" name="description" placeholder="Description" value="{{ old('description') }}">
-                    <span class="text-danger">
-                        @error('description'){{ $message }} @enderror
-                    </span>
-                </div>
-                <button type="submit" class="register_cleaner_btn">
+                
+                <button type="submit" class="register_customer_btn">
                     Sign Up
                 </button>
                 <br>
-                <a class="login_link_btn" href="{{ route('cleaner.cleaner_login') }}"> 
+                <a class="login_link_btn"  href="/cleaner/cleaner_login"> 
                     I already have an account, Sign In
                 </a>
-        </div>
+                </div>
     </div>
+    <script type="text/javascript" src="{{ asset('js/register.js')}}"></script>
 </body>
 </html>

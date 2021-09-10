@@ -1,0 +1,852 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #EDF1F8;
+    overflow-x: hidden;
+}
+
+/* Admin Navbar */
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 100px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #1A5184;
+}
+.logo {
+    color: #FFFFFF;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    float: left;
+    font-weight: bold;
+    font-style: italic;
+    margin-right: 215px;
+}
+header nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+header nav ul li {
+    list-style: none;
+}
+nav ul li a {
+    margin-left: 10px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: bold;
+}
+nav ul li a:hover 
+nav ul li a:active {
+    color: #FFFFFF;
+    background: #04192E;
+}
+.menu-toggle {
+    color: #FFFFFF;
+    float: right;
+    line-height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+a:hover {
+    text-decoration: none;
+    color: #FFB703;
+}
+.active {
+    color: #FFB703;
+}
+.profile_btn {
+    margin-left: 310px;
+    margin-top: 8px;
+}
+.profile_img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+.dropdown-toggle {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: #FFFFFF ;
+}
+.caret {
+    color: #FFFFFF;
+    width: 5px;
+    height: 5px;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropdown-menu .dropdown-item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-menu a:hover {background-color: #ddd;}
+
+
+
+
+/* Admin Search Bar */
+
+.search_con {
+    margin-top: -30px;
+    float: right;
+    margin-right: 30px;
+}
+.adjust_con {
+    margin-top: 30px;
+    float: right;
+    margin-right: 30px;
+}
+.searchbar, ::placeholder { 
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    color: gray;
+    opacity: 1;
+    border: none;
+    padding-left: 10px;
+    font-size: 15px;
+}
+.searchbar:focus {
+    outline: none;
+}
+.search_btn {
+    height: 30px;
+    width: 100px;
+    border-radius: 8px;
+    background-color: #FFB703;
+    border: none;
+    color: rgba(255, 255, 255, .8);
+    font-weight: bold;
+}
+.adjust_con:hover .search_btn {
+    border: #FFB703 2px solid;
+    color: #FFB703;
+    background-color: #EDF1F8;
+}
+.search_con:hover .search_btn {
+    border: #FFB703 2px solid;
+    color: #FFB703;
+    background-color: #EDF1F8;
+}
+
+
+/* Admin Login and Register Page */
+
+.login_body, 
+.reg_body {
+    background-color: #bdcae0;
+}
+.login_customer_body {
+    background-image: url("/img/customer_bg.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+.reg_customer_body {
+    background-color: #219EBC;
+}
+.login_cleaner_body {
+    background-image: url("/img/cleaner_bg.jpg");
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+.reg_cleaner_body {
+    background-color: #e0996f;
+}
+.login_con {
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    width: 400px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 10px;
+    padding: 20px;
+}
+.register_con {
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    width: 450px;
+    height: auto;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 10px;
+    padding: 20px;
+}
+.login_fields, 
+.reg_fields {
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+    outline: none;
+    margin-top: 25px;
+    width: 100%;
+    padding: 3px;
+}
+.upload_con {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+.upload_label {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.upload_file {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.login_btn, 
+.register_btn{
+    width: 100%;
+    height: 30px;
+    background-color: #e0996f;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 15px;
+    border: none;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.login_btn:hover, 
+.register_btn:hover
+{
+    border: #e0996f 2px solid;
+    color: #e0996f;
+    background-color: #fff;
+}
+.login_customer_btn, 
+.register_customer_btn{
+    width: 100%;
+    height: 30px;
+    background-color: #FB8500;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 15px;
+    border: none;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.login_customer_btn:hover, 
+.register_customer_btn:hover
+{
+    border: #FB8500 2px solid;
+    color: #FB8500;
+    background-color: #fff;
+}
+.login_cleaner_btn, 
+.register_cleaner_btn{
+    width: 100%;
+    height: 30px;
+    background-color: #219EBC;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 15px;
+    border: none;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.login_cleaner_btn:hover, 
+.register_cleaner_btn:hover
+{
+    border: #219EBC 2px solid;
+    color: #219EBC;
+    background-color: #fff;
+}
+.signin_label, 
+.register_label{
+    color: #1A5184;
+    font-size: 25px;
+}
+.login_link_btn,
+.register_link_btn  {
+    font-size: 12px;
+    font-style: italic;
+}
+
+
+/* Admin Dashboard */
+
+.row_dashboard {
+    margin-top: 50px;
+}
+.col_dashboard_main {
+    background-color: #FFFFFF;
+    height: 100%;
+}
+.col-dashboard {
+    margin: 40px;
+    background-color: #EDF1F8;
+    height: 100%;
+    width: 300px;
+}
+.dashboard_title {
+    margin-top: 50px;
+    font-family: sans-serif;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.active_services_con {
+    height: 105px;
+    width: 280px;
+    background-color: rgba(255, 183, 3, .5);
+    margin: 18px;
+    border-left: 15px solid #FFB703;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.service_name {
+    font-size: 20px;
+    font-weight: bolder;
+}
+.transaction_id {
+    font-size: 12px;
+}
+.customer_name {
+    font-size: 15px;
+    font-weight: bold;
+}
+.arrow_right_con {
+    float: right;
+    margin-right: 20px;
+    margin-top: 25px;
+}
+.right {
+    display: inline-block;
+    width: 2.3em;
+    height: 2.3em;
+    border: 0.3em solid #FFB703;
+    border-radius: 50%;
+    margin-left: 1.5em;
+}
+.right:after {
+    content: '';
+    display: inline-block;
+    margin-top: 0.30em;
+    margin-left: 0.2em;
+    width: 1em;
+    height: 1em;
+    border-top: 0.2em solid #FFB703;
+    border-right: 0.2em solid #FFB703;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+} 
+#report {
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    color: #FFFFFF;
+}
+.daily_revenue{
+    height: 90px;
+    width: 170px;
+    background-color: #FFB703;
+    padding: 13px;
+    border-radius: 10px;
+    margin-right: 50px;
+}
+.weekly_revenue{
+    height: 90px;
+    width: 170px;
+    background-color: #FB8500;
+    padding: 13px;
+    border-radius: 10px;
+    margin-right: 50px;
+}
+.sweep_user{
+    height: 90px;
+    width: 170px;
+    background-color: #219EBC;
+    padding: 13px;
+    border-radius: 10px;
+    margin-right: 50px;
+    margin-top: 10px;
+}
+.sweep_cleaner{
+    height: 90px;
+    width: 170px;
+    background-color: #e0996f;
+    padding: 13px;
+    border-radius: 10px;
+    margin-right: 50px;
+    margin-top: 10px;
+}
+.value {
+    font-size: 25px;
+    font-weight: bold;
+}
+.report_title {
+    font-size: 15px;
+}
+#daily_transaction {
+    margin-left: 30px;
+}
+
+
+
+
+
+/* Admin Bar Graph */
+
+
+
+/* Admin User Page */
+
+.user_type_btn, 
+.user_type_btn_cleaner, 
+.user_type_btn_employee, 
+.user_type_btn_customer {
+    color: #04192E;
+    font-weight: bolder;
+    margin-left: 60px;
+    margin-top: 80px;
+}
+.show_info {
+    margin-top: 20px;
+    margin-left: 50px;
+    font-weight: bold;
+    font-size: 15px;
+}
+.result_con {
+    float: right;
+    margin-right: 30px;
+    margin-top: -55px;
+    display: inline-flex;
+}
+.total_value {
+    color: #FFB703;
+    margin-top: 10px;
+    display: inline;
+}
+#number {
+    width: 50px;
+    height: 28px;
+    border-color: rgba(255, 183, 3, .5);
+    color: rgba(255, 183, 3, .5);
+    border-radius: 8px;
+    margin-top: 18px;
+    margin-left: 15px;
+}
+.user_table_con{
+    margin-top: 40px;
+    width: auto;
+    height: auto;
+}
+.user_table {
+    height: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
+}
+.user_table_header {
+    background-color: rgba(211, 211, 211, .8);
+}
+.user_table_row, 
+.user_table_data {
+    border: 1px solid rgba(211, 211, 211, .5);
+}
+
+
+ /* Admin Cleaner Page */
+
+.verify_btn {
+    margin-right: -10px;
+    width: 100px;
+    height: 30px;
+    display: inline-flex;
+    background-color: #2B81B0;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 2px;
+    padding-left: 24px;
+    padding-top: 4px;
+}
+.verify_con:hover .verify_btn {
+    border: #2B81B0 2px solid;
+    color: #2B81B0;
+    background-color: #EDF1F8;
+}
+                                                        
+
+
+/* Admin Services Page */
+
+.cards_title {
+    display: block;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+}
+.service_title {
+    font-weight: bolder;
+    font-size: 22px;
+}
+.modal_service_title{
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 10px;
+}
+.pricing_title {
+    margin-top: 50px;
+    font-weight: bold;
+}
+.services_title_con {
+    margin-top: 7vw;
+    margin-left: 8vw;
+}
+.add_service_btn {
+    width:150px;
+    background-color: #FB8500;
+    border: #FB8500;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    border-radius: 10px; 
+}
+.add_service_con {
+    padding-left: 815px;
+    margin-top: 20px;
+}
+.add_service_form {
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+    outline: none;
+    margin-top: 25px;
+    width: 250px;
+    padding: 3px;
+}
+.services_con, 
+.transaction_con {
+    margin-left: 110px;
+    margin-top: 20px;
+}
+.col_services, 
+.col_transaction {
+    float: left;
+    width: 30%;
+    padding: 0 10px;
+    padding-top: 2%;
+}
+.row_services, 
+.row_transaction {
+    margin: 0 -5px;}
+.row_services:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.row_transaction:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+@media screen and (max-width: 991px) {
+    .col_services, 
+    .col_transaction{
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+.card_services, 
+.card_transaction {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    background-color: #FFFFFF;
+    margin-bottom: 10px;
+    border-radius: 15px; 
+}
+.broom_img {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px; 
+    background-color: #2B81B0;  
+    border-radius: 10px; 
+}
+.broom_img_inside {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px; 
+    background-color: #2B81B0;  
+    border-radius: 10px; 
+}
+.service_description {
+    text-align: justify;
+    text-indent: 50px;
+    font-size: 15px;
+    margin-top: 5px;
+}
+.view_details_btn {
+    width:300px;
+    background-color: #BEE7FD;
+    border: #BEE7FD;
+    color: black;
+    font-weight: bold;
+    border-radius: 15px; 
+    font-size: 13px;
+}
+.package_list {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 15px;
+}
+.update_btn {
+    background-color: #BEE7FD;
+    border: #BEE7FD;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 13px;
+    width:100px;
+}
+.delete_btn {
+    background-color: #FF3838;
+    border: #FF3838;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 13px;
+    width:100px;
+}
+.service_modal_header, 
+.service_modal_footer, 
+.trans_modal_header, 
+.trans_modal_footer { 
+    border: 0 none;
+}
+.service_modal_content, 
+.trans_modal_content { 
+    border-radius: 15px;
+}
+
+
+
+
+
+
+/* Admin Transaction Page */
+
+.check_icon_outside {
+    color: #FB8500;
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+.check_icon_inside {
+    font-size: 2em;
+    margin-right: 15px; 
+    color: #FB8500;  
+    margin-top: -5px;
+}
+.service_title_trans {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 5px;
+    color: #FB8500;
+}
+.service_status {
+    padding-left: 47px;
+    margin-top: 5px;
+    font-size: 18px;
+}
+.booking_date {
+    font-size: 14px;
+}
+.modal_service_title_trans {
+    font-weight: bold;
+    font-size: 30px;
+    color: #FB8500;
+}
+.user_info_table{
+    font-size: 15px;
+}
+.customer_detail{
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 15px;
+}
+.list_booking_info {
+    text-indent: 50px;
+}
+.view_details_btn_trans {
+    width:300px;
+    background-color: #FB8500;
+    border: #FB8500;
+    color: black;
+    font-weight: bold;
+    border-radius: 15px; 
+    font-size: 13px;
+}
+.accept_btn {
+    background-color: #BEE7FD;
+    border: #BEE7FD;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 13px;
+    width:100px;
+}
+.decline_btn {
+    background-color: #FF3838;
+    border: #FF3838;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 13px;
+    width:100px;
+}
+
+
+
+
+/* Admin Transaction History Page */
+
+.trans_his_con {
+    margin-top: 40px;
+    width: auto;
+    height: auto;
+}
+.row_title {
+    background-color: #BEE7FD;
+}
+.table_trans_his_row {
+    text-align: center;
+}
+.user_table_trans_his_header {
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsiveness */
+
+@media (max-width: 991px){
+    header {
+        padding: 0 20px;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    nav {
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 50px);
+        background: #04192E;
+        top: 50px;
+        left: -100%;
+        transition: 0.3s;
+    }
+    header nav.active {
+        left: 0;
+    }
+    header nav ul{
+        display: block;
+        text-align: center;
+    }
+    header nav ul li a {
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+    }
+    .cards_title {
+        padding-left: 5%;
+        padding-top: 30%;
+    }
+    .services_con, 
+    .transaction_con, 
+    .trans_his_con {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .add_service_con {
+        padding-left: 10%;
+        margin-left: 230px;
+    }
+    .card_services, 
+    .card_transaction {
+        margin-left: 20px;
+    }
+}
+
+
+/* lost
+.trans-history-btn {
+    width: 200px;
+    background-color: #FB8500;
+    border: #FB8500;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    border-radius: 10px; 
+}
+.trans-history {
+    padding-left: 695px;
+}
+.trans-view-details-btn {
+    width:300px;
+    background-color: #BEE7FD;
+    border: #BEE7FD;
+    color: black;
+    font-weight: bold;
+    border-radius: 15px; 
+    font-size: 13px;
+}
+*/

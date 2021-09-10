@@ -56,12 +56,12 @@
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
 
-    <div class="search_con"> <!-- Search Field -->
-        <input class="searchbar" type="text" placeholder="Search..">
-        <button class="search_btn">
-            Search
-        </button>
-    </div> <!-- End of Search Field -->
+    <div class="col-sm-9">
+            <div class="search_con"> <!-- Search Field -->
+                <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
+            </div> 
+        </div>
+    </div>
     
     <div class="col-2 d-flex services_title_con">
         <div>
@@ -171,11 +171,11 @@
 
     <div class="services_con">
     @foreach($service_data as $key => $value)
-            <div class="column col_services">
+            <div class="column col_services" id="card-lists">
                 <div class="card card_services p-4">
-                    <div class="d-flex">
+                    <div class="d-flex card_body">
                         <img src="/img/broom.png" class="broom_img p-1">
-                        <h3 class="service_title">
+                        <h3 class="card-title service_title">
                             {{ $value->service_name }}
                         </h3>
                     </div>
@@ -185,10 +185,10 @@
                         </p>
                     </div>
                     <div class="view_details_con">
-                        <button type="button" class="btn btn-block btn-primary view_details_btn" data-toggle="modal" data-target="#exampleModalLong1-{{ $value->service_id }}">
+                        <button type="button" class="btn btn-block btn-primary view_details_btn" data-toggle="modal" data-target="#details-{{ $value->service_id }}">
                             View Details
                         </button>
-                        <div class="modal fade" id="exampleModalLong1-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                        <div class="modal fade" id="details-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                             <div class="modal-dialog" role="document">
                             <div class="modal-content p-3 service_modal_content"> <!-- Modal Content -->
                                 <div class="modal-header service_modal_header">

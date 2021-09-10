@@ -1,0 +1,23 @@
+.sweep-nav{
+    background-color: #DBF1FC !important;
+  }
+
+.navbar-brandname {
+    color: #042A6B;
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.login_btn {
+    background-color: #1A5184;
+    border: #1A5184;
+    color: white;
+    border-radius: 5px; 
+    font-size: 16px;
+    width: 100x;
+    
+}

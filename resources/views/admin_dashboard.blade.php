@@ -1,3 +1,12 @@
+<?php 
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+?>
 @extends('head_extention_admin') 
 
 @section('content')
@@ -58,79 +67,48 @@
       <h2 class="dashboard_title"> 
         Active Transactions
       </h2>
-      <div class="active_services_con"> 
-        <div class="arrow_right_con">
-          <a href="#">
-            <span class="right"></span>
-          </a>
-        </div>
-        <h3 class="service_name"> 
-          Light Cleaning 
-        </h3>
-        <p class="transaction_id"> 
-          Trans ID: 20201211AC56205 
-        </p>
-        <p class="customer_name"> 
-          Customer: Lyka C. Casilao 
-        </p>
+      <div class="adjust_con_dash"> <!-- Search Field -->
+        <input class="form-control searchbar_dash" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
       </div> 
-      <div class="active_services_con"> 
-        <div class="arrow_right_con">
-          <a href="#">
-            <span class="right"></span>
-          </a>
-        </div>
-        <h3 class="service_name"> 
-          Light Cleaning 
-        </h3>
-        <p class="transaction_id"> 
-          Trans ID: 20201211AC56205 
-        </p>
-        <p class="customer_name"> 
-          Customer: Lyka C. Casilao 
-        </p>      
-      </div> 
-      <div class="active_services_con"> 
-        <div class="arrow_right_con">
-          <a href="#">
-            <span class="right"></span>
-          </a>
+
+      <?php
+        $booking_data = Booking::Where('status', 'Accepted' )->get();
+      ?>
+      @foreach($booking_data as $key => $value)
+      <?php
+        $service_data = Service::Where('service_id', $value->service_id )->get();
+        $userID= Customer::Where('customer_id', $value->customer_id )->value('user_id');
+        $user_data = User::Where('user_id', $userID )->get();
+      ?>
+      @foreach($service_data as $key => $data)
+      @foreach($user_data as $key => $user)
+
+      <div class="row" id="card-lists"> 
+        <div class="card active_services_con">
+          <div class="d-flex card_body arrow_right_con">
+            <h3 class="card-title service_name"> 
+              {{ $data->service_name }}
+            </h3>
+            <div>
+              <a href="admin_transaction">
+                <span class="right"></span>
+              </a>
+            </div>
           </div>
-          <h3 class="service_name"> 
-            Light Cleaning 
-          </h3>
           <p class="transaction_id"> 
-            Trans ID: 20201211AC56205 
+            Transaction ID: {{ $value->booking_ID }}
           </p>
           <p class="customer_name"> 
-            Customer: Lyka C. Casilao 
-          </p>    
-      </div> 
-      <div class="active_services_con"> 
-        <div class="arrow_right_con">
-          <a href="#">
-            <span class="right"></span>
-          </a>
-          </div>
-          <h3 class="service_name"> 
-            Light Cleaning 
-          </h3>
-          <p class="transaction_id"> 
-            Trans ID: 20201211AC56205 
+            Customer: {{ $user->full_name }}
           </p>
-          <p class="customer_name"> 
-            Customer: Lyka C. Casilao 
-          </p>     
-      </div> 
+        </div>
+      </div>
+      @endforeach
+      @endforeach
+      @endforeach
     </div> <!-- End of Sidebar -->
 
     <div class="col-sm-9">
-      <div class="adjust_con"> <!-- Search Field -->
-            <input class="searchbar" type="search" placeholder="Search..">
-            <button class="search_btn">
-              Search
-            </button>
-      </div> <!-- End of Search Field -->
      
       <div class="row" id="report"> <!-- Reports -->
         <div class="daily_revenue">

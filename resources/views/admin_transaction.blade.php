@@ -69,7 +69,7 @@
         $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
         $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
-    <div class="row"> <!-- Sub Header -->  
+    <div class="row user_btn_con"> <!-- Sub Header -->  
         <a class="user_type_btn" id="active"  href="admin_transaction">
             TRANSACTION 
             <p class="total_value">
@@ -82,15 +82,13 @@
                 ({{ $history_count }})
             </p>
         </a>
-    </div>
-    <div class="search_con"> <!-- Search Field -->
-        <div>
-            <input class="searchbar" type="text" placeholder="Search..">
-            <button class="search_btn">
-                Search
-            </button>
+
+    <div class="col-sm-9">
+            <div class="adjust_con"> <!-- Search Field -->
+                <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
+            </div> 
         </div>
-    </div> <!-- End of Search Field -->
+    </div>
     
     <div class="transaction_con">
     
@@ -104,12 +102,12 @@
         $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
         $cleaner_data = User::Where('user_type', 'Cleaner')->get();
     ?>
-            <div class="column col_transaction">
+            <div class="column col_transaction" id="card-lists">
                 <div class="card card_transaction p-4">
-                    <div class="d-flex">
+                    <div class="d-flex card_body">
                         <i class="bi bi-card-checklist check_icon_outside"></i>
                         @foreach($service_data as $key => $data)
-                        <h3 class="service_title_trans">
+                        <h3 class="card-title  service_title_trans">
                             {{ $data->service_name }}
                         </h3>
                         <h5 class="service_status">
@@ -266,7 +264,7 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending")    
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" onclick="document.location='{{ route('update_account', $value->user_id) }}'" name="status" value="Declined">
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
                                             DECLINE
                                         </button>
                                     @endif
