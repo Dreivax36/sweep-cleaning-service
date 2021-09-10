@@ -85,15 +85,15 @@
 
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $booking = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' ,'Pending')->orWhere('status' ,'Accepted')->value('booking_id');
     ?>
     
     <div class="cleaner_job_con">
         
         <div class="row row_cleaner_job">
-        @foreach($booking as $key => $booking)
+       
         <?php
-            $booking_data = Booking::where('booking_id', $booking->booking_id )->Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
+            $booking_data = Booking::where('booking_id', $bookingID )->Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status','=', 'On-Progress' )->get();
         ?>
         
         @foreach($booking_data as $key => $value)
@@ -137,23 +137,6 @@
                         <div class="modal-footer customer_services_modal_footer">
                             <div class="modal fade" id="details-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                 <div class="modal-dialog" role="document">
-                                          
-                                    <form action="{{ route('updateStatus') }}" method="post" id="myform"> <!-- Modal Content-->
-                                        @if(Session::get('success'))
-                                            <div class="alert alert-success">
-                                                {{ Session::get('success') }}
-                                            </div>
-                                        @endif
-
-                                        @if(Session::get('fail'))
-                                            <div class="alert alert-danger">
-                                                {{ Session::get('fail') }}
-                                            </div>
-                                        @endif
-
-                                        @csrf
-
-                                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                             <div class="modal-content p-4 cleaner_job_modal_content">
                                                 <div class="modal-header cleaner_job_modal_header">
                                                 <div class="d-flex pt-5">
@@ -210,18 +193,34 @@
                                                     </div>
                                                 </div>
                                                 @endforeach 
+                                                <form action="{{ route('updateStatus') }}" method="post" id="updatestatus"> <!-- Modal Content-->
+                                                    @if(Session::get('success'))
+                                                        <div class="alert alert-success">
+                                                            {{ Session::get('success') }}
+                                                        </div>
+                                                    @endif
+
+                                                    @if(Session::get('fail'))
+                                                        <div class="alert alert-danger">
+                                                            {{ Session::get('fail') }}
+                                                        </div>
+                                                    @endif
+
+                                                    @csrf
+
+                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                 </form>
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                     <div class="on_progress_con">
                                                     
                                                         @if($value->status == "Accepted")
-                                                            <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Pending" >
+                                                            <button form="updatestatus" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Pending" >
                                                                 ON-PROGRESS
                                                             </button>    
                                                         @endif
 
                                                         @if($value->status == "On-Progress")
-                                                            <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
+                                                            <button form="updatestatus" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                                                 DONE
                                                             </button> 
                                                         @endif
@@ -243,11 +242,11 @@
                                                     @csrf
                                                     
                                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                    <input type="hidden" name="cleaner_id" value="{{ $booking->cleaner_id }}">
+                                                    <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
                                                     
                                                 </form>
                                                 <?php
-                                                    $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $booking->cleaner_id)->Where('status', '=', "Accepted")->count();       
+                                                    $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();       
                                                 ?>
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                     <div class="on_progress_con">
@@ -261,13 +260,12 @@
                                                         @endif
                                                     </div>
                                                 </div> 
-                                               
+                                                
                                             </div><!-- End of Modal Content -->
                                             </div> 
 </div>
                                 </div><!-- End of Modal --> 
-            @endforeach
-            @endforeach       
+            @endforeach      
         </div>   
     </div>
 </body>

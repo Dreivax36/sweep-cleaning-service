@@ -1,3 +1,10 @@
+<?php
+    use App\Models\Booking;
+    use App\Models\Price;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
+?>
 @extends('head_extention_admin') 
 
 @section('content')
@@ -100,10 +107,7 @@
                 <thead>
                     <tr class="user_table_row">
                         <th class="text-center user_table_header">
-                            First Name
-                        </th>
-                        <th class="text-center user_table_header">
-                            Last Name
+                            Full Name
                         </th>
                         <th class="text-center user_table_header">
                             Total Salary
@@ -111,16 +115,45 @@
                         <th class="text-center user_table_header">
                             Date Received
                         </th>
+                        <th class="text-center user_table_header">
+                            
+                        </th>
                     </tr>
                 </thead>
+                <?php
+                    $total = 0;
+                    $bookingID = Booking::Where('status', 'Pending')->get();
+                ?>
+                @foreach($bookingID as $key => $value)
+                <?php
+                    $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->value('cleaner_id');
+                ?>
+                 <?php
+                    $booked = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('booking_id', $value->booking_id)->get();
+                ?>
+                 @foreach($booked as $key => $book)
+                 <?php
+                    $payroll = Booking::Where('booking_id', $book->booking_id)->get();
+                    foreach($payroll as $key => $pay){
+                    $price = Price::Where('service_id', $pay->service_id)->Where('property_type', $pay->property_type)->value('price');
+                    }
+                    $total = $total + $price;
+                ?>
+                @endforeach
+                <?php
+                    $id = Cleaner::Where('cleaner_id', $cleanerID)->value('user_id'); 
+                    $fullname = User::Where('user_id', $id)->value('full_name'); 
+                    $total = $total * 0.30;
+                ?>
                 <tbody>
                     <tr class="user_table_row">
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
+                        <td class="user_table_data">{{ $fullname }}</td>
+                        <td class="user_table_data"> {{ $total }}</td>
                         <td class="user_table_data"></td>
                         <td class="user_table_data"></td>
                     </tr>
                 </tbody>
+                @endforeach 
             </table>
         </div>
     </div> <!-- End of Payroll Table -->

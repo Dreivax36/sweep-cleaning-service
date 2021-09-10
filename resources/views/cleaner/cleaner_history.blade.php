@@ -83,12 +83,12 @@
     </div>
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $booking = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', 'Declined')->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', 'Declined')->value('booking_id');
     ?>
     <div class="cleaner_job_con">
-        @foreach($booking as $key => $booking)
+
         <?php
-            $booking_data = Booking::where('booking_id', $booking->booking_id)->orWhere('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
+            $booking_data = Booking::where('booking_id', $bookingID)->orWhere('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
         ?>
         @foreach($booking_data as $key => $value)
 
@@ -212,7 +212,6 @@
         </div>
 
     </div>
-    @endforeach
     @endforeach
     @endforeach
     @endforeach

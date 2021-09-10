@@ -63,9 +63,9 @@
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
     <?php
-        $booking_data = Booking::Where('status', '=', 'Completed')->Where('status', '=', 'Declined')->get();
-        $transaction_count = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->count();
-        $history_count = Booking::Where('status', '=', 'Completed')->orWhere('status', '=', 'Declined')->count();
+        $booking_data = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->get();
+        $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
+        $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
     <div class="row"> <!-- Sub Header -->  
         <a class="user_type_btn"  href="admin_transaction">
@@ -122,22 +122,18 @@
                         Mode of Payment
                     </th>
                     <th scope="col" class="user_table_trans_his_header">
-                        Cleaner ID
-                    </th>
-                    <th scope="col" class="user_table_trans_his_header">
                         Status
                     </th>
                 </tr>
             </thead>
 
-            <?php
-                $booking_data = Booking::Select('service_id','customer_id','property_type','mode_of_payment',)->Where('status', 'Completed')->orWhere('status', '=', 'Declined')->get();
-            ?>
+            
             @foreach($booking_data as $key => $value)
 
             <?php
                 $service = Service::Where('service_id', $value->service_id )->get();
-                $user = User::Where('user_id', $value->customer_id )->get();
+                $userID = Customer::Where('customer_id', $value->customer_id )->value('user_id');
+                $user = User::Where('user_id', $userID )->get();
             ?>
             @foreach($service as $key => $service_data)
             
@@ -162,9 +158,6 @@
                     </td>
                     <td class="user_table_data">
                         {{ $value -> mode_of_payment }}
-                    </td>
-                    <td class="user_table_data">
-                 <!-- {{ $value -> cleaner_id }} -->       
                     </td>
                     <td class="user_table_data">
                     {{ $value -> status }}
