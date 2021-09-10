@@ -155,7 +155,24 @@
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
-                                                
+                                                <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
+                                                @if(Session::get('success'))
+                                                    <div class="alert alert-success">
+                                                        {{ Session::get('success') }}
+                                                    </div>
+                                                @endif
+
+                                                @if(Session::get('fail'))
+                                                    <div class="alert alert-danger">
+                                                        {{ Session::get('fail') }}
+                                                    </div>
+                                                @endif 
+                                                    @csrf
+                                                    
+                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                                    <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
+                                                    
+                                                </form>
                                                     <div class="cleaner_job_modal_body_1_con">
                                                         <ul class="cleaner_detail">
                                                         @foreach($user_data as $key => $user)
@@ -194,28 +211,11 @@
                                                 
                                                 @endforeach 
                                                 
-                                                <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
-                                                @if(Session::get('success'))
-                                                    <div class="alert alert-success">
-                                                        {{ Session::get('success') }}
-                                                    </div>
-                                                @endif
-
-                                                @if(Session::get('fail'))
-                                                    <div class="alert alert-danger">
-                                                        {{ Session::get('fail') }}
-                                                    </div>
-                                                @endif 
-                                                    @csrf
-                                                    
-                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                    <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
-                                                    
-                                                </form>
+                                                
                                                 <?php
                                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();       
                                                 ?>
-                                                x
+                                                
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                         @if($value->status == "Pending" && $statuscount != 1 )
                                                             <button form="cleaner" class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >

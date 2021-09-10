@@ -184,7 +184,7 @@
                                     @endif
 
                                     @csrf
-                                    <input type="text" name="booking_id" value="{{ $value->booking_id }}">
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                     
                                    
@@ -299,7 +299,7 @@
                                             <div class="modal-header trans_modal_header">
                                                 <div class="d-flex pt-5">
                                                     <h4 class="modal_service_title_trans">
-                                                        Assign {{ $price_data->number_of_cleaner}} Cleaner
+                                                        Assign Cleaner
                                                     </h4>
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -341,20 +341,13 @@
                                                       
                                                 ?>
                                                 @foreach($cleaner_data as $cleaner)
-                                                @foreach($cleanerid as $id)
-                                                    <?php
-                                                          $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');
-                                                          $prevUserID = 0;
-                                                          $prevCleanerID = 0;
-                                                    ?>
-                                                        @if ( $user != $cleaner->user_id && $user != $prevCleanerID && $prevUserID != $cleaner->user_id  )
-                                                        <?php
+                                              
+                                                     <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
                                                             <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                        @endif
-                                                        $prevUserID = $cleaner->user_id;
-                                                        $prevCleanerID = $user;
+                                                
+                                                        
                                                 @endforeach    
                                                 @endforeach
                                                 
