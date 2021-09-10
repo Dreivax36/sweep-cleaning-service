@@ -307,7 +307,7 @@
                     <div class="modal-body">
                         
                     <!-- Form for Updating a Service -->
-                    <form action="{{ route('update') }}" method="post" id="update">
+                    <form action="{{ route('update') }}" method="post" >
                         @if(Session::get('success'))
                             <div class="alert alert-success">
                                 {{ Session::get('success') }}
@@ -403,17 +403,17 @@
                                 @error('condo_price'){{ $message }} @enderror
                             </span>
                         </div>
-                    </form>
+                    
                     </div>
                         <div class="modal-footer service_modal_header">
-                            <button form="update" type="submit" class="btn btn-primary update_btn" class="close-modal">
+                            <button  type="submit" class="btn btn-primary update_btn" class="close-modal">
                                 UPDATE
                             </button>
                             <button type="button" class="btn btn-block btn-primary delete_btn" class="close" data-dismiss="modal">
                                 CANCEL
                             </button>
                         </div>
-                        
+                        </form>
                     </div>
                     @endforeach
                 </div>
