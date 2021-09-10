@@ -113,10 +113,7 @@
                             Total Salary
                         </th>
                         <th class="text-center user_table_header">
-                            Date Received
-                        </th>
-                        <th class="text-center user_table_header">
-                            
+                            Sweep Revenue
                         </th>
                     </tr>
                 </thead>
@@ -144,13 +141,13 @@
                     $id = Cleaner::Where('cleaner_id', $cleanerID)->value('user_id'); 
                     $fullname = User::Where('user_id', $id)->value('full_name'); 
                     $total = $total * 0.30;
+                    $revenue = $total * 0.70;
                 ?>
                 <tbody>
                     <tr class="user_table_row">
                         <td class="user_table_data">{{ $fullname }}</td>
                         <td class="user_table_data"> {{ $total }}</td>
-                        <td class="user_table_data"></td>
-                        <td class="user_table_data"></td>
+                        <td class="user_table_data">{{$revenue}}</td>
                     </tr>
                 </tbody>
                 @endforeach 

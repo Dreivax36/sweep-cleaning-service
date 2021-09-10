@@ -188,9 +188,8 @@
                                     @endif
 
                                     @csrf
-                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                    <input type="text" name="booking_id" value="{{ $value->booking_id }}">
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
-                                    
                                     
                                     <div class="modal-body p-4">
                                         <ul class="customer_detail">
@@ -267,7 +266,7 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending")    
-                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
+                                        <button form="myform" type="submit" class="btn btn-block btn-primary decline_btn" onclick="document.location='{{ route('update_account', $value->user_id) }}'" name="status" value="Declined">
                                             DECLINE
                                         </button>
                                     @endif

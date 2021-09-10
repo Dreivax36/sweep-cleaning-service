@@ -36,7 +36,7 @@ Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout'
 Route::get('/update_account/{id}',[MainController::class, 'update_account'])->name('update_account');
 
 //Booking Module
-Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
+Route::post('/updateStatus/{id}',[BookingController::class, 'updateStatus'])->name('updateStatus');
 Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
 Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
