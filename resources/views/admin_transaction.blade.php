@@ -224,7 +224,7 @@
                                             <br>
                                             
                                             <?php
-                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->get();
+                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', 'Declined')->get();
                                             ?> 
                                             @if($id != null )
                                             <li>
@@ -268,6 +268,8 @@
                                     @endif
                                     <?php
                                         $statusonprogress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
+                                        $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
+
                                     ?>
                                     @if($value->status == "Accepted" && $statuscount == $price_data->number_of_cleaner )
                                     <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Accepted" >
@@ -277,6 +279,11 @@
                                     @if($value->status == "On-Progress" && $statusonprogress == $price_data->number_of_cleaner)
                                      <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                               DONE
+                                     </button> 
+                                     @endif 
+                                     @if($value->status == "Done" && $statusdone == $price_data->number_of_cleaner)
+                                     <button form="myform" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
+                                              COMPLETE
                                      </button> 
                                      @endif 
                                 </div>
@@ -330,18 +337,24 @@
                                             <select name="cleaner_id[]" id="cleaner" >
                                                 <?php 
                                                       $cleanerid = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
+                                                      $previousID = 0;
+                                                      
                                                 ?>
                                                 @foreach($cleaner_data as $cleaner)
                                                 @foreach($cleanerid as $id)
                                                     <?php
                                                           $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');
+                                                          $prevUserID = 0;
+                                                          $prevCleanerID = 0;
                                                     ?>
-                                                        @if ( $user != $cleaner->user_id )
+                                                        @if ( $user != $cleaner->user_id && $user != $prevCleanerID && $prevUserID != $cleaner->user_id  )
                                                         <?php
-                                                              $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                          ?>    
-                                                              <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
+                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                        ?>    
+                                                            <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
                                                         @endif
+                                                        $prevUserID = $cleaner->user_id;
+                                                        $prevCleanerID = $user;
                                                 @endforeach    
                                                 @endforeach
                                                 
