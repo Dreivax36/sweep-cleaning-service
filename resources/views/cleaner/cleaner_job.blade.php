@@ -155,7 +155,7 @@
                                                 </div>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 </div>
-                                                <div class="modal-body d-flex p-4">
+                                                
                                                     <div class="cleaner_job_modal_body_1_con">
                                                         <ul class="cleaner_detail">
                                                         @foreach($user_data as $key => $user)
@@ -194,17 +194,7 @@
                                                 
                                                 @endforeach 
                                                 <form action="{{ route('updateStatus') }}" method="post" id="updatestatus"> <!-- Modal Content-->
-                                                    @if(Session::get('success'))
-                                                        <div class="alert alert-success">
-                                                            {{ Session::get('success') }}
-                                                        </div>
-                                                    @endif
-
-                                                    @if(Session::get('fail'))
-                                                        <div class="alert alert-danger">
-                                                            {{ Session::get('fail') }}
-                                                        </div>
-                                                    @endif
+                                        
 
                                                     @csrf
 
@@ -212,7 +202,7 @@
                                                 </form>
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                         @if($value->status == "Accepted")
-                                                            <button form="updatestatus" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Pending" >
+                                                            <button form="updatestatus" class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                                                 ON-PROGRESS
                                                             </button>    
                                                         @endif
@@ -224,17 +214,6 @@
                                                         @endif
                                                 </div>
                                                 <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
-                                                    @if(Session::get('success'))
-                                                        <div class="alert alert-success">
-                                                            {{ Session::get('success') }}
-                                                        </div>
-                                                    @endif
-
-                                                    @if(Session::get('fail'))
-                                                        <div class="alert alert-danger">
-                                                            {{ Session::get('fail') }}
-                                                        </div>
-                                                    @endif
 
                                                     @csrf
                                                     
@@ -256,7 +235,7 @@
                                                             </button>    
                                                         @endif
                                                 </div> 
-                                                </div>
+                                                
                                             </div><!-- End of Modal Content -->
                                             </div> 
                                 </div>

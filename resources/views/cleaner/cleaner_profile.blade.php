@@ -185,6 +185,7 @@
                     </div>
                     
                 </form>
+                @endforeach
                 </div>
                     <div class="modal-footer service_modal_header">
                         <button form="update" type="submit" class="btn btn-primary update_btn" class="close-modal">
@@ -195,7 +196,7 @@
                         </button>
                     </div>
                 </div>
-                @endforeach
+               
             </div>
         </div> <!-- End of Modal for Updating a Service -->
     </div>

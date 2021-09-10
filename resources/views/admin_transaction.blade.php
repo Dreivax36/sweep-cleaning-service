@@ -82,13 +82,13 @@
                 ({{ $history_count }})
             </p>
         </a>
-
+        </div>
     <div class="col-sm-9">
             <div class="adjust_con"> <!-- Search Field -->
                 <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
             </div> 
         </div>
-    </div>
+    
     
     <div class="transaction_con">
     
