@@ -276,7 +276,7 @@
                                              ON-PROGRESS
                                          </button>    
                                      @endif    
-                                    @if($value->status == "On-Progress" && $statusonprogress == $price_data->number_of_cleaner)
+                                    @if($value->status == "Accepted" && $statusonprogress == $price_data->number_of_cleaner)
                                      <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                               DONE
                                      </button> 
