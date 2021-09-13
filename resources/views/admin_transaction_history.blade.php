@@ -14,6 +14,7 @@
     <title>
         Admin Transaction History Page
     </title>
+    <script src="{{ asset('js/app.js') }}"></script>
 
 <body>
     <header> <!-- Navbar -->

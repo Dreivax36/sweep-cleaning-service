@@ -254,7 +254,7 @@
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner  || $bookingcount != $price_data->number_of_cleaner)
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner  && $bookingcount != $price_data->number_of_cleaner )
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
@@ -323,14 +323,19 @@
                                                 @csrf
                                                     <?php
                                                         $total = $price_data->number_of_cleaner;
+                                                        $oldUserID = 0;
+                                                     
                                                     ?>
-                                                    @while($total != 0)
                                                     @if($cleaner_data != null)
+                                                    @while($total != 0)
+                                                    <label for="cleaner">Cleaner: </label>
+                                                    <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                     <?php
-                                                          $cleanerID = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
-                                                          $oldUserID = $cleaner->user_id;
-                                                    ?>    
+                                                          $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();    
+                                                    ?>
+                                                    
+                                                    @if($cleanerID != null)    
                                                     @foreach($cleanerID as $key => $id) 
                                                     <?php 
                                                           $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');      
@@ -340,19 +345,31 @@
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
                                                             <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                        
+                                                            @break
                                                         @else
                                                         @break
                                                         @endif
-                                                    @endforeach    
+                                                        
+                                                    @endforeach 
+                                                    @else
+                                                    
+                                                    <?php
+                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                        ?>    
+                                                            <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
+                                                  
+                                                    @endif  
+                                                    $oldUserID = $cleaner->user_id;
+                                                             
                                                    
                                                 @endforeach
-                                                @endif
+                                               
                                                 </select> <br>    
                                                 <?php
                                                     $total --;
                                                 ?>
                                                 @endwhile
+                                                @endif
                                                 <br>
                                                 <div class="modal-footer trans_modal_footer">
                                                     <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal"> 

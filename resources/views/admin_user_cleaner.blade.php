@@ -10,6 +10,7 @@
     <title>
         Admin Cleaner Page
     </title>
+    <script src="{{ asset('js/app.js') }}"></script>
 
 <body>
     <header> <!-- Navbar -->

@@ -11,7 +11,7 @@
     <title>
         Admin Payroll Cleaner Page
     </title>
-
+    <script src="{{ asset('js/app.js') }}"></script>
 <body>
     <header> <!-- Navbar -->
         <div class="logo"> 

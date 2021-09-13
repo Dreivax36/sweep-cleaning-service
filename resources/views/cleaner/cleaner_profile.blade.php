@@ -97,16 +97,17 @@
                 </h5>
             </div>
             <?php
-                $cleaner_data = Cleaner::Where('user_id', $LoggedUserInfo['user_id'] )->get();
+                $address = Cleaner::Where('user_id', $LoggedUserInfo['user_id'] )->value('address');
+                $age = Cleaner::Where('user_id', $LoggedUserInfo['user_id'] )->value('age');
             ?>
 
-            @foreach($cleaner_data as $key => $value)
+            
             <div class="d-flex p-3 cleaner_profile_info_con">
                 <div class="cleaner_profile_info_icon">
                     <i class="bi bi-house-door-fill"></i>
                 </div>
                 <h5 class="cleaner_profile_info">
-                {{$value->address}}
+                {{$address}}
                 </h5>
             </div>
             <div class="d-flex p-3 cleaner_profile_info_con">
@@ -114,7 +115,7 @@
                     <i class="bi bi-person-lines-fill"></i>
                 </div>
                 <h5 class="cleaner_profile_info">
-                {{$value->age}}
+                {{$age}}
                 </h5>
             </div>
         </div>
@@ -172,20 +173,20 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address',$value->address) }}">
+                        <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address',$address) }}">
                         <span class="text-danger">
                             @error('address'){{ $message }} @enderror
                         </span>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control w-100 add_service_form" id="age" name="age" placeholder="Age" value="{{ old('age',$value->age) }}">
+                        <input type="text" class="form-control w-100 add_service_form" id="age" name="age" placeholder="Age" value="{{ old('age',$age) }}">
                         <span class="text-danger">
                             @error('age'){{ $message }} @enderror
                         </span>
                     </div>
                     
                 </form>
-                @endforeach
+                
                 </div>
                     <div class="modal-footer service_modal_header">
                         <button form="update" type="submit" class="btn btn-primary update_btn" class="close-modal">

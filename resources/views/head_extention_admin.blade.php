@@ -33,7 +33,6 @@
     <link rel="stylesheet" href="fullcalendar/4.4.0/daygrid/main.min.css">
     <link rel="stylesheet" href="fullcalendar/4.4.0/bootstrap/main.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
-    <script src="{{ asset('js/app.js') }}"></script>
     
     
     <main>
