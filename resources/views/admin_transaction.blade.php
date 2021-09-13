@@ -98,7 +98,7 @@
         $user_data = User::Where('user_id', $userId )->get();
         $address = Address::Where('customer_id', $value->customer_id )->value('address');
         $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
-        $cleaner_data = User::Where('user_type', 'Cleaner')->get();
+        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get();
     ?>
             <div class="column col_transaction" id="card-lists">
                 <div class="card card_transaction p-4">
@@ -224,12 +224,13 @@
                                             <br>
                                             
                                             <?php
-                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->orWhere('status', '!=', 'Pending')->get();
+                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
                                             ?> 
-                                            @if($id != null )
+                                            
                                             <li>
                                                 <b>Cleaners:</b>
                                             </li>
+                                            @if($id != null )
                                             @foreach($id as $cleaner)
                                             <?php
 

@@ -83,7 +83,7 @@
     </div>
   
     <div class="trans_his_con">  <!-- Transaction History Table -->
-        <table class="table table-responsive-md table-hover" id="user_table">
+        <table class="table table-responsive-md table-hover" id="history_table">
             <thead class="row_title">
                 <tr class="table_trans_his_row">
                     <th scope="col" class="user_table_trans_his_header">
