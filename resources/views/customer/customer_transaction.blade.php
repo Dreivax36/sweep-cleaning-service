@@ -121,8 +121,8 @@
                                 <button type="button" class="btn btn-link customer_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
                                     DETAILS
                                 </button>
-                                @if($value->status == "Accepted") 
-                                <button type="button" class="btn btn-block btn-primary pay_btn" data-toggle="modal" data-target="#exampleModalLong1010-{{ $value->booking_id }}"> 
+                                @if($value->status == "On-Progress") 
+                                <button type="button" class="btn btn-block btn-primary pay_btn" onclick="location.href='pay';"> 
                                     Pay 
                                 </button>
                                 @endif
@@ -138,7 +138,8 @@
                                                         Total Amount: P{{ $price_data->price }}
                                                     </h6>
                                                     <div class="d-flex payments_con">
-                                                        <img src="/img/gcash.png" class="gcash_img">
+                                                        <a href="https://test-sources.paymongo.com/sources?id=src_yYaCih8x3b9i3fjEtzmrhRb5"><img src="/img/gcash.png" class="gcash_img">
+</a>
                                                        <!-- <script src="https://www.paypal.com/sdk/js?client-id=test"></script>
                                                         <script>paypal.Buttons().render('body');</script>
                                                         -->

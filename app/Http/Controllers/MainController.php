@@ -124,8 +124,8 @@ class MainController extends Controller
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
             // Save the file locally in the storage/public/ folder under a new folder named /user
-            $profile = time().'.'.$request->profile_picture->extension();
-            $request->profile_picture->move(public_path('images'),$profile);
+            $request->profile_picture->store('images', 'public');
+            $request->valid_id->store('images', 'public');
             
             //Insert data into database
             $users = new User;
@@ -134,18 +134,15 @@ class MainController extends Controller
             $users->contact_number = $request->contact_number;
             $users->password = Hash::make($request->password);
             // Store the record, using the new file hashname which will be it's new filename identity.
-            $users->profile_picture = $profile;
+            $users->profile_picture = $request->profile_picture->hashName();
             $users->account_status = 'To_verify';
             $users->user_type = 'Customer';
             $customer_save = $users->save();
 
             $id = $users->user_id;
-            $validID = time().'.'.$request->valid_id->extension();
-            $request->valid_id->move(public_path('images'),$validID);
-
             $identifications = new Identification;
             $identifications->user_id = $id;
-            $identifications->valid_id =  $validID;
+            $identifications->valid_id =  $request->valid_id->hashName();
             $customer_save = $identifications->save();
            
             $customers = new Customer;
@@ -253,8 +250,9 @@ class MainController extends Controller
         ]);
 
             // Save the file locally in the storage/public/ folder under a new folder named /product
-            $profile = time().'.'.$request->profile_picture->extension();
-            $request->profile_picture->move(public_path('images'),$profile);
+            $request->profile_picture->store('images', 'public');
+            $request->valid_id->store('images', 'public');
+            $request->requirement->store('images', 'public');
             
 
             //Insert data into database
@@ -263,18 +261,15 @@ class MainController extends Controller
             $users->email = $request->email;
             $users->contact_number = $request->contact_number;
             $users->password = Hash::make($request->password);
-            $users->profile_picture = $profile;
+            $users->profile_picture = $request->profile_picture->hashName();
             $users->account_status = 'To_verify';
             $users->user_type = 'Cleaner';
             $cleaner_save = $users->save();
 
             $id = $users->user_id;
-            $validId = time().'.'.$request->valid_id->extension();
-            $request->valid_id->move(public_path('images'),$validId);
-            
             $identifications = new Identification;
             $identifications->user_id = $id;
-            $identifications->valid_id = $validId;
+            $identifications->valid_id = $request->valid_id->hashName();
             $customer_save = $identifications->save();
         
             $cleaners = new Cleaner;
@@ -283,12 +278,10 @@ class MainController extends Controller
             $cleaners->address = $request->address;
             $cleaner_save = $cleaners->save();
             
-            $require = time().'.'.$request->requirement->extension();
-            $request->requirement->move(public_path('images'),$require);
             $id = $cleaners->cleaner_id;
             $clearances = new Clearance;
             $clearances->cleaner_id = $id;
-            $clearances->requirement = $require;
+            $clearances->requirement = $request->requirement->hashName();
             $clearances->description = $request->description;
             $cleaner_save = $clearances->save();
 

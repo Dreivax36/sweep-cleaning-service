@@ -193,7 +193,7 @@
                             <div class="modal-content p-3 service_modal_content"> <!-- Modal Content -->
                                 <div class="modal-header service_modal_header">
                                 <div class="d-flex pt-5">
-                                    <img src="/images/broom.png" class="broom_img_inside p-1">
+                                    <img src="/img/broom.png" class="broom_img_inside p-1">
                                     <h4 class="modal_service_title">
                                         {{ $value->service_name }}
                                     </h4>

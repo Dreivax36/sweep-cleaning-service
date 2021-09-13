@@ -68,8 +68,8 @@
                 <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
             </div> 
         </div>
+    </div>
     <?php
-       
         $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->get();
         $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
         $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
@@ -91,6 +91,7 @@
     <div class="transaction_con">
     
         <div class="row row_transaction">
+        @if($booking_data != null )
         @foreach($booking_data as $key => $value)
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
@@ -114,7 +115,7 @@
                     </div>
                     <div> 
                         <h6 class="booking_date">
-                            <b>Data Created:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }} </h6>
+                            <b>Scheduled:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }} </h6>
                     </div>
                     <div>
                         <table class="table table-striped user_info_table">
@@ -224,7 +225,7 @@
                                             <br>
                                             
                                             <?php
-                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', 'Declined')->get();
+                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->orWhere('status', '!=', 'Pending')->get();
                                             ?> 
                                             @if($id != null )
                                             <li>
@@ -233,8 +234,8 @@
                                             @foreach($id as $cleaner)
                                             <?php
 
-                                                $cleaner_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id )->value('user_id');
-                                                $full = User::Where('user_id', $cleaner_id )->value('full_name');
+                                                $user_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id )->value('user_id');
+                                                $full = User::Where('user_id', $user_id )->value('full_name');
 
                                             ?>
                                             <li class="list_booking_info">
@@ -248,15 +249,16 @@
                                     
                                 
                                 <?php
+                                    $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner  || $bookingcount == $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
                                     @endif
-                                    @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner)
+                                    @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner ) <!-- add is_paid -->
                                         <button  type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
@@ -267,10 +269,10 @@
                                         </button>
                                     @endif
                                     <?php
+                                        $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
                                         $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
-
                                     ?>
-                                    @if($value->status == "Accepted" && $statuscount == $price_data->number_of_cleaner )
+                                    @if($value->status == "Accepted" && $statusOnProgress == $price_data->number_of_cleaner )
                                     <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                              ON-PROGRESS
                                          </button>    
@@ -280,7 +282,7 @@
                                               DONE
                                      </button> 
                                      @endif 
-                                     @if($value->status == "Done" && $statusdone == $price_data->number_of_cleaner)
+                                     @if($value->status == "Done")
                                      <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
                                               COMPLETE
                                      </button> 
@@ -316,34 +318,30 @@
                                                     <div class="alert alert-danger">
                                                         {{ Session::get('fail') }}
                                                     </div>
-                                                @endif
-                                                                    
+                                                @endif                  
                                                 @csrf
-                                                {{ csrf_field() }}
-                                                <?php
-                                                $cleaner_data = User::Where('user_type', 'Cleaner')->get();
-                                                if($statuscount == 0 && $statuscount == $price_data->number_of_cleaner){
-                                                    $total = $price_data->number_of_cleaner;
-                                                }
-                                                else {
-                                                    $total = ($price_data->number_of_cleaner) - $statuscount;
-                                                }
-                                                ?>
-                                                @while($total > 0)
-                                                <br>
-                                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                <input type="hidden" name="status" value="Pending">
-                                                <label for="cleaner">Cleaner: </label>
-                                                <select name="cleaner_id[]" id="cleaner" >
-                                                   
-                                                @foreach($cleaner_data as $cleaner)
-                                              
-                                                     <?php
+                                                    <?php
+                                                        $total = $price_data->number_of_cleaner;
+                                                    ?>
+                                                    @while($total != 0)
+                                                    @foreach($cleaner_data as $key => $cleaner)
+                                                    <?php
+                                                          $cleanerID = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
+                                                          $oldUserID = $cleaner->user_id;
+                                                    ?>    
+                                                    @foreach($cleanerID as $key => $id) 
+                                                    <?php 
+                                                          $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');      
+                                                    ?>
+                                                        @if ( $user != $cleaner->user_id && $cleaner->user_id != $oldUserID)
+                                                        <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
                                                             <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                
-           
+                                                        @endif
+                                                        @break
+                                                    @endforeach    
+                                                   
                                                 @endforeach
                                                 
                                                 </select> <br>    
@@ -366,7 +364,8 @@
                                 </div>
                             </div>
                     @endforeach       
-            @endforeach  
+            @endforeach 
+            @endif 
         </div>
     </div>
 </body>

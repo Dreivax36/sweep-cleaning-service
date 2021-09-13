@@ -91,6 +91,7 @@
     <div class="cleaner_job_con">
         
         <div class="row row_cleaner_job">
+        @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <?php
             $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
@@ -128,6 +129,9 @@
                             <div class="d-flex view_details_con">
                                 <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
                                     DETAILS
+                                </button>
+                                <button type="button" class="btn btn-block btn-primary pay_btn" onclick="location.href='customer_map';"> 
+                                    Map 
                                 </button>
                             </div>
                             </div>
@@ -217,14 +221,14 @@
                                                 ?>
                                                 
                                                 <div class="modal-footer cleaner_job_modal_footer">
-                                                        @if($value->status == "Pending" && $statuscount != 1 $value->status == "On-Progress")
+                                                        @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
                                                             <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                                                 ACCEPT
                                                             </button> 
                                                             <button  class="btn btn-block btn-danger decline_btn" type="submit" name="status" value="Declined" >
                                                                 DECLINE
                                                             </button> 
-                                                            @endif   
+                                                        @endif   
                                                             @if($value->status == "Accepted" )
                                                             <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                                                 ON-PROGRESS
@@ -243,7 +247,8 @@
                                 </div><!-- End of Modal --> 
             @endif
             @endforeach 
-            @endforeach      
+            @endforeach 
+            @endif     
         </div>   
     </div>
 </body>

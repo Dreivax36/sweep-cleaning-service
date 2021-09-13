@@ -81,29 +81,9 @@
             </p>
         </a>
     </div>
-    <div class="search_con"> <!-- Search Field -->
-        <div>
-            <input class="searchbar" type="text" placeholder="Search..">
-            <button class="search_btn">
-                Search
-            </button>
-        </div>
-    </div> <!-- End of Search Field -->
-    <p class="show_info"> 
-        Showing 1-10 of 63 results 
-    </p>
-    <div class="result_con">
-        <p class="show_info"> 
-            Results per page: 
-        </p>
-        <button class="dropdown" id="number">
-            10
-            <span class="caret"></span>
-        </button>
-    </div>  <!-- End of Sub Header -->
   
     <div class="trans_his_con">  <!-- Transaction History Table -->
-        <table class="table table-responsive-md table-hover">
+        <table class="table table-responsive-md table-hover" id="user_table">
             <thead class="row_title">
                 <tr class="table_trans_his_row">
                     <th scope="col" class="user_table_trans_his_header">
@@ -187,5 +167,7 @@
     </script>
         </table>
     </div> <!-- End of Transaction History Table -->
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 @endsection

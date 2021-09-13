@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\EWalletPaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,7 +50,7 @@ Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->na
 Route::post('/cleaner/cleaner_check',[MainController::class, 'cleaner_check'])->name('cleaner.cleaner_check');
 
 
-
+Route::post('e-wallet/pay', [EWalletPaymentController::class, 'pay'])->name('ewallet.pay');
 
 Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/',[MainController::class, 'sweep_welcome'])->name('sweep_welcome');
@@ -77,6 +79,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
 Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
 Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
+Route::get('/customer/customer_pay',[BookingController::class, 'customer_pay'])->name('customer.customer_pay');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
@@ -85,6 +88,8 @@ Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_histor
     Route::get('/cleaner/cleaner_profile',[MainController::class, 'cleaner_profile'])->name('cleaner.cleaner_profile');
     Route::get('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
     Route::post('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
+    Route::get('/cleaner/cleaner_map',[BookingController::class, 'cleaner_map'])->name('cleaner.cleaner_map');
+
 
 
 });
@@ -111,8 +116,9 @@ Route::get('/contact_us', function () {
 //Route for the FAQs Page
 Route::get('/faqs', function () {
     return view('sweep_faqs');
-}); 
+});
 
 
-
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('e-wallet/pay', [EWalletPaymentController::class, 'pay'])->name('ewallet.pay');
+});

@@ -21,6 +21,10 @@ class BookingController extends Controller
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_transaction', $data);
     }
+    function customer_pay(){
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('customer.customer_pay', $data);
+    }
 
     function customer_history(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
@@ -30,6 +34,10 @@ class BookingController extends Controller
     function cleaner_job(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('cleaner.cleaner_job', $data);
+    }
+    function cleaner_map(){
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('cleaner.cleaner_map', $data);
     }
 
     function cleaner_history(){
