@@ -106,9 +106,7 @@
                     $price = Price::Where('service_id', $pay->service_id)->Where('property_type', $pay->property_type)->value('price');
                     }
                     $$totalSalary = $$totalSalary + $price * 0.30;
-                    if( $cleanerCount != 1 ){
                     $price = $price / $cleanerCount;
-                    }
                     $total = $total + $price;
                 ?>
                 @endforeach

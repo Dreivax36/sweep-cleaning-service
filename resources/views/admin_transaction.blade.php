@@ -231,7 +231,7 @@
                                             <li>
                                                 <b>Cleaners:</b>
                                             </li>
-                                            @if($id != null )
+                                            
                                             @foreach($id as $cleaner)
                                             <?php
 
@@ -243,7 +243,7 @@
                                                 <b>Name:</b> {{ $full }}
                                             </li>
                                             @endforeach  
-                                            @endif  
+                                            
                                             
                                         </ul>
                                     
