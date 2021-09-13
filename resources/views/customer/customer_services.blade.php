@@ -173,9 +173,11 @@
                                             </div> 
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
+                                        @if($LoggedUserInfo['account_status'] == "Verified")
                                             <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}">
                                                 BOOK NOW
                                             </button>
+                                            @endif
                                             <div class="modal fade" id="exampleModalLong101-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content customer_services_modal_content_inside"> <!-- Modal Content -->

@@ -112,7 +112,7 @@
                             </h5>
                             @else
                             <h5 class="cleaner_job_status">
-                                {{ $$bookingID->status }}
+                                {{ $booking->status }}
                             </h5>
                             @endif
                             @foreach($service_data as $key => $data)

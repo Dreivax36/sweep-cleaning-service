@@ -323,44 +323,43 @@
                                                 @csrf
                                                     <?php
                                                         $total = $price_data->number_of_cleaner;
-                                                        $oldUserID = 0;
+                                                        
+                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->get();    
                                                      
                                                     ?>
                                                     @if($cleaner_data != null)
-                                                    @while($total != 0)
+                                                    @while($total > 0)
+                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                                    <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
-                                                    <?php
-                                                          $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->get();    
-                                                    ?>
-                                                    
-                                                    @if($cleanerID != null)    
+                                                     
                                                     @foreach($cleanerID as $key => $id) 
                                                     <?php 
                                                           $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');      
                                                     ?>
-                                                        @if ( $user != $cleaner->user_id && $cleaner->user_id != $oldUserID)
+                                                        @if ( $user != $cleaner->user_id )
                                                         <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
-                                                            <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
+                                                        <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
                                                             @break
                                                         @else
                                                         @break
                                                         @endif
                                                         
                                                     @endforeach 
-                                                    @else
+                                                    
                                                     
                                                     <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
                                                             <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
                                                   
-                                                    @endif  
-                                                    $oldUserID = $cleaner->user_id;
-                                                             
+                                                   
+                                                   
+                                                    
                                                    
                                                 @endforeach
                                                
