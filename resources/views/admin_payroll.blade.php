@@ -88,6 +88,7 @@
                 <tbody>
                 <?php
                     $total = 0;
+                    $totalSalary = 0;
                     $bookingID = Booking::Where('status', 'On-Progress')->get();
                 ?>
                 @foreach($bookingID as $key => $value)
@@ -105,7 +106,7 @@
                     foreach($payroll as $key => $pay){
                     $price = Price::Where('service_id', $pay->service_id)->Where('property_type', $pay->property_type)->value('price');
                     }
-                    $$totalSalary = $$totalSalary + $price * 0.30;
+                    $totalSalary = $totalSalary + $price * 0.30;
                     $price = $price / $cleanerCount;
                     $total = $total + $price;
                 ?>

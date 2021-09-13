@@ -340,8 +340,8 @@
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
                                                             <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                        @endif
-                                                        @elseif
+                                                        
+                                                        @else
                                                         @break
                                                         @endif
                                                     @endforeach    
