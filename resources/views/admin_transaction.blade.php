@@ -264,7 +264,7 @@
                                             ACCEPT
                                         </button>
                                     @endif
-                                    @if($value->status == "Pending")    
+                                    @if($value->status == "Pending" && $bookingcount != $price_data->number_of_cleaner )    
                                         <button  type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
                                             DECLINE
                                         </button>
@@ -332,7 +332,7 @@
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                     <?php
-                                                          $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();    
+                                                          $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->get();    
                                                     ?>
                                                     
                                                     @if($cleanerID != null)    
