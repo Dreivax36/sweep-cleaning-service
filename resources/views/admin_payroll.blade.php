@@ -105,14 +105,16 @@
                     foreach($payroll as $key => $pay){
                     $price = Price::Where('service_id', $pay->service_id)->Where('property_type', $pay->property_type)->value('price');
                     }
+                    $$totalSalary = $$totalSalary + $price * 0.30;
+                    if( $cleanerCount != 1 ){
                     $price = $price / $cleanerCount;
+                    }
                     $total = $total + $price;
                 ?>
                 @endforeach
                 <?php
                     $id = Cleaner::Where('cleaner_id', $cleanerID)->value('user_id'); 
                     $fullname = User::Where('user_id', $id)->value('full_name'); 
-                    $totalSalary = $total * 0.30;
                 ?>
                     <tr class="user_table_row">
                         <td class="user_table_data">{{ $fullname }}</td>

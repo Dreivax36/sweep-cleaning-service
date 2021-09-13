@@ -325,6 +325,7 @@
                                                         $total = $price_data->number_of_cleaner;
                                                     ?>
                                                     @while($total != 0)
+                                                    @if($cleaner_data != null)
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                     <?php
                                                           $cleanerID = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->get();
@@ -346,7 +347,7 @@
                                                     @endforeach    
                                                    
                                                 @endforeach
-                                                
+                                                @endif
                                                 </select> <br>    
                                                 <?php
                                                     $total --;
