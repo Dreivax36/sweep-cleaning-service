@@ -63,12 +63,6 @@
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
     </header> <!-- End of Navbar -->
-     <div class="col-sm-9">
-            <div class="adjust_con"> <!-- Search Field -->
-                <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
-            </div> 
-        </div>
-    </div>
     <?php
         $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->get();
         $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
@@ -87,6 +81,11 @@
                 ({{ $history_count }})
             </p>
         </a>
+        <div class="col-sm-9">
+            <div class="adjust_con"> <!-- Search Field -->
+                <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
+            </div> 
+        </div>
 </div>
     <div class="transaction_con">
     
@@ -253,7 +252,7 @@
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner  || $bookingcount == $price_data->number_of_cleaner)
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner  || $bookingcount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>

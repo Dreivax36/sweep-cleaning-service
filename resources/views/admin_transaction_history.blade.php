@@ -168,6 +168,5 @@
         </table>
     </div> <!-- End of Transaction History Table -->
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 @endsection
