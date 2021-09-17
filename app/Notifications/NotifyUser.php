@@ -18,7 +18,7 @@ class NotifyUser extends Notification
      *
      * @return void
      */
-    public function __construct(Post $post)
+    public function __construct()
     {
 
     }
