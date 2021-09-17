@@ -332,7 +332,7 @@
                                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    <select name="cleaner_id[]" id="cleaner" >
+                                                    
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                      
                                                     @foreach($cleanerID as $key => $id) 
@@ -342,7 +342,8 @@
                                                         @if ( $user != $cleaner->user_id )
                                                         <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                        ?>    
+                                                        ?>
+                                                        <select name="cleaner_id[]" id="cleaner" >    
                                                         <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
                                                             @break
                                                         @else
