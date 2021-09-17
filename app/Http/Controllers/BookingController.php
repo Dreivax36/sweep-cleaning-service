@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\Cleaner;
 use App\Models\Customer;
 use App\Models\Assigned_cleaner;
+use App\Post;
+use App\Notifications\NotifyUser;
+
 class BookingController extends Controller
 {
     function admin_transaction(){
@@ -49,7 +52,8 @@ class BookingController extends Controller
  
         //Update data into database
         $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
-        
+        $post = Post::find($request->post_id);
+        auth()->user()->notify(new NotifyUser( ));
        if($updateStatus){
            return back()->with('success', 'Booking Status Updated');
         }

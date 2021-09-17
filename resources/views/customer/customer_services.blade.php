@@ -1,6 +1,7 @@
 <?php
     use App\Models\Service;
     use App\Models\Price;
+    use App\Models\Booking;
 ?>
 
 @extends('head_extention_customer') 
@@ -9,14 +10,20 @@
     <title>
         Customer Services Page
     </title>
+    <script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+        </script>
+    </script>
 
 <body>
     <header> <!-- Navbar -->
         <div class="logo"> 
             SWEEP 
         </div>
-        <nav>
-            <ul>
+        <nav >
+            <ul >
                 <li>
                     <a href="customer_dashboard">
                         Home
@@ -37,32 +44,22 @@
                         History
                     </a>
                 </li>
-                <div class="customer_notif_icon">
-                    <button class="btn dropdown-toggle dropdown_notif_icon" type="button" id="menu2" data-toggle="dropdown" >
-                        <i class="bi bi-bell"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">
-                        Notification 1
+                
+                <li class="dropdown" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                        <img src="/img/user.png" class="profile_img">   
                     </a>
-                    <a class="dropdown-item" href="#">
-                        Notification 2
-                    </a>
-                </div>
-                <div class="profile_btn">
-                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
-                        <img src="/img/user.png" class="profile_img">
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="customer_profile">
+            
+                    <ul class="dropdown-menu listRight" >
+                        <li><a class="dropdown-item" href="customer_profile">
                             Profile
-                        </a>
-                        <a class="dropdown-item" href="{{ route('auth.logout') }}">
+                        </a></li>
+                        <li><a class="dropdown-item" href="{{ route('auth.logout') }}">
                             Logout
-                        </a>
-                    </div>
-                </div>
+                        </a></li>
+                    </ul>
+               
+                </li>
             </ul>
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
@@ -224,11 +221,11 @@
                                                                     <label for="appt">
                                                                         Date:
                                                                     </label>
-                                                                    <input type="date" min='2021-01-01' max='2021-12-31' id="schedule_date" name="schedule_date"><br>
+                                                                    <input type="date" name="schedule_date" class="form-control" placeholder="" required readonly>
                                                                     <label for="appt">
                                                                         Time:
                                                                     </label>
-                                                                        <input type="time" min="08:00" max="17:00" id="schedule_time" name="schedule_time">
+                                                                        <input type="time" min="08:00" max="17:00" id="schedule_time" class="form-control" name="schedule_time" >
                                                                     <div class="d-flex cancel_confirm_con">
                                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
                                                                             Cancel 
@@ -258,22 +255,25 @@
     </div>
     @endforeach
 
+     <?php
+     
+        $scheduledate = Booking::select('schedule_date')->get();
+    ?>
+    @if ($scheduledate != null)
+        <script>
+        var array = ["2019-03-14", "2019-03-11", "2019-03-26"];
 
-    <script>
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth()+1; //January is 0!
-        var yyyy = today.getFullYear();
-        if(dd<10){
-                dd='0'+dd
-            } 
-            if(mm<10){
-                mm='0'+mm
-            } 
-
-        today = yyyy+'-'+mm+'-'+dd;
-        document.getElementById("datefield").setAttribute("max", today);
-    </script>
+$(function () {
+  $('input[name="schedule_date"]').datepicker({
+    dateFormat: 'yy-mm-dd',
+    beforeShowDay: function(schedule_date) {
+      var string = jQuery.datepicker.formatDate('yy-mm-dd', schedule_date);
+      return [array.indexOf(string) == -1]
+    }
+  });
+});
+        </script>
+    @endif
 
 </body>
 @endsection

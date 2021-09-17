@@ -122,3 +122,6 @@ Route::get('/faqs', function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('e-wallet/pay', [EWalletPaymentController::class, 'pay'])->name('ewallet.pay');
 });
+
+Route::post('/notification/get', 'NotificationController@get');
+Route::post('/notification/read', 'NotificationController@read');

@@ -36,7 +36,6 @@ header nav ul li {
     list-style: none;
 }
 nav ul li a {
-    margin-left: 10px;
     height: 50px;
     line-height: 50px;
     padding: 0 20px;
@@ -44,6 +43,10 @@ nav ul li a {
     text-decoration: none;
     display: inline-block;
     font-weight: bold;
+}
+.listRight {
+    left: auto !important;
+    right: 0 !important;
 }
 nav ul li a:hover 
 nav ul li a:active {
