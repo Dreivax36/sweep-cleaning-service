@@ -54,6 +54,7 @@ class BookingController extends Controller
         $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
         $post = Post::find($request->post_id);
         auth()->user()->notify(new NotifyUser( ));
+
        if($updateStatus){
            return back()->with('success', 'Booking Status Updated');
         }

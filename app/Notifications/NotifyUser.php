@@ -43,7 +43,7 @@ class NotifyUser extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'user' => auth()->user
+            'status' => Carbon::now()
         ];
     }
 
