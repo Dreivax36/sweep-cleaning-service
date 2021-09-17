@@ -11,7 +11,7 @@ use App\Post;
 class NotifyUser extends Notification
 {
     use Queueable;
-    public $post;
+
 
     /**
      * Create a new notification instance.
@@ -20,7 +20,7 @@ class NotifyUser extends Notification
      */
     public function __construct(Post $post)
     {
-        $this->post = $post;
+
     }
 
     /**
@@ -43,7 +43,7 @@ class NotifyUser extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'post' => $this->post
+            'user' => auth()->user
         ];
     }
 
