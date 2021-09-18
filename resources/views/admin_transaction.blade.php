@@ -185,6 +185,7 @@
                                     @endif
 
                                     @csrf
+                                    {{ csrf_field() }}
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                     
