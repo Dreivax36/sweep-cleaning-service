@@ -18,6 +18,9 @@ use App\Http\Controllers\EWalletPaymentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Calendar
+Route::get('calendar-event', [CalenderController::class, 'index']);
+Route::post('calendar-crud-ajax', [CalenderController::class, 'calendarEvents']);
 
 //Service Module
 Route::resource('services', ServiceController::class);

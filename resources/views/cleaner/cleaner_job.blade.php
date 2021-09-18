@@ -130,9 +130,10 @@
                                 <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
                                     DETAILS
                                 </button>
-                                <button type="button" class="btn btn-block btn-primary pay_btn" onclick="location.href='customer_map';"> 
-                                    Map 
-                                </button>
+                                <a href="cleaner_map">
+                                    Map
+                                </a>
+    
                             </div>
                             </div>
                         </div>

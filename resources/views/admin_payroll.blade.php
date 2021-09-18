@@ -89,7 +89,7 @@
                 <?php
                     $total = 0;
                     $totalSalary = 0;
-                    $bookingID = Booking::Where('status', 'On-Progress')->get();
+                    $bookingID = Booking::Where('status', 'Completed')->get();
                 ?>
                 @foreach($bookingID as $key => $value)
                 <?php
