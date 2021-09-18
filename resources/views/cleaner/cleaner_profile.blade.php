@@ -1,5 +1,5 @@
 <?php
-    use App\Models\cleaner;
+    use App\Models\Cleaner;
 ?>
 @extends('head_extention_cleaner') 
 
@@ -7,7 +7,7 @@
     <title>
         Cleaner Profile Page
     </title>
-    <link href="{{ asset('css/style_cleaner.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style_cleaner.css') }}" rel="stylesheet">
 <body>
 
     <div class="col-2 d-flex cleaner_profile_title_con">
