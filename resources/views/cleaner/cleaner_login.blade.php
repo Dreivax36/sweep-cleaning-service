@@ -7,22 +7,22 @@
     <meta charset="utf-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <!-- Scripts -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/customer_login.css')}}">
 </head>
-<body class="reg_customer_body">
+<body class="reg_customer_body flex-row align-items-center">
     <div class="register_con">
-            <h4 class="signin_label">
-                Sign In
-            </h4>
-            <form action="{{ route('cleaner.cleaner_check') }}" method="post">
+        <h4 class="signin_label">
+                    Sign In
+        </h4>
+        <form action="{{ route('cleaner.cleaner_check') }}" method="post">
                 @if(Session::get('fail'))
                     <div class="alert alert-danger">
                         {{ Session::get('fail') }}
@@ -48,10 +48,7 @@
                     </div>
                     <div>
                         <h5>Password</h5>
-                        
-                            <input type="password" class="input @error('password') is-invalid @enderror" name="password" id="password"  required autocomplete="current-password">
-                            
-                        
+                        <input type="password" class="input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         <span class="text-danger">
                         @error('password'){{ $message }} @enderror
                     </span>
@@ -64,9 +61,8 @@
                 <a class="register_link_btn" href="/cleaner/cleaner_register"> 
                     I don't have an Account, Create New
                 </a>
+            </form>
     </div>
-
-</div>
-<script type="text/javascript" src="{{ asset('js/register.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/register.js')}}"></script>
 </body>
 </html>

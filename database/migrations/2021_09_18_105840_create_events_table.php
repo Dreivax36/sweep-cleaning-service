@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCrudEventsTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCrudEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('crud_events', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('event_name');
-            $table->date('event_start');
-            $table->date('event_end');            
+            $table->string('title');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateCrudEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crud_events');
+        Schema::dropIfExists('events');
     }
 }

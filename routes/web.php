@@ -19,8 +19,8 @@ use App\Http\Controllers\EWalletPaymentController;
 |
 */
 //Calendar
-Route::get('calendar-event', [CalenderController::class, 'index']);
-Route::post('calendar-crud-ajax', [CalenderController::class, 'calendarEvents']);
+Route::get('/events', 'FullCalenderController@index')->name('events.index');
+Route::get('/getEvents', 'FullCalenderController@getEvents')->name('events.getEvents');
 
 //Service Module
 Route::resource('services', ServiceController::class);

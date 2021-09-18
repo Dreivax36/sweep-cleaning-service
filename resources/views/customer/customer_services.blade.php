@@ -7,112 +7,71 @@
 @extends('head_extention_customer') 
 
 @section('content')
+<head>
+    <link href="{{ asset('css/services1.css') }}" rel="stylesheet">
     <title>
         Customer Services Page
     </title>
-    <script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-        </script>
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+
+</head>
 
 <body>
-    <header> <!-- Navbar -->
-        <div class="logo"> 
-            SWEEP 
-        </div>
-        <nav >
-            <ul >
-                <li>
-                    <a href="customer_dashboard">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="customer_services" class="active">
-                        Services
-                    </a>
-                </li>
-                <li>
-                    <a href="customer_transaction">
-                        Transaction
-                    </a>
-                </li>
-                <li>
-                    <a href="customer_history">
-                        History
-                    </a>
-                </li>
-                
-                <li class="dropdown" >
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                        <img src="/img/user.png" class="profile_img">   
-                    </a>
-            
-                    <ul class="dropdown-menu listRight" >
-                        <li><a class="dropdown-item" href="customer_profile">
-                            Profile
-                        </a></li>
-                        <li><a class="dropdown-item" href="{{ route('auth.logout') }}">
-                            Logout
-                        </a></li>
-                    </ul>
-               
-                </li>
-            </ul>
-        </nav>
-        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
-    </header> <!-- End of Navbar -->
 
-    <div class="customer_search_con"> <!-- Search Field -->
-        <form action="/action_page.php">
-            <input type="text" placeholder="Search" name="search" class="customer_search_field">
-        </form>
-    </div> <!-- End of Search Field -->
-   
-    <div class="col-2 d-flex customer_services_title_con">
-        <div>
-            <h1 class="customer_cards_title">
-                SERVICES
-            </h1> 
+    <div class="row head">
+        <div class="col-md-8">
+            <div class="service_title">
+                <h1 class="customer_cards_title">
+                    SERVICES
+                </h1> 
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="customer_search_con"> <!-- Search Field -->
+            <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()"> 
+            </div> <!-- End of Search Field -->
         </div>
     </div>
-
+    <div class="row justify-content-center">
     <?php
         $service_data = Service::all();
     ?>
     @foreach($service_data as $key => $value)
 
-    <div class="customer_services_con">
-        <div class="column col_customer_services">
-            <div class="row row_customer_services">
-                <div class="card card_customer_services p-4">
-                    <div class="d-flex">
-                        <img src="/img/broom.png" class="customer_services_broom_img p-1">
-                        <div class="d-flex flex-column">
-                            
-                            <?php
-                                $price_start = Price::Where('property_type', 'Apartments' )->Where('service_id', $value->service_id )->value('price');
-                                $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas' )->Where('service_id', $value->service_id )->value('price');
-                            ?>
-
-                            <h3 class="customer_services_title">
+    <div class="card mb-3" id="card-lists">
+        <div class="row no-gutters">
+            <div class="col-md-5">
+                <img class="card-img" src="/images/services/general_cleaning.jpg" alt="Card image cap">
+            </div>
+                    <div class="col-md-7">
+                        <?php
+                            $price_start = Price::Where('property_type', 'Apartments' )->Where('service_id', $value->service_id )->value('price');
+                            $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas' )->Where('service_id', $value->service_id )->value('price');
+                        ?>
+                        <div class="card-body">
+                            <h2 class="card-title service_title">
                                 {{ $value->service_name }}
-                            </h3>
+                            </h2>
                            
-                            <h6 class="customer_services_sub_1">
+                            <h5 class="card-text">
                                 Price starts at P{{ $price_start }}
-                            </h6>
-                            
-                            <div class="view_details_con">
-                                <button type="button" class="btn btn-link customer_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->service_id }}">
-                                    DETAILS 
-                                </button>
-                                <div class="modal fade" id="exampleModalLong10-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                    <div class="modal-dialog" role="document">
-                                    <div class="modal-content p-4 customer_services_modal_content"> <!-- Modal Content -->
-                                        <div class="modal-header customer_services_modal_header">
+                            </h5>
+                            <br>
+                            <div class="col-md-6">
+                                    <div class="byt float-right">
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->service_id }}">Details</a>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>           
+                       
+                        <div class="modal fade" id="exampleModalLong10-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content p-4 customer_services_modal_content"> <!-- Modal Content -->
+                                    <div class="modal-header customer_services_modal_header">
                                         <div class="d-flex pt-5">
                                             <img src="/img/broom.png" class="customer_services_broom_2_1_img p-1">
                                             <div class="d-flex flex-column">
@@ -127,22 +86,23 @@
                                         </div>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
+                                        
                                         <div class="modal-body d-flex p-4">
                                             <div class="customer_services_modal_body_1_con">
-                                                <p class="customer_services_description">
-                                                    {{ $value->description }}
-                                                </p>
+                                            <p class="customer_services_description">
+                                                {{ $value->service_description }} 
+                                            </p>
                                                 <ul class="customer_package_list">
                                                     <li>
-                                                        <b>Equipment:</b>{{ $value->equipment }}
+                                                        <b>Equipment: </b>{{ $value->equipment }}
                                                     </li>
                                                     <br>
                                                     <li>
-                                                        <b>Materials:</b>{{ $value->material }}
+                                                        <b>Materials: </b>{{ $value->material }}
                                                     </li>
                                                     <br>
                                                     <li>
-                                                        <b>Personal Protection:</b>{{ $value->personal_protection }}
+                                                        <b>Personal Protection:</b> {{ $value->personal_protection }}
                                                     </li>
                                                     <br>
                                                 </ul>
@@ -159,10 +119,10 @@
                                                             <b>{{ $data->property_type }}</b>
                                                         </li>
                                                         <li>
-                                                            <b>{{ $data->price }}</b>
+                                                            Price: <b>{{ $data->price }}</b>
                                                         </li>
                                                         <li>
-                                                            <b>Cleaners:</b> {{ $data->number_of_cleaner }}
+                                                            Cleaners: <b>{{ $data->number_of_cleaner }}</b>
                                                         </li>
                                                         <br>
                                                     @endforeach
@@ -171,7 +131,7 @@
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
                                         @if($LoggedUserInfo['account_status'] == "Verified")
-                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}">
+                                            <button type="button" class="btn btn-block btn-primary book_now_btn" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}" >
                                                 BOOK NOW
                                             </button>
                                             @endif
@@ -226,7 +186,8 @@
                                                                         Time:
                                                                     </label>
                                                                         <input type="time" min="08:00" max="17:00" id="schedule_time" class="form-control" name="schedule_time" >
-                                                                    <div class="d-flex cancel_confirm_con">
+                                                                    <br>
+                                                                        <div class="d-flex cancel_confirm_con">
                                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
                                                                             Cancel 
                                                                         </button>
@@ -234,7 +195,7 @@
                                                                             Confirm 
                                                                         </button>
                                                                     </div>
-                                                                    </form>    
+                                                                </form>    
 
                                                             </div>
                                                         </div>
@@ -242,38 +203,32 @@
                                                 </div>
                                             </div> <!-- End of Modal -->
                                         </div>
-                                    </div> <!-- End of Modal Content --> 
                                     </div>
-                                </div> <!-- End of Modal -->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+                   
     @endforeach
-
+    </div>
      <?php
      
         $scheduledate = Booking::select('schedule_date')->get();
     ?>
     @if ($scheduledate != null)
-        <script>
+    <script>
         var array = ["2019-03-14", "2019-03-11", "2019-03-26"];
 
-$(function () {
-  $('input[name="schedule_date"]').datepicker({
-    dateFormat: 'yy-mm-dd',
-    beforeShowDay: function(schedule_date) {
-      var string = jQuery.datepicker.formatDate('yy-mm-dd', schedule_date);
-      return [array.indexOf(string) == -1]
-    }
-  });
-});
-        </script>
-    @endif
+    $(function () {
+    $('input[name="schedule_date"]').datepicker({
+        dateFormat: 'yy-mm-dd',
+        beforeShowDay: function(schedule_date) {
+        var string = jQuery.datepicker.formatDate('yy-mm-dd', schedule_date);
+        return [array.indexOf(string) == -1]
+        }
+    });
+    });
+    </script>
+        @endif
 
 </body>
 @endsection

@@ -3,13 +3,21 @@
     margin: auto;
 }
 
-.carousel-item {
-    height: 640px;
+.carousel-item { 
+    height: 50%;
 }
 
 .carousel-caption {
-    color: black;
+    color: rgb(255, 113, 113);
+    position: absolute;
+    bottom: 35%;
 }
+
+.carousel-container{
+    padding: 15% 15%;
+}
+
+
 
 .banner{
     background-image: url(/images/home/home-bg.png);
@@ -17,7 +25,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
 }
 
 .book_container{
@@ -142,6 +149,14 @@
 
 
 @media (max-width:800px){
+    .carousel-item { 
+        height: 30%;
+    }
+    .carousel-caption {
+        color: white;
+        position: absolute;
+        bottom: 15%;
+    }
     .banner{
         height: 60vh;
     }

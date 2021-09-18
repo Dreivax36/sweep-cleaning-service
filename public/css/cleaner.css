@@ -1,0 +1,87 @@
+.local_time_con {
+    height: 105px;
+    width: 100%;
+    background-color: #2B81B0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+.local_time_title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.local_time {
+    text-align: center;
+}
+.row_dashboard {
+    margin-top: 30px;
+    padding: 20px;
+}
+.col_dashboard_main {
+    background-color: #FFFFFF;
+}
+.col-dashboard {
+    margin: 40px;
+    background-color: #EDF1F8;
+    height: 100%;
+    width: 300px;
+}
+
+.side_con_title {
+    margin-top: 50px;
+    font-family: sans-serif;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.available_job_con {
+    height: 100%;
+    width: 92%;
+    margin: 15px;
+    background-color: rgba(255, 183, 3, .5);
+    border-left: 15px solid #FFB703;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+.service_name {
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+}
+.customer_info {
+    font-size: 13px;
+}
+.arrow_right_con {
+    width: 100%;
+}
+.right {
+    display: inline-block;
+    width: 2.2em;
+    height: 2.2em;
+    border: 4px solid #219EBC;
+    border-radius: 50%;
+}
+.right:after {
+    content: '';
+    display: inline-block;
+    margin-top: 0.30em;
+    margin-left: 0.2em;
+    width: 1em;
+    height: 1em;
+    border-top: 0.2em solid #219EBC;
+    border-right: 0.2em solid #219EBC;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+} 
+.calendar_con {
+    max-width: 1000px;
+}

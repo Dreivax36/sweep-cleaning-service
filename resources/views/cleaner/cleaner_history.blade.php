@@ -14,65 +14,8 @@
     <title>
         Cleaner History Page
     </title>
-
+    <link href="{{ asset('css/style_cleaner.css') }}" rel="stylesheet">
 <body>
-    <header> <!-- Navbar -->
-        <div class="logo"> 
-            SWEEP 
-        </div>
-        <nav>
-            <ul>
-                <li>
-                    <a href="cleaner_dashboard">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="cleaner_job">
-                        Jobs
-                    </a>
-                </li>
-                <li>
-                    <a href="cleaner_history" class="active">
-                        History
-                    </a>
-                </li>
-                <div class="customer_notif_icon">
-                    <button class="btn dropdown-toggle dropdown_notif_icon" type="button" id="menu2" data-toggle="dropdown" >
-                        <i class="bi bi-bell"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">
-                        Notification 1
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        Notification 2
-                    </a>
-                </div>
-                <div class="profile_btn">
-                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
-                        <img src="/img/user.png" class="profile_img">
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="cleaner_profile">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="{{ route('auth.logout') }}">
-                        Logout
-                    </a>
-                    </div>
-                </div>
-            </ul>
-        </nav>
-        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
-    </header> <!-- End of Navbar -->
-
-    <div class="customer_search_con"> <!-- Search Field -->
-        <form action="/action_page.php">
-            <input type="text" placeholder="Search" name="search" class="customer_search_field">
-        </form>
-    </div> <!-- End of Search Field -->
    
     <div class="col-2 d-flex cleaner_job_title_con">
         <div>
@@ -83,15 +26,16 @@
     </div>
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', 'Declined')->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', 'Declined')->orWhere('status', 'Done')->get();
     ?>
     <div class="cleaner_job_con">
+    @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <?php
             $booking_data = Booking::where('booking_id', $booking->booking_id)->orWhere('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
         ?>
         @foreach($booking_data as $key => $value)
-
+        @if($booking->booking_id == $value->booking_id)
         <?php
             $service_data = Service::Where('service_id', $value->service_id )->get();
             $user_data = User::Where('user_id', $value->customer_id )->get();
@@ -130,7 +74,11 @@
                                 <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10">
                                     DETAILS
                                 </button>
-                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
                                 @foreach($user_data as $key => $user)
                                 @foreach($address_data as $key => $address)
                                 <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
@@ -210,19 +158,17 @@
                                             <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                     
 
     </div>
     @endforeach
     @endforeach
     @endforeach
     @endforeach
+    @endif
     @endforeach
     @endforeach
+    @endif
+    </div>
 </body>
 @endsection

@@ -3,108 +3,54 @@
     use App\Models\Customer;
     use App\Models\Service;
     use App\Models\Price;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
 ?>
 
 @extends('head_extention_customer') 
 
 @section('content')
+    
+<head>
+    <link href="{{ asset('css/services1.css') }}" rel="stylesheet">
     <title>
         Customer Transaction Page
     </title>
+</head>
 
 <body>
-    <header> <!-- Navbar -->
-        <div class="logo"> 
-            SWEEP 
-        </div>
-        <nav>
-            <ul>
-                <li>
-                    <a href="customer_dashboard">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="customer_services">
-                        Services
-                    </a>
-                </li>
-                <li>
-                    <a href="customer_transaction" class="active">
-                        Transaction
-                    </a>
-                </li>
-                <li>
-                    <a href="customer_history">
-                        History
-                    </a>
-                </li>
-                <div class="customer_notif_icon">
-                    <button class="btn dropdown-toggle dropdown_notif_icon" type="button" id="menu2" data-toggle="dropdown" >
-                        <i class="bi bi-bell"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">
-                        Notification 1
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        Notification 2
-                    </a>
-                </div>
-                <div class="profile_btn">
-                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
-                        <img src="/img/user.png" class="profile_img">
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="customer_profile">
-                            Profile
-                        </a>
-                        <a class="dropdown-item" href="{{ route('auth.logout') }}">
-                            Logout
-                        </a>
-                    </div>
-                </div>
-            </ul>
-        </nav>
-        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
-    </header> <!-- End of Navbar -->
 
-    <div class="customer_search_con"> <!-- Search Field -->
-        <form action="/action_page.php">
-            <input type="text" placeholder="Search" name="search" class="customer_search_field">
-        </form>
-    </div> <!-- End of Search Field -->
-
-    <div class="col-2 d-flex customer_trans_title_con">
-        <div>
-            <h1 class="customer_cards_title">
+    <div class="row head">
+        <div class="col-md-8">
+            <div class="service_title">
+                <h1 class="customer_cards_title">
                 BOOKINGS
-            </h1> 
+                </h1> 
+            </div>
         </div>
     </div>
-
+    <div class="row justify-content-center">
     <?php
         $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
         $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->get();
     ?>
     
-
-    <div class="customer_trans_con">
     @foreach($booking_data as $key => $value)
     
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
         $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
     ?>
-        <div class="column col_customer_trans">
-            <div class="row row_customer_trans">
-                <div class="card card_customer_trans p-4">
-                    <div class="d-flex">
-                        <img src="/img/broom.png" class="customer_trans_broom_img p-1">
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img class="card-img" src="/images/services/general_cleaning.jpg" alt="Card image cap">
+                </div>
+                <div class="col-md-7">
                         @foreach($service_data as $key => $data)
                         @foreach($price as $key => $price_data)
-                        <div class="d-flex flex-column">
+                        <div class="card-body">
                             <h5 class="customer_trans_status">
                                 {{ $value->status }}
                             </h5>
@@ -126,6 +72,16 @@
                                     Pay 
                                 </button>
                                 @endif
+                                @if($value->status == "Done")               
+                                <button type="button" class="btn btn-block btn-primary rate_btn" data-toggle="modal" data-target="#exampleModalLong10101-{{ $value->service_id }}"> 
+                                    Rate 
+                                </button>
+                                @endif
+                          
+                            </div>
+                        </div>
+                </div>
+            </div>
                                 <div class="modal fade" id="exampleModalLong1010-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content customer_trans_modal_content_inside_inside"> <!-- Modal Content -->
@@ -139,7 +95,7 @@
                                                     </h6>
                                                     <div class="d-flex payments_con">
                                                         <a href="https://test-sources.paymongo.com/sources?id=src_yYaCih8x3b9i3fjEtzmrhRb5"><img src="/img/gcash.png" class="gcash_img">
-</a>
+                                                </a>
                                                        <!-- <script src="https://www.paypal.com/sdk/js?client-id=test"></script>
                                                         <script>paypal.Buttons().render('body');</script>
                                                         -->
@@ -158,11 +114,7 @@
                                         </div> <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
-                                @if($value->status == "Done")               
-                                <button type="button" class="btn btn-block btn-primary rate_btn" data-toggle="modal" data-target="#exampleModalLong10101-{{ $value->service_id }}"> 
-                                    Rate 
-                                </button>
-                                @endif
+                                
                                 <div class="modal fade" id="exampleModalLong10101-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content customer_trans_his_modal_content_inside_inside">  <!-- Modal Content -->
@@ -187,6 +139,13 @@
                                                             SUBMIT 
                                                         </button>
                                                     </div>  
+                                                </div>
+                                                <button type="button" class="close pl-2" data-dismiss="modal">&times;</button>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                
                                                     <div class="modal fade" id="exampleModalLong101010" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content customer_trans_his_modal_content_inside_inside">  <!-- Modal Content -->
@@ -228,12 +187,6 @@
                                                             </div> <!-- End of Modal Content -->
                                                         </div>
                                                     </div> <!-- End of Modal -->
-                                                </div>
-                                                <button type="button" class="close pl-2" data-dismiss="modal">&times;</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                
                                 <div class="modal fade" id="exampleModalLong10-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                     <div class="modal-dialog" role="document">
@@ -258,7 +211,7 @@
                                         <div class="modal-body d-flex p-4">
                                             <div class="customer_trans_modal_body_1_con">
                                             <p class="customer_trans_description">
-                                                {{ $data->description}}                                            </p>
+                                                {{ $data->service_description}}                                            </p>
                                             <ul class="customer_package_list">
                                                 <li>
                                                     <b>Equipment:</b> {{ $data->equipment }}
@@ -274,19 +227,40 @@
                                                 <br>
                                                 <li>
                                                     <b>Property Type:</b> {{ $value->property_type }}
-                                                </li>    
+                                                </li> 
+                                                <?php
+                                                    $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
+                                                ?>
+                                                <br>    
                                                 <li>
-                                                    <b>Cleaners:</b> {{ $price_data->number_of_cleaner }}
-                                                </li>     
+                                                    <b>Cleaners:</b>
+                                                </li> 
+                                                @if($id != null)
+                                                @foreach($id as $cleaner)
+                                                <?php
+
+                                                    $user_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id )->value('user_id');
+                                                    $full = User::Where('user_id', $user_id )->value('full_name');
+
+                                                ?>
+                                                <li class="list_booking_info">
+                                                    <b>Name:</b> {{ $full }}
+                                                </li>
+                                                @endforeach  
+                                                @endif    
                                             </ul>
                                             </div>
                                         </div>
                                         <div class="modal-footer customer_trans_modal_footer">
-                                        @if($value->status != "On-Progress") 
+                                        @if($value->status != "On-Progress" && $value->status != "Done") 
                                             <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-toggle="modal" data-target="#canceltransaction-{{ $value->booking_id }}" >
                                                 CANCEL
                                             </button>
                                         @endif
+                                        </div>
+                                    </div> <!-- End of Modal Content --> 
+                                </div>
+                            </div> <!-- End of Modal -->
                                             <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content customer_trans_modal_content_inside"> <!-- Modal Content -->
@@ -326,19 +300,12 @@
                                                     </div> <!-- End of Modal Content -->
                                                 </div>
                                             </div> <!-- End of Modal -->
-                                        </div>
-                                    </div> <!-- End of Modal Content --> 
-                                    </div>
-                                </div> <!-- End of Modal -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                       
         @endforeach
     @endforeach
+    </div>
     @endforeach
+
 
     </div>
 

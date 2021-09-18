@@ -154,9 +154,12 @@
 
 .customer_services_modal_content {
     border-radius: 15px;
-    
+    width: 800px;
 }
-
+.customer_services_modal_content_inside {
+    border-radius: 15px;
+    width: 400px;
+}
 .customer_services_broom_2_1_img, 
 .customer_services_broom_2_5_img,
 .customer_trans_broom_2_1_img,
@@ -174,9 +177,132 @@
     margin-left: 15px; 
     margin-top: -15px;
 }
-
+.customer_package_list {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 15px;
+}
 @media (max-width:800px){
     .card{
         margin: 10px 20px;
     }
+}
+.customer_services_modal_footer{
+    border: 0 none;
+}
+.book_now_btn {
+    background-color: #219EBC;
+    border: #219EBC;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 20px;
+    width:290px;
+    height: 50px;
+}
+.customer_services_modal_body_1_con {
+    padding-right: 30px;
+}
+.cancel_btn {
+    border: none;
+    background-color: white;
+    color: #04192E;
+    font-weight: bold;
+    font-size: 18px;
+}
+.confirm_btn {
+    background-color: #219EBC;
+    border: #219EBC;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px; 
+    font-size: 18px;
+}
+.customer_trans_status,
+.customer_trans_his_status {
+    margin-right: 15px;
+    margin-top: 5px;
+    font-size: 15px;
+    font-style: italic;
+    color: blue;
+    text-align: right;
+}
+
+.customer_trans_his_modal_footer{
+    border: 0 none;
+}
+
+.main_profile_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 85%;
+    height: 350px;
+    margin-left: 100px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+.customer_profile_avatar_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 12rem;
+    height: 13rem;
+    border-radius: 10px;
+    margin-left: -80px;
+    background-color: #EDF1F8;
+    margin-top: 10px;
+}
+.profile_avatar_img {
+    height: 160px;
+    width: 160px;
+    margin: auto;
+    text-align: center;
+}
+.customer_profile_name_con {
+    width: 270%;
+    height: 60px;
+    margin-left: 30px;
+    margin-top: 20px;
+    border: none;
+    outline: none;
+    border-bottom: 5px solid #219EBC;
+    background-color: #fff;
+}
+.customer_profile_name {
+    color: #FFB703;
+    font-weight: bold;
+    font-size: 35px;
+    background-color: #fff;
+}
+.customer_profile_info_con {
+    width: 90%;
+    height: 50px;
+    margin-left: 30px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    background-color: #fff;
+}
+.customer_profile_info {
+    font-size: 15px;
+    margin-top: 5px;
+    background-color: #fff;
+}
+.update_btn_con {
+    width: 120px;
+    height: 60px;
+    margin-top: 220px;
+    margin-left: 450px;
+}
+.customer_update_btn {
+    width: 105px;
+    color: #042A6B;
+    font-size: 18px;
+    margin-top: 30px;
+    outline: none;
+}
+.customer_update_btn:focus {
+    outline: none !important;
+    box-shadow: none;
+} 
+.customer_profile_info_icon {
+    margin-right: 10px;
 }

@@ -36,17 +36,14 @@ header nav ul li {
     list-style: none;
 }
 nav ul li a {
+    margin-left: 10px;
     height: 50px;
     line-height: 50px;
     padding: 0 20px;
     color: #FFFFFF;
     text-decoration: none;
     display: inline-block;
-    font-weight: bold;
-}
-.listRight {
-    left: auto !important;
-    right: 0 !important;
+    font-weight: normal;
 }
 nav ul li a:hover 
 nav ul li a:active {
@@ -162,7 +159,7 @@ a:hover {
 .customer_trans_title_con,
 .customer_trans_his_title_con,
 .customer_profile_title_con {
-    margin-top: 10vw;
+    margin-top: 5vw;
     margin-left: 8vw;
 }
 .customer_services_con,
