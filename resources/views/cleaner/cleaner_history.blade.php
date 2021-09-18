@@ -106,7 +106,7 @@
                     <div class="d-flex">
                         <img src="/img/broom.png" class="cleaner_job_broom_img p-1">  
                         <div class="d-flex flex-column">
-                            @if ($bookingID == null)
+                            @if ($booking->status != 'Declined')
                             <h5 class="cleaner_job_status">
                                 {{ $value->status }}
                             </h5>

@@ -40,12 +40,7 @@ class NotifyUser extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toDatabase($notifiable)
-    {
-        return [
-            'status' => Carbon::now()
-        ];
-    }
+  
 
     /**
      * Get the array representation of the notification.

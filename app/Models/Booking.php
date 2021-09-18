@@ -15,4 +15,14 @@ class Booking extends Model
         'customer_id', 'service_id', 'property_type', 'schedule_date', 'schedule_time', 'mode_of_payment'.'status', 'is_paid'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function($model){
+            $booking=Booking::first();
+            $booking->notify(new NotifyUser());
+        });
+    }
+
 }
