@@ -7,6 +7,7 @@
     use App\Models\User;
     use App\Models\Cleaner;
     use App\Models\Assigned_cleaner;
+    use App\Models\Event;
 ?>
 
 @extends('head_extention_cleaner') 
@@ -18,9 +19,6 @@
     </title>
 
     <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
-
-     <!-- CSRF Token -->
-     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
     
@@ -74,7 +72,7 @@
                         {{ $data->service_name }}
                         </h3>
                         <div>
-                        <a href="/customer/cleaner_job">
+                        <a href="/cleaner/cleaner_job">
                             <span class="right"></span>
                         </a>
                         </div>
@@ -97,13 +95,14 @@
         </div>
         <div class="container mt-5 calendar_con">
             <div id='calendar'></div>
+            <?php
+        $data = Event::all();
+        ?>
         </div>
         
     </div> <!-- End of Sidebar -->
     <script>
             $(document).ready(function () {
-            
-            var SITEURL = "{{ url('/') }}";
             
             $.ajaxSetup({
                 headers: {
@@ -112,18 +111,23 @@
             });
             
             var calendar = $('#calendar').fullCalendar({
-                    editable: true,
-                    events: SITEURL + "/fullcalender",
-                    displayEventTime: false,
                     editable: false,
-                    eventRender: function (event, element, view) {
-                        if (event.allDay === 'true') {
-                                event.allDay = true;
-                        } else {
-                                event.allDay = false;
-                        }
-                    },                   
- 
+                    header:{
+                       left:'prev,next today',
+                       center: 'title',
+                       right:'month, agendaWeek, agendaDay'     
+                    },
+                    events: [
+                        @foreach($data as $event)
+                        {
+                            
+                            title: '{{$event->title}}',
+                            start: '{{$event->start}}',
+                            end: '{{$event->end}}'
+                            
+                        },
+                        @endforeach
+                    ],              
                 });
  
 });

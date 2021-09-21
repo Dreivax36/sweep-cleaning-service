@@ -6,6 +6,8 @@
     use App\Models\Address;
     use App\Models\User;
     use App\Models\Cleaner;
+    use App\Models\Event;
+    use App\Models\Notification;
 ?>
 @extends('head_extention_admin') 
 
@@ -13,6 +15,13 @@
     <title>
         Admin Dashboard Page
     </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    
+    {{-- Scripts --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <body>
   <header> <!-- Navbar -->
@@ -46,17 +55,40 @@
                         Payroll
                     </a>
                 </li>
-                <div class="profile_btn">
-                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
-                        <img class="profile_img" src="/img/user.png">
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{ route('auth.logout') }}">
-                            Logout
-                        </a>
-                    </div>
-                </div>
+                <li>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-bell"></i> <span class="badge alert-danger">0</span>
+                            </a> 
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                              <?php
+                                  $notif = Notification::all();
+                              ?>
+                             
+                              @forelse ($notif as $notification)
+                              <a class="dropdown-item" href="cleaner_profile">
+                                    {{ $notification->data['name']}}
+                                </a>
+                              @empty
+                                <a class="dropdown-item" href="cleaner_profile">
+                                    No record found
+                                </a>
+                              @endforelse
+                            </div>
+
+                  </li>
+                  <li >
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ $LoggedUserInfo['email'] }}
+                            </a> 
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('auth.logout') }}">
+                                    Logout
+                                </a>
+                            </div>
+
+                        </li>
             </ul>
         </nav>
         <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
@@ -145,9 +177,12 @@
         </div>
       </div> <!-- End of Reports -->
      
-      <div class="container my-3">
-        <div id="calendar"></div>
-      </div>      
+      <div class="container mt-5 calendar_con">
+            <div id='calendar'></div>
+            <?php
+        $data = Event::all();
+        ?>
+
       <div class="row" id="daily_transaction">
         <div class="container">
           <canvas id="myChart"></canvas>
@@ -157,6 +192,42 @@
   </div>
 
 <!-- Bar Graph -->
+<script>
+            $(document).ready(function () {
+            
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            var calendar = $('#calendar').fullCalendar({
+                    editable: false,
+                    header:{
+                       left:'prev,next today',
+                       center: 'title',
+                       right:'month, agendaWeek, agendaDay'     
+                    },
+                    events: [
+                        @foreach($data as $event)
+                        {
+                            
+                            title: '{{$event->title}}',
+                            start: '{{$event->start}}',
+                            end: '{{$event->end}}'
+                            
+                        },
+                        @endforeach
+                    ],              
+                });
+ 
+});
+ 
+function displayMessage(message) {
+    toastr.success(message, 'Event');
+} 
+  
+</script>
 <script>
   let myChart = document.getElementById('myChart').getContext('2d');
   let massPopChart = new Chart(myChart, {

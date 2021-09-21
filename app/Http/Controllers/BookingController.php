@@ -9,8 +9,12 @@ use App\Models\User;
 use App\Models\Cleaner;
 use App\Models\Customer;
 use App\Models\Assigned_cleaner;
+use App\Models\Event;
+use App\Models\Service;
 use App\Post;
 use App\Notifications\NotifyUser;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 class BookingController extends Controller
 {
@@ -51,8 +55,9 @@ class BookingController extends Controller
     function updateStatus(Request $request){
  
         //Update data into database
+        $user = User::all();
         $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
-        $booking->notify(new NotifyUser());
+        Notification::send($user, new NotifyUser($request->booking_id));
        if($updateStatus){
            return back()->with('success', 'Booking Status Updated');
         }
@@ -109,7 +114,22 @@ class BookingController extends Controller
         $bookings->status = 'Pending';
         $bookings->is_paid = false;
         $book = $bookings->save();
-        
+
+        $date = $request->schedule_date;
+        $time = $request->schedule_time;        
+        $startdate = $date . ' ' . $time;
+
+        $events = new Event();
+        $title = Service::Where('service_id', $request->service_id )->value('service_name');
+        $events->title = $title;
+        $events->start = $startdate;
+
+        $time = Carbon::parse($startdate);
+        $enddate = $time->addHours(3);
+
+        $events->end = $enddate;
+        $events->booking_id = $bookings->booking_id;
+        $book = $events->save();
 
         if($book){
             return back()->with('success', 'New Service has been successfuly added to database');

@@ -29,9 +29,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="fullcalendar/4.4.0/core/main.min.css">
-    <link rel="stylesheet" href="fullcalendar/4.4.0/daygrid/main.min.css">
-    <link rel="stylesheet" href="fullcalendar/4.4.0/bootstrap/main.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
     
     

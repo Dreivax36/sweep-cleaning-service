@@ -54,8 +54,21 @@
                         <a id="Notifications" class="nav-link" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-bell"></i> <span class="badge alert-danger">0</span>
+                            </a> 
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="cleaner_profile">
+                                    Profile
+                                </a>
+                                
+                            </div>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ $LoggedUserInfo['email'] }}
-                            </a>
+                            </a> 
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="cleaner_profile">

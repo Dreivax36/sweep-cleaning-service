@@ -7,6 +7,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EWalletPaymentController;
+use App\Http\Controllers\FullCalendarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,9 @@ use App\Http\Controllers\EWalletPaymentController;
 |
 */
 //Calendar
-Route::get('/events', 'FullCalenderController@index')->name('events.index');
-Route::get('/getEvents', 'FullCalenderController@getEvents')->name('events.getEvents');
+Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'index']);
+Route::get('cleaner/cleaner_dashboard/action', [FullCalendarController::class, 'action']);
+//Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'getEvents']);
 
 //Service Module
 Route::resource('services', ServiceController::class);
@@ -78,6 +80,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
     Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
     Route::post('/book',[BookingController::class, 'book'])->name('book');
+    Route::get('/book',[BookingController::class, 'book'])->name('book');
     Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
 Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
 Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');

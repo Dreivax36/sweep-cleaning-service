@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Price extends Model
+class Event extends Model
 {
     use HasFactory;
-    protected $table ='prices';
-    protected $primaryKey = 'price_id';
+    protected $table ='events';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'property_type', 'price', 'number_of_cleaner', 'service_id'
+        'title', 'start', 'end', 'booking_id'
     ];
 }

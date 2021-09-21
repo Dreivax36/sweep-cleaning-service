@@ -3,14 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Crud_event;
+use App\Models\Event;
+use App\Models\User;
 
-class FullCalenderController extends Controller
+class FullCalendarController extends Controller
 {
 
     public function index(Request $request)
     {
-        return view('front.events');
+     
+    }
+    public function action(Request $request)
+    {
+        if($request->ajax())
+        {
+            if($request->type == 'add')
+            {
+                $event = Event::create([
+                    'title' => $request->title,
+                    'start' => $request->start,
+                    'end' => $request->end
+                ]);
+                return response()->json($event);
+            }
+        }
+        return back();
     }
 
     public function getEvents()

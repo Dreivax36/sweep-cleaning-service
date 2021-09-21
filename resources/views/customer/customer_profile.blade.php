@@ -24,7 +24,7 @@
         <div class="d-flex flex-column">
         <div class="customer_profile_con">
             <div class="card customer_profile_avatar_con">
-                <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
+                <img class="card-img-top profile_avatar_img" src="{{asset('/public/images/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
             </div>
         </div>
         </div>

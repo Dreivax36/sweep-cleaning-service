@@ -18,9 +18,9 @@ class NotifyUser extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($booking_id)
     {
-
+        $this->booking_id = $booking_id;
     }
 
     /**
@@ -51,7 +51,7 @@ class NotifyUser extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'booking_id'=>$this->booking_id
         ];
     }
 }

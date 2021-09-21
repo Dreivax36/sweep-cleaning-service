@@ -20,7 +20,7 @@
     <div class="main_profile_con d-flex">
         <div class="cleaner_profile_con">
             <div class="card cleaner_profile_avatar_con">
-            <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
+            <img class="card-img-top profile_avatar_img" src="{{asset('/public/images/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
             </div>
         </div>
         <div class="d-flex flex-column">

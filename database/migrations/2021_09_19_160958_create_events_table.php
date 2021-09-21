@@ -14,10 +14,13 @@ class CreateEventsTable extends Migration
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('title');
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->timestamp('start');
+            $table->timestamp('end');
+            $table->unsignedBigInteger('booking_id');
+            $table->foreign('booking_id')->references('booking_id')->on('bookings')
+                    ->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -169,7 +169,7 @@
                             @foreach($valid_id as $identity)
                             <div class="modal-body">
                                 <div class="card admin_profile_avatar_con">
-                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$identity->valid_id ) }}" alt="profile_picture" />
+                                    <img class="card-img-top profile_avatar_img" src="{{asset('/public/images/'.$identity->valid_id ) }}" alt="profile_picture" />
                                 </div>
                             </div>
                             @endforeach
@@ -202,7 +202,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="card admin_profile_avatar_con">
-                                            <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$clearance->requirement ) }}" alt="profile_picture" />
+                                            <img class="card-img-top profile_avatar_img" src="{{asset('/public/images/'.$clearance->requirement ) }}" alt="profile_picture" />
                                         </div>
                                     </div>
                                     <div class="modal-footer">
