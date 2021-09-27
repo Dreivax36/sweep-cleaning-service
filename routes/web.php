@@ -102,7 +102,7 @@ Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pa
     Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
 
 //Payment Paypal
-Route::post('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
+Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
 Route::get('paypal/checkout-success/{booking}', [PayPalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
 Route::get('paypal/checkout-cancel', [PayPalController::class, 'cancelPage'])->name('paypal.cancel');
 
