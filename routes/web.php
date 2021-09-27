@@ -58,10 +58,6 @@ Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->name('cleaner.cleaner_save');
 Route::post('/cleaner/cleaner_check',[MainController::class, 'cleaner_check'])->name('cleaner.cleaner_check');
 
-//Payment Paypal
-Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
-Route::get('paypal/checkout-success/{booking}', [PayPalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
-Route::get('paypal/checkout-cancel', [PayPalController::class, 'cancelPage'])->name('paypal.cancel');
 
 
 Route::group(['middleware'=>['AuthCheck']], function(){
@@ -105,6 +101,10 @@ Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pa
     Route::get('/cleaner/cleaner_map',[BookingController::class, 'cleaner_map'])->name('cleaner.cleaner_map');
     Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
 
+//Payment Paypal
+Route::post('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
+Route::get('paypal/checkout-success/{booking}', [PayPalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
+Route::get('paypal/checkout-cancel', [PayPalController::class, 'cancelPage'])->name('paypal.cancel');
 
 
 });
