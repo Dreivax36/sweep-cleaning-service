@@ -25,8 +25,8 @@ class PaypalService
 
         $request = new OrdersCreateRequest();
         $request->headers["prefer"] = "return=representation";
-        $request->body = $this->checkoutData($orderId);
-        //$request->body = $this->simpleCheckoutData($orderId);
+       // $request->body = $this->checkoutData($orderId);
+        $request->body = $this->simpleCheckoutData($orderId);
 
         return $this->client->execute($request);
     }
