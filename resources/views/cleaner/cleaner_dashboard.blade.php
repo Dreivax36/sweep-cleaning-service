@@ -95,9 +95,10 @@
         </div>
         <div class="container mt-5 calendar_con">
             <div id='calendar'></div>
-            <?php
-        $data = Event::all();
+        <?php
+            $booking = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
         ?>
+      
         </div>
         
     </div> <!-- End of Sidebar -->
@@ -117,7 +118,12 @@
                        center: 'title',
                        right:'month, agendaWeek, agendaDay'     
                     },
+                    
                     events: [
+                        @foreach($booking as $id)
+                        <?php   
+                            $data = Event::Where('booking_id', $id->booking_id)->get();
+                        ?>
                         @foreach($data as $event)
                         {
                             
@@ -127,7 +133,9 @@
                             
                         },
                         @endforeach
-                    ],              
+                        @endforeach  
+                    ],  
+                             
                 });
  
 });
@@ -137,5 +145,6 @@ function displayMessage(message) {
 } 
   
 </script>
+
 </body>
 @endsection

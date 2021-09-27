@@ -136,7 +136,7 @@
                                                     </div>
                                                 
                                                 @endforeach 
-                                                <form action="{{ route('updateStatus') }}" method="post" id="cleaner"> <!-- Modal Content-->
+                                                <form action="{{ route('cleaner') }}" method="post" id="cleaner"> <!-- Modal Content-->
                                                 @if(Session::get('success'))
                                                     <div class="alert alert-success">
                                                         {{ Session::get('success') }}

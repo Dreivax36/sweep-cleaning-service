@@ -285,7 +285,7 @@
                                               DONE
                                      </button> 
                                      @endif 
-                                     @if($value->status == "Done")
+                                     @if($value->status == "Done" && $value->is_paid == true)
                                      <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
                                               COMPLETE
                                      </button> 
