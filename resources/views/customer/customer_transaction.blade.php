@@ -68,7 +68,7 @@
                                     DETAILS
                                 </button>
                                 @if($value->status == "Pending" || $value->is_paid == false) 
-                                <button type="button" class="btn btn-block btn-primary pay_btn"  onclick="document.location='{{ route('paypal.checkout', $value->booking_id) }}'"> 
+                                <button type="button" class="btn btn-block btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
                                     Pay 
                                 </button>
                                 @endif

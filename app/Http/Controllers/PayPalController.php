@@ -16,15 +16,15 @@ class PayPalController extends Controller
         $this->paypalService = $paypalService;
     }
 
-    public function getExpressCheckout(Request $request){
-        $response = $this->paypalService->createOrder($request->route('id'));
+    public function getExpressCheckout($booking_id){
+        $response = $this->paypalService->createOrder($booking_id);
 
         if($response->statusCode !== 201){
             abort(500);
         }
 
-        $booking = Booking::find($request->route('id'));
-        $booking = Booking::Where('booking_id', $request->route('id'))->update(['paypal_orderid' => $response->result->id]);
+        $booking = Booking::find($booking_id);
+        $booking = Booking::Where('booking_id', $booking_id )->update(['paypal_orderid' => $response->result->id]);
 
         foreach($response->result->links as $link){
             if($link->rel == 'approve'){
