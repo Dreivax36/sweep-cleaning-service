@@ -12,15 +12,16 @@ class NotifyUser extends Notification
 {
     use Queueable;
 
+    public $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($booking_id)
+    public function __construct($user)
     {
-        $this->booking_id = $booking_id;
+        $this->user=$user;
     }
 
     /**
@@ -48,10 +49,10 @@ class NotifyUser extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
-            'booking_id'=>$this->booking_id
+            'user_id'=>$this->user_id
         ];
     }
 }

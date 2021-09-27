@@ -67,13 +67,13 @@
                                 <button type="button" class="btn btn-link customer_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
                                     DETAILS
                                 </button>
-                                @if($value->status == "On-Progress") 
-                                <button type="button" class="btn btn-block btn-primary pay_btn" onclick="location.href='pay';"> 
+                                @if($value->status == "Pending" || $value->is_paid == false) 
+                                <button type="button" class="btn btn-block btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
                                     Pay 
                                 </button>
                                 @endif
                                 @if($value->status == "Done")               
-                                <button type="button" class="btn btn-block btn-primary rate_btn" data-toggle="modal" data-target="#exampleModalLong10101-{{ $value->service_id }}"> 
+                                <button type="button" class="btn btn-block btn-primary rate_btn" data-toggle="modal" data-target="#exampleModalLong10101-{{ $value->booking_id }}"> 
                                     Rate 
                                 </button>
                                 @endif
@@ -82,76 +82,38 @@
                         </div>
                 </div>
             </div>
-                                <div class="modal fade" id="exampleModalLong1010-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content customer_trans_modal_content_inside_inside"> <!-- Modal Content -->
-                                            <div class="modal-header customer_trans_modal_header_inside_inside">
-                                                <div class="p-3 modal_inside_inside_con">
-                                                    <h3 class="customer_trans_title_pay">
-                                                        {{ $data->service_name }}
-                                                    </h3>
-                                                    <h6 class="customer_trans_price_pay_1">
-                                                        Total Amount: P{{ $price_data->price }}
-                                                    </h6>
-                                                    <div class="d-flex payments_con">
-                                                        <a href="https://test-sources.paymongo.com/sources?id=src_yYaCih8x3b9i3fjEtzmrhRb5"><img src="/img/gcash.png" class="gcash_img">
-                                                </a>
-                                                       <!-- <script src="https://www.paypal.com/sdk/js?client-id=test"></script>
-                                                        <script>paypal.Buttons().render('body');</script>
-                                                        -->
-                                                    </div> 
-                                                    <div class="d-flex cancel_confirm_pay_con">
-                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                            CANCEL 
-                                                        </button>
-                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                            CONFIRM 
-                                                        </button>
-                                                    </div>  
-                                                </div>
-                                                <button type="button" class="close pl-2" data-dismiss="modal">&times;</button>
-                                            </div>
-                                        </div> <!-- End of Modal Content -->
-                                    </div>
-                                </div> <!-- End of Modal -->
-                                
+
                                 <div class="modal fade" id="exampleModalLong10101-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content customer_trans_his_modal_content_inside_inside">  <!-- Modal Content -->
                                             <div class="modal-header customer_trans_his_modal_header_inside_inside">
                                                 <div class="p-1 customer_trans_his_modal_inside_con">
-                                                    <h3 class="customer_trans_his_title_rate">
-                                                        Rate the Service
-                                                    </h3>
+                                                    
                                                     <h3 class="customer_trans_his_sub_rate">
                                                         Please let us know, how can we improve our service.
                                                     </h3>
+                                                    <br>
+                                                    <h3 class="customer_trans_his_title_rate">
+                                                        Rate the Service
+                                                    </h3>
                                                     <div class="provide_comment_con">
                                                         <form action="/action_page.php">
+                                                        <div class="rating-css">
+                                                            <div class="star-icon">
+                                                                <input type="radio" value="1" name="product_rating" checked id="rating1">
+                                                                <label for="rating1" class="fa fa-star"></label>
+                                                                <input type="radio" value="2" name="product_rating" id="rating2">
+                                                                <label for="rating2" class="fa fa-star"></label>
+                                                                <input type="radio" value="3" name="product_rating" id="rating3">
+                                                                <label for="rating3" class="fa fa-star"></label>
+                                                                <input type="radio" value="4" name="product_rating" id="rating4">
+                                                                <label for="rating4" class="fa fa-star"></label>
+                                                                <input type="radio" value="5" name="product_rating" id="rating5">
+                                                                <label for="rating5" class="fa fa-star"></label>
+                                                            </div>
+                                                        </div>
                                                             <textarea type="text" id="reason" class="provide_comment_field"></textarea>
-                                                        </form>
-                                                    </div>
-                                                    <div class="d-flex cancel_confirm_pay_con">
-                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                            CANCEL 
-                                                        </button>
-                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"  data-toggle="modal" data-target="#exampleModalLong101010"> 
-                                                            SUBMIT 
-                                                        </button>
-                                                    </div>  
-                                                </div>
-                                                <button type="button" class="close pl-2" data-dismiss="modal">&times;</button>
-                                            </div>
-                                        </div> <!-- End of Modal Content -->
-                                    </div>
-                                </div> <!-- End of Modal -->
-                                
-                                                    <div class="modal fade" id="exampleModalLong101010" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content customer_trans_his_modal_content_inside_inside">  <!-- Modal Content -->
-                                                                <div class="modal-header customer_trans_his_modal_header_inside_inside">
-                                                                    <div class="p-1 customer_trans_his_modal_inside_con">
-                                                                        <h3 class="customer_trans_his_title_rate">
+                                                            <h3 class="customer_trans_his_title_rate">
                                                                             Rate the Cleaner
                                                                         </h3>
                                                                         <select id="cleaners" name="cleaners" class="cleaners_dd">
@@ -173,20 +135,23 @@
                                                                                 <textarea type="text" id="reason" class="provide_comment_field"></textarea>
                                                                             </form>
                                                                         </div>
-                                                                        <div class="d-flex cancel_confirm_pay_con">
-                                                                            <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
-                                                                                CANCEL 
-                                                                            </button>
-                                                                            <button type="button" class="btn btn-block btn-primary confirm_btn"> 
-                                                                                SUBMIT 
-                                                                            </button>
-                                                                        </div>  
-                                                                    </div>
-                                                                    <button type="button" class="close pl-2" data-dismiss="modal">&times;</button>
-                                                                </div>
-                                                            </div> <!-- End of Modal Content -->
-                                                        </div>
-                                                    </div> <!-- End of Modal -->
+                                                        </form>
+                                                    </div>
+                                                    <div class="d-flex cancel_confirm_pay_con">
+                                                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
+                                                            CANCEL 
+                                                        </button>
+                                                        <button type="button" class="btn btn-block btn-primary confirm_btn"  data-toggle="modal" data-target="#exampleModalLong101010"> 
+                                                            SUBMIT 
+                                                        </button>
+                                                    </div>  
+                                                </div>
+                                                <button type="button" class="close pl-2" data-dismiss="modal">&times;</button>
+                                            </div>
+                                        </div> <!-- End of Modal Content -->
+                                    </div>
+                                </div> <!-- End of Modal -->
+                                
                                
                                 <div class="modal fade" id="exampleModalLong10-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                     <div class="modal-dialog" role="document">
@@ -229,7 +194,7 @@
                                                     <b>Property Type:</b> {{ $value->property_type }}
                                                 </li> 
                                                 <?php
-                                                    $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
+                                                     $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
                                                 ?>
                                                 <br>    
                                                 <li>
@@ -269,7 +234,7 @@
                                                                 <h3 class="cancel_booking_question">
                                                                     Are you sure you want to cancel your booking?
                                                                 </h3>
-                                                                <form action="{{ route('updateStatus') }}" method="post" id="updateStatus">
+                                                                <form action="{{ route('updateStatus') }}" method="post">
                                                                 @if(Session::get('success'))
                                                                     <div class="alert alert-success">
                                                                         {{ Session::get('success') }}
@@ -284,16 +249,16 @@
 
                                                                 @csrf
                                                                 <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                                                </form>   
+                                                                   
                                                                 <div class="d-flex no_yes_con">
                                                                     <button type="button" class="btn btn-block btn-primary no_btn" data-dismiss="modal"> 
                                                                         NO 
                                                                     </button>
-                                                                    <button type="submit" form="updateStatus"  class="btn btn-block btn-primary yes_btn" name="status" value="Cancelled"> 
+                                                                    <button type="submit" class="btn btn-block btn-primary yes_btn" name="status" value="Cancelled"> 
                                                                         YES 
                                                                     </button>
                                                                 </div>
-                                                                
+                                                                </form>
                                                             </div>
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                         </div>

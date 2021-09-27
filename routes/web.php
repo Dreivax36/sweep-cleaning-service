@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\AuthCheck;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
@@ -8,6 +9,9 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EWalletPaymentController;
 use App\Http\Controllers\FullCalendarController;
+use App\Http\Controllers\PayPalController;
+use App\Models\User;
+use App\Notifications\NotifyUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +48,7 @@ Route::get('/update_account/{id}',[MainController::class, 'update_account'])->na
 
 //Booking Module
 Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
-Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
+Route::get('/updateStatus', [BookingController::class, 'updateStatus'])->name('updateStatus');
 Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 
 //Customer
@@ -54,8 +58,11 @@ Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->name('cleaner.cleaner_save');
 Route::post('/cleaner/cleaner_check',[MainController::class, 'cleaner_check'])->name('cleaner.cleaner_check');
 
+//Payment Paypal
+Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
+Route::get('paypal/checkout-success/{booking}', [PayPalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
+Route::get('paypal/checkout-cancel', [PayPalController::class, 'cancelPage'])->name('paypal.cancel');
 
-Route::post('e-wallet/pay', [EWalletPaymentController::class, 'pay'])->name('ewallet.pay');
 
 Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/',[MainController::class, 'sweep_welcome'])->name('sweep_welcome');
@@ -82,10 +89,11 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('/book',[BookingController::class, 'book'])->name('book');
     Route::get('/book',[BookingController::class, 'book'])->name('book');
     Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
+    Route::get('/customer/customer_pay',[BookingController::class, 'customer_pay'])->name('customer.customer_pay');
 Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
 Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
 Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
-Route::get('/customer/customer_pay',[BookingController::class, 'customer_pay'])->name('customer.customer_pay');
+Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pay'])->name('customer_pay');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
@@ -95,6 +103,7 @@ Route::get('/customer/customer_pay',[BookingController::class, 'customer_pay'])-
     Route::get('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
     Route::post('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
     Route::get('/cleaner/cleaner_map',[BookingController::class, 'cleaner_map'])->name('cleaner.cleaner_map');
+    Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
 
 
 
@@ -129,5 +138,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('e-wallet/pay', [EWalletPaymentController::class, 'pay'])->name('ewallet.pay');
 });
 
-Route::post('/notification/get', 'NotificationController@get');
-Route::post('/notification/read', 'NotificationController@read');
+Route::get('cleaner/x', function(){
+    $user = Auth::user();
+    $user->notify(new NotifyUser(User::findOrFail(2)));
+});
+

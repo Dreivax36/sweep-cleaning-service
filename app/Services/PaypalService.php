@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
-use App\Order;
+use App\Models\Booking;
+use App\Models\Price;
+use App\Models\Service;
 use PayPalCheckoutSdk\Core\PayPalHttpClient;
 use PayPalCheckoutSdk\Core\SandboxEnvironment;
 use PayPalCheckoutSdk\Orders\OrdersCreateRequest;
@@ -24,7 +26,7 @@ class PaypalService
         $request = new OrdersCreateRequest();
         $request->headers["prefer"] = "return=representation";
         $request->body = $this->checkoutData($orderId);
-        // $request->body = $this->simpleCheckoutData($orderId);
+        //$request->body = $this->simpleCheckoutData($orderId);
 
         return $this->client->execute($request);
     }
@@ -36,52 +38,46 @@ class PaypalService
         return $this->client->execute($request);
     }
 
-    private function simpleCheckoutData($orderId)
+    private function simpleCheckoutData($booking_id)
     {
-        $order = Order::find($orderId);
+        $booking = Booking::find($booking_id);
+        $amount = Price::where('service_id', $booking->service_id)->where('property_type', $booking->property_type)->value('price');
 
         return [
             "intent" => "CAPTURE",
             "purchase_units" => [[
-                "reference_id" => 'webmall_'. uniqid(),
+                "reference_id" => 'sweep_'. uniqid(),
                 "amount" => [
-                    "value" => $order->grand_total,
-                    "currency_code" => "USD"
+                    "value" => $amount,
+                    "currency_code" => "PHP"
                 ]
             ]],
             "application_context" => [
                 "cancel_url" => route('paypal.cancel'),
-                "return_url" => route('paypal.success', $orderId)
+                "return_url" => route('paypal.success', $booking_id)
             ]
             ];
     }
 
 
-    private function checkoutData($orderId)
+    private function checkoutData($booking_id)
     {
-        $order = Order::find($orderId);
+        $booking = Booking::find($booking_id);
         $orderItems = [];
-
-        foreach($order->items as $item) {
-
+        $amount = Price::where('service_id', $booking->service_id)->where('property_type', $booking->property_type)->value('price');
+        $service = Service::find($booking->service_id);
             $orderItems[] = [
-                'name' => $item->name,
-                'description' => \Str::limit($item->description, 100),
-                'quantity' => $item->pivot->quantity,
+                'name' => $service->service_name,
+                'description' => \Str::limit($service->service_description, 100),
+                'quantity' => 0,
                 'unit_amount' => [
-                    'currency_code' => 'USD',
-                    'value' => $item->price
-                ],
-                'tax' =>
-                [
-                    'currency_code' => 'USD',
-                    'value' => '0',
+                    'currency_code' => 'PHP',
+                    'value' => $amount,
                 ],
                 'category' => 'PHYSICAL_GOODS',
-
             ];
-
-        }
+    
+        
 
 
 
@@ -89,12 +85,12 @@ class PaypalService
             'intent' => 'CAPTURE',
             'application_context' =>
             [
-                'return_url' => route('paypal.success', $orderId),
+                'return_url' => route('paypal.success', $booking_id),
                 'cancel_url' => route('paypal.cancel'),
-                'brand_name' => 'WEBMALL',
-                'locale' => 'en-US',
+                'brand_name' => 'Sweep',
+                'locale' => 'en-PH',
                 'landing_page' => 'BILLING',
-                'shipping_preference' => 'SET_PROVIDED_ADDRESS',
+                'shipping_preference' => 'NO_SHIPPING',
                 'user_action' => 'PAY_NOW',
             ],
             'purchase_units' => [
@@ -103,7 +99,6 @@ class PaypalService
                     'description' => 'some order description for the order',
                     'custom_id' => 'CUST-HighFashions',
                     'soft_descriptor' => 'HighFashions',
-                    'items' => $orderItems,
                     'shipping' =>
                     [
                         'method' => 'United States Postal Service',
@@ -123,33 +118,33 @@ class PaypalService
                     ],
                     'amount' =>
                     [
-                        'currency_code' => 'USD',
-                        'value' => $order->grand_total,
+                        'currency_code' => 'PHP',
+                        'value' => 1,
                         'breakdown' =>
                         [
                             'item_total' =>
                             [
-                                'currency_code' => 'USD',
-                                'value' => $order->items->sum('price'),
+                                'currency_code' => 'PHP',
+                                'value' => 1,
                             ],
                             'shipping' =>
                             [
-                                'currency_code' => 'USD',
+                                'currency_code' => 'PHP',
                                 'value' => '0',
                             ],
                             'handling' =>
                             [
-                                'currency_code' => 'USD',
+                                'currency_code' => 'PHP',
                                 'value' => '0',
                             ],
                             'tax_total' =>
                             [
-                                'currency_code' => 'USD',
+                                'currency_code' => 'PHP',
                                 'value' => '0',
                             ],
                             'shipping_discount' =>
                             [
-                                'currency_code' => 'USD',
+                                'currency_code' => 'PHP',
                                 'value' => '0',
                             ],
                         ],

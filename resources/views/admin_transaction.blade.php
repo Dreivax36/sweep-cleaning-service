@@ -98,8 +98,6 @@
         $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
         $user_data = User::Where('user_id', $userId )->get();
         $address = Address::Where('customer_id', $value->customer_id )->value('address');
-        $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
-        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get();
     ?>
             <div class="column col_transaction" id="card-lists">
                 <div class="card card_transaction p-4">
@@ -210,6 +208,9 @@
                                             <li class="list_booking_info">
                                                 <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                             </li>
+                                            <?php
+                                            $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
+                                            ?>
                                             @foreach($price as $price_data)
                                             <li class="list_booking_info">
                                                 <b>Cleaner/s:</b> {{ $price_data->number_of_cleaner}}
@@ -324,6 +325,7 @@
                                                 @csrf
                                                 {{ csrf_field() }}
                                                     <?php
+                                                        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get();
                                                         $total = $price_data->number_of_cleaner;
                                                         
                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->get();    

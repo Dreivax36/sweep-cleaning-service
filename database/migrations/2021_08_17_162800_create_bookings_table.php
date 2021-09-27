@@ -27,6 +27,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('customer_id')->on('customers')
                 ->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger('paypal_orderid');
             $table->timestamps();
         });
     }

@@ -1,3 +1,6 @@
+<?php 
+    use App\Models\Notification;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,14 +56,26 @@
                         <a id="service" class="nav-link" href="{{ url('/cleaner/cleaner_job') }}" role="button">Jobs</a>
                         <a id="Notifications" class="nav-link" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-bell"></i> <span class="badge alert-danger">0</span>
+                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <?php
+                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->count();
+                                  $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->get();
+                            ?>
+                             
+                            <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
                             </a> 
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="cleaner_profile">
-                                    Profile
+                            
+                              @forelse ($notif as $notification)
+                              <a class="dropdown-item" href="{{$notification->location}}">
+                                    {{ $notification->message}}
                                 </a>
+                              @empty
+                                <a class="dropdown-item" >
+                                    No record found
+                                </a>
+                              @endforelse
                                 
                             </div>
 

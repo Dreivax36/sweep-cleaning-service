@@ -160,6 +160,8 @@
 
                                                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                                                     <input type="hidden" name="user_id" value="{{ $LoggedUserInfo['user_id'] }}">
+                                                                    <br>
+                                                                    <h6> Property Type </h6>
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="radio" name="property_type" id="flexRadioDefault1" value="Medium-Upper Class Residential Areas" checked>
                                                                         <label class="form-check-label" for="flexRadioDefault1">
@@ -187,6 +189,19 @@
                                                                     </label>
                                                                         <input type="time" min="08:00" max="17:00" id="schedule_time" class="form-control" name="schedule_time" >
                                                                     <br>
+                                                                    <h6> Payment Option </h6>
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                        <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="On-site">
+                                                                            On-site
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <label class="form-check-label">
+                                                                        <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="Paypal" >
+                                                                            Paypal 
+                                                                        </label>
+                                                                    </div>
                                                                         <div class="d-flex cancel_confirm_con">
                                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
                                                                             Cancel 
