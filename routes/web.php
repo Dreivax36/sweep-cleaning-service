@@ -10,6 +10,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\EWalletPaymentController;
 use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\MailSend;
 use App\Models\User;
 use App\Notifications\NotifyUser;
 
@@ -44,7 +45,7 @@ Route::get('/customer/customer_services',[ServiceController::class, 'customer_se
 Route::POST('/auth/save',[MainController::class, 'save'])->name('auth.save');
 Route::POST('/auth/check',[MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
-Route::get('/update_account/{id}',[MainController::class, 'update_account'])->name('update_account');
+
 
 //Booking Module
 Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
@@ -80,6 +81,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/customer/customer_profile',[MainController::class, 'customer_profile'])->name('customer.customer_profile');
     Route::post('/updateProfile',[MainController::class, 'updateProfile'])->name('updateProfile');
     Route::get('/updateProfile',[MainController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/addAddress',[MainController::class, 'addAddress'])->name('addAddress');
+    Route::get('/addAddress',[MainController::class, 'addAddress'])->name('addAddress');
     Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
     Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
     Route::post('/book',[BookingController::class, 'book'])->name('book');
@@ -90,6 +93,7 @@ Route::get('/customer/customer_history',[BookingController::class, 'customer_his
 Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
 Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
 Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pay'])->name('customer_pay');
+Route::get('/customer/customer_rating/{id}',[BookingController::class, 'customer_rating'])->name('customer_rating');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
@@ -101,12 +105,14 @@ Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pa
     Route::get('/cleaner/cleaner_map',[BookingController::class, 'cleaner_map'])->name('cleaner.cleaner_map');
     Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
 
-//Payment Paypal
-Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
-Route::get('paypal/checkout-success/{booking}', [PayPalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
-Route::get('paypal/checkout-cancel', [PayPalController::class, 'cancelPage'])->name('paypal.cancel');
+    //Payment Paypal
+    Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
+    Route::get('paypal/checkout-success/{booking}', [PayPalController::class, 'getExpressCheckoutSuccess'])->name('paypal.success');
+    Route::get('paypal/checkout-cancel', [PayPalController::class, 'cancelPage'])->name('paypal.cancel');
 
-
+    Route::post('/rate',[BookingController::class, 'rate'])->name('rate');
+    Route::get('/rate',[BookingController::class, 'rate'])->name('rate');
+    
 });
 
 //Route for the Sweep Welcome Page
@@ -133,6 +139,16 @@ Route::get('/faqs', function () {
     return view('sweep_faqs');
 });
 
+Route::get('/index', function () {
+    return view('index');
+});
+
+Route::get('test', function () {
+    event(new App\Events\MyEvent('Welcome'));
+    return "Event has been sent";
+});
+
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('e-wallet/pay', [EWalletPaymentController::class, 'pay'])->name('ewallet.pay');
@@ -143,3 +159,4 @@ Route::get('cleaner/x', function(){
     $user->notify(new NotifyUser(User::findOrFail(2)));
 });
 
+Route::get('/update_account/{id}',[MailSend::class, 'mailsend'])->name('update_account');

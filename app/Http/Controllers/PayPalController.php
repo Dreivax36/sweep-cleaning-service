@@ -21,7 +21,7 @@ class PayPalController extends Controller
 
         if($response->statusCode !== 201){
             abort(500);
-        }
+        } 
 
         $booking = Booking::find($booking_id);
         $booking = Booking::Where('booking_id', $booking_id )->update(['paypal_orderid' => $response->result->id]);

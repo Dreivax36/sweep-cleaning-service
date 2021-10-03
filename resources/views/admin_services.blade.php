@@ -1,6 +1,7 @@
 <?php
     use App\Models\Service;
     use App\Models\Price;
+    use App\Models\Service_review;
 ?>
 
 @extends('head_extention_admin') 
@@ -197,6 +198,19 @@
                                     <h4 class="modal_service_title">
                                         {{ $value->service_name }}
                                     </h4>
+                                    <?php
+                                                        $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                                                        $avg = (int)$total;
+                                                    
+                                                    for ( $i = 1; $i <= 5; $i++ ) {
+                                                        if ( $avg >= $i ) {
+                                                            echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                        } else {
+                                                            echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                        }
+                                                    }
+                                                    echo '</span>';
+                                                    ?>
                                 </div>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>

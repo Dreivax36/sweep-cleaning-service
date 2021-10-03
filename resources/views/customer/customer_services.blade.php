@@ -2,6 +2,7 @@
     use App\Models\Service;
     use App\Models\Price;
     use App\Models\Booking;
+    use App\Models\Service_review;
 ?>
 
 @extends('head_extention_customer') 
@@ -81,7 +82,21 @@
                                                     <h6 class="customer_services_sub_1">
                                                         Price starts at P{{ $price_start }} - P{{ $price_end }}
                                                     </h6>
-                                                <img src="/img/stars.png" class="five_stars_img">
+                                                    <div>
+                                                    <?php
+                                                        $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                                                        $avg = (int)$total;
+                                                    
+                                                    for ( $i = 1; $i <= 5; $i++ ) {
+                                                        if ( $avg >= $i ) {
+                                                            echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                        } else {
+                                                            echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                        }
+                                                    }
+                                                    echo '</span>';
+                                                    ?>
+                                                    </div>
                                             </div>
                                         </div>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -226,12 +241,24 @@
     @endforeach
     </div>
      <?php
-     
-        $scheduledate = Booking::select('schedule_date')->get();
-    ?>
+        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
+        $items = array();
+        $count = 0;
+ ?>
     @if ($scheduledate != null)
+    @foreach($scheduledate as $schedule)
+    <?php
+       
+        $schedulueCount = Booking::where('schedule_date', $schedule->schedule_date )->count();
+        if($schedulueCount >= 2){
+            $items[$count++] = $schedule->schedule_date;
+        }
+        
+    ?>
+    @endforeach
     <script>
-        var array = ["2019-03-14", "2019-03-11", "2019-03-26"];
+
+        var array = <?php echo json_encode($items); ?>;
 
     $(function () {
     $('input[name="schedule_date"]').datepicker({
@@ -247,3 +274,7 @@
 
 </body>
 @endsection
+
+
+
+                                                                                                    

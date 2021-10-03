@@ -19,7 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('booking_id')->nullable();
             $table->boolean('isRead');
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->timestamps();
         });
     }

@@ -9,9 +9,9 @@ class Service_review extends Model
 {
     use HasFactory;
     protected $table ='service_reviews';
-    protected $primaryKey = 'service_reviews_id';
+    protected $primaryKey = 'service_review_id';
 
     protected $fillable = [
-        'service_name', 'review_id'
+        'service_id', 'comment', 'rate', 'review_id'
     ];
 }

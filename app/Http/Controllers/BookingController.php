@@ -11,6 +11,9 @@ use App\Models\Customer;
 use App\Models\Assigned_cleaner;
 use App\Models\Event;
 use App\Models\Service;
+use App\Models\Review;
+use App\Models\Service_review;
+use App\Models\Cleaner_review;
 use App\Post;
 use App\Notifications\NotifyUser;
 use Carbon\Carbon;
@@ -58,11 +61,12 @@ class BookingController extends Controller
         //Update data into database
         $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
         
-       // $notifications = new Notification;
-       // $notifications->message = 'Transaction Status is '+ $request->status;
-       // $notifications->booking_id = $request->booking_id;
-       // $notifications->isRead = false;
-       // $updateStatus = $notifications->save();
+       $notifications = new Notification;
+       $notifications->message = 'Transaction Status is '+ $request->status;
+       $notifications->booking_id = $request->booking_id;
+       $notifications->isRead = false;
+       $updateStatus = $notifications->save();
+        
        if($request->status == 'Completed'){
             $updateEvent= Event::Where('booking_id', $request->booking_id )->delete();
        }
@@ -81,10 +85,11 @@ class BookingController extends Controller
         $notifications = new Notification;
         $id = Cleaner::where('cleaner_id', $request->cleaner_id)->value('user_id');
         $name = User::where('user_id', $id)->value('full_name');
-        //$notifications->message = 'Cleaner ' + $name + ' update transaction status.';
-       // $notifications->booking_id = $request->booking_id;
-       // $notifications->isRead = false;
-       // $cleaner = $notifications->save();
+        $notifications->message = 'Cleaner ' + $name + ' update transaction status.';
+        $notifications->booking_id = $request->booking_id;
+        $notifications->isRead = false;
+        $notifications->location = 'admin_transaction';
+        $cleaner = $notifications->save();
 
         if($updateCleaner){
            return back()->with('success', 'Booking Status Updated');
@@ -104,11 +109,12 @@ class BookingController extends Controller
         $assign = $assigned_cleaners->save();
         $notifications = new Notification;
         $id = Cleaner::where('cleaner_id', $request->cleaner_id)->value('user_id');
-      //  $notifications->user_id = $id;
-       // $notifications->message = 'Job Offering';
-      //  $notifications->booking_id = $request->booking_id;
-        //$notifications->isRead = false;
-      //  $assign = $notifications->save();
+        $notifications->user_id = $id;
+        $notifications->message = 'New Job Offering';
+        $notifications->booking_id = $request->booking_id;
+        $notifications->isRead = false;
+        $notifications->location = 'cleaner_job';
+        $assign = $notifications->save();
         }
        if($assign){
            return back()->with('success', 'Booking Status Updated');
@@ -155,12 +161,12 @@ class BookingController extends Controller
         $events->booking_id = $bookings->booking_id;
         $book = $events->save();
 
-        //$notifications = new Notification;
-       // $notifications->user_id = $request->user_id;
-       // $notifications->message = 'New Booking';
-       // $notifications->booking_id = $request->booking_id;
-       // $notifications->isRead = false;
-        //$assign = $notifications->save();
+        $notifications = new Notification;
+        $notifications->message = 'New Booking';
+        $notifications->booking_id = $bookings->booking_id;
+        $notifications->isRead = false;
+        $notifications->location = 'admin_transaction';
+        $assign = $notifications->save();
 
         if($book){
             return back()->with('success', 'New Service has been successfuly added to database');
@@ -171,7 +177,47 @@ class BookingController extends Controller
     }
 
     function customer_pay(Request $request){
-            return redirect()->route('paypal.checkout', $request->route('id'));
+        return redirect()->route('paypal.checkout', $request->route('id'));
        // $updatePayment= Booking::Where('booking_id', $request->booking_id )->update(['mode_of_payment' => $request->mode_of_payment]);
+    }
+
+    function customer_rating(Request $request){
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('customer.customer_rating', $data)->with('booking_id', $request->route('id'));
+    }
+
+    function rate(Request $request){
+        $reviews = new Review();
+        $reviews->review_type = 'Service';
+        $reviews->booking_id = $request->booking_id;
+        $rate = $reviews->save();
+
+        $id = $reviews->review_id;
+
+        $service_reviews = new Service_review();
+        $service_reviews->service_id = $request->service_id;
+        $service_reviews->comment = $request->service_comment;
+        $service_reviews->rate = $request->service_rate;
+        $service_reviews->review_id = $id;
+        $rate = $service_reviews->save();
+
+        
+        foreach($request->input('cleaner_id') AS $cleaner_id){
+            
+            $reviews = new Review();
+            $reviews->review_type = 'Cleaner';
+            $reviews->booking_id = $request->booking_id;
+            $rate = $reviews->save(); 
+
+            $id = $reviews->review_id;
+            $cleaner_reviews = new Cleaner_review();
+            $cleaner_reviews->cleaner_id = $cleaner_id;
+            $cleaner_reviews->comment = $request->cleaner_comment;
+            $cleaner_reviews->rate = $request->cleaner_rate;
+            $cleaner_reviews->review_id = $id;
+            $rate = $cleaner_reviews->save();
+
+        }
+        return redirect()->route('customer.customer_transaction');
     }
 }

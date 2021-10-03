@@ -7,6 +7,7 @@
     use App\Models\User;
     use App\Models\Cleaner;
     use App\Models\Assigned_cleaner;
+    use App\Models\Review;
 ?>
 
 @extends('head_extention_admin') 
@@ -70,7 +71,7 @@
         </div>
     </div>
     <?php
-        $booking_data = Booking::Where('status', '!=', 'Completed')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->get();
+        $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->get();
         $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
         $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
@@ -274,6 +275,7 @@
                                     <?php
                                         $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
                                         $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
+                                        $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                                     ?>
                                     @if($value->status == "Accepted" && $statusOnProgress == $price_data->number_of_cleaner )
                                     <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
@@ -285,7 +287,7 @@
                                               DONE
                                      </button> 
                                      @endif 
-                                     @if($value->status == "Done" && $value->is_paid == true)
+                                     @if($value->status == "Done" && $value->is_paid == true && $reviews != 0)
                                      <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
                                               COMPLETE
                                      </button> 

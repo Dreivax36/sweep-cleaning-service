@@ -7,6 +7,9 @@
     use App\Models\User;
     use App\Models\Cleaner;
     use App\Models\Assigned_cleaner;
+    use App\Models\Review;
+    use App\Models\Service_review;
+    use App\Models\Cleaner_review;
 ?>
 @extends('head_extention_cleaner') 
 
@@ -31,6 +34,10 @@
     <div class="cleaner_job_con">
     @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
+        <div class="column col_cleaner_job">
+        <div class="row row_cleaner_job">
+        
+           
         <?php
             $booking_data = Booking::where('booking_id', $booking->booking_id)->orWhere('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
         ?>
@@ -44,8 +51,7 @@
             $cleaner_data = User::Where('user_type', 'Cleaner' )->get();
         ?>
 
-        <div class="column col_cleaner_job">
-            <div class="row row_cleaner_job">
+
                 <div class="card p-4 card_cleaner_job">
                     <div class="d-flex">
                         <img src="/img/broom.png" class="cleaner_job_broom_img p-1">  
@@ -71,17 +77,17 @@
                                 P{{ $price_data->price }}
                             </h6>
                             <div class="d-flex view_details_con">
-                                <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10">
+                                <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10-{{$value->booking_id}}">
                                     DETAILS
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>    
+              
                                 @foreach($user_data as $key => $user)
                                 @foreach($address_data as $key => $address)
-                                <div class="modal fade" id="exampleModalLong10" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong10-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                     <div class="modal-dialog" role="document">
                                         <form action="{{ route('updateStatus') }}" method="post" id="myform"> <!-- Modal Content -->
                                             @if(Session::get('success'))
@@ -147,26 +153,68 @@
                                                             <br>
                                                             <li>
                                                                 <b>Feedback:</b>
+                                                                <h6>Service</h6>
+                                                                <?php
+                                                                $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
+                                                                if($review_id != null){
+                                                                $total = Service_review::where('review_id', $review_id)->value('rate');
+                                                                
+                                                                for ( $i = 1; $i <= 5; $i++ ) {
+                                                                    if ( $total >= $i ) {
+                                                                        echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                                    } else {
+                                                                        echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                                    }
+                                                                }
+                                                                echo '</span>';
+                                                                $comment = Service_review::where('review_id', $review_id)->value('comment');
+                                                                }
+                                                                ?>
+                                                                <h7>{{$comment}}</h7>
+                                                        <h6>Review for you</h6>
+                                                            <?php
+                                                            $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
+                                                           ?>
+                                                            @foreach($reviewId  as $review)
+                                                            <?php
+
+                                                            $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('rate');
+                                                            if($total != null){
+                                                            $avg = (int)$total;
+                                                        
+                                                            for ( $i = 1; $i <= 5; $i++ ) {
+                                                                if ( $avg >= $i ) {
+                                                                    echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                                } else {
+                                                                    echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                                }
+                                                            }
+                                                            echo '</span>';
+                                                            $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
+                                                        }
+                                                            ?>
+                                                            <h7>{{$comment}}</h7>
+                                                            @endforeach          
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer cleaner_job_modal_footer">
-
                                                 </div>
                                             </div> 
                                             <!-- End of Modal Content -->
                                     </div>
                                 </div> <!-- End of Modal -->
                      
-
-    </div>
+                                
     @endforeach
     @endforeach
     @endforeach
+ 
     @endforeach
     @endif
+
     @endforeach
+    </div>  
+    </div>
     @endforeach
     @endif
     </div>

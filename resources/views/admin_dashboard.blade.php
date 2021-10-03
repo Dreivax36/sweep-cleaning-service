@@ -22,6 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
 
 <body>
   <header> <!-- Navbar -->
@@ -57,8 +58,8 @@
                 </li>
                 <li>
                               <?php
-                                  $notifCount = Notification::where('isRead', false)->count();
-                                  $notif = Notification::where('isRead', false)->get();
+                                  $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                                  $notif = Notification::where('isRead', false)->where('user_id', null)->get();
                               ?>
                             <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
@@ -180,9 +181,9 @@
      
       <div class="container mt-5 calendar_con">
             <div id='calendar'></div>
-            <?php
-        $data = Event::all();
-        ?>
+      <?php
+        $booking = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->orwhere('status', 'Done')->get();
+      ?>
 
       <div class="row" id="daily_transaction">
         <div class="container">
@@ -210,6 +211,10 @@
                        right:'month, agendaWeek, agendaDay'     
                     },
                     events: [
+                        @foreach($booking as $id)
+                        <?php   
+                            $data = Event::Where('booking_id', $id->booking_id)->get();
+                        ?>
                         @foreach($data as $event)
                         {
                             
@@ -218,6 +223,7 @@
                             end: '{{$event->end}}'
                             
                         },
+                        @endforeach
                         @endforeach
                     ],              
                 });
@@ -289,33 +295,3 @@ function displayMessage(message) {
 
 </body>
 @endsection
-
-
-
-
-
-
-
-
-<!-- Calendar 
-  <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
-  <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-  <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
-  <script src="fullcalendar/4.4.0/core/main.min.js"></script>
-  <script src="fullcalendar/4.4.0/daygrid/main.min.js"></script>
-  <script src="fullcalendar/4.4.0/bootstrap/main.min.js"></script>
-  <script>
-    var el = document.getElementById('calendar');
-    var calendar = new fullcalendar.Calendar(el, {
-      plugins: ['dayGrid', 'bootstrap'],
-      themeSystem: 'bootstrap', 
-      weekNumbers: true,
-      eventLimit: true,
-      events: [{
-        title: 'your title',
-        start: '2020-03-12',
-        end: '2020-03-15'
-      }]
-    })
-    calendar.render();
-    </script>-->

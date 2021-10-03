@@ -199,10 +199,26 @@ class MainController extends Controller
             'contact_number'=>'required',
             'address'=>'required',
         ]);
-
+        
         $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
         $id= Customer::Where('user_id', $request->user_id )->value('customer_id');
+        $pastAddress = Address::Where('customer_id', $id )->value('address');
         $update= Address::Where('customer_id', $id )->update(['address' => $request->address]);
+        
+        if($update){   
+            return back()->with('success', 'Address Updated');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+    public function addAddress(Request $request)
+    {
+            $id= Customer::Where('user_id', $request->user_id )->value('customer_id');
+            $addresses = new Address;
+            $addresses->address = $request->address;
+            $addresses->customer_id = $id;
+            $update = $addresses->save();
 
         if($update){   
             return back()->with('success', 'Address Updated');
@@ -346,16 +362,6 @@ class MainController extends Controller
             return back()->with('success', 'Cleaner Profile Updated');
         }
         else {
-            return back()->with('fail','Something went wrong, try again later ');
-        }
-    }
-    function update_account(Request $request){
-
-        $update = User::Where('user_id', $request->route('id'))->update(['account_status' => 'Verified']);
-
-        if($update){
-            return back()->with('success', 'New User has been successfuly added to database');
-        }else{
             return back()->with('fail','Something went wrong, try again later ');
         }
     }

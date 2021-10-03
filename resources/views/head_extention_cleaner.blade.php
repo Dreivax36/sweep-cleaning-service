@@ -58,8 +58,8 @@
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <?php
-                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->count();
-                                  $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->get();
+                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->count();
+                                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->get();
                             ?>
                              
                             <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
