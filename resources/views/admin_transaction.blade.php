@@ -330,7 +330,7 @@
                                                     <?php  
                                                         $total = $price_data->number_of_cleaner;
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
-                                                        $cleanerID = Assigned_cleaner::Where('booking_id', '$value->booking_id')->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
+                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id')->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
                                                     ?>
                                                     @while($total > 0)
                                                     <input type= "text" name="booking_id" value="{{ $value->booking_id }}">
