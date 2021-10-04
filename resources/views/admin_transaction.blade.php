@@ -340,7 +340,29 @@
                                                     <label for="cleaner">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @if(!empty($cleanerID))
+                                                    @if($cleaner_data != null)
+                                                   
+                                                    @foreach($cleaner_data as $key => $cleaner)
+                                                                 
+                                                    @foreach($cleanerID as $key => $assignCleaner)
+                                                        <?php
+                                                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                        ?> 
+                                                        @if($cleaner->user_id != $assignUser)
+                                                            <?php $exist = true;?>
+                                                        @else
+                                                            <?php $exist = false;?>
+                                                        @endif    
+                                                    @endforeach
+                                                    @if($exist)
+                                                        <?php
+                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                        ?>    
+                                                        <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
+                                                    @endif
+                                                    @endforeach 
                                                     
+                                                    @endif
                                                     @else
                                                     @if($cleaner_data != null)
                                                     @foreach($cleaner_data as $key => $cleaner)
@@ -349,10 +371,10 @@
                                                         ?>    
                                                         <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
                                                     @endforeach 
-                                                    </select> <br>    
+                                                      
                                                     @endif
                                                     @endif
-
+                                                    </select> <br>  
                                                     <?php
                                                         $total --;
                                                     ?>
