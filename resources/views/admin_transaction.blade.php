@@ -346,17 +346,17 @@
                                                             $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
                                                         ?> 
                                                         @if($cleaner->user_id != $assignUser)
+                                                            <?php $exist = true;?>
+                                                        @else
+                                                            @break
+                                                        @endif    
+                                                    @endforeach
+                                                    @if($exist)
                                                         <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
                                                         <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
-                                                   
-                                                        @else
-                                                            
-                                                        @endif    
-                                                    @endforeach
-                                                    
-                                                  
+                                                    @endif
                                                     @endforeach 
                                                     </select> <br> 
                                                     @endif
