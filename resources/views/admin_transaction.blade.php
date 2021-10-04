@@ -339,7 +339,7 @@
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner" >
-                                                    @if(empty($cleanerID))
+                                                    @if(!empty($cleanerID))
                                                     @if($cleaner_data != null)
                                                    
                                                     @foreach($cleaner_data as $key => $cleaner)
@@ -363,7 +363,8 @@
                                                     @endforeach 
                                                     
                                                     @endif
-                                                    @else
+                                                    @endif
+                                                    @if(empty($cleanerID))
                                                     @if($cleaner_data != null)
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                         <?php
