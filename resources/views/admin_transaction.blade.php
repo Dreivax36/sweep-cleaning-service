@@ -329,10 +329,12 @@
                                                 {{ csrf_field() }}
                                                     <?php  
                                                         $total = $price_data->number_of_cleaner;
+                                                    ?>
+                                                    @while($total > 0)
+                                                    <?php  
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
                                                     ?>
-                                                    @while($total > 0)
                                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
@@ -360,9 +362,7 @@
                                                     @endforeach 
                                                     </select> <br> 
                                                     @endif
-                                                    @endif
-
-                                                    @if($cleanerID == null)
+                                                    @else
                                                     @if($cleaner_data != null)
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)

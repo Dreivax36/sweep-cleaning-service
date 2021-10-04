@@ -7,7 +7,7 @@
     <title>
         Admin User Page
     </title>
-    <script src="{{ asset('js/app.js') }}"></script>
+   
 <body>
     <header> <!-- Navbar -->
         <div class="logo"> 
