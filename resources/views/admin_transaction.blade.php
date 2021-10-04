@@ -338,9 +338,10 @@
                                                     <input type= "text" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    @if($cleanerID != null)
-                                                    @if($cleaner_data != null)
                                                     <select name="cleaner_id[]" id="cleaner" >
+                                                    @if(!eempty($cleanerID))
+                                                    @if($cleaner_data != null)
+                                                   
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                                  
                                                     @foreach($cleanerID as $key => $assignCleaner)
@@ -364,7 +365,6 @@
                                                     @endif
                                                     @else
                                                     @if($cleaner_data != null)
-                                                    <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                         <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
