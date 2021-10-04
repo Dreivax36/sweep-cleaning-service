@@ -341,24 +341,24 @@
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
                                                     <?php
-                                                          $newID = 0;          
+                                                        $newID = 0;          
                                                     foreach($cleanerID as $key => $assignCleaner){
                                                             $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
                                                         if($cleaner->user_id != $assignUser){
                                                             $newID = $cleaner->user_id;
                                                         }
                                                         else{
-                                                            $newID = 0;
+                                                            $newID = $newID;
                                                             break;
                                                         }
                                                     }  
                                                     ?> 
-                                                    @if($newID != 0)
+                                                    
                                                     <?php
-                                                        $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                        $fullname = User::Where('user_id', $newID )->value('full_name');
                                                     ?>    
-                                                    <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
-                                                    @endif
+                                                    <option  value="{{ $newID }}">{{ $fullname }}</option>
+                                                   
                                                     @endforeach 
                                                     </select> <br> 
                                                     @endif
