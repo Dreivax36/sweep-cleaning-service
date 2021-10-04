@@ -97,15 +97,15 @@
     </div>
         <input type="hidden" name="cleaner_id[]" value="{{$cleaners->cleaner_id}}">
         <fieldset class="rating">
-			<input type="radio" id="cleaner_star5" name="cleaner_rate" value="5" /><label class = "full" for="cleaner_star5" ></label>
+			<input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="5" /><label class = "full" for="cleaner_star{{$cleaners->cleaner_id}}" ></label>
 								
-			<input type="radio" id="cleaner_star4" name="cleaner_rate" value="4" /><label class = "full" for="cleaner_star4"></label>
+			<input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="4" /><label class = "full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
 								
-			<input type="radio" id="cleaner_star3" name="cleaner_rate" value="3" /><label class = "full" for="cleaner_star3"></label>
+			<input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="3" /><label class = "full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
 								
-			<input type="radio" id="cleaner_star2" name="cleaner_rate" value="2" /><label class = "full" for="cleaner_star2"></label>
+			<input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="2" /><label class = "full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
 								
-			<input type="radio" id="cleaner_star1" name="cleaner_rate" value="1" /><label class = "full" for="cleaner_star1"></label>
+			<input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="1" /><label class = "full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
 								
 		</fieldset>
         

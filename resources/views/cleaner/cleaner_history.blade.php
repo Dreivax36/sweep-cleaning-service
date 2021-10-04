@@ -32,26 +32,29 @@
         $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', 'Declined')->orWhere('status', 'Done')->get();
     ?>
     <div class="cleaner_job_con">
+    <div class="row row_cleaner_job">
     @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
-        <div class="column col_cleaner_job">
-        <div class="row row_cleaner_job">
-        
-           
+        @if($booking->status == 'Declined')
         <?php
-            $booking_data = Booking::where('booking_id', $booking->booking_id)->orWhere('status', 'Declined' )->orWhere('status', 'Done' )->orWhere('status','Completed' )->get();
+            $booking_data = Booking::Where('booking_id', $booking->booking_id )->get();
         ?>
+        @else
+        <?php
+            $booking_data = Booking::Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->get();
+        ?>
+        @endif
         @foreach($booking_data as $key => $value)
-        @if($booking->booking_id == $value->booking_id)
+        @if($booking->booking_id == $value->booking_id || $booking->status == 'Declined')
+       
         <?php
-            $service_data = Service::Where('service_id', $value->service_id )->get();
+            $serviceName = Service::Where('service_id', $value->service_id )->value('service_name');
             $user_data = User::Where('user_id', $value->customer_id )->get();
-            $address_data = Address::Where('customer_id', $value->customer_id )->get();
+            $address = Address::Where('customer_id', $value->customer_id )->value('address');
             $price = Price::Where('property_type', $value->property_type )-> Where('service_id', $value->service_id )->get();
-            $cleaner_data = User::Where('user_type', 'Cleaner' )->get();
         ?>
 
-
+            <div class="column col_cleaner_job">
                 <div class="card p-4 card_cleaner_job">
                     <div class="d-flex">
                         <img src="/img/broom.png" class="cleaner_job_broom_img p-1">  
@@ -65,9 +68,9 @@
                                 {{ $booking->status }}
                             </h5>
                             @endif
-                            @foreach($service_data as $key => $data)
+                            
                             <h3 class="cleaner_job_title">
-                                {{ $data->service_name}}
+                                {{ $serviceName}}
                             </h3>
                             <h6 class="cleaner_job_date_1_1">
                                 {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
@@ -84,25 +87,9 @@
                         </div>
                     </div>
                 </div>
-              
-                                @foreach($user_data as $key => $user)
-                                @foreach($address_data as $key => $address)
-                                <div class="modal fade" id="exampleModalLong10-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+            </div>    
+            <div class="modal fade" id="exampleModalLong10-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                                     <div class="modal-dialog" role="document">
-                                        <form action="{{ route('updateStatus') }}" method="post" id="myform"> <!-- Modal Content -->
-                                            @if(Session::get('success'))
-                                                <div class="alert alert-success">
-                                                    {{ Session::get('success') }}
-                                                </div>
-                                            @endif
-
-                                            @if(Session::get('fail'))
-                                                <div class="alert alert-danger">
-                                                    {{ Session::get('fail') }}
-                                                </div>
-                                            @endif
-                                            @csrf
-                                        
                                             <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                             <div class="modal-content p-4 cleaner_job_modal_content">
                                                 <div class="modal-header cleaner_job_modal_header">
@@ -110,7 +97,7 @@
                                                         <img src="/img/broom.png" class="cleaner_job_broom_2_1_img p-1">
                                                         <div class="d-flex flex-column">
                                                             <h4 class="cleaner_job_modal_title">
-                                                                {{ $data->service_name }}
+                                                                {{ $serviceName }}
                                                             </h4>
                                                             <h6 class="cleaner_job_modal_date_1_1">
                                                                 {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
@@ -125,6 +112,7 @@
                                                 <div class="modal-body d-flex p-4">
                                                     <div class="cleaner_job_modal_body_1_con">
                                                         <ul class="cleaner_detail">
+                                                        @foreach($user_data as $key => $user)
                                                             <li>
                                                                 <b>Customer:</b>
                                                             </li>
@@ -135,7 +123,7 @@
                                                                 <b>Contact Number:</b> {{ $user->contact_number }}
                                                             </li>
                                                             <li class="list_booking_info">
-                                                                <b>Address:</b> {{ $address->address }}
+                                                                <b>Address:</b> {{ $address }}
                                                             </li>
                                                             <br>
                                                             <li><b>Service Details:</b></li>
@@ -153,10 +141,14 @@
                                                             <br>
                                                             <li>
                                                                 <b>Feedback:</b>
-                                                                <h6>Service</h6>
+                                                            </li>   
+                                                            <li class="list_booking_info"> 
+                                                                <b>Service:</b>
                                                                 <?php
                                                                 $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
-                                                                if($review_id != null){
+                                                                ?>
+                                                                @if($review_id != null)
+                                                                <?php
                                                                 $total = Service_review::where('review_id', $review_id)->value('rate');
                                                                 
                                                                 for ( $i = 1; $i <= 5; $i++ ) {
@@ -166,57 +158,59 @@
                                                                         echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
                                                                     }
                                                                 }
-                                                                echo '</span>';
+                                                               
                                                                 $comment = Service_review::where('review_id', $review_id)->value('comment');
-                                                                }
                                                                 ?>
-                                                                <h7>{{$comment}}</h7>
-                                                        <h6>Review for you</h6>
+                                                                <h7>Comment: {{$comment}}</h7>
+                                                                @endif
+                                                                </li>
+                                                                <li class="list_booking_info">
+                                                        <b>Review for you:</b>
                                                             <?php
                                                             $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
                                                            ?>
+                                                           @if($reviewId != null)
                                                             @foreach($reviewId  as $review)
                                                             <?php
 
                                                             $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('rate');
-                                                            if($total != null){
-                                                            $avg = (int)$total;
+                                                            ?>
+                                                            @if($total != null)
+                                                            <?php
+                                                            
                                                         
                                                             for ( $i = 1; $i <= 5; $i++ ) {
-                                                                if ( $avg >= $i ) {
+                                                                if ( $total >= $i ) {
                                                                     echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
                                                                 } else {
                                                                     echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
                                                                 }
                                                             }
-                                                            echo '</span>';
+                                                         
                                                             $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
-                                                        }
+                                                        
                                                             ?>
-                                                            <h7>{{$comment}}</h7>
-                                                            @endforeach          
+                                                            <h7>Comment: {{$comment}}</h7>
+                                                            @endif
+                                                            @endforeach        
+                                                            @endif 
+
                                                             </li>
+                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div> 
                                             <!-- End of Modal Content -->
                                     </div>
-                                </div> <!-- End of Modal -->
-                     
-                                
-    @endforeach
-    @endforeach
-    @endforeach
- 
+                                </div> <!-- End of Modal -->                           
+              
     @endforeach
     @endif
-
     @endforeach
-    </div>  
+    @endforeach
+    @endif
     </div>
-    @endforeach
-    @endif
     </div>
 </body>
 @endsection

@@ -62,7 +62,7 @@ class BookingController extends Controller
         $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
         
        $notifications = new Notification;
-       $notifications->message = 'Transaction Status is '+ $request->status;
+       $notifications->message = "Transaction Status is $request->status.";
        $notifications->booking_id = $request->booking_id;
        $notifications->isRead = false;
        $updateStatus = $notifications->save();
@@ -85,7 +85,7 @@ class BookingController extends Controller
         $notifications = new Notification;
         $id = Cleaner::where('cleaner_id', $request->cleaner_id)->value('user_id');
         $name = User::where('user_id', $id)->value('full_name');
-        $notifications->message = 'Cleaner ' + $name + ' update transaction status.';
+        $notifications->message = "Cleaner $name update transaction status.";
         $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
@@ -108,8 +108,8 @@ class BookingController extends Controller
         $assigned_cleaners->cleaner_id = $id;
         $assign = $assigned_cleaners->save();
         $notifications = new Notification;
-        $id = Cleaner::where('cleaner_id', $request->cleaner_id)->value('user_id');
-        $notifications->user_id = $id;
+       
+        $notifications->user_id = $cleaner_id;
         $notifications->message = 'New Job Offering';
         $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
