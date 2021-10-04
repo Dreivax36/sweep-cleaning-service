@@ -349,7 +349,6 @@
                                                             <?php $exist = true;?>
                                                         @else
                                                             <?php $exist = false;?>
-                                                            @break
                                                         @endif    
                                                     @endforeach
                                                     @if($exist)
