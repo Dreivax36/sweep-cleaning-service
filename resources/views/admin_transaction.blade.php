@@ -360,7 +360,9 @@
                                                     @endforeach 
                                                     </select> <br> 
                                                     @endif
-                                                    @else
+                                                    @endif
+
+                                                    @if($cleanerID == null)
                                                     @if($cleaner_data != null)
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
