@@ -329,53 +329,50 @@
                                                 {{ csrf_field() }}
                                                     <?php  
                                                         $total = $price_data->number_of_cleaner;
-                                                    ?>
-                                                    @while($total > 0)
-                                                    <?php  
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
                                                     ?>
+                                                    @while($total > 0)
                                                     <input type= "text" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    <select name="cleaner_id[]" id="cleaner" >
-                                                    @if(!empty($cleanerID))
-                                                    @if($cleaner_data != null)
-                                                   
-                                                    @foreach($cleaner_data as $key => $cleaner)
-                                                                 
-                                                    @foreach($cleanerID as $key => $assignCleaner)
-                                                        <?php
-                                                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
-                                                        ?> 
-                                                        @if($cleaner->user_id != $assignUser)
-                                                            <?php $exist = true;?>
-                                                        @else
-                                                            <?php $exist = false;?>
-                                                        @endif    
-                                                    @endforeach
-                                                    @if($exist)
-                                                        <?php
-                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                        ?>    
-                                                        <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
-                                                    @endif
-                                                    @endforeach 
                                                     
+                                                    @if(!empty($cleanerID))
+                                                        @if($cleaner_data != null)
+                                                        <select name="cleaner_id[]" id="cleaner" >
+                                                        @foreach($cleaner_data as $key => $cleaner)
+                                                            @foreach($cleanerID as $key => $assignCleaner)
+                                                                <?php
+                                                                    $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                                ?> 
+                                                                @if($cleaner->user_id != $assignUser)
+                                                                    <?php $exist = true;?>
+                                                                @else
+                                                                    <?php $exist = false;?>
+                                                                @endif    
+                                                            @endforeach
+                                                        @if($exist)
+                                                            <?php
+                                                                $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                            ?>    
+                                                            <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
+                                                        @endif
+                                                        @endforeach 
+                                                        </select> <br>  
+                                                        @endif
+                                                    @else
+                                                        @if($cleaner_data != null)
+                                                        <select name="cleaner_id[]" id="cleaner" >
+                                                            @foreach($cleaner_data as $key => $cleaner)
+                                                                <?php
+                                                                    $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                                ?>    
+                                                                <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
+                                                            @endforeach 
+                                                        </select> <br>      
+                                                        @endif
                                                     @endif
-                                                    @endif
-                                                    @if(empty($cleanerID))
-                                                    @if($cleaner_data != null)
-                                                    @foreach($cleaner_data as $key => $cleaner)
-                                                        <?php
-                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                        ?>    
-                                                        <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                    @endforeach 
-                                                      
-                                                    @endif
-                                                    @endif
-                                                    </select> <br>  
+                                                    
                                                     <?php
                                                         $total --;
                                                     ?>
