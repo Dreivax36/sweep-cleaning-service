@@ -340,25 +340,23 @@
                                                     @if($cleaner_data != null)
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
-                                                    <?php
-                                                        $newID = 0;          
-                                                    foreach($cleanerID as $key => $assignCleaner){
+                                                                 
+                                                    @foreach($cleanerID as $key => $assignCleaner)
+                                                        <?php
                                                             $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
-                                                        if($cleaner->user_id != $assignUser){
-                                                            $newID = $cleaner->user_id;
-                                                        }
-                                                        else{
-                                                            $newID = $newID;
-                                                            break;
-                                                        }
-                                                    }  
-                                                    ?> 
-                                                    
-                                                    <?php
-                                                        $fullname = User::Where('user_id', $newID )->value('full_name');
-                                                    ?>    
-                                                    <option  value="{{ $newID }}">{{ $fullname }}</option>
+                                                        ?> 
+                                                        @if($cleaner->user_id != $assignUser)
+                                                        <?php
+                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                        ?>    
+                                                        <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
                                                    
+                                                        @else
+                                                            
+                                                        @endif    
+                                                    @endforeach
+                                                    
+                                                  
                                                     @endforeach 
                                                     </select> <br> 
                                                     @endif
