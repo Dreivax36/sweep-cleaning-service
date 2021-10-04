@@ -333,12 +333,15 @@
                                                     @while($total > 0)
                                                     <?php  
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
-                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
+                                                        $cleaner = Assigned_cleaner::Where('booking_id', $value->booking_id)->get();        
                                                     ?>
-                                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                                    <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    @if($cleanerID != null)
+                                                    @if($cleaner != null)
+                                                    <?php  
+                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
+                                                    ?>
                                                     @if($cleaner_data != null)
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
