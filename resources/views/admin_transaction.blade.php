@@ -327,55 +327,58 @@
                                                 @endif                  
                                                 @csrf
                                                 {{ csrf_field() }}
-                                                    <?php
-                                                        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get();
+                                                    <?php  
                                                         $total = $price_data->number_of_cleaner;
-                                                        
-                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->get();    
-                                                     
+                                                        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
+                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
                                                     ?>
-                                                    @if($cleaner_data != null)
                                                     @while($total > 0)
                                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
+                                                    @if($cleanerID != null)
+                                                    @if($cleaner_data != null)
                                                     <select name="cleaner_id[]" id="cleaner" >
                                                     @foreach($cleaner_data as $key => $cleaner)
-                                                     
-                                                    @foreach($cleanerID as $key => $id) 
-                                                    <?php 
-                                                          $user = Cleaner::Where('cleaner_id', $id->cleaner_id )->value('user_id');      
-                                                    ?>
-                                                        @if ( $user != $cleaner->user_id )
+                                                    <?php
+                                                          $newID = 0;          
+                                                    foreach($cleanerID as $key => $assignCleaner){
+                                                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                        if($cleaner->user_id != $assignUser){
+                                                            $newID = $cleaner->user_id;
+                                                        }
+                                                        else{
+                                                            $newID = 0;
+                                                            break;
+                                                        }
+                                                    }  
+                                                    ?> 
+                                                    @if($newID != 0)
+                                                    <?php
+                                                        $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                    ?>    
+                                                    <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
+                                                    @endif
+                                                    @endforeach 
+                                                    </select> <br> 
+                                                    @endif
+                                                    @else
+                                                    @if($cleaner_data != null)
+                                                    <select name="cleaner_id[]" id="cleaner" >
+                                                    @foreach($cleaner_data as $key => $cleaner)
                                                         <?php
                                                             $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
                                                         ?>    
                                                         <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                            @break
-                                                        @else
-                                                        @break
-                                                        @endif
-                                                        
                                                     @endforeach 
-                                                    
-                                                    
+                                                    </select> <br>    
+                                                    @endif
+                                                    @endif
+
                                                     <?php
-                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                        ?>    
-                                                            <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                  
-                                                   
-                                                   
-                                                    
-                                                   
-                                                @endforeach
-                                               
-                                                </select> <br>    
-                                                <?php
-                                                    $total --;
-                                                ?>
-                                                @endwhile
-                                                @endif
+                                                        $total --;
+                                                    ?>
+                                                    @endwhile
                                                 <br>
                                                 <div class="modal-footer trans_modal_footer">
                                                     <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal"> 
