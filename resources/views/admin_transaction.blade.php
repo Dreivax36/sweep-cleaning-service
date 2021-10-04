@@ -348,6 +348,7 @@
                                                         @if($cleaner->user_id != $assignUser)
                                                             <?php $exist = true;?>
                                                         @else
+                                                            <?php $exist = false;?>
                                                             @break
                                                         @endif    
                                                     @endforeach
