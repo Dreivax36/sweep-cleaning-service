@@ -8,6 +8,7 @@
     use App\Models\Cleaner;
     use App\Models\Assigned_cleaner;
     use App\Models\Review;
+    use App\Models\Notification;
 ?>
 
 @extends('head_extention_admin') 
@@ -16,54 +17,66 @@
     <title>
         Admin Transaction
     </title>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brandname" href="{{ url('/') }}">
+                    SWEEP
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-<body>
-<header> <!-- Navbar -->
-        <div class="logo"> 
-            SWEEP 
-        </div>
-        <nav>
-            <ul>
-                <li>
-                    <a href="admin_dashboard">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_services">
-                        Services
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_transaction"  class="active">
-                        Transaction
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_user">
-                        User
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_payroll">
-                        Payroll
-                    </a>
-                </li>
-                <div class="profile_btn">
-                    <button class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" >
-                        <img class="profile_img" src="/img/user.png">
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{ route('auth.logout') }}">
-                            Logout
-                        </a>
-                    </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class= "navbar-nav ml-auto">    
+                        <a href="admin_dashboard" class="nav-link">Home</a>
+                        <a class="nav-link" href="admin_services" role="button">Services</a>
+                        <a class="nav-link" href="admin_transaction" role="button" id="active">Transactions</a>
+                        <a class="nav-link" href="admin_user" role="button">User</a>
+                        <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
+                        <li class="nav-item dropdown">
+                            <?php
+                                  $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                                  $notif = Notification::where('isRead', false)->where('user_id', null)->get();
+                              ?>
+                          
+                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
+                            </a> 
+                            
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                             
+                                @forelse ($notif as $notification)
+                              <a class="dropdown-item" href="{{$notification->location}}">
+                                    {{ $notification->message}}
+                                </a>
+                              @empty
+                                <a class="dropdown-item">
+                                    No record found
+                                </a>
+                              @endforelse
+                            </div>
+
+                  </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ $LoggedUserInfo['email'] }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('auth.logout') }}">
+                                    Logout
+                                </a>
+                            </div>
+
+                        </li>
+                    </ul>
                 </div>
-            </ul>
+            </div>
         </nav>
-        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
-    </header> <!-- End of Navbar -->
+    </div>
+<body>
+
     <div class="col-sm-9">
             <div class="search_con"> <!-- Search Field -->
                 <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
@@ -395,5 +408,10 @@
             @endif 
         </div>
     </div>
+    <footer id="footer">
+    <div class="sweep-title">
+        SWEEP © 2021. All Rights Reserved.
+    </div>
+</footer> 
 </body>
 @endsection

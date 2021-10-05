@@ -15,6 +15,7 @@
     <title>
         Admin Dashboard Page
     </title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
     
     {{-- Scripts --}}
@@ -23,51 +24,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     
+    
+<div id="app">
+        <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brandname" href="{{ url('/') }}">
+                    SWEEP
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-<body>
-  <header> <!-- Navbar -->
-        <div class="logo"> 
-          SWEEP 
-        </div>
-        <nav>
-            <ul>
-                <li>
-                    <a href="admin_dashboard" class="active">
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_services">
-                        Services
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_transaction">
-                        Transaction
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_user">
-                        User
-                    </a>
-                </li>
-                <li>
-                    <a href="admin_payroll">
-                        Payroll
-                    </a>
-                </li>
-                <li>
-                              <?php
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class= "navbar-nav ml-auto">    
+                        <a href="admin_dashboard" class="nav-link" id="active">Home</a>
+                        <a class="nav-link" href="admin_services" role="button">Services</a>
+                        <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
+                        <a class="nav-link" href="admin_user" role="button">User</a>
+                        <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
+                        <li class="nav-item dropdown">
+                            <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
                                   $notif = Notification::where('isRead', false)->where('user_id', null)->get();
                               ?>
-                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                          
+                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
                             </a> 
-
+                            
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                              
-                              @forelse ($notif as $notification)
+                                @forelse ($notif as $notification)
                               <a class="dropdown-item" href="{{$notification->location}}">
                                     {{ $notification->message}}
                                 </a>
@@ -79,10 +66,10 @@
                             </div>
 
                   </li>
-                  <li >
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ $LoggedUserInfo['email'] }}
-                            </a> 
+                            </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('auth.logout') }}">
@@ -91,11 +78,13 @@
                             </div>
 
                         </li>
-            </ul>
+                    </ul>
+                </div>
+            </div>
         </nav>
-        <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
-  </header> <!-- End of Navbar -->
+    </div>
 
+<body>
   <div class="row row_dashboard"> 
     <div class="col-sm-3 col_dashboard_main">  <!-- Sidebar -->
       <h2 class="dashboard_title"> 
@@ -184,7 +173,7 @@
       <?php
         $booking = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->orwhere('status', 'Done')->get();
       ?>
-
+      </div>
       <div class="row" id="daily_transaction">
         <div class="container">
           <canvas id="myChart"></canvas>
@@ -225,7 +214,8 @@
                         },
                         @endforeach
                         @endforeach
-                    ],              
+                    ], 
+                    eventColor: '#FFB703'             
                 });
  
 });
@@ -292,6 +282,10 @@ function displayMessage(message) {
     }
   });
 </script>
-
+<footer id="footer">
+    <div class="sweep-title">
+        SWEEP © 2021. All Rights Reserved.
+    </div>
+</footer> 
 </body>
 @endsection
