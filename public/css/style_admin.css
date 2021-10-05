@@ -832,6 +832,7 @@ body {
 }
 
 #footer {
+    margin-top: 30px;
     background-color: #061835;
     margin:0 auto;
     width:100%;
@@ -846,7 +847,4 @@ body {
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-}
-.modal-header {
-    border-bottom: 2px solid #FB8500;
 }
