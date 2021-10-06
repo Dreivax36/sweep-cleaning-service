@@ -124,8 +124,8 @@ class MainController extends Controller
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
             // Save the file locally in the storage/public/ folder under a new folder named /user
-            $request->profile_picture->store('images', 'public');
-            $request->valid_id->store('images', 'public');
+            $request->profile_picture->storeAs('images', 'public');
+            $request->valid_id->storeAs('images', 'public');
             
             //Insert data into database
             $users = new User;
@@ -266,10 +266,9 @@ class MainController extends Controller
         ]);
 
             // Save the file locally in the storage/public/ folder under a new folder named /product
-            $request->profile_picture->store('images', 'public');
-            $request->valid_id->store('images', 'public');
-            $request->requirement->store('images', 'public');
-            
+            $request->profile_picture->storeAs('images', 'public');
+            $request->valid_id->storeAs('images', 'public');
+            $request->requirement->storeAs('images', 'public');
 
             //Insert data into database
             $users = new User;
