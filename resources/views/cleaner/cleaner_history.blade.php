@@ -145,6 +145,7 @@
                                                             </li>   
                                                             <li class="list_booking_info"> 
                                                                 <b>Service:</b>
+                                                                <div>
                                                                 <?php
                                                                 $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
                                                                 ?>
@@ -162,16 +163,19 @@
                                                                
                                                                 $comment = Service_review::where('review_id', $review_id)->value('comment');
                                                                 ?>
+                                                                </div>
                                                                 <h7>Comment: {{$comment}}</h7>
                                                                 @endif
                                                                 </li>
                                                                 <li class="list_booking_info">
                                                         <b>Review for you:</b>
+                                                        
                                                             <?php
                                                             $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
                                                            ?>
                                                            @if($reviewId != null)
                                                             @foreach($reviewId  as $review)
+                                                            <div>
                                                             <?php
 
                                                             $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('rate');
@@ -191,6 +195,7 @@
                                                             $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
                                                         
                                                             ?>
+                                                            </div>
                                                             <h7>Comment: {{$comment}}</h7>
                                                             @endif
                                                             @endforeach        
