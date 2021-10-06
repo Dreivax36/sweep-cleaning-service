@@ -155,12 +155,6 @@ class MainController extends Controller
             $addresses->customer_id = $id;
             $customer_save = $addresses->save();
 
-            $notifications = new Notification;
-            $notifications->message = 'Verify ' + $request->full_name + ' customer account.';
-            $notifications->isRead = false;
-            $customer_save = $notifications->save();
-
-        
         if($customer_save){
             return back()->with('success', 'New User has been successfuly added to database');
         }
@@ -306,11 +300,6 @@ class MainController extends Controller
             $clearances->requirement = $request->requirement->hashName();
             $clearances->description = $request->description;
             $cleaner_save = $clearances->save();
-
-            $notifications = new Notification;
-            $notifications->message = 'Verify ' + $request->full_name + ' cleaner account.';
-            $notifications->isRead = false;
-            $cleaner_save = $notifications->save();
 
             if($cleaner_save){
                 return back()->with('success', 'New User has been successfuly added to database');

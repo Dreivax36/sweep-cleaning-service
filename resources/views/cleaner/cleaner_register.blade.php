@@ -15,7 +15,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/customer_reg.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/cleaner_reg.css')}}">
 </head>
 <body class="reg_cleaner_body">
     <div class="register_con_cleaner">
@@ -148,15 +148,15 @@
                             <span class="text-danger">
                                 @error('requirement'){{ $message }} @enderror
                             </span>
-                            
-                            <input type="text" class="form-control reg_fields" name="description" placeholder="Description" value="{{ old('description') }}">
-                            <span class="text-danger">
-                                @error('description'){{ $message }} @enderror
-                            </span>
                         </div>
-                    </div>
                 
-                    
+                    <div class="form-group">
+                        <input type="text" class="form-control reg_fields" name="description" placeholder="Description" value="{{ old('description') }}">
+                        <span class="text-danger">
+                            @error('description'){{ $message }} @enderror
+                        </span>
+                    </div>
+                </div>
                 <button type="submit" class="register_cleaner_btn">
                     Sign Up
                 </button>
