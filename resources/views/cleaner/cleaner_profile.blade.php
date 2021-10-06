@@ -1,5 +1,5 @@
 <?php
-    use App\Models\cleaner;
+    use App\Models\Cleaner;
     use App\Models\Address;
 ?>
 @extends('cleaner/cleaner-nav/head_extention_cleaner-profile') 

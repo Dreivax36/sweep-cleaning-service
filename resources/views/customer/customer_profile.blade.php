@@ -25,7 +25,7 @@
         <div class="main_profile_con">
             <div class="row justify-content-center">
                 <div class="profile_avatar_con">
-                    <img class="customer_profile_avatar_con" src="{{asset('/public/images/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
+                    <img class="customer_profile_avatar_con" src="{{asset('/images/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
                 </div>
                 <div class="customer_profile_info_con">
                     <h2 class="customer_profile_name" >
