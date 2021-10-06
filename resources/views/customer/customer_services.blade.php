@@ -154,7 +154,7 @@ function calendar($month, $year)
                                         </div>
                                         <div class="col-md-6 col-sm-6 book">
                                             <div class="byt float-right">
-                                                <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
+                                                <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->service_id }}">
                                                     DETAILS
                                                 </button>
                                                 <!-- <a class="btn btn-primary" href="{{ url('/customer/book') }}">Book Now</a>-->
