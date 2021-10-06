@@ -93,23 +93,23 @@
                     </li>
                 </ul>
                 <ul class="mobile-nav sticky-bottom">
-                    <a class="nav-button" href="{{ url('/cleaner/customer_dashboard') }}">
-                        <i class="fas fa-home"></i>
-                        <h6>Home</h6>
-                    </a>
-                    <a class="nav-button" href="{{ url('/cleaner/customer_services') }}">
-                        <i class="fas fa-hand-sparkles"></i>
-                        <h6>Jobs</h6>
-                    </a>
-                    <a class="nav-button" href="{{ url('/cleaner/customer_history') }}">
-                        <i class="fas fa-history"></i>
-                        <h6>History</h6>
-                    </a>
-                    <a class="nav-button active" href="customer_profile">
-                        <i class="fas fa-user-circle fas-active"></i>
-                        <h6>Profile</h6>
-                    </a>
-                </ul>
+                <a class="nav-button" href="{{ url('/cleaner/cleaner_dashboard') }}">
+                    <i class="fas fa-home"></i>
+                    <h6>Home</h6>
+                </a>
+                <a class="nav-button" href="{{ url('/cleaner/cleaner_services') }}">
+                    <i class="fas fa-hand-sparkles"></i>
+                    <h6>Jobs</h6>
+                </a>
+                <a class="nav-button active" href="{{ url('/cleaner/cleaner_history') }}">
+                    <i class="fas fa-history fas-active"></i>
+                    <h6>History</h6>
+                </a>
+                <a class="nav-button" href="cleaner_profile">
+                    <i class="fas fa-user-circle"></i>
+                    <h6>Profile</h6>
+                </a>
+            </ul>
             </div>
         </nav>
 
