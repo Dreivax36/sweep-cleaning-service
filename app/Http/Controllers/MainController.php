@@ -154,7 +154,7 @@ class MainController extends Controller
             $addresses->address = $request->address;
             $addresses->customer_id = $id;
             $customer_save = $addresses->save();
-
+        
         if($customer_save){
             return back()->with('success', 'New User has been successfuly added to database');
         }
@@ -310,7 +310,6 @@ class MainController extends Controller
     }
 
     function cleaner_check(Request $request){
-        //Validate requests
         $request->validate([
             'email'=>'required|email',
             'password'=>'required|min:5|max:12'
