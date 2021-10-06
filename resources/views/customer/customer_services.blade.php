@@ -260,10 +260,10 @@ use App\Models\Service_review;
                                             <div class="col-md-6">   
                                             <h4 class="place-type"> Schedule: </h4>   
                                             <div class="place"> 
-                                            <label for="appt" class="place-type">
-                                                Date:
-                                            </label>
-                                            <input type="date" id="schedule_date" name="schedule_date" class="form-control" placeholder="" required readonly>
+                                            <label for="appt">
+                                                                        Date:
+                                                                    </label>
+                                                                    <input type="date" name="schedule_date" class="form-control" placeholder="" required readonly>
                                             <br>
                                             <label for="appt" class="place-type">
                                                 Time:
@@ -353,6 +353,7 @@ use App\Models\Service_review;
     });
     </script>
         @endif
+
       
     <div class="mobile-spacer">
 
