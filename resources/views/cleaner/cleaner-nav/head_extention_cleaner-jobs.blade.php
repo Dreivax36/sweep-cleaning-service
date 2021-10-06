@@ -1,3 +1,6 @@
+<?php 
+    use App\Models\Notification;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,6 +53,31 @@
                     <a href="{{ url('/cleaner/cleaner_dashboard') }}" class="nav-link">Home</a>
                     <a id="service" class="nav-link active" href="{{ url('/cleaner/cleaner_job') }}" role="button">Jobs</a>
                     <a id="history" class="nav-link" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
+                    <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <?php
+                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->count();
+                                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->get();
+                            ?>
+                             
+                            <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
+                            </a> 
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            
+                              @forelse ($notif as $notification)
+                              <a class="dropdown-item" href="{{$notification->location}}">
+                                    {{ $notification->message}}
+                                </a>
+                              @empty
+                                <a class="dropdown-item" >
+                                    No record found
+                                </a>
+                              @endforelse
+                                
+                            </div>
+
+                        </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ $LoggedUserInfo['email'] }}
