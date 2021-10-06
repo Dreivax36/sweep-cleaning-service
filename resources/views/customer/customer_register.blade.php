@@ -130,9 +130,10 @@
                         </div>
                 </div>
                 
-                <button type="submit" class="register_customer_btn">
+                    <button type="submit" class="register_customer_btn">
                         Sign Up
                     </button>
+            </form>
                     <br>
                     <a class="login_link_btn"  href="/customer/customer_login"> 
                         I already have an account, Sign In
