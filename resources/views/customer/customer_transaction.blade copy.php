@@ -8,110 +8,88 @@
     use App\Models\Assigned_cleaner;
 ?>
 
-@extends('customer/customer-nav/head_extention_customer-transactions') 
+@extends('head_extention_customer') 
 
 @section('content')
     
 <head>
-    <link href="{{ asset('css/customer_trans.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/services1.css') }}" rel="stylesheet">
     <title>
         Customer Transaction Page
     </title>
 </head>
+
 <body>
+
     <div class="row head">
         <div class="col-md-8">
             <div class="service_title">
                 <h1 class="customer_cards_title">
-                    BOOKINGS
+                BOOKINGS
                 </h1> 
             </div>
         </div>
     </div>
     <div class="row justify-content-center">
-        <?php
-            $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
-            $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->get();
-        ?>
-        @foreach($booking_data as $key => $value)
-            <?php
-                $booking_id = Booking::where('booking_id', $value->booking_id )->value('booking_id');
-                $service_data = Service::Where('service_id', $value->service_id )->get();
-                $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
-            ?>
-        <div class="card  mb-3" style="width: 25rem;">
+    <?php
+        $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
+        $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->get();
+    ?>
+    
+    @foreach($booking_data as $key => $value)
+    
+    <?php
+        $service_data = Service::Where('service_id', $value->service_id )->get();
+        $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
+    ?>
+        <div class="card mb-3">
             <div class="row no-gutters">
-             
-                    @foreach($service_data as $key => $data)
+                <div class="col-md-5">
+                    <img class="card-img" src="/images/services/general_cleaning.jpg" alt="Card image cap">
+                </div>
+                <div class="col-md-7">
+                        @foreach($service_data as $key => $data)
                         @foreach($price as $key => $price_data)
-                            <div class="card-body"> 
-                                <div class="status">
-                                    <h5 class="customer_trans_status">
-                                        {{ $value->status }}
-                                    </h5>
-                                </div>
-                                <div class="card_body">
-                                    <h3 class="service_title_trans">
-                                        {{ $data->service_name }}
-                                    </h3>
-                                </div>
-                                <div> 
-                                    <h6 class="booking_date">
-                                        <b>Transaction ID:</b> {{ $booking_id }}
-                                    </h6>
-                                </div>
-                                
-                                <table class="table table-striped user_info_table">
-                                    <tbody>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Schedule:
-                                            </th>
-                                            <td class="user_table_data">
-                                                {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Property:
-                                            </th>
-                                            <td class="user_table_data">
-                                                {{ $value->property_type}}
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Price:
-                                            </th>
-                                            <td class="user_table_data">
-                                                P{{ $price_data->price }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="buttons">
-                                    <div class="byt float-right">
-                                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
-                                            DETAILS
-                                        </button>
-                                        @if($value->status == "Pending" || $value->is_paid == false) 
-                                        <button type="button" class="btn btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
-                                            Pay 
-                                        </button>
-                                        @endif
-                                        @if($value->status == "Done")               
-                                        <button type="button" class="btn btn-primary rate_btn" onclick="document.location='{{ route('customer_rating', $value->booking_id) }}'"> 
-                                            Rate 
-                                        </button>
-                                        @endif
-                                    </div>
-                                </div>
-                  </div>
+                        <div class="card-body">
+                            <h5 class="customer_trans_status">
+                                {{ $value->status }}
+                            </h5>
+                            <h3 class="customer_trans_title">
+                                {{ $data->service_name }}
+                            </h3>
+                            <h6 class="customer_trans_date_1_1">
+                                {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                            </h6>
+                            <h6 class="customer_trans_price_1">
+                                P{{ $price_data->price }}
+                            </h6>
+                            <div class="d-flex view_details_con">
+                                <button type="button" class="btn btn-link customer_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
+                                    DETAILS
+                                </button>
+                                @if($value->status == "Pending" || $value->is_paid == false) 
+                                <button type="button" class="btn btn-block btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
+                                    Pay 
+                                </button>
+                                @endif
+                                @if($value->status == "Done")               
+                                <button type="button" class="btn btn-block btn-primary rate_btn" onclick="document.location='{{ route('customer_rating', $value->booking_id) }}'"> 
+                                    Rate 
+                                </button>
+                                @endif
+                          
+                            </div>
+                        </div>
+                </div>
             </div>
-                        <div class="modal fade" id="exampleModalLong10-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content p-4 customer_trans_modal_content"> <!-- Modal Content -->
-                                    <div class="modal-header customer_trans_modal_header">
+
+                                
+                               
+                                <div class="modal fade" id="exampleModalLong10-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content p-4 customer_trans_modal_content"> <!-- Modal Content -->
+                                        <div class="modal-header customer_trans_modal_header">
+                                        <div class="d-flex pt-5">
                                             <img src="/img/broom.png" class="customer_trans_broom_2_1_img p-1">
                                             <div class="d-flex flex-column">
                                                 <h4 class="customer_trans_modal_title">
@@ -124,13 +102,13 @@
                                                     Total Amount: P{{ $price_data->price }}
                                                 </h6>
                                             </div>
+                                        </div>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
+                                        </div>
                                         <div class="modal-body d-flex p-4">
                                             <div class="customer_trans_modal_body_1_con">
                                             <p class="customer_trans_description">
-                                                {{ $data->service_description}}                                            
-                                            </p>
+                                                {{ $data->service_description}}                                            </p>
                                             <ul class="customer_package_list">
                                                 <li>
                                                     <b>Equipment:</b> {{ $data->equipment }}
@@ -177,9 +155,9 @@
                                             </button>
                                         @endif
                                         </div>
-                                </div> <!-- End of Modal Content --> 
-                            </div>
-                        </div> <!-- End of Modal -->
+                                    </div> <!-- End of Modal Content --> 
+                                </div>
+                            </div> <!-- End of Modal -->
                                             <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content customer_trans_modal_content_inside"> <!-- Modal Content -->
@@ -219,15 +197,14 @@
                                                     </div> <!-- End of Modal Content -->
                                                 </div>
                                             </div> <!-- End of Modal -->
-                    @endforeach
-                @endforeach
-        </div>
+                                       
+        @endforeach
     @endforeach
     </div>
-    <div class="footer">
-        <div class="sweep-title">
-            SWEEP © 2021. All Rights Reserved.
-        </div>
-</div>
+    @endforeach
+
+
+    </div>
+
 </body>
 @endsection
