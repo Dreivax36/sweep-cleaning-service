@@ -35,17 +35,12 @@
     <div class="row row_cleaner_job">
     @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
-        @if($booking->status == 'Declined')
         <?php
             $booking_data = Booking::Where('booking_id', $booking->booking_id )->get();
         ?>
-        @else
-        <?php
-            $booking_data = Booking::Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->get();
-        ?>
-        @endif
+      
         @foreach($booking_data as $key => $value)
-        @if($booking->booking_id == $value->booking_id || $booking->status == 'Declined')
+     
        
         <?php
             $serviceName = Service::Where('service_id', $value->service_id )->value('service_name');
@@ -145,11 +140,12 @@
                                                             </li>   
                                                             <li class="list_booking_info"> 
                                                                 <b>Service:</b>
-                                                                <div>
+                                                                
                                                                 <?php
                                                                 $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
                                                                 ?>
                                                                 @if($review_id != null)
+                                                                <div>
                                                                 <?php
                                                                 $total = Service_review::where('review_id', $review_id)->value('rate');
                                                                 
@@ -164,9 +160,13 @@
                                                                 $comment = Service_review::where('review_id', $review_id)->value('comment');
                                                                 ?>
                                                                 </div>
-                                                                <h7>Comment: {{$comment}}</h7>
+                                                                </li>
+                                                                
+                                                                <li class="list_booking_info">
+                                                                <b>Comment:</b> {{$comment}}
                                                                 @endif
                                                                 </li>
+                                                                
                                                                 <li class="list_booking_info">
                                                         <b>Review for you:</b>
                                                         
@@ -175,15 +175,14 @@
                                                            ?>
                                                            @if($reviewId != null)
                                                             @foreach($reviewId  as $review)
-                                                            <div>
+                                                            
                                                             <?php
 
                                                             $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('rate');
                                                             ?>
                                                             @if($total != null)
+                                                            <div>
                                                             <?php
-                                                            
-                                                        
                                                             for ( $i = 1; $i <= 5; $i++ ) {
                                                                 if ( $total >= $i ) {
                                                                     echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
@@ -196,12 +195,16 @@
                                                         
                                                             ?>
                                                             </div>
-                                                            <h7>Comment: {{$comment}}</h7>
+                                                            </li>
+                                                           
+                                                            <li class="list_booking_info">
+                                                            <b>Comment:</b> {{$comment}}
                                                             @endif
                                                             @endforeach        
                                                             @endif 
 
                                                             </li>
+                                                           
                                                             @endforeach
                                                         </ul>
                                                     </div>
@@ -212,7 +215,6 @@
                                 </div> <!-- End of Modal -->                           
               
     @endforeach
-    @endif
     @endforeach
     @endforeach
     @endif

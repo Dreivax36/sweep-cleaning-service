@@ -99,8 +99,6 @@
                 </thead>
                 <tbody>
                 <?php
-                    $total = 0;
-                    $totalSalary = 0;
                     $bookingID = Booking::Where('status', 'Completed')->get();
                 ?>
                 @foreach($bookingID as $key => $value)
@@ -109,6 +107,8 @@
                     $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
                 ?>
                  <?php
+                    $total = 0;
+                    $totalSalary = 0;
                     $booked = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('booking_id', $value->booking_id)->get();
                     $totalJob = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('booking_id', $value->booking_id)->count();
                 ?>

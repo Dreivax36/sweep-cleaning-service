@@ -96,9 +96,8 @@
         <div class="container mt-5 calendar_con">
             <div id='calendar'></div>
         <?php
-            $booking = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
+            $bookingEvent = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
         ?>
-      
         </div>
         
     </div> <!-- End of Sidebar -->
@@ -120,6 +119,10 @@
                     },
                     
                     events: [
+                        @foreach($bookingEvent as $bookings)
+                        <?php
+                            $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
+                        ?>
                         @foreach($booking as $id)
                         <?php   
                             $data = Event::Where('booking_id', $id->booking_id)->get();
@@ -134,6 +137,7 @@
                         },
                         @endforeach
                         @endforeach  
+                        @endforeach
                     ],  
                              
                 });
@@ -145,6 +149,7 @@ function displayMessage(message) {
 } 
   
 </script>
+  
 <footer id="footer">
     <div class="sweep-title">
         SWEEP © 2021. All Rights Reserved.
