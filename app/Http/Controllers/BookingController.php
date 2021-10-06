@@ -129,8 +129,7 @@ class BookingController extends Controller
         //Validate Requests
         $request->validate([
             'property_type'=>'required',
-            'schedule_date'=>'required',
-            'schedule_time'=>'required',
+
         ]);
         
         $id = Customer::Where('user_id', $request->user_id )->value('customer_id');
@@ -155,7 +154,7 @@ class BookingController extends Controller
         $events->start = $startdate;
 
         $time = Carbon::parse($startdate);
-        $enddate = $time->addHours(3);
+        $enddate = $time->addHours(2);
 
         $events->end = $enddate;
         $events->booking_id = $bookings->booking_id;

@@ -1,10 +1,6 @@
-<?php 
-    use App\Models\User;
-    use App\Models\Event;
-    use App\Models\Notification;
-?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,76 +30,49 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/nav-customer.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/nav-cleaner.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
 
-</head>
-<body> 
 
-        <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
+
+
+</head>
+
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
+                <a class="navbar-brandname" href="{{ url('/cleaner/cleaner_dashboard') }}">
                     SWEEP
                 </a>
                 <div class="bell"><a class="bell-icon fas fa-bell"></a></div>
-                <ul class= "navbar-nav ml-auto">    
-                    <a href="{{ url('/customer/customer_dashboard') }}" class="nav-link">Home</a>
-                    <a id="service" class="nav-link active" href="{{ url('/customer/customer_services') }}" role="button">Services</a>
-                    <a id="transactions" class="nav-link" href="{{ url('/customer/customer_transaction') }}" role="button">Transactions</a>
-                    <a id="Notifications" class="nav-link" href="{{ url('/customer/customer_history') }}" role="button">History</a>
-                    <li class="nav-item dropdown">
-                            <?php
-                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->count();
-                                  $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->get();
-                            ?>
-                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
-                            </a> 
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                             
-                                @forelse ($notif as $notification)
-                              <a class="dropdown-item" href="{{$notification->location}}">
-                                    {{ $notification->message}}
-                                </a>
-                              @empty
-                                <a class="dropdown-item">
-                                    No record found
-                                </a>
-                              @endforelse
-                            </div>
-
-                  </li>
+                <ul class="navbar-nav ml-auto">
+                    <a href="{{ url('/cleaner/cleaner_dashboard') }}" class="nav-link active">Home</a>
+                    <a id="service" class="nav-link" href="{{ url('/cleaner/cleaner_job') }}" role="button">Jobs</a>
+                    <a id="history" class="nav-link" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ $LoggedUserInfo['email'] }}
                         </a>
-
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="customer_profile">
+                            <a class="dropdown-item" href="cleaner_profile">
                                 Profile
                             </a>
                             <a class="dropdown-item" href="{{ route('auth.logout') }}">
                                 Logout
                             </a>
                         </div>
-
                     </li>
                 </ul>
                 <ul class="mobile-nav sticky-bottom">
-                    <a class="nav-button" href="{{ url('/customer/customer_dashboard') }}">
-                        <i class="fas fa-home"></i>
+                    <a class="nav-button active" href="{{ url('/cleaner/customer_dashboard') }}">
+                        <i class="fas fa-home fas-active"></i>
                         <h6>Home</h6>
                     </a>
-                    <a class="nav-button active" href="{{ url('/customer/customer_services') }}">
-                        <i class="fas fa-hand-sparkles fas-active"></i>
-                        <h6>Services</h6>
+                    <a class="nav-button" href="{{ url('/cleaner/customer_services') }}">
+                        <i class="fas fa-hand-sparkles"></i>
+                        <h6>Jobs</h6>
                     </a>
-                    <a class="nav-button" href="{{ url('/customer/customer_transaction') }}">
-                        <i class="fas fa-clipboard-list"></i>
-                        <h6>Transactions</h6>
-                    </a>
-                    <a class="nav-button" href="{{ url('/customer/customer_history') }}">
+                    <a class="nav-button" href="{{ url('/cleaner/customer_history') }}">
                         <i class="fas fa-history"></i>
                         <h6>History</h6>
                     </a>

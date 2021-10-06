@@ -1,0 +1,96 @@
+
+/* Cleaner Profile Page */
+
+.main_profile_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 45%;
+    height: 650px;
+    padding: 20px;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+}
+.cleaner_profile_avatar_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    width: 13rem;
+    height: 13rem;
+    background-color: #EDF1F8;
+    border-radius: 100px;
+    margin: 20px;
+}
+
+.cleaner_profile_name_con {
+    width: 70%;
+    height: 60px;
+    margin-top: 20px;
+    background-color: #fff;
+    align-items: center;
+    text-align: center;
+}
+.cleaner_profile_name {
+    color: #FFB703;
+    font-weight: bold;
+    font-size: 35px;
+    background-color: #fff;
+    align-items: center;
+    text-align: center;
+}
+.cleaner_profile_info_con {
+    width: 90%;
+    height: 50px;
+    align-items: center;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    background-color: #fff;
+    
+}
+.cleaner_profile_info {
+    font-size: 15px;
+    margin-top: 5px;
+    background-color: #fff;
+}
+.update_btn_con {
+    width: 120px;
+    height: 60px;
+}
+.cleaner_update_btn {
+    width: 105px;
+    color: #042A6B;
+    font-size: 18px;
+}
+.cleaner_update_btn:focus {
+    box-shadow: none;
+} 
+.cleaner_profile_title_con{
+    text-align: center;
+    align-items: center;
+    margin: 20px;
+}
+
+
+/* Responsiveness */
+
+@media (max-width: 450px){
+    .cleaner_profile_name{
+        font-size: 30px;
+    }
+}   
+
+
+@media (max-width: 950px){
+    .main_profile_con {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 85%;
+        height: 650px;
+        padding: 20px;
+        margin-top: 20px;
+        background-color: #fff;
+        border-radius: 20px;
+    }
+}   
+
+
+
+      

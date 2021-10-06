@@ -216,7 +216,7 @@
                                                                             Paypal 
                                                                         </label>
                                                                     </div>
-                                                                        <div class="d-flex cancel_confirm_con">
+                                                                    <div class="d-flex cancel_confirm_con">
                                                                         <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal"> 
                                                                             Cancel 
                                                                         </button>

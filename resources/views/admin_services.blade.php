@@ -217,7 +217,7 @@
                     </div>
                     <div>
                         <p class="service_description">
-                            {{ $value->service_description }}
+                        {{ \Illuminate\Support\Str::limit($value->service_description, 200, $end='...') }}
                         </p>
                     </div>
                     <div class="view_details_con">

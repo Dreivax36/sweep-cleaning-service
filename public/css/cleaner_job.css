@@ -1,0 +1,66 @@
+.card-job{
+    padding: 10px;
+}
+
+.job{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 15px; 
+    margin: 10px;
+}
+.card-body{
+    padding: 30px;
+}
+
+.col_transaction {
+    float: left;
+    width: 30%;
+    padding: 0 10px;
+    padding-top: 2%;
+}
+
+.card_transaction {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    background-color: #FFFFFF;
+    margin-bottom: 10px;
+    border-radius: 15px; 
+}
+
+.service_title_trans {
+    font-weight: bold;
+    font-size: 25px;
+    color: #FB8500;
+    margin-left: 10px;
+}
+
+.fa-clipboard-list{
+    color: #FB8500;
+    font-size: 30px;
+    
+}
+
+.booking_date{
+    font-size: 18px;
+    padding-bottom: 7px;
+}
+
+.title{
+    text-align: center;
+}
+
+.h3{
+    margin-bottom: 0;
+}
+
+.buttons{
+    align-items:center;
+}
+
+.title{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.cleaner_cards_title{
+    margin: 20px;
+}

@@ -2,83 +2,8 @@
 
 use App\Models\Service;
 use App\Models\Price;
+use App\Models\Booking;
 use App\Models\Service_review;
-
-function calendar($month, $year)
-{
-    $daysOfWeek = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
-    $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
-    $numberDays = date('t', $firstDayOfMonth);
-    $dateComponents = getdate($firstDayOfMonth);
-    $monthName = $dateComponents['month'];
-    $dayWeek = $dateComponents['wday'];
-    $datetoday = date('Y-m-d');
-    $dateYear = ($year != '') ? $year : date("Y");
-    $dateMonth = ($month != '') ? $month : date("m");
-    $date = $dateYear . '-' . $dateMonth . '-01';
-
-    $calendar = "<table class='table table-bordered'>";
-    $calendar .= "<div class='d-flex justify-content-center'>";
-    $calendar .= "<a href='javascript:void(0);' class='btn btn-xs btn-primary' onclick='calendar('<?php echo date('Y',strtotime($date.' - 1 Month')); ?>','<?php echo date('m',strtotime($date.' - 1 Month')); ?>');'></a>";
-    //$calendar .= "<a class='btn btn-xs btn-primary' href='?month=" . date('m', mktime(0, 0, 0, $month - 1, 1, $year)) . "&year=" . date('Y', mktime(0, 0, 0, $month - 1, 1, $year)) . "'>Previous</a>";
-    $calendar .= "<h2>$monthName $year</h2>";
-    $calendar .= "<a class='btn btn-xs btn-primary' href='?month=" . date('m', mktime(0, 0, 0, $month + 1, 1, $year)) . "&year=" . date('Y', mktime(0, 0, 0, $month + 1, 1, $year)) . "'>Next</a>";
-    $calendar .= "</div>";
-    $calendar .= "<tr>";
-
-    foreach ($daysOfWeek as $day) {
-        $calendar .= "<th class='header'>$day</th>";
-    }
-    $calendar .= "</tr><tr>";
-
-    if ($dayWeek > 0) {
-        for ($k = 0; $k < $dayWeek; $k++) {
-            $calendar .= "<td></td>";
-        }
-    }
-    $currentDay = 1;
-
-    $month = str_pad($month, 2, "0", STR_PAD_LEFT);
-
-    while ($currentDay <= $numberDays) {
-
-
-        if ($dayWeek == 7) {
-            $dayWeek = 0;
-            $calendar .= "</tr><tr>";
-        }
-
-        $currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        $date = "$year-$month-$currentDayRel";
-        $dayname = strtolower(date('l', strtotime($date)));
-        $eventNum = 0;
-        $today = $date == date('Y-m-d') ? "today" : "";
-
-        if ($date < date('Y-m-d')) {
-            $calendar .= "<td class='blocked'><h4>$currentDay</h4>";
-        } elseif ($date == date('Y-m-d')) {
-            $calendar .= "<td class='today'><h4>$currentDay</h4>";
-        } else {
-            $calendar .= "<td data-dismiss='modal' data-toggle='modal' data-target='#exampleModalLong1011' class='btn1'><h4>$currentDay</h4>";
-        }
-
-        $calendar .= "</td>";
-        $currentDay++;
-        $dayWeek++;
-    }
-
-    if ($dayWeek != 7) {
-        $remainingDays = 7 - $dayWeek;
-        for ($i = 0; $i < $remainingDays; $i++) {
-            $calendar .= "<td class='empty'></td>";
-        }
-    }
-
-    $calendar .= "</tr>";
-    $calendar .= "</table>";
-
-    echo $calendar;
-}
 ?>
 
 @extends('customer/customer-nav/head_extention_customer-services')
@@ -90,6 +15,10 @@ function calendar($month, $year)
     <title>
         Customer Services Page
     </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+  
 </head>
 
 <body>
@@ -229,25 +158,26 @@ function calendar($month, $year)
                                             $price_data = Price::Where('service_id', $value->service_id)->get();
                                             ?>
                                             <div class="d-flex flex-column modal_body_2_con">
-                                                @foreach($price_data as $key => $data)
-                                                <b>{{ $data->property_type }}</b>
                                                 <ul class="customer_package_pricing">
-
+                                                    @foreach($price_data as $key => $data)
+                                                    <b>{{ $data->property_type }}</b>
+                                                    <br>
                                                     <b>Price:</b> {{ $data->price }}
                                                     <br>
                                                     <b>Cleaners:</b> {{ $data->number_of_cleaner }}
-
-                                                </ul>
-                                                @endforeach
+                                                    @endforeach
+                                                </ul>   
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                @if($LoggedUserInfo['account_status'] == "Verified")
                                 <div class="modal-footer customer_services_modal_footer">
                                     <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}">
                                         BOOK NOW
                                     </button>
                                 </div>
+                                @endif
                             </div> <!-- End of Modal Content -->
                         </div>
                     </div> <!-- End of Modal -->
@@ -310,108 +240,120 @@ function calendar($month, $year)
                                                     </label>
                                                 </div>
                                             </div>
-
+                                            
+                                            <h4 class="place-type"> Payment Option </h4>
+                                            <div class="place">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="On-site">
+                                                            On-site
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="Paypal" >
+                                                        Paypal 
+                                                    </label>
+                                                </div>
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-6">   
+                                            <h4 class="place-type"> Schedule: </h4>   
+                                            <div class="place"> 
+                                            <label for="appt" class="place-type">
+                                                Date:
+                                            </label>
+                                            <input type="date" id="schedule_date" name="schedule_date" class="form-control" placeholder="" required readonly>
+                                            <br>
+                                            <label for="appt" class="place-type">
+                                                Time:
+                                            </label>
+                                           
+                                            <div class="place">  
+                                                                             
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="schedule_time" id="" value="09:00:00">
+                                                           9:00 AM - 10:30 AM
+                                                    </label>
+                                                </div>
+                                               
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="schedule_time" id="" value="10:30:00" >
+                                                        10:30 AM - 12:00 NN
+                                                    </label>
+                                                </div>
+                                             
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="schedule_time" id="" value="13:00:00">
+                                                           1:00 PM - 2:30 PM
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                    <input type="radio" class="form-check-input" name="schedule_time" id="" value="14:30:00" >
+                                                        2:30 PM - 4:00 PM
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
                                 <div class="modal-footer customer_services_modal_footer sticky-bottom">
-                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal">
+                                <div class="byt float-right">
+                                    <button type="button" class="btn btn-danger cancel_btn" data-dismiss="modal">
                                         Cancel
                                     </button>
+                                    <button  type="submit" class="btn btn-primary confirm_btn"> 
+                                        Confirm 
+                                    </button>
+                                </div>    
                                 </div>
+                                </form> 
                             </div> <!-- End of Modal Content -->
                         </div>
                     </div>
-                    <div class="modal fade" id="exampleModalLong1011-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <!-- Modal -->
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content customer_services_modal_content_inside">
-                                <!-- Modal Content-->
-                                <div class="modal-header customer_services_modal_header">
-                                    <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
-                                    <div class="p-4">
-                                        <button type="button" class="close-mobile" data-dismiss="modal">
-                                            <i class="fas fa-arrow-to-left"></i>Back
-                                        </button>
-                                        <h3 class="modal_customer_services_title">
-                                            {{ $value->service_name }}
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="modal-body p-4 customer_services_modal_inside_con">
-                                    <div class="modal-body p-4 customer_services_modal_inside_con">
-                                        <div>
-                                            <h4 class="date-selected">
-                                                October 5, 2021
-                                            </h4>
-                                        </div>
-                                        <h4 class="place-type">
-                                            What is your Property Type?
-                                        </h4>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                9:00 AM - 10:30 AM
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                10:30 AM - 12:00 NN
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                1:00 PM - 2:30 PM
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                2:30 PM - 4:00 PM
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body p-4 customer_services_modal_inside_con">
-                                        <div>
-                                            <h4 class="date-selected">
-                                                Choose your Payment Method:
-                                            </h4>
-                                            <h5>Online Payment</h5>
-                                            <h5>On Site Payment</h5>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body p-4 customer_services_modal_inside_con">
-                                        <div>
-                                            <h4 class="date-selected">
-                                                Booking Summary:
-                                            </h4>
-                                            <h5>Service: Deep Kitchen Cleaning</h5>
-                                            <h5>Property: Apartment</h5>
-                                            <h5>Schedule: October 03, 2021 | 8:30 AM - 10:00 AM</h5>
-                                            <h5>Price: 390 Pesos</h5>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="modal-footer customer_services_modal_footer">
-                                    <button form="myform" type="submit" class="btn btn-block btn-primary confirm_btn">
-                                        CONFIRM
-                                    </button>
-                                    <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </div> <!-- End of Modal Content -->
-                        </div>
-                    </div>
+                    </div>                       
                 </div>
             </div>
         </div>
         @endforeach
     </div>
+    <?php
+        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
+        $items = array();
+        $count = 0;
+ ?>
+    @if ($scheduledate != null)
+    @foreach($scheduledate as $schedule)
+    <?php
+       
+        $schedulueCount = Booking::where('schedule_date', $schedule->schedule_date )->count();
+        if($schedulueCount >= 2){
+            $items[$count++] = $schedule->schedule_date;
+        }
+        
+    ?>
+    @endforeach
+    <script>
+
+        var array = <?php echo json_encode($items); ?>;
+
+    $(function () {
+    $('input[name="schedule_date"]').datepicker({
+        dateFormat: 'yy-mm-dd',
+        beforeShowDay: function(schedule_date) {
+        var string = jQuery.datepicker.formatDate('yy-mm-dd', schedule_date);
+        return [array.indexOf(string) == -1]
+        }
+    });
+    });
+    </script>
+        @endif
+      
     <div class="mobile-spacer">
 
     </div>
