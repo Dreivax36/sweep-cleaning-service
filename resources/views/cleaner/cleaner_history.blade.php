@@ -49,7 +49,8 @@
        
         <?php
             $serviceName = Service::Where('service_id', $value->service_id )->value('service_name');
-            $user_data = User::Where('user_id', $value->customer_id )->get();
+            $userID = Customer::Where('customer_id', $value->customer_id )->value('user_id');
+            $user_data = User::Where('user_id', $userID)->get();
             $address = Address::Where('customer_id', $value->customer_id )->value('address');
             $price = Price::Where('property_type', $value->property_type )-> Where('service_id', $value->service_id )->get();
         ?>
