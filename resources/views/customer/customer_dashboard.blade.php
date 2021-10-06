@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="banner-container">
-        <div class="banner">
+        <div class="banner1">
             <div class="text">
                 <h1>The Road to Cleanliness has never been easier.</h1>
             </div>
@@ -20,7 +20,7 @@
 
         </div>
     </div>
-
+  
             <div class="banner">
                 <div class="book_container">
                     <h1 class="no_active">

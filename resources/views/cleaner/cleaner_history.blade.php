@@ -11,7 +11,7 @@
     use App\Models\Service_review;
     use App\Models\Cleaner_review;
 ?>
-@extends('head_extention_cleaner') 
+@extends('cleaner/cleaner-nav/head_extention_cleaner-history') 
 
 @section('content')
     <title>

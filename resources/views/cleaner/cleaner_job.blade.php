@@ -9,7 +9,7 @@
     use App\Models\Assigned_cleaner;
 ?>
 
-@extends('head_extention_cleaner') 
+@extends('cleaner/cleaner-nav/head_extention_cleaner-jobs') 
 
 @section('content')
     <title>

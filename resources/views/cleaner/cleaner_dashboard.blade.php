@@ -10,7 +10,7 @@
     use App\Models\Event;
 ?>
 
-@extends('head_extention_cleaner') 
+@extends('cleaner/cleaner-nav/head_extention_cleaner-home') 
 
 @section('content')
 <head>
