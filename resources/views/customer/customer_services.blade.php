@@ -15,10 +15,14 @@ use App\Models\Service_review;
     <title>
         Customer Services Page
     </title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet"/>
+
 </head>
 
 <body>
@@ -261,46 +265,18 @@ use App\Models\Service_review;
                                             <h4 class="place-type"> Schedule: </h4>   
                                             <div class="place"> 
                                             <label for="appt">
-                                                                        Date:
-                                                                    </label>
-                                                                    <input type="date" name="schedule_date" class="form-control" placeholder="" required readonly>
+                                                Date:
+                                            </label>
+                                            <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
                                             <br>
+
                                             <label for="appt" class="place-type">
                                                 Time:
                                             </label>
-                                           
-                                            <div class="place">  
-                                                                             
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input" name="schedule_time" id="" value="09:00:00">
-                                                           9:00 AM - 10:30 AM
-                                                    </label>
-                                                </div>
-                                               
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="schedule_time" id="" value="10:30:00" >
-                                                        10:30 AM - 12:00 NN
-                                                    </label>
-                                                </div>
-                                             
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input" name="schedule_time" id="" value="13:00:00">
-                                                           1:00 PM - 2:30 PM
-                                                    </label>
-                                                </div>
-                                                
-                                                <div class="form-check">
-                                                    <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="schedule_time" id="" value="14:30:00" >
-                                                        2:30 PM - 4:00 PM
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <input class="timepicker form-control" type="text" name="schedule_time" >
                                         </div>
-                                    </div>
+                                        </div>
+                                 
                                 </div>
                                 <div class="modal-footer customer_services_modal_footer sticky-bottom">
                                 <div class="byt float-right">
@@ -326,34 +302,61 @@ use App\Models\Service_review;
         $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
         $items = array();
         $count = 0;
- ?>
+    ?>
     @if ($scheduledate != null)
     @foreach($scheduledate as $schedule)
     <?php
-       
-        $schedulueCount = Booking::where('schedule_date', $schedule->schedule_date )->count();
-        if($schedulueCount >= 2){
-            $items[$count++] = $schedule->schedule_date;
-        }
-        
+        $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
     ?>
     @endforeach
-    <script>
+        <script >
+    var fakeDisabledTimes = <?php echo json_encode($items); ?>;
 
-        var array = <?php echo json_encode($items); ?>;
-
-    $(function () {
-    $('input[name="schedule_date"]').datepicker({
-        dateFormat: 'yy-mm-dd',
-        beforeShowDay: function(schedule_date) {
-        var string = jQuery.datepicker.formatDate('yy-mm-dd', schedule_date);
-        return [array.indexOf(string) == -1]
+$(document).ready(function(){
+  $( ".datepickerListAppointments" ).datepicker({
+    minDate:+1,
+    onSelect : function(dateText){
+      //should disable/enable timepicker times from here!
+      // parse selected date into moment object
+      var selDate = moment(dateText, 'MM/DD/YYYY');
+      // init array of disabled times
+      var disabledTimes = [];
+      // for each appoinment returned by the server
+      for(var i=0; i<fakeDisabledTimes.length; i++){
+        // parse appoinment datetime into moment object
+        var m = moment(fakeDisabledTimes[i]);
+        // check if appointment is in the selected day
+        if( selDate.isSame(m, 'day') ){
+          // create a 30 minutes range of disabled time
+          var entry = [
+            m.format('h:mm a'),
+            m.clone().add(90, 'm').format('h:mm a')
+          ];
+          // add the range to disabled times array
+          disabledTimes.push(entry);
         }
-    });
-    });
-    </script>
-        @endif
+      }
+      // dinamically update disableTimeRanges option
+      $('input.timepicker').timepicker('option', 'disableTimeRanges', disabledTimes);
+    }
+  });
 
+  $('input.timepicker').timepicker({
+    timeFormat: 'h:i a',
+    interval: 90,
+    minTime: '9',
+    maxTime: '4:00pm',
+    defaultTime: '9',
+    startTime: '9:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: false                
+  });
+
+});
+</script>
+    
+@endif
       
     <div class="mobile-spacer">
 

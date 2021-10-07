@@ -29,18 +29,23 @@
     </div>
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', 'Declined')->orWhere('status', 'Done')->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->get();
     ?>
     <div class="cleaner_job_con">
     <div class="row row_cleaner_job">
     @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
+        @if($booking->status == 'Declined')
         <?php
             $booking_data = Booking::Where('booking_id', $booking->booking_id )->get();
         ?>
-      
+        @else
+        <?php
+            $booking_data = Booking::Where('booking_id', $booking->booking_id )->Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->get();
+        ?>
+        @endif
         @foreach($booking_data as $key => $value)
-     
+        @if($booking->booking_id == $value->booking_id || $booking->status == 'Declined')
        
         <?php
             $serviceName = Service::Where('service_id', $value->service_id )->value('service_name');
@@ -215,6 +220,7 @@
                                 </div> <!-- End of Modal -->                           
               
     @endforeach
+    @endif
     @endforeach
     @endforeach
     @endif

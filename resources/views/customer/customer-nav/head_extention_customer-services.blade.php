@@ -37,6 +37,8 @@
     <link href="{{ asset('css/nav-customer.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
 
+
+
 </head>
 <body> 
 

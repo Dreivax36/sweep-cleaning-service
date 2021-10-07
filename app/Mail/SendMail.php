@@ -29,7 +29,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from SWEEP')
-                    ->view('emails.sendmail');
+        return $this->markdown('emails.sendmail')->with('details', $this->details)
+            ->subject('Verify Sweep Account')->from('lykaccasilao@gmail.com');
     }
 }
