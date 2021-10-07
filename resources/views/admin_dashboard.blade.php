@@ -95,7 +95,7 @@
       </div> 
 
       <?php
-        $booking_data = Booking::Where('status', 'Accepted' )->get();
+        $booking_data = Booking::Where('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
       ?>
       @foreach($booking_data as $key => $value)
       <?php
