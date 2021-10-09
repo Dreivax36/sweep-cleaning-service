@@ -426,6 +426,10 @@
                                                             @endif
                                                         @endif
                                                     @else 
+                                                        <?php  
+                                                            $items = array();
+                                                            $count = 0;
+                                                        ?>
                                                         @if($cleanerSchedule == 0)   <!-- Check if the booking have the no same Schedule --> 
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
                                                             <?php  
