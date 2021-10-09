@@ -395,11 +395,13 @@
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
-                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();        
+                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
+                                                                        $countCleaner = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->count();        
                                                                     ?>
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)
                                                                             <?php $exist = true;?>
+                                                                           
                                                                             @foreach($cleanerID as $key => $assignCleaner)
                                                                                 <?php
                                                                                     $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
@@ -411,7 +413,9 @@
                                                                                 @endif    
                                                                             @endforeach
                                                                             @if($exist)
-                                                                                $items[$count++] =  $cleaner->user_id;
+                                                                                <?php
+                                                                                    $items[$count++] =  $cleaner->user_id;
+                                                                                ?>   
                                                                             @endif
                                                                         @endforeach 
                                                                     @else
@@ -464,11 +468,13 @@
                                                             @if($cleaner_data != null)
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
-                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();        
+                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
+                                                                        $countCleaner = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->count();        
                                                                     ?>
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)
                                                                             <?php $exist = true;?>
+                                                                           
                                                                             @foreach($cleanerID as $key => $assignCleaner)
                                                                                 <?php
                                                                                     $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
@@ -480,13 +486,15 @@
                                                                                 @endif    
                                                                             @endforeach
                                                                             @if($exist)
-                                                                                $items[$count++] =  $cleaner->user_id;
+                                                                                <?php
+                                                                                    $items[$count++] =  $cleaner->user_id;
+                                                                                ?>   
                                                                             @endif
                                                                         @endforeach 
-                                                                    @else <!-- Booking does not have a cleaner-->
+                                                                    @else
                                                                         @foreach($cleaner_data as $key => $cleaner)
                                                                             $items[$count++] =  $cleaner->user_id;
-                                                                        @endforeach 
+                                                                        @endforeach
                                                                     @endif 
                                                                 @endforeach
                                                                 <?php
