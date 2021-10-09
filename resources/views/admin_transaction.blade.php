@@ -373,6 +373,7 @@
                                                         $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->value('booking_id');
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
                                                         $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
+                                                        $exist = true;
                                                     ?>
                                                     @while($total > 0)
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
