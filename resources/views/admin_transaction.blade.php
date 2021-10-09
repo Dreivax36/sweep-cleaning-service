@@ -294,9 +294,10 @@
                                 <?php
                                     $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
+                                    $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Decline")->count();
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && $bookingcount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true))
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && $bookingcount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) || $declinecount == $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
@@ -395,7 +396,7 @@
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
-                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
+                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->Where('status', '!=', 'Decline')->orWhere('status', '!=', 'Accepted')->get();
                                                                     ?>
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)                                
@@ -456,8 +457,7 @@
                                                             @if($cleaner_data != null)
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
-                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
-                                                                        $countCleaner = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->count();        
+                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();       
                                                                     ?>
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)
