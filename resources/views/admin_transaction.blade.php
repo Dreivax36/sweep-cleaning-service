@@ -414,7 +414,10 @@
                                                                                 ?> 
                                                                                 @if($cleaner->user_id == $assignUser || in_array($cleaner->user_id, $items))
                                                                                     @if (in_array($cleaner->user_id, $items))
-                                                                                    <?php unset($items[$cleaner->user_id]); ?>
+                                                                                    <?php 
+                                                                                        unset($items[$cleaner->user_id]); 
+                                                                                        $items = array_values($items);
+                                                                                    ?>
                                                                                     @endif
                                                                                     @break
                                                                                 @else
