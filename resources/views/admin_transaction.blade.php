@@ -420,7 +420,9 @@
                                                                         @endforeach
                                                                     @endif 
                                                                 @endforeach
-                                                                $items = array_unique($items)
+                                                                <?php
+                                                                    $items = array_unique($items);
+                                                                ?>
                                                                 @foreach($items as $userID)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $userID )->value('full_name');
@@ -487,7 +489,9 @@
                                                                         @endforeach 
                                                                     @endif 
                                                                 @endforeach
-                                                                $items = array_unique($items)
+                                                                <?php
+                                                                    $items = array_unique($items);
+                                                                ?>
                                                                 @foreach($items as $userID)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $userID )->value('full_name');
