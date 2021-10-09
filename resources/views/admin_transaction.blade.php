@@ -399,7 +399,8 @@
                                                             <?php  
                                                                 $items = array();
                                                                 $count = 0;
-                                                               
+                                                                $itemExist = array();
+                                                                $counter = 0;
                                                             ?>
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
@@ -413,25 +414,22 @@
                                                                                     $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
                                                                                 ?> 
                                                                                 @if($cleaner->user_id == $assignUser)
+                                                                                    <?php $itemExist[$counter++] =  $cleaner->user_id; ?>
                                                                                     @break
                                                                                 @else
                                                                                     <?php $items[$count++] =  $cleaner->user_id; ?>
                                                                                 @endif   
-                                                                                @if (in_array($assignUser, $items))
-                                                                                    <?php 
-                                                                                        unset($items[$assignUser]); 
-                                                                                        $items = array_values($items);
-                                                                                    ?>
-                                                                                @endif 
                                                                             @endforeach
                                                                         @endforeach 
                                                                     @endif 
                                                                 @endforeach
                                                                 <?php
                                                                     $items = array_unique($items);
+                                                                    $itemExist = array_unique($itemExist);
+                                                                    $final = array_diff($items,$itemExist);
                                                                 ?>
-                                                                
-                                                                @foreach($items as $userID)
+                                        
+                                                                @foreach($final as $userID)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                     ?>    
