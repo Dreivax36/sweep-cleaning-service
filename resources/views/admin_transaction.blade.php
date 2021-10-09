@@ -167,7 +167,6 @@
                                         @if ( $value->is_paid == true)
                                             <b> - Paid </b>
                                         @endif
-                                        {{ $user->contact_number }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -209,7 +208,6 @@
                                     @endif
 
                                     @csrf
-                                    {{ csrf_field() }}
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                     
@@ -366,7 +364,7 @@
                                                     </div>
                                                 @endif                  
                                                 @csrf
-                                                {{ csrf_field() }}
+                                        
                                                     <?php  
                                                         $total = $price_data->number_of_cleaner;
                                                         $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->count();
