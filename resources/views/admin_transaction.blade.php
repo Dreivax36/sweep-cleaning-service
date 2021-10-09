@@ -158,6 +158,18 @@
                                         {{ $user->contact_number }}
                                     </td>
                                 </tr>
+                                <tr class="user_table_row">
+                                    <th scope="row" class="user_table_header">
+                                        Payment:
+                                    </th>
+                                    <td class="user_table_data">
+                                        {{  $value->mode_of_payment }}
+                                        @if ( $value->is_paid == true)
+                                            <b> - Paid </b>
+                                        @endif
+                                        {{ $user->contact_number }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -239,7 +251,23 @@
                                                 <b>Price:</b> P{{ $price_data->price }}
                                             </li>
                                             <br>
-                                            
+                                            <li>
+                                                <b>Payment:</b>
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
+                                            </li>
+                                            @if ( $value->mode_of_payment == 'Paypal')
+                                            <li class="list_booking_info">
+                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                            </li>
+                                            @endif
+                                            @if ( $value->is_paid == true)
+                                            <li class="list_booking_info">
+                                                <b>Status:</b> Paid
+                                            </li>
+                                            @endif
+                                            <br>
                                             <?php
                                                 $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
                                             ?> 
@@ -270,7 +298,7 @@
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && $bookingcount != $price_data->number_of_cleaner )
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && $bookingcount != $price_data->number_of_cleaner && $value->mode_of_payment == 'On-site' || $value->is_paid == true)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
@@ -341,6 +369,8 @@
                                                 {{ csrf_field() }}
                                                     <?php  
                                                         $total = $price_data->number_of_cleaner;
+                                                        $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->count();
+                                                        $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->value('booking_id');
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
                                                         $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
                                                     ?>
@@ -349,38 +379,90 @@
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner">
-                                                    @if ($cleanerCount == 0)
-                                                        @if($cleaner_data != null)
-                                                            @foreach($cleaner_data as $key => $cleaner)
-                                                                <?php
-                                                                    $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                                ?>    
-                                                                <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                                                            @endforeach 
-                                                        @endif
-                                                    @else    
-                                                        @if($cleaner_data != null)
-                                                        <?php  
-                                                            $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
-                                                        ?>
-                                                        @foreach($cleaner_data as $key => $cleaner)
-                                                            @foreach($cleanerID as $key => $assignCleaner)
-                                                                <?php
-                                                                    $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
-                                                                ?> 
-                                                                @if($cleaner->user_id != $assignUser)
-                                                                    <?php $exist = true;?>
-                                                                @else
-                                                                    <?php $exist = false;?>
-                                                                @endif    
-                                                            @endforeach
-                                                            @if($exist)
-                                                                <?php
-                                                                    $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                                ?>    
-                                                                <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
+                                                    @if($cleanerCount == 0)
+                                                        @if($cleanerSchedule == 0) 
+                                                            @if($cleaner_data != null)
+                                                                @foreach($cleaner_data as $key => $cleaner)
+                                                                    <?php
+                                                                        $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                                    ?>    
+                                                                    <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
+                                                                @endforeach 
                                                             @endif
-                                                        @endforeach 
+                                                        @else
+                                                            @if($cleaner_data != null)
+                                                                <?php  
+                                                                    $cleanerID = Assigned_cleaner::Where('booking_id', $bookingSchedule)->get();        
+                                                                ?>
+                                                                @foreach($cleaner_data as $key => $cleaner)
+                                                                    @foreach($cleanerID as $key => $assignCleaner)
+                                                                        <?php
+                                                                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                                        ?> 
+                                                                        @if($cleaner->user_id != $assignUser)
+                                                                            <?php $exist = true;?>
+                                                                        @else
+                                                                            <?php $exist = false;?>
+                                                                        @endif    
+                                                                    @endforeach
+                                                                    @if($exist)
+                                                                        <?php
+                                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                                        ?>    
+                                                                        <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
+                                                                    @endif
+                                                                @endforeach  
+                                                            @endif
+                                                        @endif
+                                                    @else 
+                                                        @if($cleanerSchedule == 0)    
+                                                            @if($cleaner_data != null)
+                                                            <?php  
+                                                                $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
+                                                            ?>
+                                                            @foreach($cleaner_data as $key => $cleaner)
+                                                                @foreach($cleanerID as $key => $assignCleaner)
+                                                                    <?php
+                                                                        $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                                    ?> 
+                                                                    @if($cleaner->user_id != $assignUser)
+                                                                        <?php $exist = true;?>
+                                                                    @else
+                                                                        <?php $exist = false;?>
+                                                                    @endif    
+                                                                @endforeach
+                                                                @if($exist)
+                                                                    <?php
+                                                                        $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                                    ?>    
+                                                                    <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
+                                                                @endif
+                                                            @endforeach 
+                                                            @endif
+                                                        @else
+                                                            @if($cleaner_data != null)
+                                                                <?php  
+                                                                    $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->orWhere('booking_id', $bookingSchedule)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
+                                                                ?>
+                                                                @foreach($cleaner_data as $key => $cleaner)
+                                                                    @foreach($cleanerID as $key => $assignCleaner)
+                                                                        <?php
+                                                                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                                        ?> 
+                                                                        @if($cleaner->user_id != $assignUser)
+                                                                            <?php $exist = true;?>
+                                                                        @else
+                                                                            <?php $exist = false;?>
+                                                                        @endif    
+                                                                    @endforeach
+                                                                    @if($exist)
+                                                                        <?php
+                                                                            $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                                        ?>    
+                                                                        <option  value="{{ $cleaner->user_id }}">{{ $fullname }}</option>
+                                                                    @endif
+                                                                @endforeach 
+                                                            @endif
                                                         @endif
                                                     @endif
                                                     </select> <br>  

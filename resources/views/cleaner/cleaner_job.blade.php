@@ -36,7 +36,7 @@
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <?php
-            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
+            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->orderBy('updated_at','DESC')->get();
         ?>
         @foreach($booking_data as $key => $value)
         @if($booking->booking_id == $value->booking_id)
@@ -62,6 +62,7 @@
                             <h6 class="cleaner_job_date_1_1">
                                 {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                             </h6>
+                            
                             @foreach($price as $key => $price_data)
                             <h6 class="cleaner_job_price_1">
                                 P{{ $price_data->price }}
@@ -132,6 +133,24 @@
                                                             <li class="list_booking_info">
                                                                 <b>Status:</b> {{ $value->status }}
                                                             </li>
+                                                            <br>
+                                                            <li>
+                                                                <b>Payment:</b>
+                                                            </li>
+                                                            <li class="list_booking_info">
+                                                                <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
+                                                            </li>
+                                                            @if ( $value->mode_of_payment == 'Paypal')
+                                                            <li class="list_booking_info">
+                                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                                            </li>
+                                                            @endif
+                                                            @if ( $value->is_paid == true)
+                                                            <li class="list_booking_info">
+                                                                <b>Status:</b> Paid
+                                                            </li>
+                                                            @endif
+                                                            <br>
                                                         </ul>
                                                     </div>
                                                 
@@ -162,7 +181,7 @@
                                                 <div class="modal-footer cleaner_job_modal_footer">
                                                         @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
                                                             <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
-                                                                ACCEPT
+                                                                CONFIRM BOOKING
                                                             </button> 
                                                             <button  class="btn btn-block btn-danger decline_btn" type="submit" name="status" value="Declined" >
                                                                 DECLINE
@@ -175,7 +194,7 @@
                                                             @endif    
                                                             @if($value->status == "On-Progress")
                                                             <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
-                                                                DONE
+                                                                CLEANING COMPLETE
                                                             </button> 
                                                             @endif   
                                                 </div> 

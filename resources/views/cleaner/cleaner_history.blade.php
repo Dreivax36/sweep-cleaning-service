@@ -37,11 +37,11 @@
         @foreach($bookingID as $key => $booking)
         @if($booking->status == 'Declined')
         <?php
-            $booking_data = Booking::Where('booking_id', $booking->booking_id )->get();
+            $booking_data = Booking::Where('booking_id', $booking->booking_id )->orderBy('updated_at','DESC')->get();
         ?>
         @else
         <?php
-            $booking_data = Booking::Where('booking_id', $booking->booking_id )->Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->get();
+            $booking_data = Booking::Where('booking_id', $booking->booking_id )->Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->orderBy('updated_at','DESC')->get();
         ?>
         @endif
         @foreach($booking_data as $key => $value)
@@ -76,6 +76,7 @@
                             <h6 class="cleaner_job_date_1_1">
                                 {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                             </h6>
+                            
                              @foreach($price as $key => $price_data)
                             <h6 class="cleaner_job_price_1">
                                 P{{ $price_data->price }}
@@ -139,6 +140,23 @@
                                                             <li class="list_booking_info">
                                                                 <b>Status:</b> {{ $value->status }}
                                                             </li>
+                                                            <br>
+                                                            <li>
+                                                                <b>Payment:</b>
+                                                            </li>
+                                                            <li class="list_booking_info">
+                                                                <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
+                                                            </li>
+                                                            @if ( $value->mode_of_payment == 'Paypal')
+                                                            <li class="list_booking_info">
+                                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                                            </li>
+                                                            @endif
+                                                            @if ( $value->is_paid == true)
+                                                            <li class="list_booking_info">
+                                                                <b>Status:</b> Paid
+                                                            </li>
+                                                            @endif
                                                             <br>
                                                             <li>
                                                                 <b>Feedback:</b>

@@ -135,7 +135,7 @@
                 </thead>
                 <tbody>
                 <?php
-                    $user_data = User::Where('user_type', 'Cleaner')->get();
+                    $user_data = User::Where('user_type', 'Cleaner')->orderBy('updated_at','DESC')->get();
                 ?>
                 @foreach($user_data as $value)
                 <?php

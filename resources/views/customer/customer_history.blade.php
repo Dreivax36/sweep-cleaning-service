@@ -31,7 +31,7 @@
     <div class="row justify-content-center">
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
-            $booking_data = Booking::Where('customer_id', $customer_id )->Where('status', '!=', 'Pending' )->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->get();
+            $booking_data = Booking::Where('customer_id', $customer_id )->Where('status', '!=', 'Pending' )->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->orderBy('updated_at','DESC')->get();
         ?>
         @foreach($booking_data as $key => $value)
             <?php
@@ -58,6 +58,9 @@
                                 <div> 
                                     <h6 class="booking_date">
                                         <b>Transaction ID:</b> {{ $booking_id }}
+                                        @if ( $value->is_paid == true)
+                                            <b> - Paid </b>
+                                        @endif
                                     </h6>
                                 </div>
                                 
@@ -87,6 +90,7 @@
                                                 P{{ $price_data->price }}
                                             </td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
                                 <div class="buttons">
@@ -137,10 +141,28 @@
                                                 <li>
                                                     <b>Property Type:</b> {{ $value->property_type }}
                                                 </li> 
+                                                <br>
+                                                <li>
+                                                <b>Payment:</b>
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
+                                            </li>
+                                            @if ( $value->mode_of_payment == 'Paypal')
+                                            <li class="list_booking_info">
+                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                            </li>
+                                            @endif
+                                            @if ( $value->is_paid == true)
+                                            <li class="list_booking_info">
+                                                <b>Status:</b> Paid
+                                            </li>
+                                            @endif
+                                            <br>
                                                 <?php
                                                      $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
                                                 ?>
-                                                <br>    
+                                                    
                                                 <li>
                                                     <b>Cleaners:</b>
                                                 </li> 

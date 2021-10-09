@@ -69,7 +69,7 @@
 <body>
 
     <?php
-        $user_data = User::all();
+        $user_data = User::orderBy('user_id','DESC')->get();
         $user_count = User::all()->count();
         $customer_count = User::Where('user_type', '=', 'Customer')->count();
         $cleaner_count = User::Where('user_type', '=', 'Cleaner')->count();

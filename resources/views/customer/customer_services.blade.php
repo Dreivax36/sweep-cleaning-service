@@ -306,7 +306,10 @@ use App\Models\Service_review;
     @if ($scheduledate != null)
     @foreach($scheduledate as $schedule)
     <?php
-        $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
+        $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
+        if($scheduleCount == 5){
+            $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
+        }
     ?>
     @endforeach
         <script >

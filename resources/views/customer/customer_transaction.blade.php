@@ -6,6 +6,7 @@
     use App\Models\User;
     use App\Models\Cleaner;
     use App\Models\Assigned_cleaner;
+    use App\Models\Review;
 ?>
 
 @extends('customer/customer-nav/head_extention_customer-transactions') 
@@ -31,7 +32,7 @@
     <div class="row justify-content-center">
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
-            $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->get();
+            $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->orderBy('updated_at','DESC')->get();
         ?>
         @foreach($booking_data as $key => $value)
             <?php
@@ -58,6 +59,9 @@
                                 <div> 
                                     <h6 class="booking_date">
                                         <b>Transaction ID:</b> {{ $booking_id }}
+                                        @if ( $value->is_paid == true)
+                                            <b> - Paid </b>
+                                        @endif
                                     </h6>
                                 </div>
                                 
@@ -87,19 +91,23 @@
                                                 P{{ $price_data->price }}
                                             </td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
+                                <?php
+                                    $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
+                                ?>
                                 <div class="buttons">
                                     <div class="byt float-right">
                                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
                                             DETAILS
                                         </button>
-                                        @if($value->status == "Pending" || $value->is_paid == false) 
+                                        @if($value->status == "Pending" && $value->is_paid == false && $value->mode_of_payment == 'Paypal') 
                                         <button type="button" class="btn btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
                                             Pay 
                                         </button>
                                         @endif
-                                        @if($value->status == "Done")               
+                                        @if($value->status == "Done" && $reviews != 0 )               
                                         <button type="button" class="btn btn-primary rate_btn" onclick="document.location='{{ route('customer_rating', $value->booking_id) }}'"> 
                                             Rate 
                                         </button>
@@ -147,10 +155,29 @@
                                                 <li>
                                                     <b>Property Type:</b> {{ $value->property_type }}
                                                 </li> 
+                                                <br>
+                                               
+                                            <li class="list_booking_info">
+                                                <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
+                                            </li>
+                                            <br>
+                                            @if ( $value->mode_of_payment == 'Paypal')
+                                            <li class="list_booking_info">
+                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                            </li>
+                                            <br>
+                                            @endif
+                                            @if ( $value->is_paid == true)
+                                            <li class="list_booking_info">
+                                                <b>Status:</b> Paid
+                                            </li>
+                                            <br>
+                                            @endif
+                                            
                                                 <?php
                                                      $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
                                                 ?>
-                                                <br>    
+                                                  
                                                 <li>
                                                     <b>Cleaners:</b>
                                                 </li> 
