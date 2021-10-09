@@ -414,18 +414,14 @@
                                                                                 $items[$count++] =  $cleaner->user_id;
                                                                             @endif
                                                                         @endforeach 
-                                                                    @else <!-- Booking does not have a cleaner-->
-                                                                        @foreach($cleaner_data as $key => $cleaner)
-                                                                            $items[$count++] =  $cleaner->user_id;
-                                                                        @endforeach 
                                                                     @endif 
                                                                 @endforeach
                                                                 $items = array_unique($items)
-                                                                @foreach$items as $userID)
+                                                                @foreach($items as $userID)
                                                                     <?php
-                                                                        $fullname = User::Where('user_id', $$userID )->value('full_name');
+                                                                        $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                     ?>    
-                                                                    <option  value="{{  $$userID }}">{{ $fullname }}</option>
+                                                                    <option  value="{{  $userID }}">{{ $fullname }}</option>
                                                                 @endforeach 
                                                             @endif
                                                         @endif
@@ -488,11 +484,11 @@
                                                                     @endif 
                                                                 @endforeach
                                                                 $items = array_unique($items)
-                                                                @foreach$items as $userID)
+                                                                @foreach($items as $userID)
                                                                     <?php
-                                                                        $fullname = User::Where('user_id', $$userID )->value('full_name');
+                                                                        $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                     ?>    
-                                                                    <option  value="{{  $$userID }}">{{ $fullname }}</option>
+                                                                    <option  value="{{  $userID }}">{{ $fullname }}</option>
                                                                 @endforeach 
                                                             @endif
                                                         @endif
