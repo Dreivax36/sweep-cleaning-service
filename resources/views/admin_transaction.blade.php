@@ -426,9 +426,9 @@
                                                                 @endforeach
                                                                 <?php
                                                                     $items = array_unique($items);
-                                                                    $exist = array_unique($items);
+                                                                    $exist = array_unique($exist);
                                                                 ?>
-                                                                @foreach($exist as $finalID)
+                                                                @foreach($exist as $final)
                                                                     @foreach($items as $userID)
                                                                         @if($userID != $final)
                                                                             <?php $item[$counts++] =  $userID; ?>
