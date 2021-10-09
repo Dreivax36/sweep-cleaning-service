@@ -413,7 +413,7 @@
                                                                                     $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
                                                                                 ?> 
                                                                                 @if($cleaner->user_id == $assignUser || in_array($cleaner->user_id, $items))
-                                                                                    <?php unset($items[$assignUser]);; ?>
+                                                                                    <?php unset($items[$cleaner->user_id]); ?>
                                                                                     @break
                                                                                 @else
                                                                                     <?php $items[$count++] =  $cleaner->user_id; ?>
