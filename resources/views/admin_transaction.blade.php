@@ -428,8 +428,9 @@
                                                                     $items = array_unique($items);
                                                                     $exist = array_unique($exist);
                                                                 ?>
-                                                                @foreach($exist as $final)
-                                                                    @foreach($items as $userID)
+                                                                
+                                                                @foreach($items as $userID)
+                                                                    @foreach($exist as $final)
                                                                         @if($userID != $final)
                                                                             <?php $item[$counts++] =  $userID; ?>
                                                                         @endif
