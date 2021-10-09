@@ -404,7 +404,7 @@
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
-                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'Declined')->get();
+                                                                        $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
                                                                     ?>
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)                                
@@ -413,7 +413,9 @@
                                                                                     $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
                                                                                 ?> 
                                                                                 @if($cleaner->user_id == $assignUser || in_array($cleaner->user_id, $items))
+                                                                                    @if (in_array($cleaner->user_id, $items))
                                                                                     <?php unset($items[$cleaner->user_id]); ?>
+                                                                                    @endif
                                                                                     @break
                                                                                 @else
                                                                                     <?php $items[$count++] =  $cleaner->user_id; ?>
