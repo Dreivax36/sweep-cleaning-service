@@ -415,15 +415,14 @@
                                                                                 @if($cleaner->user_id == $assignUser)
                                                                                     @break
                                                                                 @else
-                                                                                    @if (in_array($assignUser, $items))
+                                                                                    <?php $items[$count++] =  $cleaner->user_id; ?>
+                                                                                @endif   
+                                                                                @if (in_array($assignUser, $items))
                                                                                     <?php 
                                                                                         unset($items[$assignUser]); 
                                                                                         $items = array_values($items);
                                                                                     ?>
-                                                                                    @else
-                                                                                        <?php $items[$count++] =  $cleaner->user_id; ?>
-                                                                                    @endif
-                                                                                @endif    
+                                                                                @endif 
                                                                             @endforeach
                                                                         @endforeach 
                                                                     @endif 
