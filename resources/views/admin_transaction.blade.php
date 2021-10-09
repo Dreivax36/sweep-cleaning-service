@@ -474,6 +474,8 @@
                                                                 <?php  
                                                                     $items = array();
                                                                     $count = 0;
+                                                                    $itemExist = array();
+                                                                    $counter = 0;
                                                                 ?>
                                                             @if($cleaner_data != null)
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
@@ -489,6 +491,7 @@
                                                                                 @if($cleaner->user_id != $assignUser)
                                                                                     <?php $items[$count++] =  $cleaner->user_id; ?>
                                                                                 @else
+                                                                                    <?php $itemExist[$counter++] =  $cleaner->user_id; ?>
                                                                                     @break
                                                                                 @endif     
                                                                             @endforeach
@@ -497,8 +500,10 @@
                                                                 @endforeach
                                                                 <?php
                                                                     $items = array_unique($items);
+                                                                    $itemExist = array_unique($itemExist);
+                                                                    $final = array_diff($items,$itemExist);
                                                                 ?>
-                                                                @foreach($items as $userID)
+                                                                @foreach($final as $userID)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                     ?>    
