@@ -388,11 +388,11 @@
                                                                 @endforeach 
                                                             @endif
                                                         @else <!-- Booking has the same Schedule -->
-                                                            @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
                                                                 <?php  
                                                                     $items = array();
                                                                     $count = 0;
                                                                 ?>
+                                                            @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
                                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();        
@@ -414,6 +414,10 @@
                                                                                 $items[$count++] =  $cleaner->user_id;
                                                                             @endif
                                                                         @endforeach 
+                                                                    @else
+                                                                        @foreach($cleaner_data as $key => $cleaner)
+                                                                            $items[$count++] =  $cleaner->user_id;
+                                                                        @endforeach
                                                                     @endif 
                                                                 @endforeach
                                                                 $items = array_unique($items)
@@ -451,11 +455,11 @@
                                                             @endforeach 
                                                             @endif
                                                         @else
-                                                            @if($cleaner_data != null)
                                                                 <?php  
                                                                     $items = array();
                                                                     $count = 0;
                                                                 ?>
+                                                            @if($cleaner_data != null)
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
                                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();        
