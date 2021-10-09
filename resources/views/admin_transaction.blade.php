@@ -396,7 +396,6 @@
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
                                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
-                                                                        $countCleaner = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->count();        
                                                                     ?>
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)
@@ -418,10 +417,6 @@
                                                                                 ?>   
                                                                             @endif
                                                                         @endforeach 
-                                                                    @else
-                                                                        @foreach($cleaner_data as $key => $cleaner)
-                                                                            $items[$count++] =  $cleaner->user_id;
-                                                                        @endforeach
                                                                     @endif 
                                                                 @endforeach
                                                                 <?php
@@ -491,10 +486,6 @@
                                                                                 ?>   
                                                                             @endif
                                                                         @endforeach 
-                                                                    @else
-                                                                        @foreach($cleaner_data as $key => $cleaner)
-                                                                            $items[$count++] =  $cleaner->user_id;
-                                                                        @endforeach
                                                                     @endif 
                                                                 @endforeach
                                                                 <?php
