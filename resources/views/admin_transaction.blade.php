@@ -438,7 +438,7 @@
                                                                 <?php
                                                                     $item = array_unique($item);
                                                                 ?>
-                                                                @foreach($items as $finalID)
+                                                                @foreach($item as $finalID)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $finalID )->value('full_name');
                                                                     ?>    
