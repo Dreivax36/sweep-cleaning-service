@@ -415,10 +415,10 @@
                                                                                 <?php
                                                                                     $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
                                                                                 ?> 
-                                                                                @if($cleaner->user_id != $assignUser)
+                                                                                @if($cleaner->user_id != $assignUser && in_array($cleaner->user_id, $items))
                                                                                     <?php $items[$count++] =  $cleaner->user_id; ?>
                                                                                 @else
-                                                                                    <?php $exist[$counter++] =  $cleaner->user_id; ?>
+                                                                                    @break
                                                                                 @endif    
                                                                             @endforeach
                                                                         @endforeach 
@@ -426,24 +426,13 @@
                                                                 @endforeach
                                                                 <?php
                                                                     $items = array_unique($items);
-                                                                    $exist = array_unique($exist);
                                                                 ?>
                                                                 
                                                                 @foreach($items as $userID)
-                                                                    @foreach($exist as $final)
-                                                                        @if($userID != $final)
-                                                                            <?php $item[$counts++] =  $userID; ?>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @endforeach 
-                                                                <?php
-                                                                    $item = array_unique($item);
-                                                                ?>
-                                                                @foreach($item as $finalID)
                                                                     <?php
-                                                                        $fullname = User::Where('user_id', $finalID )->value('full_name');
+                                                                        $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                     ?>    
-                                                                    <option  value="{{  $finalID }}">{{ $fullname }}</option>
+                                                                    <option  value="{{  $userID }}">{{ $fullname }}</option>
                                                                 @endforeach 
                                                             @endif
                                                         @endif
