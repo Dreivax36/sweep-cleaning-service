@@ -220,14 +220,21 @@ class BookingController extends Controller
         return redirect()->route('customer.customer_transaction');
     }
 
-    function onsitePay(Request $request){
+    function checkout(Request $request){
         
         $payments = new Payment();
         $payments->booking_id = $request->booking_id;
         $payments->amount = $request->amount; 
-        $onsitePay = $payments->save();
+        $checkout = $payments->save();
 
-        if($onsitePay){
+        if($request->mode_of_payment == 'Paypal'){
+            $checkout= Booking::Where('booking_id', $booking_id )->update(['is_paid' => true, 'paypal_id' => $request->paypal_id]);
+        }
+        else{
+            $checkout= Booking::Where('booking_id', $booking_id )->update(['is_paid' => true]);
+        }
+
+        if($checkout){
            return back()->with('success', 'Booking Status Updated');
         }
         else {

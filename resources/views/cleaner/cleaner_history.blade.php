@@ -41,7 +41,7 @@
         ?>
         @else
         <?php
-            $booking_data = Booking::Where('booking_id', $booking->booking_id )->Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->orderBy('updated_at','DESC')->get();
+            $booking_data = Booking::Where('booking_id', $booking->booking_id )->Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->orwhere('status', 'Cleaner-no-response')->orderBy('updated_at','DESC')->get();
         ?>
         @endif
         @foreach($booking_data as $key => $value)
@@ -60,7 +60,7 @@
                     <div class="d-flex">
                         <img src="/img/broom.png" class="cleaner_job_broom_img p-1">  
                         <div class="d-flex flex-column">
-                            @if ($booking->status != 'Declined')
+                            @if ($booking->status != 'Declined' || $booking->status != 'Cleaner-no-response' )
                             <h5 class="cleaner_job_status">
                                 {{ $value->status }}
                             </h5>
@@ -149,7 +149,7 @@
                                                             </li>
                                                             @if ( $value->mode_of_payment == 'Paypal')
                                                             <li class="list_booking_info">
-                                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                                                <b>Paypal ID:</b> {{ $value->paypal_id }}
                                                             </li>
                                                             @endif
                                                             @if ( $value->is_paid == true)

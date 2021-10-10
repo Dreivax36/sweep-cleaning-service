@@ -27,7 +27,7 @@
     </div>
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' , '!=' , 'Declined')->where('status', 'Time-Limit-Reach')->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' , '!=' , 'Declined')->orwhere('status', 'Cleaner-no-response')->get();
     ?>
     
     <div class="cleaner_job_con">
@@ -46,9 +46,8 @@
             $user_data = User::Where('user_id', $userID)->get();
             $address = Address::Where('customer_id', $value->customer_id )->value('address');
             $price = Price::Where('property_type', $value->property_type )-> Where('service_id', $value->service_id )->get();       
-            $created_at = Assigned_cleaner::Where('booking_id',  $value->booking_id)->get();
         ?>
-        @if (strtotime($created_at) > strtotime("-30 minutes"))
+        @if (strtotime($booking->created_at) > strtotime("-30 minutes") && $booking->status == 'Pending' )
             <?php 
                 Assigned_cleaner::Where('booking_id', $request->booking_id )->update(['status' => 'Cleaner-no-response']);
             ?>
@@ -148,7 +147,7 @@
                                                             </li>
                                                             @if ( $value->mode_of_payment == 'Paypal')
                                                             <li class="list_booking_info">
-                                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                                                <b>Paypal ID:</b> {{ $value->paypal_id }}
                                                             </li>
                                                             @endif
                                                             @if ( $value->is_paid == true)
@@ -230,7 +229,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="{{ route('onsitePay') }}" method="post" >
+                                    <form action="{{ route('checkout') }}" method="post" >
                                     @if(Session::get('success'))
                                         <div class="alert alert-success">
                                             {{ Session::get('success') }}

@@ -150,7 +150,7 @@
                                             </li>
                                             @if ( $value->mode_of_payment == 'Paypal')
                                             <li class="list_booking_info">
-                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                                <b>Paypal ID:</b> {{ $value->paypal_id }}
                                             </li>
                                             @endif
                                             @if ( $value->is_paid == true)

@@ -136,7 +136,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="{{ route('onsitePay') }}" method="post" >
+                                    <form action="{{ route('newDate') }}" method="post" >
                                     @if(Session::get('success'))
                                         <div class="alert alert-success">
                                             {{ Session::get('success') }}
@@ -230,7 +230,7 @@
                                             <br>
                                             @if ( $value->mode_of_payment == 'Paypal')
                                             <li class="list_booking_info">
-                                                <b>Paypal ID:</b> {{ $value->paypal_orderid }}
+                                                <b>Paypal ID:</b> {{ $value->paypal_id }}
                                             </li>
                                             <br>
                                             @endif
@@ -319,17 +319,24 @@
                                                 </div>
                                             </div> <!-- End of Modal -->
 
-        <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0"></script>
+        <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0&currency=PHP&locale=en_PH"></script>
         <script>
         paypal.Buttons({
             createOrder: function(data, actions) {
             // This function sets up the details of the transaction, including the amount and line item details.
             return actions.order.create({
+                intent: 'CAPTURE', 
+               
                 purchase_units: [{
                 amount: {
-                    value: '{{ $price_data->price }}'
+                    value: '{{ $price_data->price }}',
+                    currency_code: "PHP"
                 }
-                }]
+                }],
+                application_context: {
+                     brand_name: 'Sweep',
+                    shipping_preference: 'NO_SHIPPING'
+                }
             });
             },
             onApprove: function(data, actions) {
@@ -338,19 +345,27 @@
                 // This function shows a transaction success message to your buyer.
 
                 var booking_id = '{{$value->booking_id}}';
+                var amount  = '{{ $price_data->price }}';
                 $.ajax({
                     method: "POST",
-                    url: "/paypal.checkout",
+                    url: "/checkout",
                     data: {
-                        'booking_id': booking_id
+                        'booking_id': booking_id,
+                        'paypal_id': details.id,
+                        'amount': amount,
+                        'payment_mode':  'Paypal'
                     },
-                    success: function (responseb) {
-                        swal(responseb.status);
+                    success: function (response) {
+                        swal(response.status);
                         window.location.href = "/customer/customer_transaction";
                     }
                 });
             });
-            }
+            },
+            onCancel: function(data) {
+                alert("Payment cancelled");
+            },
+
         }).render('#paypal-button-container');
         //This function displays Smart Payment Buttons on your web page.
         </script>
