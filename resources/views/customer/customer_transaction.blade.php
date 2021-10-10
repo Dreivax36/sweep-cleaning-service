@@ -113,70 +113,7 @@
                   </div>
             </div>
 
-            @if ($value->status == 'No-Available-Cleaner')
-                <script>
-                    $('#nocleaner-{{ $value->booking_id }}').modal('show');
-                </script>
-            @endif 
-
-            <!-- Modal -->
-            <div class="modal fade" id="nocleaner-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">No Cleaner Availble</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form action="{{ route('newDate') }}" method="post" >
-                                    @if(Session::get('success'))
-                                        <div class="alert alert-success">
-                                            {{ Session::get('success') }}
-                                        </div>
-                                    @endif
-
-                                    @if(Session::get('fail'))
-                                        <div class="alert alert-danger">
-                                            {{ Session::get('fail') }}
-                                        </div>
-                                    @endif
-
-                                    @csrf
-                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                    
-                                    <h3> Sorry for the Inconvenience </h3>
-                                    <h5> Your Booking that is Schedule for 
-                                    {{ date('F d, Y', strtotime($value->schedule_date)) }} at {{ date('h:i A', strtotime($value->schedule_time)) }} 
-                                    with the Booking ID - {{$value->booking_id}} is NO CLEANER AVAILABLE. </h5>
-                                    <h5> Please choose other date and time. Thank you! </h5> 
-                                    <h4 class="place-type"> Schedule: </h4>   
-                                    <div class="place"> 
-                                    <label for="appt">
-                                       Date:
-                                    </label>
-                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
-                                    <br>
-
-                                    <label for="appt" class="place-type">
-                                        Time:
-                                    </label>
-                                    <input class="timepicker form-control" type="text" name="schedule_time" >
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
-                                            CANCEL
-                                        </button>
-                                        <button type="submit" class="btn btn-block btn-primary yes_btn" > 
-                                            CHOOSE NEW SCHEDULE
-                                        </button>
-                                    </div>
-                                    </form>
-                                    </div>
-                                </div>
-                            </div>
-
+            
                         <div class="modal fade" id="exampleModalLong10-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content p-4 customer_trans_modal_content"> <!-- Modal Content -->
@@ -320,7 +257,70 @@
                                                     </div> <!-- End of Modal Content -->
                                                 </div>
                                             </div> <!-- End of Modal -->
-                                            
+                                            @if ($value->status == 'No-Available-Cleaner')
+                <script>
+                    $('#nocleaner-{{ $value->booking_id }}').modal('show');
+                </script>
+            @endif 
+
+            <!-- Modal -->
+            <div class="modal fade" id="nocleaner-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">No Cleaner Availble</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{ route('newDate') }}" method="post" >
+                                    @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
+
+                                    @csrf
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                    
+                                    <h3> Sorry for the Inconvenience </h3>
+                                    <h5> Your Booking that is Schedule for 
+                                    {{ date('F d, Y', strtotime($value->schedule_date)) }} at {{ date('h:i A', strtotime($value->schedule_time)) }} 
+                                    with the Booking ID - {{$value->booking_id}} is NO CLEANER AVAILABLE. </h5>
+                                    <h5> Please choose other date and time. Thank you! </h5> 
+                                    <h4 class="place-type"> Schedule: </h4>   
+                                    <div class="place"> 
+                                    <label for="appt">
+                                       Date:
+                                    </label>
+                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
+                                    <br>
+
+                                    <label for="appt" class="place-type">
+                                        Time:
+                                    </label>
+                                    <input class="timepicker form-control" type="text" name="schedule_time" >
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
+                                            CANCEL
+                                        </button>
+                                        <button type="submit" class="btn btn-block btn-primary yes_btn" > 
+                                            CHOOSE NEW SCHEDULE
+                                        </button>
+                                    </div>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+
                                            
                                            
                                
