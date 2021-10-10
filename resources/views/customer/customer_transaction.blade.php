@@ -102,13 +102,7 @@
                                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
                                             DETAILS
                                         </button>
-                                        @if($value->status == "Pending" && $value->is_paid == false && $value->mode_of_payment == 'Paypal') 
-                                        <button type="button" class="btn btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
-                                            Pay 
-                                        </button>
                                         
-                                        @endif
-                                        <div id="paypal-button-container"></div>
                                         @if($value->status == "Done" && $reviews != 0 )               
                                         <button type="button" class="btn btn-primary rate_btn" onclick="document.location='{{ route('customer_rating', $value->booking_id) }}'"> 
                                             Rate 
@@ -270,6 +264,14 @@
                                                 CANCEL
                                             </button>
                                         @endif
+                                        @if($value->status == "Pending" && $value->is_paid == false && $value->mode_of_payment == 'Paypal') 
+                                        <!--
+                                        <button type="button" class="btn btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
+                                            Pay 
+                                        </button> -->
+                                        <div id="paypal-button-container"></div>
+                                        @endif
+                                        
                                         @if($value->status == "No-Available-Cleaner") 
                                             <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-toggle="modal" data-target="#nocleaner-{{ $value->booking_id }}" >
                                                 CHOOSE NEW SCHEDULE
@@ -318,7 +320,10 @@
                                                     </div> <!-- End of Modal Content -->
                                                 </div>
                                             </div> <!-- End of Modal -->
-
+                                            
+                                           
+                                           
+                               
         <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0&currency=PHP&locale=en_PH"></script>
         <script>
         paypal.Buttons({
@@ -369,13 +374,12 @@
         }).render('#paypal-button-container');
         //This function displays Smart Payment Buttons on your web page.
         </script>
-                                           
-                @endforeach
-                @endforeach
-        </div>
         @endforeach
+             @endforeach
+        </div>
     </div>
-
+       @endforeach
+     </div>
 
     <?php
         $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();

@@ -41,7 +41,7 @@
         ?>
         @else
         <?php
-            $booking_data = Booking::Where('booking_id', $booking->booking_id )->Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->orwhere('status', 'Cleaner-no-response')->orderBy('updated_at','DESC')->get();
+            $booking_data = Booking::Where('booking_id', $booking->booking_id )->Where('status', 'Completed' )->orWhere('status', 'Cancelled' )->orWhere('status', 'Done' )->orwhere('status', 'Cleaner-no-response')->orderBy('updated_at','DESC')->get();
         ?>
         @endif
         @foreach($booking_data as $key => $value)

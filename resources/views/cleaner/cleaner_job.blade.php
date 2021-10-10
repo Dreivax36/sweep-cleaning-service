@@ -36,7 +36,7 @@
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <?php
-            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->orWhere('status', 'On-the-Way')->orWhere('status', 'Done')->orderBy('updated_at','DESC')->get();
+            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->orWhere('status', 'On-the-Way')->orderBy('updated_at','DESC')->get();
         ?>
         @foreach($booking_data as $key => $value)
         @if($booking->booking_id == $value->booking_id)
