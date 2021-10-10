@@ -88,7 +88,7 @@
                                                 Price:
                                             </th>
                                             <td class="user_table_data">
-                                                P{{ $price_data->price }}
+                                                ₱{{ $price_data->price }}
                                             </td>
                                         </tr>
                                         
@@ -106,7 +106,9 @@
                                         <button type="button" class="btn btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
                                             Pay 
                                         </button>
+                                        
                                         @endif
+                                        <div id="paypal-button-container"></div>
                                         @if($value->status == "Done" && $reviews != 0 )               
                                         <button type="button" class="btn btn-primary rate_btn" onclick="document.location='{{ route('customer_rating', $value->booking_id) }}'"> 
                                             Rate 
@@ -116,6 +118,71 @@
                                 </div>
                   </div>
             </div>
+
+            @if ($value->status == 'No-Available-Cleaner')
+                <script>
+                    $('#nocleaner-{{ $value->booking_id }}').modal('show');
+                </script>
+            @endif 
+
+            <!-- Modal -->
+            <div class="modal fade" id="nocleaner-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">No Cleaner Availble</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{ route('onsitePay') }}" method="post" >
+                                    @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
+
+                                    @csrf
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                    
+                                    <h3> Sorry for the Inconvenience </h3>
+                                    <h5> Your Booking that is Schedule for 
+                                    {{ date('F d, Y', strtotime($value->schedule_date)) }} at {{ date('h:i A', strtotime($value->schedule_time)) }} 
+                                    with the Booking ID - {{$value->booking_id}} is NO CLEANER AVAILABLE. </h5>
+                                    <h5> Please choose other date and time. Thank you! </h5> 
+                                    <h4 class="place-type"> Schedule: </h4>   
+                                    <div class="place"> 
+                                    <label for="appt">
+                                       Date:
+                                    </label>
+                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
+                                    <br>
+
+                                    <label for="appt" class="place-type">
+                                        Time:
+                                    </label>
+                                    <input class="timepicker form-control" type="text" name="schedule_time" >
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
+                                            CANCEL
+                                        </button>
+                                        <button type="submit" class="btn btn-block btn-primary yes_btn" > 
+                                            CHOOSE NEW SCHEDULE
+                                        </button>
+                                    </div>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+
                         <div class="modal fade" id="exampleModalLong10-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content p-4 customer_trans_modal_content"> <!-- Modal Content -->
@@ -129,7 +196,7 @@
                                                     {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                                 </h6>
                                                 <h6 class="customer_trans_modal_amount_1">
-                                                    Total Amount: P{{ $price_data->price }}
+                                                    Total Amount: ₱{{ $price_data->price }}
                                                 </h6>
                                             </div>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -203,6 +270,11 @@
                                                 CANCEL
                                             </button>
                                         @endif
+                                        @if($value->status == "No-Available-Cleaner") 
+                                            <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-toggle="modal" data-target="#nocleaner-{{ $value->booking_id }}" >
+                                                CHOOSE NEW SCHEDULE
+                                            </button>
+                                        @endif
                                         </div>
                                 </div> <!-- End of Modal Content --> 
                             </div>
@@ -246,12 +318,114 @@
                                                     </div> <!-- End of Modal Content -->
                                                 </div>
                                             </div> <!-- End of Modal -->
-                    @endforeach
+
+        <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0"></script>
+        <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+            // This function sets up the details of the transaction, including the amount and line item details.
+            return actions.order.create({
+                purchase_units: [{
+                amount: {
+                    value: '{{ $price_data->price }}'
+                }
+                }]
+            });
+            },
+            onApprove: function(data, actions) {
+            // This function captures the funds from the transaction.
+            return actions.order.capture().then(function(details) {
+                // This function shows a transaction success message to your buyer.
+
+                var booking_id = '{{$value->booking_id}}';
+                $.ajax({
+                    method: "POST",
+                    url: "/paypal.checkout",
+                    data: {
+                        'booking_id': booking_id
+                    },
+                    success: function (responseb) {
+                        swal(responseb.status);
+                        window.location.href = "/customer/customer_transaction";
+                    }
+                });
+            });
+            }
+        }).render('#paypal-button-container');
+        //This function displays Smart Payment Buttons on your web page.
+        </script>
+                                           
+                @endforeach
                 @endforeach
         </div>
-    @endforeach
+        @endforeach
     </div>
-    <div class="footer">
+
+
+    <?php
+        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
+        $items = array();
+        $count = 0;
+    ?>
+    @if ($scheduledate != null)
+    @foreach($scheduledate as $schedule)
+    <?php
+        $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
+        if($scheduleCount == 5){
+            $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
+        }
+    ?>
+    @endforeach
+        <script >
+    var fakeDisabledTimes = <?php echo json_encode($items); ?>;
+
+$(document).ready(function(){
+  $( ".datepickerListAppointments" ).datepicker({
+    minDate:+1,
+    onSelect : function(dateText){
+      //should disable/enable timepicker times from here!
+      // parse selected date into moment object
+      var selDate = moment(dateText, 'MM/DD/YYYY');
+      // init array of disabled times
+      var disabledTimes = [];
+      // for each appoinment returned by the server
+      for(var i=0; i<fakeDisabledTimes.length; i++){
+        // parse appoinment datetime into moment object
+        var m = moment(fakeDisabledTimes[i]);
+        // check if appointment is in the selected day
+        if( selDate.isSame(m, 'day') ){
+          // create a 30 minutes range of disabled time
+          var entry = [
+            m.format('h:mm a'),
+            m.clone().add(90, 'm').format('h:mm a')
+          ];
+          // add the range to disabled times array
+          disabledTimes.push(entry);
+        }
+      }
+      // dinamically update disableTimeRanges option
+      $('input.timepicker').timepicker('option', 'disableTimeRanges', disabledTimes);
+    }
+  });
+
+  $('input.timepicker').timepicker({
+    timeFormat: 'h:i a',
+    interval: 90,
+    minTime: '9',
+    maxTime: '4:00pm',
+    defaultTime: '9',
+    startTime: '9:00',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: false                
+  });
+
+});
+</script>
+    
+@endif
+
+<div class="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.
         </div>

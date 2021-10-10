@@ -219,4 +219,31 @@ class BookingController extends Controller
         }
         return redirect()->route('customer.customer_transaction');
     }
+
+    function onsitePay(Request $request){
+        
+        $payments = new Payment();
+        $payments->booking_id = $request->booking_id;
+        $payments->amount = $request->amount; 
+        $onsitePay = $payments->save();
+
+        if($onsitePay){
+           return back()->with('success', 'Booking Status Updated');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+
+    function newDate(Request $request){
+        
+        $newDate= Booking::Where('booking_id', $request->booking_id )->update(['schedule_date' => $request->schedule_date, 'schedule_time' => $request->schedule_time ]);
+
+        if($newDate){
+           return back()->with('success', 'Booking Status Updated');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
 }

@@ -678,7 +678,7 @@ body {
     color: #FB8500;
 }
 .service_status {
-    padding-left: 47px;
+    float: right;
     margin-top: 5px;
     font-size: 18px;
 }
@@ -848,3 +848,8 @@ body {
     font-weight: bold;
     padding: 5px;
 }
+
+.dropdown-menu {
+    max-height:200px;
+    overflow:scroll; 
+ }

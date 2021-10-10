@@ -94,6 +94,7 @@ Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->na
 Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
 Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pay'])->name('customer_pay');
 Route::get('/customer/customer_rating/{id}',[BookingController::class, 'customer_rating'])->name('customer_rating');
+Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
@@ -104,6 +105,7 @@ Route::get('/customer/customer_rating/{id}',[BookingController::class, 'customer
     Route::post('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
     Route::get('/cleaner/cleaner_map',[BookingController::class, 'cleaner_map'])->name('cleaner.cleaner_map');
     Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
+    Route::post('/onsitePay',[BookingController::class, 'onsitePay'])->name('onsitePay');
 
     //Payment Paypal
     Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');

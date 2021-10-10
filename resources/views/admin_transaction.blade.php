@@ -84,8 +84,8 @@
         </div>
     </div>
     <?php
-        $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orderBy('updated_at','DESC')->get();
-        $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
+        $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orderBy('updated_at','DESC')->get();
+        $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
         $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
     <div class="row user_btn_con"> <!-- Sub Header -->  
@@ -112,7 +112,6 @@
         $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
         $user_data = User::Where('user_id', $userId )->get();
         $address = Address::Where('customer_id', $value->customer_id )->value('address');
-        $pending = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
     ?>
             <div class="column col_transaction" id="card-lists">
                 <div class="card card_transaction p-4">
@@ -122,11 +121,22 @@
                         <h3 class="card-title  service_title_trans">
                             {{ $data->service_name }}
                         </h3>
+                        <?php
+                           $numberOfCleaner = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->value('number_of_cleaner');
+                           $pending = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
+                           $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
+                        ?>
                         <h5 class="service_status">
-                            @if($pending == 0)
-                                {{ $value->status }}
+                            @if($value->status == 'Pending')
+                                @if ($pending == 0)
+                                    {{ $value->status }}
+                                @else
+                                    Waiting for Cleaner Acceptance
+                                @endif    
+                            @elseif($numberOfCleaner == $accept) 
+                                Accepted by Cleaner
                             @else
-                                Waiting for Cleaner Acceptance
+                                {{ $value->status }}
                             @endif
                         </h5>
                     </div>
@@ -251,7 +261,7 @@
                                                 <b>Status:</b> {{ $value->status }}
                                             </li>
                                             <li class="list_booking_info">
-                                                <b>Price:</b> P{{ $price_data->price }}
+                                                <b>Price:</b> ₱{{ $price_data->price }}
                                             </li>
                                             <br>
                                             <li>
@@ -300,10 +310,17 @@
                                     $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
                                     $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                                     $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->count();
-                                    $pendingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
+                                    $pendingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count(); 
+                                    $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
+                               
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
+                                    @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner && (strtotime($value->created_at) > strtotime("-1 hour")))
+                                        <button  type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="No-Available-Cleaner">
+                                            NO AVAILABLE CLEANER
+                                        </button>
+                                    @endif
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary accept_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
@@ -319,11 +336,17 @@
                                         </button>
                                     @endif
                                     <?php
+                                        $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
                                         $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
                                         $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
                                         $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                                     ?>
-                                    @if($value->status == "Accepted" && $statusOnProgress == $price_data->number_of_cleaner )
+                                    @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
+                                    <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way" >
+                                        ON-THE-WAY
+                                    </button>    
+                                     @endif
+                                    @if($value->status == "On-the-Way" && $statusOnProgress == $price_data->number_of_cleaner )
                                     <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                              ON-PROGRESS
                                          </button>    

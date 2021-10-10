@@ -281,7 +281,7 @@
                                                 <b>{{ $value->property_type }}</b>
                                             </li>
                                             <li>
-                                                <b>Price:</b> {{ $value->price }}
+                                                <b>Price:</b> ₱{{ $value->price }}
                                             </li>
                                             <li>
                                                 <b>Cleaners:</b> {{ $value->number_of_cleaner }}

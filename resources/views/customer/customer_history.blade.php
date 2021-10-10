@@ -87,7 +87,7 @@
                                                 Price:
                                             </th>
                                             <td class="user_table_data">
-                                                P{{ $price_data->price }}
+                                                ₱{{ $price_data->price }}
                                             </td>
                                         </tr>
                                         
@@ -115,7 +115,7 @@
                                                     {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                                 </h6>
                                                 <h6 class="customer_trans_modal_amount_1">
-                                                    Total Amount: P{{ $price_data->price }}
+                                                    Total Amount: ₱{{ $price_data->price }}
                                                 </h6>
                                             </div>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>

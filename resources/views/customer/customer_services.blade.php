@@ -82,7 +82,7 @@ use App\Models\Service_review;
                                     <div class="row pricing">
                                         <div class="col-md-6 col-sm-6 price1">
                                             <h3 class="price">
-                                                P{{ $price_start }}
+                                            ₱{{ $price_start }}
                                             </h3>
                                         </div>
                                         <div class="col-md-6 col-sm-6 book">
@@ -113,7 +113,7 @@ use App\Models\Service_review;
                                             {{ $value->service_name }}
                                         </h4>
                                         <h6 class="customer_services_sub_1">
-                                            Price starts at P{{ $price_start }} - P{{ $price_end }}
+                                            Price starts at ₱{{ $price_start }} - ₱{{ $price_end }}
                                         </h6>
                                         <div>
                                         <?php
@@ -166,7 +166,7 @@ use App\Models\Service_review;
                                                     @foreach($price_data as $key => $data)
                                                     <b>{{ $data->property_type }}</b>
                                                     <br>
-                                                    <b>Price:</b> {{ $data->price }}
+                                                    <b>Price:</b> ₱{{ $data->price }}
                                                     <br>
                                                     <b>Cleaners:</b> {{ $data->number_of_cleaner }}
                                                     @endforeach

@@ -148,7 +148,7 @@
                     {{ $value -> property_type }}
                     </td>
                     <td class="user_table_data">
-                        P{{ $price_data -> price }}
+                     ₱{{ $price_data -> price }}
                     </td>
                     <td class="user_table_data">
                         {{ $value -> mode_of_payment }}

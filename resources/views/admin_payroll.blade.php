@@ -130,8 +130,8 @@
                     <tr class="user_table_row">
                         <td class="user_table_data">{{ $fullname }}</td>
                         <td class="user_table_data">{{ $totalJob }}</td>
-                        <td class="user_table_data">{{ number_format((float)$total, 2, '.', '')}}</td>
-                        <td class="user_table_data">{{ number_format((float)$totalSalary, 2, '.', '')}}</td>
+                        <td class="user_table_data">₱{{ number_format((float)$total, 2, '.', '')}}</td>
+                        <td class="user_table_data">₱{{ number_format((float)$totalSalary, 2, '.', '')}}</td>
                     </tr>
                 @endforeach 
                 </tbody>

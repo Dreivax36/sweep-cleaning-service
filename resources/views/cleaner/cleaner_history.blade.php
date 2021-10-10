@@ -79,7 +79,7 @@
                             
                              @foreach($price as $key => $price_data)
                             <h6 class="cleaner_job_price_1">
-                                P{{ $price_data->price }}
+                                ₱{{ $price_data->price }}
                             </h6>
                             <div class="d-flex view_details_con">
                                 <button type="button" class="btn btn-link cleaner_view_details_btn" data-toggle="modal" data-target="#exampleModalLong10-{{$value->booking_id}}">
@@ -105,7 +105,7 @@
                                                                 {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                                             </h6>
                                                             <h6 class="cleaner_job_modal_amount_1">
-                                                                Total Amount: P{{ $price_data->price }}
+                                                                Total Amount: ₱{{ $price_data->price }}
                                                             </h6>
                                                         </div>
                                                     </div>

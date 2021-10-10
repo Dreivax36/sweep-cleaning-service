@@ -27,7 +27,7 @@
     </div>
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' , '!=' , 'Declined')->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status' , '!=' , 'Declined')->where('status', 'Time-Limit-Reach')->get();
     ?>
     
     <div class="cleaner_job_con">
@@ -36,7 +36,7 @@
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <?php
-            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->orderBy('updated_at','DESC')->get();
+            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->orWhere('status', 'On-the-Way')->orWhere('status', 'Done')->orderBy('updated_at','DESC')->get();
         ?>
         @foreach($booking_data as $key => $value)
         @if($booking->booking_id == $value->booking_id)
@@ -46,7 +46,13 @@
             $user_data = User::Where('user_id', $userID)->get();
             $address = Address::Where('customer_id', $value->customer_id )->value('address');
             $price = Price::Where('property_type', $value->property_type )-> Where('service_id', $value->service_id )->get();       
+            $created_at = Assigned_cleaner::Where('booking_id',  $value->booking_id)->get();
         ?>
+        @if (strtotime($created_at) > strtotime("-30 minutes"))
+            <?php 
+                Assigned_cleaner::Where('booking_id', $request->booking_id )->update(['status' => 'Cleaner-no-response']);
+            ?>
+        @endif
             <div class="column col_cleaner_job">
                 <div class="card p-4 card_cleaner_job">
                     <div class="d-flex">
@@ -65,7 +71,7 @@
                             
                             @foreach($price as $key => $price_data)
                             <h6 class="cleaner_job_price_1">
-                                P{{ $price_data->price }}
+                                ₱{{ $price_data->price }}
                             </h6>
                         
                     
@@ -93,7 +99,7 @@
                                                             {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                                         </h6>
                                                         <h6 class="cleaner_job_modal_amount_1">
-                                                            Total Amount: P{{ $price_data->price }}
+                                                            Total Amount: ₱{{ $price_data->price }}
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -188,21 +194,76 @@
                                                             </button> 
                                                         @endif   
                                                             @if($value->status == "Accepted" )
+                                                            <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way" >
+                                                                ON-THE-WAY
+                                                            </button>    
+                                                            @endif  
+                                                            @if($value->status == "On-the-Way" )
                                                             <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                                                 ON-PROGRESS
                                                             </button>    
-                                                            @endif    
+                                                            @endif   
                                                             @if($value->status == "On-Progress")
                                                             <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                                                 CLEANING COMPLETE
                                                             </button> 
+                                                            @endif 
+                                                            @if($value->status == "Done" && $value->mode_of_payment == "On-site")
+                                                            <button type="button" class="btn btn-block btn-primary on_progress_btn" data-toggle="modal" data-dismiss="modal" data-target="#pay-{{ $value->booking_id }}">
+                                                                PAY
+                                                            </button>
                                                             @endif   
                                                 </div> 
                                                 </form>
                                             </div><!-- End of Modal Content -->
-                                            </div> 
-                                </div>
+                                        </div> 
+                                    </div>
                                 </div><!-- End of Modal --> 
+                                <!-- Modal -->
+                                <div class="modal fade" id="pay-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">On Site Payment</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{ route('onsitePay') }}" method="post" >
+                                    @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
+
+                                    @csrf
+                                    <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                    
+                                    <div class="form-group">
+                                        <input type="text" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="Amount" value="{{ old('amount') }}">
+                                        <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
+                                    </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
+                                            CANCEL
+                                        </button>
+                                        <button type="submit" class="btn btn-block btn-primary yes_btn" > 
+                                            PAY
+                                        </button>
+                                    </div>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
             @endif
             @endforeach 
             @endforeach 
