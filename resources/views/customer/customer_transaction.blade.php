@@ -7,7 +7,6 @@
     use App\Models\Cleaner;
     use App\Models\Assigned_cleaner;
     use App\Models\Review;
-    use App\Models\Payment;
 ?>
 
 @extends('customer/customer-nav/head_extention_customer-transactions') 
@@ -350,15 +349,22 @@
                 // This function captures the funds from the transaction.
                 return actions.order.capture().then(function(details) {
                 // This function shows a transaction success message to your buyer.
-                <?php 
-                    $id = '<script>document.writeln(details.id);</script>';
-                    $payments = new Payment();
-                    $payments->booking_id = $value->booking_id;
-                    $payments->amount = $price_data->price;
-                    $checkout = $payments->save();
-                    $checkout= Booking::Where('booking_id', $booking_id )->update(['is_paid' => true, 'paypal_id' => $id]);
-                ?>
-                    alert("Payment succcessful");
+                var booking_id = '{{$value->booking_id}}';
+                var amount  = '{{ $price_data->price }}';
+                $.ajax({
+                    method: "POST",
+                    url: "/checkout",
+                    data: {_token: CSRF_TOKEN,
+                        'booking_id': booking_id,
+                        'paypal_id': details.id,
+                        'amount': amount,
+                        'payment_mode':  'Paypal'
+                    },
+                    success: function (response) {
+                        swal(response.status);
+                        window.location.href = "/customer/customer_transaction";
+                    }
+                });
                 });
             },
             onCancel: function(data) {
