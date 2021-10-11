@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('profile_picture');
             $table->string('account_status');
             $table->string('user_type');
+            $table->date('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

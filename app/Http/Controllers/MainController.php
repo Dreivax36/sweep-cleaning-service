@@ -16,6 +16,7 @@ use App\Models\Identification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Notification;
+use App\Mail\SendMail;
 class MainController extends Controller
 {
     //Admin Pages
@@ -158,11 +159,31 @@ class MainController extends Controller
            $addresses->customer_id = $id;
            $customer_save = $addresses->save();
         
+           $id = $users->user_id;
+           $email = $users->email;
+
+           $details = [
+            'title' => 'Mail from Sweep Cleaning Service',
+            'user_id' => $id ,
+        ];
+
+        \Mail::to($email)->send(new \App\Mail\SendMail($details));
+
         if($customer_save){
             return back()->with('success', 'New User has been successfuly added to database');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+    function verify(Request $request){
+        $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
+        
+        if($verify){
+            redirect('customer/customer_login')->with('success', 'Email Verified');
+        }
+        else {
+            redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
         }
     }
     function customer_check(Request $request){

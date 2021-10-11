@@ -183,7 +183,7 @@
                             @if($value->account_status == "To_verify")
                             <div class="verify_con">
                                 <button class="btn btn-success" onclick="document.location='{{ route('update_account', $value->user_id) }}'">
-                                    VERIFY
+                                    APPROVE
                                 </button>
                             </div>
                             @endif

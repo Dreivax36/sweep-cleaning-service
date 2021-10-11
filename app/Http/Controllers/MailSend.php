@@ -12,10 +12,11 @@ class MailSend extends Controller
         $details = [
             'title' => 'Mail from Sweep Cleaning Service',
             'body' => 'Your account is now Verified.',
+            'user_id' => $id ,
         ];
 
         $email = User::Where('user_id', $request->route('id'))->value('email');
-        \Mail::to($email)->send(new \App\Mail\SendMail($details));
+        \Mail::to('lykacedroncasilao@gmail.com')->send(new \App\Mail\SendMail($details));
         $update = User::Where('user_id', $request->route('id'))->update(['account_status' => 'Verified']);
         $userType = User::Where('user_id', $request->route('id'))->value('user_type');
         if($userType == 'Customer'){

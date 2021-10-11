@@ -215,7 +215,7 @@
                                         <script>
                                             $('#exampleModalLong10-{{ $value->booking_id }}').modal('hide');
                                         </script>-->
-                                        <div id="paypal-button-container-{{ $value->booking_id }}"></div>
+                                        <div id="paypal-button-container"></div>
                                         @endif
                                         
                                         @if($value->status == "No-Available-Cleaner") 
@@ -376,8 +376,11 @@
             onCancel: function(data) {
                 alert("Payment cancelled");
             },
-            }).render('#paypal-button-container-{{ $value->booking_id }}');
-           
+            }).render({
+            style: {
+            size: 'responsive'
+            }
+            },'#paypal-button-container');
         </script>
        
        @endforeach
