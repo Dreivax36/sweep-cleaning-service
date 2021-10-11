@@ -105,7 +105,7 @@ Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
     Route::post('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
     Route::get('/cleaner/cleaner_map',[BookingController::class, 'cleaner_map'])->name('cleaner.cleaner_map');
     Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
-    Route::get('/checkout',[BookingController::class, 'checkout'])->name('/checkout');
+    Route::post('/checkout',[BookingController::class, 'checkout'])->name('/checkout');
 
     //Payment Paypal
     Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
