@@ -7,7 +7,6 @@
 </head>
 
 <body>
-  <h3> {{ $details['title'] }} </h3>
   <h2> Hello! </h2>
   <p> Please click the button below to verify your email address. Thank you!</p>
   <div class="d-flex justify-content-center">

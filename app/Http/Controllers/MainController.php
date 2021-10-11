@@ -180,10 +180,10 @@ class MainController extends Controller
         $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
         if($verify){
-            redirect('customer/customer_login')->with('success', 'Email Verified');
+            return redirect('customer/customer_login')->with('success', 'Email Verified');
         }
         else {
-            redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
+            return redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
         }
     }
     function customer_check(Request $request){
