@@ -17,6 +17,8 @@
     <title>
         Admin Transaction
     </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -407,7 +409,7 @@
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    <select name="cleaner_id[]" id="cleaner">
+                                                    <select name="cleaner_id[]" id="cleaner" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     @if($cleanerCount == 0) <!-- Booking does not exist in Assign Table -->
                                                         @if($cleanerSchedule == 0) <!-- Check if the booking have the no same Schedule -->
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
@@ -559,6 +561,13 @@
             @endif 
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+            closeOnSelect: false
+            });
+            });
+        </script>
     <footer id="footer">
     <div class="sweep-title">
         SWEEP © 2021. All Rights Reserved.
