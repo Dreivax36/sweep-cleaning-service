@@ -200,10 +200,7 @@
                                             </ul>
                                             </div>
                                         </div>
-                                        <?php 
-                                            $booking = $value->booking_id;
-                                            $amount = $price_data->price;
-                                        ?>
+                                        
                                         <div class="modal-footer customer_trans_modal_footer">
                                         @if($value->status != "On-Progress" && $value->status != "Done") 
                                             <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-toggle="modal" data-target="#canceltransaction-{{ $value->booking_id }}" >
@@ -218,7 +215,7 @@
                                         <script>
                                             $('#exampleModalLong10-{{ $value->booking_id }}').modal('hide');
                                         </script>-->
-                                        <div id="paypal-button-container"></div>
+                                        <div id="paypal-button-container-{{ $value->booking_id }}"></div>
                                         @endif
                                         
                                         @if($value->status == "No-Available-Cleaner") 
@@ -342,7 +339,7 @@
                 return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '{{ $price }}',
+                        value: '{{ $price_data->price }}',
                         currency_code: "PHP"
                     }
                 }],
@@ -356,8 +353,8 @@
                 // This function captures the funds from the transaction.
                 return actions.order.capture().then(function(details) {
                 // This function shows a transaction success message to your buyer.
-                var booking_id = '{{$booking}}';
-                var amount  = '{{ $price }}';
+                var booking_id = '{{$value->booking_id}}';
+                var amount  = '{{ $price_data->price }}';
                 //var CSRF_TOKEN = $
                 
                 $.ajax({
@@ -379,7 +376,7 @@
             onCancel: function(data) {
                 alert("Payment cancelled");
             },
-            }).render('#paypal-button-container');
+            }).render('#paypal-button-container-{{ $value->booking_id }}');
            
         </script>
        
