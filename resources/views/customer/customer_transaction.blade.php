@@ -199,8 +199,11 @@
                                                 @endif    
                                             </ul>
                                             </div>
-                                            
                                         </div>
+                                        <?php 
+                                            $booking = $value->booking_id;
+                                            $amount = $price_data->price;
+                                        ?>
                                         <div class="modal-footer customer_trans_modal_footer">
                                         @if($value->status != "On-Progress" && $value->status != "Done") 
                                             <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-toggle="modal" data-target="#canceltransaction-{{ $value->booking_id }}" >
@@ -215,8 +218,7 @@
                                         <script>
                                             $('#exampleModalLong10-{{ $value->booking_id }}').modal('hide');
                                         </script>-->
-                                        <div class="booking" value="{{$value->booking_id}}-{{$price_data->price}}"></div>
-                                        <div id="paypal-button-container" ></div>
+                                        <div id="paypal-button-container"></div>
                                         @endif
                                         
                                         @if($value->status == "No-Available-Cleaner") 
@@ -330,25 +332,17 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-             @endforeach
-        </div>
-        </div>
-       @endforeach
-     </div>
+
                                            
         <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0&currency=PHP&locale=en_PH"></script>
         <script>
-            var booking = $('.booking');
-            var booking_id = booking.Split('-')[0];
-            var amount = booking.Split('-')[1];
             paypal.Buttons({
             createOrder: function(data, actions) {
                 // This function sets up the details of the transaction, including the amount and line item details.
                 return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: amount,
+                        value: '{{ $price }}',
                         currency_code: "PHP"
                     }
                 }],
@@ -362,7 +356,8 @@
                 // This function captures the funds from the transaction.
                 return actions.order.capture().then(function(details) {
                 // This function shows a transaction success message to your buyer.
-           
+                var booking_id = '{{$booking}}';
+                var amount  = '{{ $price }}';
                 //var CSRF_TOKEN = $
                 
                 $.ajax({
@@ -388,7 +383,12 @@
            
         </script>
        
-
+       @endforeach
+             @endforeach
+        </div>
+        </div>
+       @endforeach
+     </div>
     <?php
         $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
         $items = array();
