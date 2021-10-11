@@ -18,6 +18,7 @@ use App\Post;
 use App\Notifications\NotifyUser;
 use Carbon\Carbon;
 use App\Models\Notification;
+use App\Models\Payment;
 
 class BookingController extends Controller
 {

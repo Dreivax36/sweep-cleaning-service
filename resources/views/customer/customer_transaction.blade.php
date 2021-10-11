@@ -206,6 +206,9 @@
                                         <button type="button" class="btn btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
                                             Pay 
                                         </button> -->
+                                        <script>
+                                            $('#exampleModalLong10-{{ $value->booking_id }}').modal('hide');
+                                        </script>
                                         <div id="paypal-button-container"></div>
                                         @endif
                                         
@@ -372,6 +375,7 @@
         </script>
         @endforeach
              @endforeach
+        </div>
         </div>
        @endforeach
      </div>
