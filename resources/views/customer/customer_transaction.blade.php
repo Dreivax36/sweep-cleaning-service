@@ -18,6 +18,11 @@
     <title>
         Customer Transaction Page
     </title>
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous">
+    </script>
 </head>
 <body>
     <div class="row head">
@@ -205,10 +210,10 @@
                                         <!--
                                         <button type="button" class="btn btn-primary pay_btn"  onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'"> 
                                             Pay 
-                                        </button> -->
+                                        </button> 
                                         <script>
                                             $('#exampleModalLong10-{{ $value->booking_id }}').modal('hide');
-                                        </script>
+                                        </script>-->
                                         <div id="paypal-button-container"></div>
                                         @endif
                                         
@@ -261,10 +266,10 @@
                                                 </div>
                                             </div> <!-- End of Modal -->
                                             @if ($value->status == 'No-Available-Cleaner')
-                <script>
-                    $('#nocleaner-{{ $value->booking_id }}').modal('show');
-                </script>
-            @endif 
+                                                <script>
+                                                    $('#nocleaner-{{ $value->booking_id }}').modal('show');
+                                                </script>
+                                            @endif 
 
             <!-- Modal -->
             <div class="modal fade" id="nocleaner-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -351,20 +356,22 @@
                 // This function shows a transaction success message to your buyer.
                 var booking_id = '{{$value->booking_id}}';
                 var amount  = '{{ $price_data->price }}';
+                //var CSRF_TOKEN = $
+                
                 $.ajax({
-                    method: "POST",
-                    url: "/checkout",
-                    data: {_token: CSRF_TOKEN,
+                    type: 'GET',
+                    url: "{{ route('checkout') }}",
+                    data: {
                         'booking_id': booking_id,
                         'paypal_id': details.id,
                         'amount': amount,
                         'payment_mode':  'Paypal'
                     },
                     success: function (response) {
-                        swal(response.status);
-                        window.location.href = "/customer/customer_transaction";
+                        window.location.href = "{{ url('/customer/customer_transaction') }}";
                     }
                 });
+                alert("Payment successful");
                 });
             },
             onCancel: function(data) {
