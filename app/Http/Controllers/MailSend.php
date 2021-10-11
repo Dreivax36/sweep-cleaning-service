@@ -12,7 +12,7 @@ class MailSend extends Controller
         $details = [
             'title' => 'Mail from Sweep Cleaning Service',
             'body' => 'Your account is now Verified.',
-            'user_id' => $id ,
+            'user_id' => $request->route('id') ,
         ];
 
         $email = User::Where('user_id', $request->route('id'))->value('email');
