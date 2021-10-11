@@ -215,7 +215,8 @@
                                         <script>
                                             $('#exampleModalLong10-{{ $value->booking_id }}').modal('hide');
                                         </script>-->
-                                        <div id="paypal-button-container" class="booking" value="{{$value->booking_id}}-{{$price_data->price}}"></div>
+                                        <div class="booking" value="{{$value->booking_id}}-{{$price_data->price}}"></div>
+                                        <div id="paypal-button-container" ></div>
                                         @endif
                                         
                                         @if($value->status == "No-Available-Cleaner") 
