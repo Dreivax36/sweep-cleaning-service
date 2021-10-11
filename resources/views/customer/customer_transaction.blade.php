@@ -199,6 +199,8 @@
                                                 @endif    
                                             </ul>
                                             </div>
+                                            <input type="hidden" name="booking" value="{{$value->booking_id}}">
+                                            <input type="hidden" name="price" value="{{ $price_data->price }}">
                                         </div>
                                         <div class="modal-footer customer_trans_modal_footer">
                                         @if($value->status != "On-Progress" && $value->status != "Done") 
@@ -214,6 +216,7 @@
                                         <script>
                                             $('#exampleModalLong10-{{ $value->booking_id }}').modal('hide');
                                         </script>-->
+                                        
                                         <div id="paypal-button-container"></div>
                                         @endif
                                         
@@ -224,54 +227,6 @@
                                         @endif
                                         </div>
                                 </div> <!-- End of Modal Content --> 
-                                <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0&currency=PHP&locale=en_PH"></script>
-                                        <script>
-                                            paypal.Buttons({
-                                            createOrder: function(data, actions) {
-                                                // This function sets up the details of the transaction, including the amount and line item details.
-                                                return actions.order.create({
-                                                purchase_units: [{
-                                                    amount: {
-                                                        value: '{{ $price_data->price }}',
-                                                        currency_code: "PHP"
-                                                    }
-                                                }],
-                                                application_context: {
-                                                    brand_name: 'Sweep',
-                                                    shipping_preference: 'NO_SHIPPING'
-                                                }
-                                                });
-                                            },
-                                            onApprove: function(data, actions) {
-                                                // This function captures the funds from the transaction.
-                                                return actions.order.capture().then(function(details) {
-                                                // This function shows a transaction success message to your buyer.
-                                                var booking_id = '{{$value->booking_id}}';
-                                                var amount  = '{{ $price_data->price }}';
-                                                //var CSRF_TOKEN = $
-                                                
-                                                $.ajax({
-                                                    type: 'GET',
-                                                    url: "{{ route('checkout') }}",
-                                                    data: {
-                                                        'booking_id': booking_id,
-                                                        'paypal_id': details.id,
-                                                        'amount': amount,
-                                                        'payment_mode':  'Paypal'
-                                                    },
-                                                    success: function (response) {
-                                                        window.location.href = "{{ url('/customer/customer_transaction') }}";
-                                                    }
-                                                });
-                                                alert("Payment successful");
-                                                });
-                                            },
-                                            onCancel: function(data) {
-                                                alert("Payment cancelled");
-                                            },
-                                            }).render('#paypal-button-container');
-                                        
-                                        </script>
                             </div>
                         </div> <!-- End of Modal -->
                                             <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal -->
@@ -376,14 +331,63 @@
                                     </div>
                                 </div>
                             </div>
-
-                                           
-        @endforeach
+                            @endforeach
              @endforeach
         </div>
         </div>
        @endforeach
      </div>
+                                           
+        <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0&currency=PHP&locale=en_PH"></script>
+        <script>
+            var booking_id = $('input[name="booking"]');
+            var amount = $('input[name="price"]');
+            paypal.Buttons({
+            createOrder: function(data, actions) {
+                // This function sets up the details of the transaction, including the amount and line item details.
+                return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: amount,
+                        currency_code: "PHP"
+                    }
+                }],
+                application_context: {
+                     brand_name: 'Sweep',
+                    shipping_preference: 'NO_SHIPPING'
+                }
+                });
+            },
+            onApprove: function(data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function(details) {
+                // This function shows a transaction success message to your buyer.
+
+                //var CSRF_TOKEN = $
+                
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('checkout') }}",
+                    data: {
+                        'booking_id': booking_id,
+                        'paypal_id': details.id,
+                        'amount': amount,
+                        'payment_mode':  'Paypal'
+                    },
+                    success: function (response) {
+                        window.location.href = "{{ url('/customer/customer_transaction') }}";
+                    }
+                });
+                alert("Payment successful");
+                });
+            },
+            onCancel: function(data) {
+                alert("Payment cancelled");
+            },
+            }).render('#paypal-button-container');
+           
+        </script>
+       
 
     <?php
         $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
