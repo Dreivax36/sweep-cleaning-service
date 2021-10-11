@@ -10,14 +10,13 @@ class MailSend extends Controller
 {
     public function mailsend(Request $request){
         $details = [
-            'title' => 'Mail from Sweep Cleaning Service',
-            'body' => 'Your account is now Verified.',
-            'user_id' => $request->route('id') ,
+            'title' => 'Good day!',
+            'body' => 'Your account is now Approved.',
         ];
 
         $email = User::Where('user_id', $request->route('id'))->value('email');
-        \Mail::to('lykacedroncasilao@gmail.com')->send(new \App\Mail\SendMail($details));
-        $update = User::Where('user_id', $request->route('id'))->update(['account_status' => 'Verified']);
+        \Mail::to('lykacedroncasilao@gmail.com')->send(new \App\Mail\SendMailApprove($details));
+        $update = User::Where('user_id', $request->route('id'))->update(['account_status' => 'Approved']);
         $userType = User::Where('user_id', $request->route('id'))->value('user_type');
         if($userType == 'Customer'){
             return redirect()->route('admin_user_customer');

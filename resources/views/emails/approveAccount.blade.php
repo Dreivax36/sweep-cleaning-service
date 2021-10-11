@@ -10,6 +10,9 @@
   <h3> {{ $details['title'] }} </h3>
   <p> {{ $details['body'] }} </p>
   <p> Thank you! </p>
+  <br>
+  <p> Regards,</p>
+  <p> Sweep Cleaning Service Team </p>
 </body>
 
 </html>

@@ -161,10 +161,12 @@ class MainController extends Controller
         
            $id = $users->user_id;
            $email = $users->email;
+    
 
            $details = [
             'title' => 'Mail from Sweep Cleaning Service',
             'user_id' => $id ,
+            'user_type' => 'Customer',
         ];
 
         \Mail::to($email)->send(new \App\Mail\SendMail($details));
@@ -177,6 +179,16 @@ class MainController extends Controller
         }
     }
     function verify(Request $request){
+        $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
+        
+        if($verify){
+            return redirect('customer/customer_login')->with('success', 'Email Verified');
+        }
+        else {
+            return redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
+        }
+    }
+    function verify_cleaner(Request $request){
         $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
         if($verify){
@@ -328,6 +340,18 @@ class MainController extends Controller
              $clearances->requirement = $require;
              $clearances->description = $request->description;
              $cleaner_save = $clearances->save();
+
+
+             $id = $users->user_id;
+           $email = $users->email;
+
+             $details = [
+                'title' => 'Mail from Sweep Cleaning Service',
+                'user_id' => $id ,
+                'user_type' => 'Cleaner',
+            ];
+    
+            \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
             if($cleaner_save){
                 return back()->with('success', 'New User has been successfuly added to database');
