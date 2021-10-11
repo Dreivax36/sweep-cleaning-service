@@ -228,7 +228,7 @@ class BookingController extends Controller
         $payments->amount = $request->amount; 
         $checkout = $payments->save();
 
-        if($request->mode_of_payment == 'Paypal'){
+        if($request->payment_mode == 'Paypal'){
             $checkout= Booking::Where('booking_id', $booking_id )->update(['is_paid' => true, 'paypal_id' => $request->paypal_id]);
         }
         else{
