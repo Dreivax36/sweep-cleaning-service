@@ -35,13 +35,17 @@
     <div class="row justify-content-center">
         <div class="main_profile_con">
             <div class="checkout-summary">
-            <h1>
+            <button type="button" class="close-mobile" data-dismiss="modal" onclick="document.location='{{ route('customer.customer_transaction') }}'">
+                <i class="fas fa-arrow-to-left"></i>Back
+            </button>
+            <br>
+            <h2>
                 Payment Summary
-            </h1>
+            </h2>
           
-            <h3 class="modal_customer_services_title">
+            <h4 class="modal_customer_services_title">
                 {{$serviceName}}
-            </h3>
+            </h4>
             <h6 class="customer_services_trans">
                 Transaction ID: {{$value->booking_id}}
             </h6>
@@ -124,10 +128,12 @@
                     }
                 });
                 alert("Payment successful");
+                window.location.href = "{{ url('/customer/customer_transaction') }}";
                 });
             },
             onCancel: function(data) {
                 alert("Payment cancelled");
+                window.location.href = "{{ url('/customer/customer_transaction') }}";
             },
             }).render('#paypal-button-container');
         </script>
@@ -135,5 +141,6 @@
     <div class="mobile-spacer">
 
     </div>
+    
 </body>
 @endsection

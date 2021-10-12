@@ -94,9 +94,10 @@ use Illuminate\Http\Request;
             $userID = Cleaner::where('cleaner_id', $cleaners->cleaner_id)->value('user_id');
             $fullname = User::where('user_id', $userID)->value('full_name');
             ?>
-            <h4 class="customer_rating_title">
+            <br>
+            <h5 class="customer_rating_title">
                 {{$fullname}}:
-            </h4>
+            </h5>
             <input type="hidden" name="cleaner_id[]" value="{{$cleaners->cleaner_id}}">
         <fieldset class="rating">
             <input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="5" /><label class="full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
@@ -117,14 +118,13 @@ use Illuminate\Http\Request;
         @endforeach
         </div>
         </div>
-        </div>
-        
         <div class="customer_services_modal_footer">
             <button type="submit" class="btn btn-block btn-primary confirm_btn">
                 SUBMIT
             </button>
         </div>
     </form>
+    </div>
     </div>
     
     @endforeach
