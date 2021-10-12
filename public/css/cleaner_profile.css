@@ -1,4 +1,3 @@
-
 /* Cleaner Profile Page */
 
 .main_profile_con {
@@ -10,6 +9,7 @@
     background-color: #fff;
     border-radius: 20px;
 }
+
 .cleaner_profile_avatar_con {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     width: 13rem;
@@ -27,6 +27,7 @@
     align-items: center;
     text-align: center;
 }
+
 .cleaner_profile_name {
     color: #FFB703;
     font-weight: bold;
@@ -35,6 +36,7 @@
     align-items: center;
     text-align: center;
 }
+
 .cleaner_profile_info_con {
     width: 90%;
     height: 50px;
@@ -44,42 +46,84 @@
     outline: none;
     border-bottom: 2px solid #FFEDDF;
     background-color: #fff;
-    
 }
+
 .cleaner_profile_info {
     font-size: 15px;
     margin-top: 5px;
     background-color: #fff;
 }
+
 .update_btn_con {
     width: 120px;
     height: 60px;
 }
+
 .cleaner_update_btn {
     width: 105px;
     color: #042A6B;
     font-size: 18px;
 }
+
 .cleaner_update_btn:focus {
     box-shadow: none;
-} 
-.cleaner_profile_title_con{
+}
+
+.cleaner_profile_title_con {
     text-align: center;
     align-items: center;
     margin: 20px;
 }
 
+.profile_avatar_con, .cleaner_profile_avatar_con {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    width: 13rem;
+    height: 13rem;
+    background-color: #EDF1F8;
+    border-radius: 100px;
+    margin: 20px;
+}
+
+
+.logout_btn{
+    background-color: #F6A06F;
+    border: #F6A06F;
+    color: white;
+    border-radius: 5px;
+}
+
+.logout_btn:hover{
+    background-color: #ec5757;
+    border: black;
+    color: black;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+    font-weight: 500;
+}
+
 
 /* Responsiveness */
+@media (max-width:800px){
+    .mobile-spacer{
+        display: block;
+        height: 80px;
+    }
+    .row {
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}
 
-@media (max-width: 450px){
-    .cleaner_profile_name{
+@media (max-width: 450px) {
+    .cleaner_profile_name {
         font-size: 30px;
     }
-}   
+}
 
-
-@media (max-width: 950px){
+@media (max-width: 950px) {
     .main_profile_con {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         width: 85%;
@@ -89,8 +133,17 @@
         background-color: #fff;
         border-radius: 20px;
     }
-}   
+}
 
-
-
-      
+#footer {
+    margin-top: 30px;
+    background-color: #061835;
+    margin:0 auto;
+    width:100%;
+    height:auto;
+    overflow:hidden;
+    position: relative;
+    bottom: 0px;
+    padding: .75%;
+    color: white;
+} 

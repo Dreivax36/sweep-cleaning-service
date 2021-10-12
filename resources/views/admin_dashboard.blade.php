@@ -48,11 +48,11 @@
                                   $notif = Notification::where('isRead', false)->where('user_id', null)->get();
                               ?>
                           
-                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
                             </a> 
                             
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                              
                                 @forelse ($notif as $notification)
                               <a class="dropdown-item" href="{{$notification->location}}">

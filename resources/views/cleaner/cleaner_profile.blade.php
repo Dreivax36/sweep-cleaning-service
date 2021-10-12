@@ -1,26 +1,35 @@
 <?php
-    use App\Models\Cleaner;
-    use App\Models\Address;
+
+use App\Models\Cleaner;
+use App\Models\Address;
 ?>
-@extends('cleaner/cleaner-nav/head_extention_cleaner-profile') 
+@extends('cleaner/cleaner-nav/head_extention_cleaner-profile')
 
 @section('content')
+
 <head>
     <link href="{{ asset('css/cleaner_profile.css') }}" rel="stylesheet">
     <title>
-       Cleaner Profile Page
+        Cleaner Profile Page
     </title>
 </head>
+
 <body>
-    
+    <div class="cleaner_profile_title_con">
+        <div>
+            <h1 class="cleaner_cards_title">
+                My Profile
+            </h1>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="main_profile_con">
             <div class="row justify-content-center">
-                <div>
+            <div class="profile_avatar_con">
                     <img class="cleaner_profile_avatar_con" src="{{asset('/images/'.$LoggedUserInfo['profile_picture'] ) }}" alt="profile_picture" />
                 </div>
-                <div class="cleaner_profile_name_con">
-                    <h2 class="cleaner_profile_name">
+                <div class="cleaner_profile_info_con">
+                    <h2 class="cleaner_profile_name" >
                         {{$LoggedUserInfo['full_name']}}
                     </h2>
                 </div>
@@ -36,18 +45,18 @@
                 </div>
 
                 <?php
-                    $cleaner_data = Cleaner::Where('user_id', $LoggedUserInfo['user_id'] )->get();
+                $cleaner_data = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->get();
                 ?>
 
                 @foreach($cleaner_data as $key => $value)
                 <div class="cleaner_profile_info_con">
                     <h5 class="cleaner_profile_info">
-                    {{$value->address}}
+                        {{$value->address}}
                     </h5>
                 </div>
                 <div class="cleaner_profile_info_con">
                     <h5 class="cleaner_profile_info">
-                    {{$value->age}}
+                        {{$value->age}}
                     </h5>
                 </div>
 
@@ -56,9 +65,10 @@
                 <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#updateProfile">
                     UPDATE
                 </button>
+                <a class="btn btn-block btn-primary logout_btn" href="{{ route('auth.logout') }}">LOGOUT</a>
             </div>
 
-            
+
             <!-- Modal for Updating a Profile -->
             <div class="modal fade" id="updateProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -71,56 +81,56 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                    <div class="modal-body">
-                        
-                    <!-- Form for Updating a Service -->
-                    <form action="{{ route('updateCleaner') }}" method="post" id="update">
-                        @if(Session::get('success'))
-                            <div class="alert alert-success">
-                                {{ Session::get('success') }}
-                            </div>
-                        @endif
+                        <div class="modal-body">
 
-                        @if(Session::get('fail'))
-                            <div class="alert alert-danger">
-                                {{ Session::get('fail') }}
-                            </div>
-                        @endif
-                        @csrf
-                        <input type="hidden" class="form-control w-100 add_service_form" id="user_id" name="user_id" value="{{$LoggedUserInfo['user_id']}}">    
-                        <div class="form-group">
-                            <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ old('full_name',$LoggedUserInfo['full_name']) }}">
-                            <span class="text-danger">
-                                @error('full_name'){{ $message }} @enderror
-                            </span>
+                            <!-- Form for Updating a Service -->
+                            <form action="{{ route('updateCleaner') }}" method="post" id="update">
+                                @if(Session::get('success'))
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
+                                @endif
+
+                                @if(Session::get('fail'))
+                                <div class="alert alert-danger">
+                                    {{ Session::get('fail') }}
+                                </div>
+                                @endif
+                                @csrf
+                                <input type="hidden" class="form-control w-100 add_service_form" id="user_id" name="user_id" value="{{$LoggedUserInfo['user_id']}}">
+                                <div class="form-group">
+                                    <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ old('full_name',$LoggedUserInfo['full_name']) }}">
+                                    <span class="text-danger">
+                                        @error('full_name'){{ $message }} @enderror
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control w-100 add_service_form" id="email" name="email" placeholder="Email" value="{{ old('email',$LoggedUserInfo['email']) }}">
+                                    <span class="text-danger">
+                                        @error('email'){{ $message }} @enderror
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control w-100 add_service_form" id="contact_number" name="contact_number" placeholder="Contact Number" value="{{ old('contact_number',$LoggedUserInfo['contact_number']) }}">
+                                    <span class="text-danger">
+                                        @error('contact_number'){{ $message }} @enderror
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address',$value->address) }}">
+                                    <span class="text-danger">
+                                        @error('address'){{ $message }} @enderror
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control w-100 add_service_form" id="age" name="age" placeholder="Age" value="{{ old('age',$value->age) }}">
+                                    <span class="text-danger">
+                                        @error('age'){{ $message }} @enderror
+                                    </span>
+                                </div>
+
+                            </form>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control w-100 add_service_form" id="email" name="email" placeholder="Email" value="{{ old('email',$LoggedUserInfo['email']) }}">
-                            <span class="text-danger">
-                                @error('email'){{ $message }} @enderror
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control w-100 add_service_form" id="contact_number" name="contact_number" placeholder="Contact Number" value="{{ old('contact_number',$LoggedUserInfo['contact_number']) }}">
-                            <span class="text-danger">
-                                @error('contact_number'){{ $message }} @enderror
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address',$value->address) }}">
-                            <span class="text-danger">
-                                @error('address'){{ $message }} @enderror
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control w-100 add_service_form" id="age" name="age" placeholder="Age" value="{{ old('age',$value->age) }}">
-                            <span class="text-danger">
-                                @error('age'){{ $message }} @enderror
-                            </span>
-                        </div>
-                        
-                    </form>
-                    </div>
                         <div class="modal-footer service_modal_header">
                             <button form="update" type="submit" class="btn btn-primary update_btn" class="close-modal">
                                 UPDATE
@@ -135,5 +145,13 @@
             </div> <!-- End of Modal for Updating a Service -->
         </div>
     </div>
+    <div class="mobile-spacer">
+
+    </div>
+    <footer id="footer">
+        <div class="sweep-title">
+            SWEEP © 2021. All Rights Reserved.
+        </div>
+    </footer>
 </body>
 @endsection

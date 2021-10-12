@@ -1,3 +1,6 @@
+.body {
+    min-height: 70vh;
+}
 .card-job{
     padding: 10px;
 }
@@ -64,3 +67,40 @@
 .cleaner_cards_title{
     margin: 20px;
 }
+.row {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+@media (max-width:800px) {
+    .mobile-spacer {
+        display: block;
+        height: 80px;
+    }
+}
+
+.cleaner_detail{
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 15px;
+    text-indent: 20px;
+}
+.list_booking_info {
+    text-indent: 50px;
+}
+
+#footer {
+    margin-top: 30px;
+    background-color: #061835;
+    margin:0 auto;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    position: relative;
+    bottom: 0px;
+    padding: .75%;
+    color: white;
+} 

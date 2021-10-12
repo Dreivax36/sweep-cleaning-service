@@ -110,3 +110,8 @@ body{
         display: block;
     }
 }
+
+.notification {         
+    max-height: 400px;
+    overflow-y: auto;
+}

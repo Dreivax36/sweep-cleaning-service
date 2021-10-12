@@ -62,7 +62,7 @@
                             <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
                             </a> 
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                             
                               @forelse ($notif as $notification)
                               <a class="dropdown-item" href="{{$notification->location}}">

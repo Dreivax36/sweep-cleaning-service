@@ -915,3 +915,8 @@ body {
     right: 1px;
     width: 20px
 }
+
+.notification {         
+    max-height: 400px;
+    overflow-y: auto;
+}

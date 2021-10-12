@@ -21,3 +21,9 @@
     width: 100x;
     
 }
+
+@media (max-width: 800px) {
+    .sweep-nav{
+        display: none;
+    }
+}
