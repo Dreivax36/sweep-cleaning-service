@@ -125,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="exampleModalLong10-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal fade" id="details-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
             <!-- Modal -->
             <div class="modal-dialog" role="document">
                 <input type="hidden" name="service_id" value="{{ $value->service_id }}">

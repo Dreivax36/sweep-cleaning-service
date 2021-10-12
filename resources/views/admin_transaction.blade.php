@@ -19,6 +19,7 @@
     </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -567,7 +568,37 @@
             closeOnSelect: false
             });
             });
-        </script>
+    </script>
+    <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('21a2d0c6b21f78cd3195', {
+    cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+    alert(JSON.stringify(data));
+        if($.fn.dataTable.isDataTable('#requestTable')){
+            $('#requestTable').DatabTable().clear();
+            $('#requestTable').DatabTable().destroy();
+        }
+
+        $.ajax({
+            method: "GET",
+            url: "/request/refresh",
+        }).done(function(data)){
+
+            $('#requestList').html(data);
+            var table = $('#requestTable').DatabTable({
+                "scrollX": true,
+                "order": [],
+            });
+        });
+    });
+    </script>
     <footer id="footer">
     <div class="sweep-title">
         SWEEP © 2021. All Rights Reserved.

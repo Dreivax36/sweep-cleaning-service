@@ -45,6 +45,7 @@ Route::get('/customer/customer_services',[ServiceController::class, 'customer_se
 Route::POST('/auth/save',[MainController::class, 'save'])->name('auth.save');
 Route::POST('/auth/check',[MainController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout');
+Route::get('/logout_cleaner',[MainController::class, 'logout_cleaner'])->name('logout_cleaner');
 
 
 //Booking Module
@@ -117,6 +118,10 @@ Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
     Route::post('/rate',[BookingController::class, 'rate'])->name('rate');
     Route::get('/rate',[BookingController::class, 'rate'])->name('rate');
     
+});
+
+Route::get('/cleaner/cleaner_welcome', function () {
+    return view('/cleaner/cleaner_welcome');
 });
 
 //Route for the Sweep Welcome Page

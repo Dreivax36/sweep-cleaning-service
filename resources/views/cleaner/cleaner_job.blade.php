@@ -265,6 +265,17 @@
         @endif
         @endforeach
         @endforeach
+        @else
+        <div class="banner">
+        <div class="book_container">
+            <h1 class="no_active">
+                Currently No Job is assigned to you.
+            </h1>
+            <p class="qoute">
+                “Stay patient and trust the journey.”
+            </p>
+        </div>
+    </div>
         @endif
     </div>
 </div>

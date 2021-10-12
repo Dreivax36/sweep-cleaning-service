@@ -136,7 +136,7 @@ class MainController extends Controller
            $users->password = Hash::make($request->password);
            // Store the record, using the new file hashname which will be it's new filename identity.
            $users->profile_picture = $profile;
-           $users->account_status = 'To_verify';
+           $users->account_status = 'Approve-account';
            $users->user_type = 'Customer';
            $customer_save = $users->save();
 
@@ -313,7 +313,7 @@ class MainController extends Controller
              $users->contact_number = $request->contact_number;
              $users->password = Hash::make($request->password);
              $users->profile_picture = $profile;
-             $users->account_status = 'To_verify';
+             $users->account_status = 'Approve-account';
              $users->user_type = 'Cleaner';
              $cleaner_save = $users->save();
  
@@ -406,5 +406,12 @@ class MainController extends Controller
         }
     }
 
+    function logout_cleaner(){
+        if(session()->has('LoggedUser')){
+            session()->pull('LoggedUser');
+            return redirect('/cleaner/cleaner_welcome');
+        }
+        return redirect('/cleaner/cleaner_welcome');
+    }
 
 }
