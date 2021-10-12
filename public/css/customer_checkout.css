@@ -10,7 +10,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 20vh;
+    height: 30vh;
     display: flex;
     align-items: center;
 }
@@ -27,7 +27,7 @@
 
 .banner-container .banner .text{
     flex:1 1 250px;
-    padding: clamp(30px, 2vw, 5%);
+    padding: clamp(60px, 4vw, 10%);
     text-align: left;
     align-items: center;
     justify-content: center;
@@ -35,7 +35,6 @@
 
 .customer_cards_title{
     margin: 50px;
-    text-align: center;
 }
 
 
@@ -158,8 +157,8 @@
 }
 
 .banner-container .banner .text p{
-    text-align: center;
-    margin: 3%;
+    text-align: left;
+    margin: 7%;
     font-size: clamp(15px, 2vw, 30px);
 }
 
@@ -361,7 +360,7 @@
         margin-bottom: 20px;
     }
     .customer_cards_title{
-        margin: 10px;
+        margin: 15px;
     }
     
 }
@@ -372,7 +371,6 @@
     color: white;
     font-weight: bold;
     border-radius: 5px; 
-    float:right;
 }
 
 .btn-primary{
@@ -380,7 +378,6 @@
     border: #F6A06F;
     color: white;
     border-radius: 5px;
-    float: right;
 }
 
 .btn-primary:hover{
@@ -422,7 +419,6 @@
 }
 .customer_services_modal_footer{
     padding: 16px;
-    float: right;
 }
 
 .modal-header {
@@ -456,17 +452,24 @@
     }
     .modal_customer_services_title{
         padding-top: 10px;
-        text-align: center;
-        font-weight: bold;
     }
     .close-web{
         padding: 10px;
         margin: 10px;
         opacity: 1;
     }
+    #footer {
+        position: fixed;
+        padding: 10px 10px 10px 10px;
+        bottom: 0;
+        width: 100%;
+    }
+    
 }
 
-
+.checkout-summary{
+    padding-top: 40px;
+}
 .modal{
     margin: 0;
     padding: 0;
@@ -573,7 +576,7 @@
         
     }
     .customer_cards_title{
-        margin: 10px;
+        margin: 15px;
     }
 }
 

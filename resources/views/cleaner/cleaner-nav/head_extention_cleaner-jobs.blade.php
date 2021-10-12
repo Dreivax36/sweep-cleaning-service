@@ -97,12 +97,12 @@
                     <i class="fas fa-home"></i>
                     <h6>Home</h6>
                 </a>
-                <a class="nav-button" href="{{ url('/cleaner/cleaner_services') }}">
-                    <i class="fas fa-hand-sparkles"></i>
+                <a class="nav-button active" href="{{ url('/cleaner/cleaner_jobs') }}">
+                    <i class="fas fa-hand-sparkles fas-active"></i>
                     <h6>Jobs</h6>
                 </a>
-                <a class="nav-button active" href="{{ url('/cleaner/cleaner_history') }}">
-                    <i class="fas fa-history fas-active"></i>
+                <a class="nav-button" href="{{ url('/cleaner/cleaner_history') }}">
+                    <i class="fas fa-history"></i>
                     <h6>History</h6>
                 </a>
                 <a class="nav-button" href="cleaner_profile">

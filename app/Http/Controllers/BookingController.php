@@ -177,7 +177,9 @@ class BookingController extends Controller
     }
 
     function customer_pay(Request $request){
-        return redirect()->route('paypal.checkout', $request->route('id'));
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('customer.customer_checkout', $data)->with('booking_id', $request->route('id'));
+       // return redirect()->route('paypal.checkout', $request->route('id'));
        // $updatePayment= Booking::Where('booking_id', $request->booking_id )->update(['mode_of_payment' => $request->mode_of_payment]);
     }
 

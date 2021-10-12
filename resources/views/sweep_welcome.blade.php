@@ -1,85 +1,86 @@
-@extends('head_extention_welcome') 
+@extends('head_extention_welcome')
 
 @section('content')
-    <title>
-        Welcome Page
-    </title>
-    <link href="{{ asset('css/style_welcome.css') }}" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
+<title>
+    Welcome Page
+</title>
+<link href="{{ asset('css/style_welcome.css') }}" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
+
 <body>
-   
-<div class="banner-container">
-    <div class="banner">
+
+    <div class="banner-container">
+        <div class="banner">
             <div class="text">
                 <h1>The Road to Cleanliness has never been easier.</h1>
                 <p>Making your comfort zones squeaky clean one step at a time.</p>
                 <a class="btn btn-primary signup_btn" href="/customer/customer_register">{{ __('Sign Up') }}</a>
-                
+
             </div>
             <div class="image">
                 <img src="images/home/home_header.png" class="img-fluid">
-            </div>     
-                        
+            </div>
+        </div>
     </div>
-</div>    
 
-<div class="three_reason">
-    <div class="container">
-        <div class="row gx-5">
-            <div class="text col-sm-4">
+    <div class="three_reason">
+        <div class="container">
+            <div class="row gx-5">
+                <div class="text col-sm-4">
                     <i class="fas fa-money-bill-wave fa-2x"></i>
                     <h4 class="title">Affordable</h4>
-                    <p> 
+                    <p>
                         Sweep focuses on you. With various services offered, there is one that is perfect for you.
                     </p>
-            </div>
-            <div class="text col-sm-4">
-            <i class="fas fa-hand-sparkles fa-2x"></i>
-                <h4 class="title">Quality Assured</h4>
-                <p class="desc">
-                    All plans have there respective points checklist provided for you. This make sure that an availed service is of good quality.
-                </p>
-            </div>
-            <div class="text col-sm-4">
-            <i class="fas fa-business-time fa-2x"></i>
-                <h4 class="title">Convenient</h4>
-                <p class="desc">
-                    We lift your burdens by providing an extra set of hands enabling you to carry on with your lives with ease.
-                </p>
+                </div>
+                <div class="text col-sm-4">
+                    <i class="fas fa-hand-sparkles fa-2x"></i>
+                    <h4 class="title">Quality Assured</h4>
+                    <p class="desc">
+                        All plans have there respective points checklist provided for you. This make sure that an availed service is of good quality.
+                    </p>
+                </div>
+                <div class="text col-sm-4">
+                    <i class="fas fa-business-time fa-2x"></i>
+                    <h4 class="title">Convenient</h4>
+                    <p class="desc">
+                        We lift your burdens by providing an extra set of hands enabling you to carry on with your lives with ease.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!-- has some bugs -->
-<div class="more-info">
-    <div class="row1">
-        <div class="foryou">
-            <h5 class="for-you">For You</h5>
-            <h2 class="title1">We're all about<br>cleanliness and<br>convenience.</h2>
-            <p class="for-you-text">Save yourself the hassle by booking cleaning services. Our goal is to to make sure everyone would live and work in a clean, safe, and enjoyable environment.</p>
-            <a class="btn btn-primary learn_btn" href="{{ 'about_us' }}">{{ __('Learn More') }}</a>
+    <!-- has some bugs -->
+    <div class="more-info">
+        <div class="row1">
+            <div class="foryou">
+                <h5 class="for-you">For You</h5>
+                <h2 class="title1">We're all about<br>cleanliness and<br>convenience.</h2>
+                <p class="for-you-text">Save yourself the hassle by booking cleaning services. Our goal is to to make sure everyone would live and work in a clean, safe, and enjoyable environment.</p>
+                <a class="btn btn-primary learn_btn" href="{{ 'about_us' }}">{{ __('Learn More') }}</a>
+            </div>
+            <div class="col-7">
+                <img src="images/home/for-you.jpg" class="img-fluid">
+            </div>
         </div>
-        <div class="col-7">
-            <img src="images/home/for-you.jpg" class="img-fluid">
+        <div class="row2">
+            <div class="col-6">
+                <img src="images/home/services.jpg" class="img-fluid">
+            </div>
+            <div class="services">
+                <h5 class="for-you2">Services</h5>
+                <h2 class="title2">Longing for <br>Cleanliness? Easy.</h2>
+                <p class="for-you-text">Sweep provides quality cleaning and sanitation services ready for you to avail.</p>
+                <a class="btn btn-primary learn_srvbtn" href="{{ 'about_us' }}">{{ __('Learn More') }}</a>
+            </div>
         </div>
     </div>
-    <div class="row2">
-        <div class="col-6">
-            <img src="images/home/services.jpg" class="img-fluid">
-        </div>
-        <div class="services">
-            <h5 class="for-you2">Services</h5>
-            <h2 class="title2">Longing for <br>Cleanliness? Easy.</h2>
-            <p class="for-you-text">Sweep provides quality cleaning and sanitation services ready for you to avail.</p>
-            <a class="btn btn-primary learn_srvbtn" href="{{ 'about_us' }}">{{ __('Learn More') }}</a>
-        </div>
-    </div>
-</div>
-<!-- emd has some bugs -->
+    <!-- emd has some bugs -->
 
-<div class="faqs_con">
+    <div class="faqs_con">
         <h2 class="faqs_title">
             Frequently Asked Questions
         </h2>
@@ -95,7 +96,7 @@
                     You have to login to your account, go to the services page, choose a cleaning service you want to book, indicate the date and time, and pay for your booking.
                 </div>
             </div>
-            
+
             <div class="qna_block">
                 <div class="question">
                     <h4 class="question_title">
@@ -106,7 +107,7 @@
                 <div class="answer">
                     Yes, you can cancel a booked service any time before its scheduled date.
                 </div>
-            </div>              
+            </div>
             <div class="qna_block">
                 <div class="question">
                     <h4 class="question_title">
@@ -148,27 +149,90 @@
                     <i class="fas fa-angle-down fa-2x"></i>
                 </div>
                 <div class="answer">
-                    For details about the cleaning services, please refer to the cleaning services page. 
+                    For details about the cleaning services, please refer to the cleaning services page.
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
-<div class="download">
-    <div class="row3">
-        <div class="dcont">
-            <h2 class="dtitle">Download our App</h2>
+    <div class="download">
+        <div class="row3">
+            <div class="dcont">
+                <h2 class="dtitle">Download our App</h2>
                 <p class="d-text">Download the app and get your homes clean with just a click of a button. Now available on the Google Play Store.</p>
                 <a class="btn btn-primary down_btn" href="{{ 'about_us' }}">{{ __('Download Now') }}</a>
+            </div>
         </div>
-    </div>   
-</div>
+    </div>
 
-<div class="footer">
+    <div class="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.
         </div>
-</div>
-    
+    </div>
+
+    <div class="mobile-bg">
+        <div class="row justify-content-center">
+        <div class="recommendation">
+            <div class="slider">
+                <div id="bannerSlides" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="carousel-container1">
+                                <div class="image">
+                                    <img src="images/home/home_header.png" class="img-fluid img">
+                                </div>
+                                <div class="text">
+                                    <h1>The Road to Cleanliness has never been easier.</h1>
+                                    <p>Making your comfort zones squeaky clean one step at a time.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-container1">
+                                <div class="image">
+                                    <img src="images/img1.png" class="img-fluid img1">
+                                </div>
+                                <div class="text">
+                                    <h1>We're all about cleanliness and convenience.</h1>
+                                    <p>Save yourself the hassle by booking cleaning services. Our goal is to to make sure everyone would live and work in a clean, safe, and enjoyable environment.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="carousel-container1">
+                                <div class="image">
+                                    <img src="images/img2.png" class="img-fluid img">
+                                </div>
+                                <div class="text">
+                                    <h1>Longing for Cleanliness? Easy.</h1>
+                                    <p>Sweep provides quality cleaning and sanitation services ready for you to avail.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ol class="carousel-indicators indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div id="footer" class="get-started">
+            <div class="signup">
+                New to Sweep?
+                <a class="btn btn-primary signup_btn1" style="height: 35px; border-radius: 15px;" href="/customer/customer_register">{{ __('Sign Up') }}</a>
+            </div>
+            <div class="login">
+                <a class="btn btn-link signup_btn1" href="/customer/customer_login">{{ __('Have an account? Login.') }}</a>
+            </div>
+        </div>
+
+    </div>
+
 </body>
 @endsection

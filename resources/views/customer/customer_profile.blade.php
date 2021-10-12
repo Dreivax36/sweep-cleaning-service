@@ -17,7 +17,7 @@
     <div class="customer_profile_title_con">
         <div>
             <h1 class="customer_cards_title">
-                
+                My Profile
             </h1> 
         </div>
     </div>
@@ -138,10 +138,5 @@
     <div class="mobile-spacer">
 
     </div>
-    <div class="footer">
-        <div class="sweep-title">
-            SWEEP © 2021. All Rights Reserved.
-        </div>
-</div>
 </body>
 @endsection
