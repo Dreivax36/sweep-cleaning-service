@@ -48,7 +48,7 @@
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
                                   $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                               ?>
-                           <a id="navbarDropdown admin" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                           <a id="navbarDropdown admin" class="nav-link admin"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> 
                                 @if($notifCount != 0)
                                 <span class="badge alert-danger pending">{{$notifCount}}</span>
@@ -343,7 +343,7 @@ function displayMessage(message) {
             if(pending) {
                 $('#admin').find('.pending').html(pending + 1);
             }else{
-                $('#admin').append('<span class="badge alert-danger pending">1</span>');
+                $('#admin').find('.pending').html(pending + 1);
             } 
           });
 
@@ -356,10 +356,10 @@ function displayMessage(message) {
             });
         });
 
-      $('#admin').click( function(){
-        var notifClicked = $(this).find('.clicked');
+      $('.admin').click( function(){
+        var notifClicked = $('.admin').find('.clicked');
         if(notifClicked == null){
-          $(this).addClass('.clicked');
+          $('.admin').addClass('.clicked');
         $.ajax({
           type: "get",
           url: "/notification",
@@ -372,7 +372,7 @@ function displayMessage(message) {
         });
         }
         else {
-          $(this).removeClass('.clicked');
+          $('.admin').removeClass('.clicked');
           $('#notification').hide();
         }
       }); 

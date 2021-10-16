@@ -155,7 +155,7 @@ class BookingController extends Controller
             $messages = 'Status Updated';
             $data = ['messages' => $messages];
             $pusher->trigger('my-channel', 'cleaner-notif', $data);
-            
+
             $options = array(
                 'cluster' => 'ap1',
                 'useTLS' => true
@@ -238,17 +238,19 @@ class BookingController extends Controller
     function assignCleaner(Request $request){
 
         foreach($request->input('cleaner_id') AS $cleaner_id){
-        $id = Cleaner::Where('user_id', $cleaner_id )->value('cleaner_id');
+        $cleaner = $cleaner_id;   
+        $booking = $request->booking_id;
+        $id = Cleaner::Where('user_id', $cleaner )->value('cleaner_id');
         $assigned_cleaners = new Assigned_cleaner();
-        $assigned_cleaners->booking_id = $request->booking_id;
+        $assigned_cleaners->booking_id =  $booking;
         $assigned_cleaners->status = $request->status;
         $assigned_cleaners->cleaner_id = $id;
         $assign = $assigned_cleaners->save();
 
         $notifications = new Notification();
-        $notifications->user_id = $cleaner_id;
+        $notifications->user_id = $cleaner;
         $notifications->message = 'New Job';
-        $notifications->booking_id = $request->booking_id;
+        $notifications->booking_id =  $booking;
         $notifications->isRead = false;
         $notifications->location = 'cleaner/cleaner_job';
         $assign = $notifications->save();

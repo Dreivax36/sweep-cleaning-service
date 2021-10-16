@@ -218,7 +218,7 @@
                 </div>
             </div>
         </div><!-- End of Modal -->
-        <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -254,8 +254,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div><!-- End of Modal -->
-        <!-- Modal -->
                             <div class="modal fade" id="pay-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -299,6 +297,7 @@
                                     </form>
                                     </div>
                                 </div>
+                            </div>   
                             
         @endif
         @endforeach

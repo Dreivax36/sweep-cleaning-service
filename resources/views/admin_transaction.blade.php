@@ -17,9 +17,7 @@
     <title>
         Admin Transaction
     </title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><!-- jQuery base library needed -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> 
+
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
@@ -403,7 +401,7 @@
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    <select name="cleaner_id[]" id="cleaner" class="form-control js-example-basic-single" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
+                                                    <select name="cleaner_id[]" id="cleaner" class="form-control" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
                                                     @if($cleanerCount == 0) <!-- Booking does not exist in Assign Table -->
                                                         @if($cleanerSchedule == 0) <!-- Check if the booking have the no same Schedule -->
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
@@ -657,13 +655,7 @@
             $('#status').text(data.messages);
         }
     });
-</script> 
-
-    <script>
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
-    </script>  
+</script>  
 
     @if(!empty(Session::get('success')))
         <script>
