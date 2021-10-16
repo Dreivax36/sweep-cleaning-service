@@ -188,7 +188,7 @@
                                 <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                     CONFIRM BOOKING
                                 </button> 
-                                <button  class="btn btn-block btn-danger decline_btn" data-toggle="modal" data-target="#decline-{{ $value->service_id }}"  data-dismiss="modal"> >
+                                <button  class="btn btn-block btn-danger decline_btn" data-toggle="modal" data-target="#decline-{{ $value->service_id }}"  data-dismiss="modal"> 
                                     DECLINE
                                 </button> 
                             @endif   
@@ -317,7 +317,6 @@
         </div>
         @endif
     </div>
-</div>
 <script>
 
     // Enable pusher logging - don't include this in production

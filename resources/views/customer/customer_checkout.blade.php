@@ -37,7 +37,7 @@
     $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
     $user_data = User::Where('user_id', $userId )->get();
     $addressData = Address::Where('customer_id', $value->customer_id )->get();
-    $address = Address::Where('customer_id', $value->address_id )->value('address');
+    $address = Address::Where('address_id', $value->address_id )->value('address');
     ?>
     <div class="banner">
         <div class="p-4 customer_cards_title">

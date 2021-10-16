@@ -222,7 +222,7 @@ use App\Models\Review;
                         <div class="modal-header customer_trans_modal_header_inside">
                             <div class="p-3 customer_trans_modal_inside_con">
                             <h5 class="modal-title" id="exampleModalLabel">Cancel</h5>
-                                
+                            <div class="modal-body">
                                 <form action="{{ route('updateStatus') }}" method="post">
                                     @if(Session::get('success'))
                                     <div class="alert alert-success">
@@ -241,7 +241,7 @@ use App\Models\Review;
                                     Are you sure you want to cancel your booking?
                                 </h3>
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-
+                                    </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                                         <button type="submit"  name="status" value="Cancelled" class="btn btn-primary">YES</button>
