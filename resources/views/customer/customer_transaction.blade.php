@@ -215,7 +215,6 @@ use App\Models\Review;
                 </div>
             </div> <!-- End of Modal -->
             <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <!-- Modal -->
                 <div class="modal-dialog" role="document">
                     <div class="modal-content customer_trans_modal_content_inside">
                         <!-- Modal Content -->

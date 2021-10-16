@@ -357,10 +357,10 @@ function displayMessage(message) {
         });
 
       $('#admin').click( function(){
-        var notifClick = $('#admin').find('.clicked');
-        if(notifClick == null){
-          $('#admin').addClass('clicked');
-          $.ajax({
+        var notifClicked = $(this).find('.clicked');
+        if(notifClicked == null){
+          $(this).addClass('.clicked');
+        $.ajax({
           type: "get",
           url: "/notification",
           data: "",
@@ -372,10 +372,9 @@ function displayMessage(message) {
         });
         }
         else {
-          $('#admin').removeClass('.clicked');
+          $(this).removeClass('.clicked');
           $('#notification').hide();
         }
-        
       }); 
 
     </script>

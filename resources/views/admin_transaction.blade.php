@@ -362,7 +362,8 @@
                             </div>
                         @endforeach  
                         @endforeach 
-                        </div> <!-- End of Modal Content -->   
+                    </div>
+                </div>  
                             <div class="modal-footer customer_services_modal_footer">
                                 <div class="modal fade" id="assign-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
                                     <div class="modal-dialog" role="document">
