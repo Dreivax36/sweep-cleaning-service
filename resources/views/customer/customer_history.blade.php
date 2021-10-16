@@ -35,6 +35,7 @@ use App\Models\Assigned_cleaner;
         $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'])->value('customer_id');
         $booking_data = Booking::Where('customer_id', $customer_id)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->get();
         ?>
+        @if($booking_data != null)
         @foreach($booking_data as $key => $value)
         <?php
         $booking_id = Booking::where('booking_id', $value->booking_id)->value('booking_id');
@@ -171,6 +172,19 @@ use App\Models\Assigned_cleaner;
             @endforeach
         </div>
         @endforeach
+        @else
+        <div class="banner-container">
+            <div class="banner">
+                <div class="text">
+                    <h1> You currently have no transaction.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
+        @endif
     </div>
     <div class="mobile-spacer">
 

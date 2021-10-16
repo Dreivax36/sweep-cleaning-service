@@ -37,37 +37,28 @@
                         <a class="nav-link" href="admin_transaction" role="button" id="active">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                                  $notif = Notification::where('isRead', false)->where('user_id', null)->get();
+                                  $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                               ?>
-                          
-                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
-                            </a> 
-                            
-                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-                             
-                                @forelse ($notif as $notification)
-                              <a class="dropdown-item" href="{{$notification->location}}">
-                                    {{ $notification->message}}
-                                </a>
-                              @empty
-                                <a class="dropdown-item">
-                                    No record found
-                                </a>
-                              @endforelse
+                           <a id="navbarDropdown admin" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-bell"></i> 
+                                @if($notifCount != 0)
+                                <span class="badge alert-danger pending">{{$notifCount}}</span>
+                                @endif
+                            </a>    
+                            <div class="wrapper" id="notification">
+                            @include('notification')
                             </div>
-
-                  </li>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ $LoggedUserInfo['email'] }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('auth.logout') }}">
+                                <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
                                     Logout
                                 </a>
                             </div>
@@ -108,7 +99,7 @@
     <div class="transaction_con">
     
         <div class="row row_transaction">
-        @if($booking_data != null )
+        @if($booking_data == null )
         @foreach($booking_data as $key => $value)
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
@@ -129,7 +120,7 @@
                            $pending = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
                            $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                         ?>
-                        <h5 class="service_status">
+                        <h5 class="service_status" id="status">
                             @if($value->status == 'Pending')
                                 @if ($pending == 0)
                                     {{ $value->status }}
@@ -334,7 +325,7 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $bookingcount != $price_data->number_of_cleaner )    
-                                        <button  type="submit" class="btn btn-block btn-primary decline_btn" name="status" value="Declined">
+                                        <button  type="submit" class="btn btn-block btn-primary decline_btn" data-toggle="modal" data-target="#decline-{{ $value->service_id }}"  data-dismiss="modal">
                                             DECLINE
                                         </button>
                                     @endif
@@ -370,6 +361,42 @@
                         @endforeach  
                         @endforeach 
                         </div> <!-- End of Modal Content -->   
+                            <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{ route('updateStatus') }}" method="post">
+                                            @if(Session::get('success'))
+                                                <div class="alert alert-success">
+                                                    {{ Session::get('success') }}
+                                                </div>
+                                            @endif
+
+                                            @if(Session::get('fail'))
+                                                <div class="alert alert-danger">
+                                                    {{ Session::get('fail') }}
+                                                </div>
+                                            @endif
+                                            @csrf
+                                        Are you sure you want to decline this booking?
+                                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                        <input type="hidden" name="status" value="Declined">
+                                   
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                        <button type="submit" class="btn btn-danger">YES</button>
+                                    </div>
+                                    </form> 
+                                </div>
+                            </div>
+                        </div>
                     </div><!-- End of Modal -->
                             <div class="modal-footer customer_services_modal_footer">
                                 <div class="modal fade" id="assign-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
@@ -410,7 +437,7 @@
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    <select name="cleaner_id[]" id="cleaner" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                    <select name="cleaner_id[]" id="cleaner" class="form-control md-select md-form" searchable="Search here.." style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     @if($cleanerCount == 0) <!-- Booking does not exist in Assign Table -->
                                                         @if($cleanerSchedule == 0) <!-- Check if the booking have the no same Schedule -->
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
@@ -559,17 +586,23 @@
                             </div>
                     @endforeach       
             @endforeach 
+            @else
+            <div class="banner-container">
+            <div class="banner1">
+                <div class="text">
+                    <h1> You currently have no job.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
             @endif 
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2({
-            closeOnSelect: false
-            });
-            });
-    </script>
-    <script>
+
+   <script>
 
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
@@ -579,26 +612,156 @@
     });
 
     var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-    alert(JSON.stringify(data));
-        if($.fn.dataTable.isDataTable('#requestTable')){
-            $('#requestTable').DatabTable().clear();
-            $('#requestTable').DatabTable().destroy();
-        }
+        channel.bind('admin-notif', function(data) {
+        
+        
+        var result = data.messages;
+            var pending = parseInt($('#admin').find('.pending').html());
+            if(pending) {
+                $('#admin').find('.pending').html(pending + 1);
+            }else{
+                $('#admin').append('<span class="badge alert-danger pending">1</span>');
+            } 
+         
+        });
 
-        $.ajax({
+        $('.read').click (function(event){
+           
+            id = event.target.id;
+            $.ajax({
             method: "GET",
-            url: "/request/refresh",
-        }).done(function(data)){
-
-            $('#requestList').html(data);
-            var table = $('#requestTable').DatabTable({
-                "scrollX": true,
-                "order": [],
+            url: "/read/" + id
             });
         });
+
+    $('#admin').click( function(){
+        
+        $.ajax({
+        type: "get",
+        url: "/notification",
+        data: "",
+        cache: false,
+        success:function(data) {
+            $data = $(data);
+            $('#notification').hide().html($data).fadeIn();
+        }
+        });
+    }); 
+
+    var channel = pusher.subscribe('my-channel');
+        channel.bind('status', function(data) {
+        var id = "{{ $LoggedUserInfo['user_id'] }}";
+        if(data.id == id){
+            $('#status').text(data.messages);
+        }
     });
-    </script>
+
+    </script>  
+    @if(!empty(Session::get('success')))
+        <script>
+            $(function(){
+                $('#success').modal('show');
+            });
+        </script>
+    @endif
+    @if(!empty(Session::get('success-assign')))
+        <script>
+            $(function(){
+                $('#success-assign').modal('show');
+            });
+        </script>
+    @endif
+    @if(!empty(Session::get('fail')))
+        <script>
+            $(function(){
+                $('#error').modal('show');
+            });
+        </script>
+    @endif
+    
+    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="title">
+                Transaction Status Updated Successfully.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="success-assign" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="title">
+                Cleaner assigned successfully.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-times-circle"></i>
+            </div>
+            <div class="title">
+                Something went wrong, try again.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-sign-out-alt"></i>
+            </div>
+            <div class="title">
+                Are you sure you want to logout?
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('auth.logout') }}'">Logout</button>
+        </div>
+        </div>
+    </div>
+    </div> 
+    
     <footer id="footer">
     <div class="sweep-title">
         SWEEP © 2021. All Rights Reserved.

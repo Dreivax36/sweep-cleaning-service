@@ -41,7 +41,7 @@ use Illuminate\Http\Request;
         </div>
     </div>
     <form action="{{ route('rate') }}" method="post" id="book">
-        @if(Session::get('success'))
+        @if(Session::get('success-rate'))
         <div class="alert alert-success">
             {{ Session::get('success') }}
         </div>

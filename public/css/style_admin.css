@@ -339,12 +339,13 @@ body {
     margin-left: 80px;
     margin-top: 60px;
     margin-bottom: 50px;
-    color: #FFFFFF;
+    color: #000000;
 }
 .daily_revenue{
     height: 90px;
     width: 170px;
-    background-color: #FFB703;
+    background-color: #ffcf8f;
+    border-left: 6px solid #f58c00;
     padding: 13px;
     border-radius: 10px;
     margin-right: 50px;
@@ -352,7 +353,8 @@ body {
 .weekly_revenue{
     height: 90px;
     width: 170px;
-    background-color: #FB8500;
+    background-color: #ffdd42;
+    border-left: 6px solid #ffae42;
     padding: 13px;
     border-radius: 10px;
     margin-right: 50px;
@@ -360,7 +362,8 @@ body {
 .sweep_user{
     height: 90px;
     width: 170px;
-    background-color: #219EBC;
+    background-color: #42c2ff;
+    border-left: 6px solid #0069f5;
     padding: 13px;
     border-radius: 10px;
     margin-right: 50px;
@@ -368,7 +371,8 @@ body {
 .sweep_cleaner{
     height: 90px;
     width: 170px;
-    background-color: #e0996f;
+    background-color: #ffdceb;
+    border-left: 6px solid #ff4393;
     padding: 13px;
     border-radius: 10px;
     margin-right: 50px;
@@ -447,6 +451,14 @@ body {
     text-align: center;
     font-size: 15px;
     font-weight: bolder;
+}
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #afafaf;
 }
 .user_table_header {
     background-color: rgba(211, 211, 211, .8);
@@ -919,4 +931,79 @@ body {
 .notification {         
     max-height: 400px;
     overflow-y: auto;
+}
+
+.cleaner {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.banner-container{
+    align-items: center;
+    font-size: 30px;
+    background-size: cover;
+}
+
+.banner{
+    background-color: #F7f7f7;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-container .banner .image{
+    flex:1 1 250px;
+    padding: 35px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.banner-container .banner .image img{
+    width: clamp(80%, 4vw, 90%);
+}
+
+.banner-container .banner .text{
+    flex:1 1 250px;
+    padding: clamp(60px, 4vw, 10%);
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    margin: 5px 0px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #34f234;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 60px;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+.icon i.fa {
+    font-size: 30px;
+    color: #34f234;
+}
+
+.icon i.fa {
+    font-size: 30px;
+    color: #34f234;
+}
+
+.title {
+    margin: 5px 0px;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.description{
+    color: #222;
+    font-size: 15px;
+    padding: 5px;
 }

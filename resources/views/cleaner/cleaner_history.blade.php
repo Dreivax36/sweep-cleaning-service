@@ -260,6 +260,18 @@
         @endif
         @endforeach
         @endforeach
+        @else
+        <div class="banner-container">
+            <div class="banner1">
+                <div class="text">
+                    <h1> You currently have no job.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
         @endif
 
     </div>

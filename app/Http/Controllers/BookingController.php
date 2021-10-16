@@ -19,6 +19,7 @@ use App\Notifications\NotifyUser;
 use Carbon\Carbon;
 use App\Models\Notification;
 use App\Models\Payment;
+use Pusher\Pusher;
 
 class BookingController extends Controller
 {
@@ -60,40 +61,126 @@ class BookingController extends Controller
     function updateStatus(Request $request){
  
         //Update data into database
-        $updateStatus= Booking::Where('booking_id', $request->booking_id )->update(['status' => $request->status]);
-        
-       $notifications = new Notification;
-       $notifications->message = "Transaction Status is $request->status.";
-       $notifications->booking_id = $request->booking_id;
-       $notifications->isRead = false;
+        $bookingID = $request->booking_id;
+        $status = $request->status;
+       $updateStatus= Booking::Where('booking_id', $bookingID )->update(['status' => $status]);
+    
+       $notifications = new Notification();
+       $notifications->message = "Status of Transaction $bookingID is $status.";
+       $notifications->booking_id = $bookingID;
+       $notifications->isRead = false; 
+       $notifications->location = 'admin_transaction';
        $updateStatus = $notifications->save();
-        
-       if($request->status == 'Completed'){
+
+       $customerid= Booking::Where('booking_id', $request->booking_id )->value('customer_id');
+       $user = Customer::Where('customer_id', $customerid)->value('user_id');
+       $notifications = new Notification();
+       $notifications->message = "Status of Transaction $bookingID is $status.";
+       $notifications->booking_id = $bookingID;
+       $notifications->isRead = false; 
+       $notifications->user_id = $user;
+       $notifications->location = 'customer/customer_transaction';
+       $updateStatus = $notifications->save();
+             
+       $options = array(
+        'cluster' => 'ap1',
+        'useTLS' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $messages = 'Status Updated';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+        $pusher->trigger('my-channel', 'customer-notif', $data);
+
+        $id = $user;  
+        $data = ['messages' => $messages, 'id' => $id];
+        $pusher->trigger('my-channel', 'status', $data);
+
+       $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->value('cleaner_id');
+       foreach($cleaner as $cleanerID){
+            $userCleaner = Cleaner::Where('cleaner_id', $cleanerID)->value('user_id');
+
+            $notifications = new Notification();
+            $notifications->message = "Status of Transaction $bookingID is $status.";
+            $notifications->booking_id = $bookingID;
+            $notifications->isRead = false; 
+            $notifications->user_id = $userCleaner;
+            $notifications->location = 'cleaner/cleaner_job';
+            $updateStatus = $notifications->save();
+
+            $messages = 'Status Updated';
+            $data = ['messages' => $messages];
+            $pusher->trigger('my-channel', 'cleaner-notif', $data);
+
+            $id = $userCleaner;  
+            $data = ['messages' => $messages, 'id' => $id];
+            $pusher->trigger('my-channel', 'cleaner-status', $data);
+       }
+
+       if($status == 'Completed'){
             $updateEvent= Event::Where('booking_id', $request->booking_id )->delete();
        }
 
        if($updateStatus){
-           return back()->with('success', 'Booking Status Updated');
+           return back()->with('success', 'Successfully Update the Booking Status');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+    function updateAddress(Request $request){
+ 
+        //Update data into database
+        $updateAddress= Booking::Where('booking_id', $request->booking_id )->update(['address_id' => $request->address]);
+
+       if($updateAddress){
+           return back()->with('success', 'Address Updated');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+    
     function cleaner(Request $request){
  
         //Update data into database
         $updateCleaner = Assigned_cleaner::Where('booking_id', '=', $request->booking_id )->Where('cleaner_id', '=', $request->cleaner_id )->update(['status'=> $request->status ] );
-        $notifications = new Notification;
+        
+        $notifications = new Notification();
         $id = Cleaner::where('cleaner_id', $request->cleaner_id)->value('user_id');
         $name = User::where('user_id', $id)->value('full_name');
-        $notifications->message = "Cleaner $name update transaction status.";
+        $notifications->message = "Cleaner $name update the status of Transaction $request->booking_id.";
         $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
-        $notifications->location = 'admin_transaction';
+        $notifications->location = 'cleaner/cleaner_job';
         $cleaner = $notifications->save();
 
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+    
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $messages = 'Status Updated';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+
+
         if($updateCleaner){
-           return back()->with('success', 'Booking Status Updated');
+           return back()->with('success', 'Cleaner Successfully Update the Booking Status');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -108,17 +195,35 @@ class BookingController extends Controller
         $assigned_cleaners->status = $request->status;
         $assigned_cleaners->cleaner_id = $id;
         $assign = $assigned_cleaners->save();
-        $notifications = new Notification;
-       
+
+        $notifications = new Notification();
         $notifications->user_id = $cleaner_id;
-        $notifications->message = 'New Job Offering';
+        $notifications->message = 'New Job';
         $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
-        $notifications->location = 'cleaner_job';
+        $notifications->location = 'cleaner/cleaner_job';
         $assign = $notifications->save();
+
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+    
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $messages = 'Status Updated';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'cleaner-notif', $data);
+
+
         }
        if($assign){
-           return back()->with('success', 'Booking Status Updated');
+           return back()->with('success-assign', 'Successfully Assigned Cleaner');
         }
         else {
           return back()->with('fail','Something went wrong, try again later ');
@@ -134,6 +239,7 @@ class BookingController extends Controller
         ]);
         
         $id = Customer::Where('user_id', $request->user_id )->value('customer_id');
+        $address = Address::Where('customer_id', $id )->value('address_id');
         $bookings = new Booking();
         $bookings->service_id = $request->service_id;
         $bookings->customer_id = $id;
@@ -143,6 +249,7 @@ class BookingController extends Controller
         $bookings->mode_of_payment = $request->mode_of_payment;
         $bookings->status = 'Pending';
         $bookings->is_paid = false;
+        $bookings->address_id = $address;
         $book = $bookings->save();
 
         $date = $request->schedule_date;
@@ -161,15 +268,31 @@ class BookingController extends Controller
         $events->booking_id = $bookings->booking_id;
         $book = $events->save();
 
-        $notifications = new Notification;
+        $notifications = new Notification();
         $notifications->message = 'New Booking';
         $notifications->booking_id = $bookings->booking_id;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
         $assign = $notifications->save();
 
+        
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+    
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $messages = 'New Booking';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+
         if($book){
-            return back()->with('success', 'New Service has been successfuly added to database');
+            return back()->with('success', 'New Booking has been successfuly created');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -220,7 +343,31 @@ class BookingController extends Controller
             $rate = $cleaner_reviews->save();
 
         }
-        return redirect()->route('customer.customer_transaction');
+
+        $notifications = new Notification();
+        $notifications->message = 'Customer submit reviews';
+        $notifications->booking_id = $bookings->booking_id;
+        $notifications->isRead = false;
+        $notifications->location = 'admin_transaction';
+        $assign = $notifications->save();
+
+        
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+    
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $messages = 'New Booking';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+
+        return redirect()->route('customer.customer_transaction')->with('success-rate', 'Rate Successful');
     }
 
     function checkout(Request $request){
@@ -232,8 +379,73 @@ class BookingController extends Controller
 
         $checkout= Booking::Where('booking_id', $_GET['booking_id'] )->update(['is_paid' => true, 'paypal_id' => $_GET['paypal_id']]);
       
+        $notifications = new Notification();
+        $notifications->message = 'Customer paid';
+        $notifications->booking_id = $bookings->booking_id;
+        $notifications->isRead = false;
+        $notifications->location = 'admin_transaction';
+        $assign = $notifications->save();
+
+        
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+    
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $messages = 'New Booking';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+
+
         if($checkout){
-           return back()->with('success', 'Booking Status Updated');
+           return redirect()->route('customer.customer_transaction')->with('success-pay', 'Payment Successful');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+
+    function onsite_payment(Request $request){
+        
+        $payments = new Payment();
+        $payments->booking_id = $request->booking_id;
+        $payments->amount = $request->amount; 
+        $checkout = $payments->save();
+
+        $checkout= Booking::Where('booking_id', $_GET['booking_id'] )->update(['is_paid' => true]);
+      
+        $notifications = new Notification();
+        $notifications->message = 'Customer pay to the cleaner';
+        $notifications->booking_id = $bookings->booking_id;
+        $notifications->isRead = false;
+        $notifications->location = 'admin_transaction';
+        $assign = $notifications->save();
+
+        
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+    
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $messages = 'New Booking';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+
+
+        if($checkout){
+           return back()->with('success-cleaner', 'Payment Successful');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -244,11 +456,55 @@ class BookingController extends Controller
         
         $newDate= Booking::Where('booking_id', $request->booking_id )->update(['schedule_date' => $request->schedule_date, 'schedule_time' => $request->schedule_time ]);
 
+        $notifications = new Notification();
+        $notifications->message = 'Customer choose new schedule';
+        $notifications->booking_id = $bookings->booking_id;
+        $notifications->isRead = false;
+        $notifications->location = 'admin_transaction';
+        $assign = $notifications->save();
+
+        
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+    
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $messages = 'New Booking';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+
         if($newDate){
-           return back()->with('success', 'Booking Status Updated');
+           return back()->with('success', 'Date is successfuly updated');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
         }
+    }
+
+
+    function read(Request $request){
+        $notif = Notification::where('id', $request->route('id'))->update(['isRead' => true]);
+        $location = Notification::where('id', $request->route('id'))->value('location');
+        if($notif){
+            return redirect()->route($location);
+         }
+         else {
+             return back()->with('fail','Something went wrong, try again later ');
+         }
+    }
+
+    function notification(Request $request){
+        $notif = Notification::where('isRead', false)->orderBy('id', 'DESC')->get();
+        return view('notification', ['notif' => $notif]); 
+    }
+    function userNotification(Request $request){
+        $notif = Notification::where('isRead', false)->where('user_id',$request->route('id') )->orderBy('id', 'DESC')->get();
+        return view('notification', ['notif' => $notif]); 
     }
 }

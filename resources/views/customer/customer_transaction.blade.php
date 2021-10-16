@@ -37,6 +37,7 @@ use App\Models\Review;
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
             $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->orderBy('updated_at','DESC')->get();
         ?>
+        @if($booking_data !=null)
         @foreach($booking_data as $key => $value)
             <?php
                 $booking_id = Booking::where('booking_id', $value->booking_id )->value('booking_id');
@@ -257,7 +258,9 @@ use App\Models\Review;
 
             @if ($value->status == 'No-Available-Cleaner')
             <script>
-                $('#nocleaner-{{ $value->booking_id }}').modal('show');
+                $(function(){
+                    $('#nocleaner-{{ $value->booking_id }}').modal('show');
+                });   
             </script>
             @endif
             <!-- Modal -->
@@ -323,6 +326,19 @@ use App\Models\Review;
         </div>
         </div>
         @endforeach
+        @else
+        <div class="banner-container">
+            <div class="banner">
+                <div class="text">
+                    <h1> You currently have no transaction.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
+        @endif
     </div>
     <?php
         $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
@@ -386,6 +402,119 @@ use App\Models\Review;
     </script>
         
     @endif
+
+    @if(!empty(Session::get('success')))
+        <script>
+            $(function(){
+                $('#success').modal('show');
+            });
+        </script>
+    @endif
+    @if(!empty(Session::get('fail')))
+        <script>
+            $(function(){
+                $('#error').modal('show');
+            });
+        </script>
+    @endif
+    @if(!empty(Session::get('success-rate')))
+        <script>
+            $(function(){
+                $('#success-rate').modal('show');
+            });
+        </script>
+    @endif
+    @if(!empty(Session::get('success-pay')))
+        <script>
+            $(function(){
+                $('#success-pay').modal('show');
+            });
+        </script>
+    @endif
+    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="title">
+                Transaction Status Updated Successfully.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-times-circle"></i>
+            </div>
+            <div class="title">
+                Something went wrong, try again.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="success-pay" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="title">
+                Payment Successful
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="success-rate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="title">
+                Thank You for your Feedback.
+            </div>
+            <div class="description">
+                Your feedback help us improve our service. Thank You for trusting Sweep.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
     <div class="mobile-spacer">
 
     </div>

@@ -102,7 +102,7 @@ class ServiceController extends Controller
         $addService = $prices->save();
 
         return redirect()->route('admin_services')
-                        ->with('success','Service created successfully.');
+                        ->with('success-add','Service created successfully.');
     }
 
     /**
@@ -146,7 +146,7 @@ class ServiceController extends Controller
         $update= Price::Where('service_id', $id )->Where('property_type', 'Condominiums' )->update(['price' => $request->condo_price, 'number_of_cleaner' => $request->condo_number_of_cleaner]);
 
         if($update){   
-            return back()->with('success', 'Service Updated');
+            return back()->with('success', 'Service Successfully Updated');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -166,7 +166,7 @@ class ServiceController extends Controller
         $deleteService= Service::Where('service_id', $id )->delete(); 
     
         if($deleteService){   
-            return back()->with('success', 'Service Updated');
+            return back()->with('success-delete', 'Service Successfully Deleted');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');

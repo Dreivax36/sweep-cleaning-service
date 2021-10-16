@@ -1,43 +1,38 @@
+body{
+    background-color: #e9e9e9;
+}
+
+
 .banner-container{
     align-items: center;
     font-size: 30px;
     background-size: cover;
 }
-h2 {
-    text-align: center;
-    margin-top: 1%;
-}
-.main_profile_con {
-    margin-top: 3%;
-    margin-bottom: 3%;
-    padding-top: 2%;
-    padding-left: 3%;
-    padding-right: 3%;
-    border: 2px solid #FFEDDF;
-}
+
+
 .banner {
     background-image: url(/images/home/header1.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 30vh;
+    height: 15vh;
     display: flex;
     align-items: center;
 }
 
 .banner-container .banner .image{
     flex:1 1 250px;
-    padding: 35px;
+    padding: 10px;
     text-align: left;
 }
 
 .banner-container .banner .image img{
-    width: clamp(80%, 4vw, 90%);
+    width: clamp(40%, 2vw, 45%);
 }
 
 .banner-container .banner .text{
     flex:1 1 250px;
-    padding: clamp(60px, 4vw, 10%);
+    padding: clamp(30px, 2vw, 5%);
     text-align: left;
     align-items: center;
     justify-content: center;
@@ -47,101 +42,6 @@ h2 {
     margin: 50px;
 }
 
-
-/* rating */
-.rating-css div {
-    color: #ffe400;
-    font-size: 30px;
-    font-family: sans-serif;
-    font-weight: 800;
-    text-align: center;
-    text-transform: uppercase;
-    padding: 20px 0;
-}
-.rating-css input {
-    display: none;
-}
-.rating-css input + label {
-    font-size: 60px;
-    text-shadow: 1px 1px 0 #8f8420;
-    cursor: pointer;
-}
-.rating-css input:checked + label ~ label {
-    color: #b4afaf;
-}
-.rating-css label:active {
-    transform: scale(0.8);
-    transition: 0.3s ease;
-}
-.star{
-    color: #ffe400;
-    font-size: 2.0rem;
-    padding: 0 1rem; /* space out the stars */
-  }
-  .star::before{
-    content: '\2606';    /* star outline */
-    cursor: pointer;
-  }
-  .star.rated::before{
-    /* the style for a selected star */
-    content: '\2605';  /* filled star */
-  }
-  
-  .stars{
-      counter-reset: rateme 0;   
-      font-size: 2.0rem;
-      font-weight: 900;
-  }
-  .star.rated{
-      counter-increment: rateme 1;
-  }
-  
-  @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-.rating { 
-  border: none;
-  margin:0px 0px 0px 50px;
-  float: left;
-}
-
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin-top: 2px;
-  padding:0px 5px 0px 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
-}
-
-.rating > .half:before { 
-  content: "\f089";
-  position: absolute;
-}
-
-.rating > label { 
-	color: #fff; 
-	float: right;
-	background-color:#D8D8D8;
-	border-radius:25px;
-    height:30px;
-}
-
-
-/***** CSS Magic to Highlight Stars on Hover *****/
-
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { 
-	background-color:#ffe400 !important;
-  cursor:pointer;
-} /* hover previous stars in list */
-
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { 
-	background-color:#ffe400 !important;
-  cursor:pointer;
-} 
-/* End of Star Rating */
 
 
 .input-div{
@@ -161,14 +61,14 @@ h2 {
 .text h1{
     color: #1A5184;
     font-weight:bolder;
-    margin: 3%;
+    margin: 7%;
     font-size: clamp(30px, 4vw, 50px);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
 
 .banner-container .banner .text p{
     text-align: left;
-    margin: 7%;
+    margin: 3%;
     font-size: clamp(15px, 2vw, 30px);
 }
 
@@ -428,7 +328,7 @@ h2 {
     overflow-y: auto;
 }
 .customer_services_modal_footer{
-    padding: 5px;
+    padding: 16px;
 }
 
 .modal-header {
@@ -462,7 +362,6 @@ h2 {
     }
     .modal_customer_services_title{
         padding-top: 10px;
-        font-weight: bold;
     }
     .close-web{
         padding: 10px;
@@ -478,9 +377,8 @@ h2 {
     
 }
 
-.checkout-summary{
-    padding-top: 10px;
-    font-weight: lighten;
+.info, .checkout-summary{
+    padding: 20px;
 }
 .modal{
     margin: 0;
@@ -520,7 +418,7 @@ h2 {
 
 .place{
     align-content: space-between;
-    padding: 10px;
+    padding: 20px;
 }
 
 .form-check{}
@@ -600,4 +498,42 @@ h2 {
     .price{
         font-size: 25px;
     }
+}
+
+.center{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.info{
+    margin-top: 5px;
+    width: 90%;
+    height: 10%;
+    background: white;
+    border-radius: 15px;
+}
+
+.summary{
+    margin-top: 30px;
+    width: 90%;
+    height: 90%;
+    background: white;
+    border-radius: 15px; 
+    margin-bottom: 30px;
+}
+.customer-details{
+    display:block;
+}
+.name, .contact, .address, .change_info{
+    margin: 10px;
+}
+
+.footer{
+    margin-top:20px;
+}
+
+.button1{
+    margin: 10px;
+    padding: 5px;
 }

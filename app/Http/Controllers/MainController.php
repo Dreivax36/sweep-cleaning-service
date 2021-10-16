@@ -46,7 +46,7 @@ class MainController extends Controller
         $save = $admin->save();
 
         if($save){
-            return back()->with('success', 'New User has been successfuly added to database');
+            return back()->with('success', 'New Admin User has been successfully added to database');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -172,7 +172,7 @@ class MainController extends Controller
         \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
         if($customer_save){
-            return back()->with('success', 'New User has been successfuly added to database');
+            return back()->with('success', 'Successfully created an account. Please check your email to verify it.');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -206,9 +206,14 @@ class MainController extends Controller
         ]);
 
         $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Customer')->first();
+        $email =  User::where('email','=', $request->email)->get();
 
         if(!$userInfo){
-            return back()->with('fail', 'We do not recognize your email address');
+            if($email == null){
+                return back()->with('fail', 'Your email address is not verified');
+            }else{
+                return back()->with('fail', 'We do not recognize your email address');
+            }
         }else{
             //check password
             if(Hash::check($request->password, $userInfo->password)){
@@ -231,32 +236,45 @@ class MainController extends Controller
         ]);
         
         $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
-        $id= Customer::Where('user_id', $request->user_id )->value('customer_id');
-        $pastAddress = Address::Where('customer_id', $id )->value('address');
-        $update= Address::Where('customer_id', $id )->update(['address' => $request->address]);
-        
+        $count = 0;  
+        foreach($request->input('address_id') AS $address_id){
+            $address = $request->input('address')[$count];
+            $update= Address::Where('address_id', $address_id )->update(['address' => $address]);
+            $count++;
+        }
+       
         if($update){   
-            return back()->with('success', 'Address Updated');
+            return back()->with('success', 'You successfully updated your profile');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
-    public function addAddress(Request $request)
-    {
-            $id= Customer::Where('user_id', $request->user_id )->value('customer_id');
-            $addresses = new Address;
-            $addresses->address = $request->address;
-            $addresses->customer_id = $id;
-            $update = $addresses->save();
+    function addAddress(Request $request){
+  
+        $addresses = new Address();
+        $addresses->customer_id = $request->customer_id;
+        $addresses->address = $request->address;
+        $addAddress = $addresses->save();
+ 
+        if($addAddress){
+            return back()->with('success', 'Address successfully added');
+         }
+         else {
+             return back()->with('fail','Something went wrong, try again later ');
+         }
+     }
 
-        if($update){   
-            return back()->with('success', 'Address Updated');
-        }
-        else {
-            return back()->with('fail','Something went wrong, try again later ');
-        }
-    }
+     function deleteAddress(Request $request){
+  
+        $deleteAddress = Address::Where('address_id', $request->address_id)->delete();
+        if($deleteAddress){
+            return back()->with('success-delete', 'Address successfully deleted');
+         }
+         else {
+             return back()->with('fail','Something went wrong, try again later ');
+         }
+     }
 
     function customer_login(){
         return view('customer.customer_login');
@@ -354,7 +372,7 @@ class MainController extends Controller
             \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
             if($cleaner_save){
-                return back()->with('success', 'New User has been successfuly added to database');
+                return back()->with('success', 'Successfully created an account. Please check your email to verify it.');
             }
             else {
                 return back()->with('fail','Something went wrong, try again later ');
@@ -368,9 +386,14 @@ class MainController extends Controller
         ]);
 
         $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Cleaner')->first();
+        $email =  User::where('email','=', $request->email)->get();
 
         if(!$userInfo){
-            return back()->with('fail', 'We do not recognize your email address');
+            if($email == null){
+                return back()->with('fail', 'Your email address is not verified');
+            }else{
+                return back()->with('fail', 'We do not recognize your email address');
+            }
         }else{
             //check password
             if(Hash::check($request->password, $userInfo->password)){
@@ -399,7 +422,7 @@ class MainController extends Controller
         $update= Cleaner::Where('user_id', $request->user_id )->update(['address' => $request->address, 'age' => $request->age]);
 
         if($update){   
-            return back()->with('success', 'Cleaner Profile Updated');
+            return back()->with('success', 'Profile successfully Updated');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');

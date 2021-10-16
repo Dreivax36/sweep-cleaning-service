@@ -16,9 +16,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="{{ asset('js/sweep.js')}}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
@@ -36,7 +36,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nav-customer.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
-
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 
 </head>
@@ -53,29 +53,22 @@
                     <a id="service" class="nav-link active" href="{{ url('/customer/customer_services') }}" role="button">Services</a>
                     <a id="transactions" class="nav-link" href="{{ url('/customer/customer_transaction') }}" role="button">Transactions</a>
                     <a id="Notifications" class="nav-link" href="{{ url('/customer/customer_history') }}" role="button">History</a>
-                    <li class="nav-item dropdown">
-                            <?php
-                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->count();
-                                  $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->where('booking_id', '!=', null)->orwhere('location', null)->get();
-                            ?>
-                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
-                            </a> 
-
-                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-                             
-                                @forelse ($notif as $notification)
-                              <a class="dropdown-item" href="{{$notification->location}}">
-                                    {{ $notification->message}}
-                                </a>
-                              @empty
-                                <a class="dropdown-item">
-                                    No record found
-                                </a>
-                              @endforelse
+                    <li class="nav-item dropdown" id="customer">
+                             <?php
+                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
+                                  $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
+                            ?>      
+                            
+                           <a id="navbarDropdown customer" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-bell"></i> 
+                                
+                                <span class="badge alert-danger pending">{{$notifCount}}</span>
+                                
+                            </a>    
+                            <div class="wrapper" id="notification">
+                            @include('notification')
                             </div>
-
-                  </li>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ $LoggedUserInfo['email'] }}
@@ -85,7 +78,7 @@
                             <a class="dropdown-item" href="customer_profile">
                                 Profile
                             </a>
-                            <a class="dropdown-item" href="{{ route('auth.logout') }}">
+                            <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
                                 Logout
                             </a>
                         </div>
@@ -116,8 +109,75 @@
                 </ul>
             </div>
         </nav>
+        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-sign-out-alt"></i>
+            </div>
+            <div class="title">
+                Leaving so Soon?
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('auth.logout') }}'">Logout</button>
+        </div>
+        </div>
+    </div>
+    </div> 
 
     <main>
         @yield('content')
     </main>
+    <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('21a2d0c6b21f78cd3195', {
+    cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+        channel.bind('customer-notif', function(data) {
+        
+        var id = "{{ $LoggedUserInfo['user_id'] }}";
+        if(data.id == id){
+            var pending = parseInt($('#customer').find('.pending').html());
+            if(pending) {
+                $('#customer').find('.pending').html(pending + 1);
+            }else{
+                $('#customer').find('.pending').html(pending + 1);
+            } 
+        }
+        });
+
+        $('.read').click (function(event){
+            id = event.target.id;
+            $.ajax({
+            method: "GET",
+            url: "/read/" + id
+            });
+        });
+
+    $('#customer').click( function(){
+        var id = "{{ $LoggedUserInfo['user_id'] }}";
+        $.ajax({
+        type: "get",
+        url: "/userNotification/" + id,
+        data: "",
+        cache: false,
+        success:function(data) {
+            $data = $(data);
+            $('#notification').hide().html($data).fadeIn();
+        }
+        });
+    }); 
+
+    </script>
 </body>

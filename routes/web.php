@@ -13,6 +13,7 @@ use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\MailSend;
 use App\Models\User;
 use App\Notifications\NotifyUser;
+use Pusher\Pusher;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,10 @@ Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_histor
 Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pay'])->name('customer_pay');
 Route::get('/customer/customer_rating/{id}',[BookingController::class, 'customer_rating'])->name('customer_rating');
 Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
+Route::post('/addAddress',[MainController::class, 'addAddress'])->name('addAddress');
+Route::post('/deleteAddress',[MainController::class, 'deleteAddress'])->name('deleteAddress');
+Route::get('/deleteAddress',[MainController::class, 'deleteAddress'])->name('deleteAddress');
+Route::post('/updateAddress',[BookingController::class, 'updateAddress'])->name('updateAddress');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
@@ -109,6 +114,7 @@ Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
     Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
     Route::post('/checkout',[BookingController::class, 'checkout'])->name('checkout');
     Route::get('/checkout',[BookingController::class, 'checkout'])->name('checkout');
+    Route::get('/onsite_payment',[BookingController::class, 'onsite_payment'])->name('onsite_payment');
 
     //Payment Paypal
     Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
@@ -117,6 +123,10 @@ Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
 
     Route::post('/rate',[BookingController::class, 'rate'])->name('rate');
     Route::get('/rate',[BookingController::class, 'rate'])->name('rate');
+
+    Route::get('/notification',[BookingController::class, 'notification'])->name('notification');
+    Route::get('/userNotification/{id}',[BookingController::class, 'userNotification'])->name('userNotification');
+    Route::get('/read/{id}',[BookingController::class, 'read'])->name('read');
     
 });
 
@@ -153,7 +163,21 @@ Route::get('/index', function () {
 });
 
 Route::get('test', function () {
-    event(new App\Events\MyEvent('Welcome'));
+    $options = array(
+        'cluster' => 'ap1',
+        'useTLS' => true
+    );
+
+    $pusher = new Pusher(
+        env('PUSHER_APP_KEY'),
+        env('PUSHER_APP_SECRET'),
+        env('PUSHER_APP_ID'),
+        $options
+    );
+    $messages = 'Okay';
+    $id = 4;
+    $data = ['messages' => $messages, 'id' => $id];
+    $pusher->trigger('my-channel', 'status', $data);
     return "Event has been sent";
 });
 

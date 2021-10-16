@@ -1,3 +1,7 @@
+body{
+    min-height: 100%;
+    position: relative;
+}
 
 .banner-container{
     align-items: center;
@@ -17,6 +21,7 @@
     flex:1 1 250px;
     padding: 35px;
     text-align: left;
+    margin-bottom: 50px;
 }
 
 .banner-container .banner .image img{

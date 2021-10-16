@@ -8,6 +8,7 @@
     use App\Models\Cleaner;
     use App\Models\Event;
     use App\Models\Notification;
+    use Carbon\Carbon;
 ?>
 @extends('head_extention_admin') 
 
@@ -42,37 +43,28 @@
                         <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                                  $notif = Notification::where('isRead', false)->where('user_id', null)->get();
+                                  $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                               ?>
-                          
-                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-bell"></i> <span class="badge alert-danger">{{$notifCount}}</span>
-                            </a> 
-                            
-                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-                             
-                                @forelse ($notif as $notification)
-                              <a class="dropdown-item" href="{{$notification->location}}">
-                                    {{ $notification->message}}
-                                </a>
-                              @empty
-                                <a class="dropdown-item">
-                                    No record found
-                                </a>
-                              @endforelse
+                           <a id="navbarDropdown admin" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-bell"></i> 
+                                @if($notifCount != 0)
+                                <span class="badge alert-danger pending">{{$notifCount}}</span>
+                                @endif
+                            </a>    
+                            <div class="wrapper" id="notification">
+                            @include('notification')
                             </div>
-
-                  </li>
+                        </li>
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ $LoggedUserInfo['email'] }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('auth.logout') }}">
+                                <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
                                     Logout
                                 </a>
                             </div>
@@ -95,8 +87,9 @@
       </div> 
 
       <?php
-        $booking_data = Booking::Where('status', 'Accepted' )->orWhere('status', 'On-Progress' )->get();
+        $booking_data = Booking::Where('status', 'Accepted' )->orWhere('status', 'On-Progress' )->orWhere('status', 'On-the-Way' )->get();
       ?>
+      @if($booking_data != null)
       @foreach($booking_data as $key => $value)
       <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
@@ -129,14 +122,43 @@
       @endforeach
       @endforeach
       @endforeach
+      @else
+      <div class="row justify-content-center">
+                <h1 class="center">
+                    You currently have no Active Jobs.
+                </h1>
+            </div>
+      @endif
     </div> <!-- End of Sidebar -->
 
     <div class="col-sm-9">
-     
+    <?php
+      $total = 0;
+      $revenue= 0;
+      $totalToday = 0;
+      $revenueToday = 0;
+      $cleaner = User::where('user_type', 'Cleaner')->where('account_status', 'Verified')->count();
+      $customer = User::where('user_type', 'Customer')->where('account_status', 'Verified')->count();
+      $bookingRevenue = Booking::Where('status', 'Completed')->get();
+      foreach($bookingRevenue as $bookingRevenue){
+        $price = Price::where('service_id', $bookingRevenue->service_id)->where('property_type', $bookingRevenue->property_type)->value('price');
+        $total = $total + $price;
+      }
+      $revenue = $total * 0.70;
+
+      $bookingToday = Booking::where('status', 'Completed')->where('schedule_date', Carbon::today())->get();
+      foreach($bookingToday as $bookingToday){
+        $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
+        $totalToday = $totalToday + $priceToday;
+      }
+      $revenueToday = $totalToday * 0.70;
+
+    ?>
+
       <div class="row" id="report"> <!-- Reports -->
         <div class="daily_revenue">
           <h3 class="value">
-            2,873 php 
+          {{ number_format((float)$revenueToday, 2, '.', '')}} php 
             </h3>
           <p class="report_title">
             Daily Revenue 
@@ -144,15 +166,15 @@
         </div>
         <div class="weekly_revenue">
           <h3 class="value"> 
-            17,243 php 
+          {{ number_format((float)$revenue, 2, '.', '')}} php 
           </h3>
           <p class="report_title"> 
-            Weekly Revenue 
+            Total Revenue 
           </p>
         </div>
         <div class="sweep_user">
           <h3 class="value"> 
-            103 
+            {{ $customer }}
           </h3>
           <p class="report_title"> 
             Sweep Users 
@@ -160,7 +182,7 @@
         </div>
         <div class="sweep_cleaner">
           <h3 class="value"> 
-            21 
+            {{$cleaner}}
           </h3>
           <p class="report_title"> 
             Sweep Cleaners 
@@ -181,6 +203,28 @@
       </div>
     </div>
   </div>
+ 
+  <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-sign-out-alt"></i>
+            </div>
+            <div class="title">
+                Are you sure you want to logout?
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('auth.logout') }}'">Logout</button>
+        </div>
+        </div>
+    </div>
+    </div> 
 
 <!-- Bar Graph -->
 <script>
@@ -292,25 +336,40 @@ function displayMessage(message) {
     });
 
     var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-    alert(JSON.stringify(data));
-        if($.fn.dataTable.isDataTable('#requestTable')){
-            $('#requestTable').DatabTable().clear();
-            $('#requestTable').DatabTable().destroy();
-        }
+        channel.bind('admin-notif', function(data) {
+        
+          var result = data.messages;
+            var pending = parseInt($('#admin').find('.pending').html());
+            if(pending) {
+                $('#admin').find('.pending').html(pending + 1);
+            }else{
+                $('#admin').append('<span class="badge alert-danger pending">1</span>');
+            } 
+          });
 
-        $.ajax({
-            method: "GET",
-            url: "/request/refresh",
-        }).done(function(data)){
-
-            $('#requestList').html(data);
-            var table = $('#requestTable').DatabTable({
-                "scrollX": true,
-                "order": [],
+          $('.read').click (function(event){
+        
+            id = event.target.id;
+            $.ajax({
+              method: "GET",
+              url: "/read/" + id
             });
         });
-    });
+
+      $('#admin').click( function(){
+ 
+        $.ajax({
+          type: "get",
+          url: "/notification",
+          data: "",
+          cache: false,
+          success:function(data) {
+            $data = $(data);
+            $('#notification').hide().html($data).fadeIn();
+          }
+        });
+      }); 
+
     </script>
 <footer id="footer">
     <div class="sweep-title">

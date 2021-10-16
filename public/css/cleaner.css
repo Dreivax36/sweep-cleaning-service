@@ -108,6 +108,24 @@
     .fc-toolbar .fc-left .fc-right {
         display: inline-block;
     }
+    .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        font-size: 30px;
+        color: #afafaf;
+        text-align: center;
+    }
+    .weekly_revenue {
+        height: 90px;
+        width: 100%;
+        background-color: #a7e9fa;
+        border-left: 10px solid #2B81B0;
+        padding: 13px;
+        border-radius: 5px;
+        margin: 10px;
+    }
 }
 
 #footer {
@@ -122,3 +140,34 @@
     padding: .75%;
     color: white;
 } 
+
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    color: #afafaf;
+}
+
+#report {
+
+    margin-top: 60px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.value{
+    font-weight: 700;
+    font-size: 25px;
+}
+
+.weekly_revenue {
+    height: 90px;
+    width: 20%;
+    background-color: #a7e9fa;
+    border-left: 10px solid #2B81B0;
+    padding: 13px;
+    border-radius: 10px;
+    margin: 10px;
+    /* margin-right: 50px; */
+}

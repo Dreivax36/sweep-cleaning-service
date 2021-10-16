@@ -111,7 +111,42 @@
     background-position: top center;
     background-repeat: no-repeat;
     min-height: 75vh;
+    
 }
+
+.banner-container{
+    align-items: center;
+    font-size: 30px;
+    background-size: cover;
+}
+
+.banner1{
+    background-color: #F7f7f7;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-container .banner1 .image{
+    flex:1 1 250px;
+    padding: 35px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.banner-container .banner1 .image img{
+    width: clamp(80%, 4vw, 90%);
+}
+
+.banner-container .banner1 .text{
+    flex:1 1 250px;
+    padding: clamp(60px, 4vw, 10%);
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+}
+
 .book_container {
     margin: 0 auto;
     background: #F7f7f7;

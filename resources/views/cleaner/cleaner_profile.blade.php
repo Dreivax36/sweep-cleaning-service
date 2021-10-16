@@ -65,7 +65,7 @@ use App\Models\Address;
                 <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#updateProfile">
                     UPDATE
                 </button>
-                <a class="btn btn-block btn-primary logout_btn" href="{{ route('auth.logout') }}">LOGOUT</a>
+                <a class="btn btn-block btn-primary logout_btn" data-dismiss="modal" data-toggle="modal" data-target="#logout" >LOGOUT</a>
             </div>
 
 
@@ -144,6 +144,82 @@ use App\Models\Address;
                 </div>
             </div> <!-- End of Modal for Updating a Service -->
         </div>
+    </div>
+    @if(!empty(Session::get('success')))
+        <script>
+            $(function(){
+                $('#success').modal('show');
+            });
+        </script>
+    @endif
+    @if(!empty(Session::get('fail')))
+        <script>
+            $(function(){
+                $('#error').modal('show');
+            });
+        </script>
+    @endif
+    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <div class="title">
+                Your Profile has been Updated.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-times-circle"></i>
+            </div>
+            <div class="title">
+                Something went wrong, try again.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-sign-out-alt"></i>
+            </div>
+            <div class="title">
+                Leaving so Soon?
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('logout_cleaner') }}'">Logout</button>
+        </div>
+        </div>
+    </div>
     </div>
     <div class="mobile-spacer">
 

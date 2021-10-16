@@ -58,7 +58,7 @@
                             <h5>Age</h5>
                             <input type="number" class="input" name="age" value="{{ old('age') }}">
                             <span class="text-danger">
-                                @error('full_name'){{ $message }} @enderror
+                                @error('age'){{ $message }} @enderror
                             </span>
                         </div>
                     </div>                    
