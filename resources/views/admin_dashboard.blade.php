@@ -367,7 +367,7 @@ function displayMessage(message) {
           cache: false,
           success:function(data) {
             $data = $(data);
-            $('#notification').html(data);
+            $('#notification').hide().html($data);
           }
         });
         }

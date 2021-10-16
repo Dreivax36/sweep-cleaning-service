@@ -549,9 +549,8 @@
                                         </div> <!-- End of Modal Content --> 
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -586,22 +585,21 @@
                                     </form> 
                                 </div>
                             </div>
-                        </div>
                     </div><!-- End of Modal -->
                     @endforeach       
             @endforeach 
             @else
             <div class="banner-container">
-            <div class="banner">
-                <div class="text">
-                    <h1> Currently no transaction.</h1>
-                </div>
-                <div class="image">
-                    <img src="/images/services/header_img.png" class="img-fluid">
-                </div>
+                <div class="banner">
+                    <div class="text">
+                        <h1> Currently no transaction.</h1>
+                    </div>
+                    <div class="image">
+                        <img src="/images/services/header_img.png" class="img-fluid">
+                    </div>
 
+                </div>
             </div>
-        </div>
             @endif 
         </div>
     </div>
