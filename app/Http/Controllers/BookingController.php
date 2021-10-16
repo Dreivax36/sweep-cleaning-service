@@ -105,6 +105,7 @@ class BookingController extends Controller
         $pusher->trigger('my-channel', 'status', $data);
 
        $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->get();
+       if($cleaner != null){
        foreach($cleaner as $cleanerID){
             $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner-id)->value('user_id');
 
@@ -124,6 +125,7 @@ class BookingController extends Controller
             $data = ['messages' => $messages, 'id' => $id];
             $pusher->trigger('my-channel', 'cleaner-status', $data);
        }
+    }
 
        if($status == 'Completed'){
             $updateEvent= Event::Where('booking_id', $request->booking_id )->delete();

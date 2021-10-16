@@ -166,7 +166,7 @@
             });
         });
 
-    $('#customer').click( function(){
+    $('#customer').on("click", function(){
         var id = "{{ $LoggedUserInfo['user_id'] }}";
         $.ajax({
         type: "get",
