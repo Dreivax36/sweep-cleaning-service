@@ -299,7 +299,7 @@
                                     </form>
                                     </div>
                                 </div>
-                            </div>
+                            
         @endif
         @endforeach
         @endforeach
@@ -316,6 +316,7 @@
             </div>
         </div>
         @endif
+    </div>
     </div>
 <script>
 
