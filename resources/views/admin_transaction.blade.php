@@ -17,9 +17,8 @@
     <title>
         Admin Transaction
     </title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
-
+    <link href="path/to/select2.min.css" rel="stylesheet" />
+    <script src="path/to/select2.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
