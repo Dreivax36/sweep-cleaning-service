@@ -104,9 +104,9 @@ class BookingController extends Controller
         $data = ['messages' => $messages, 'id' => $id];
         $pusher->trigger('my-channel', 'status', $data);
 
-       $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->value('cleaner_id');
+       $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->get();
        foreach($cleaner as $cleanerID){
-            $userCleaner = Cleaner::Where('cleaner_id', $cleanerID)->value('user_id');
+            $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner-id)->value('user_id');
 
             $notifications = new Notification();
             $notifications->message = "Status of Transaction $bookingID is $status.";

@@ -326,7 +326,7 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $bookingcount != $price_data->number_of_cleaner )    
-                                        <button  type="submit" class="btn btn-block btn-primary decline_btn" data-toggle="modal" data-target="#decline-{{ $value->service_id }}"  data-dismiss="modal">
+                                        <button  type="submit" class="btn btn-block btn-primary decline_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}"  data-dismiss="modal">
                                             DECLINE
                                         </button>
                                     @endif
