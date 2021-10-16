@@ -348,7 +348,7 @@ function displayMessage(message) {
           });
 
           $('.read').click (function(event){
-        
+            
             id = event.target.id;
             $.ajax({
               method: "GET",
@@ -357,17 +357,25 @@ function displayMessage(message) {
         });
 
       $('#admin').click( function(){
- 
-        $.ajax({
+        var notifClick = $('#admin').find('.clicked');
+        if(notifClick == null){
+          $('#admin').addClass('clicked');
+          $.ajax({
           type: "get",
           url: "/notification",
           data: "",
           cache: false,
           success:function(data) {
             $data = $(data);
-            $('#notification').hide().html($data).fadeIn();
+            $('#notification').html(data);
           }
         });
+        }
+        else {
+          $('#admin').removeClass('.clicked');
+          $('#notification').hide();
+        }
+        
       }); 
 
     </script>

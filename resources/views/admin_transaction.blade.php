@@ -363,43 +363,6 @@
                         @endforeach  
                         @endforeach 
                         </div> <!-- End of Modal Content -->   
-                            <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                    <form action="{{ route('updateStatus') }}" method="post">
-                                            @if(Session::get('success'))
-                                                <div class="alert alert-success">
-                                                    {{ Session::get('success') }}
-                                                </div>
-                                            @endif
-
-                                            @if(Session::get('fail'))
-                                                <div class="alert alert-danger">
-                                                    {{ Session::get('fail') }}
-                                                </div>
-                                            @endif
-                                            @csrf
-                                        Are you sure you want to decline this booking?
-                                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                        <input type="hidden" name="status" value="Declined">
-                                   
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                                        <button type="submit" class="btn btn-danger">YES</button>
-                                    </div>
-                                    </form> 
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- End of Modal -->
                             <div class="modal-footer customer_services_modal_footer">
                                 <div class="modal fade" id="assign-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
                                     <div class="modal-dialog" role="document">
@@ -586,6 +549,44 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{ route('updateStatus') }}" method="post">
+                                            @if(Session::get('success'))
+                                                <div class="alert alert-success">
+                                                    {{ Session::get('success') }}
+                                                </div>
+                                            @endif
+
+                                            @if(Session::get('fail'))
+                                                <div class="alert alert-danger">
+                                                    {{ Session::get('fail') }}
+                                                </div>
+                                            @endif
+                                            @csrf
+                                        Are you sure you want to decline this booking?
+                                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                        <input type="hidden" name="status" value="Declined">
+                                   
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                        <button type="submit" class="btn btn-danger">YES</button>
+                                    </div>
+                                    </form> 
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End of Modal -->
                     @endforeach       
             @endforeach 
             @else
