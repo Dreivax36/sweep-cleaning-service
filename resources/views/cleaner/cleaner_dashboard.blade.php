@@ -56,7 +56,7 @@ use App\Models\Event;
             
             <?php
             $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->get();
+            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->orWhere('status', '!=', 'Cancelled')->orWhere('status', '!=', 'Completed')->get();
             ?>
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)

@@ -119,6 +119,9 @@ class BookingController extends Controller
        $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->get();
        if($cleaner != null){
        foreach($cleaner as $cleanerID){
+            if($status == 'Cancelled'){
+                $assign= Assigned_cleaner::Where('booking_id', '=', $bookingID )->Where('cleaner_id', '=', $cleanerID->cleaner_id )->update(['status'=> $status ] );
+            }
             $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner_id)->value('user_id');
             $notifications = new Notification();
             $notifications->message = "Status of Transaction $bookingID is $status.";
@@ -148,6 +151,7 @@ class BookingController extends Controller
        if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
             $updateEvent= Event::Where('booking_id', $request->booking_id )->delete();
        }
+      
 
        if($updateStatus){
            return back()->with('success', 'Successfully Update the Booking Status');
