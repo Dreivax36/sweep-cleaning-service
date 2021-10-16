@@ -438,7 +438,7 @@
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
-                                                    <select name="cleaner_id[]" id="cleaner" class="form-control js-example-basic-single" data-live-search="true" style="width: 100%; max-height: 250px; overflow-y: auto;" aria-hidden="true">
+                                                    <select name="cleaner_id[]" id="cleaner" class="form-control js-example-basic-single" style="width: 100%; max-height: 250px; overflow-y: auto;">
                                                     @if($cleanerCount == 0) <!-- Booking does not exist in Assign Table -->
                                                         @if($cleanerSchedule == 0) <!-- Check if the booking have the no same Schedule -->
                                                             @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
@@ -658,7 +658,9 @@
     });
 
     $(document).ready(function() {
-        $('.js-example-basic-single').select2();
+        $('.js-example-basic-single').select2({
+            tags: true,
+        });
     });
 
     </script>  
