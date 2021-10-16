@@ -18,6 +18,7 @@
         Admin Transaction
     </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><!-- jQuery base library needed -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> 
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <div id="app">
@@ -103,9 +104,10 @@
         @foreach($booking_data as $key => $value)
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
-        $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
+        $customerid = $value->customer_id ;
+        $userId = Customer::Where('customer_id',$customerid )->value('user_id');
         $user_data = User::Where('user_id', $userId )->get();
-        $address = Address::Where('customer_id', $value->customer_id )->value('address');
+        $address = Address::Where('customer_id', $customerid )->value('address');
     ?>
             <div class="column col_transaction" id="card-lists">
                 <div class="card card_transaction p-4">

@@ -221,7 +221,7 @@ use App\Models\Review;
                         <!-- Modal Content -->
                         <div class="modal-header customer_trans_modal_header_inside">
                             <div class="p-3 customer_trans_modal_inside_con">
-                            <h5 class="modal-title" id="exampleModalLabel">Cancel</h5>
+                            
                             <div class="modal-body">
                                 <form action="{{ route('updateStatus') }}" method="post">
                                     @if(Session::get('success'))

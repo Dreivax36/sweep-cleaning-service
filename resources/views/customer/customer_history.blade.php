@@ -33,7 +33,7 @@ use App\Models\Assigned_cleaner;
     <div class="row justify-content-center">
         <?php
         $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'])->value('customer_id');
-        $booking_data = Booking::Where('customer_id', $customer_id)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->get();
+        $booking_data = Booking::Where('customer_id', $customer_id)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->orderBy('updated_at','DESC')->get();
         ?>
         @if($booking_data != null)
         @foreach($booking_data as $key => $value)

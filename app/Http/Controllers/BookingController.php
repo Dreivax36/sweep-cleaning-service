@@ -97,6 +97,7 @@ class BookingController extends Controller
 
         $messages = 'Status Updated';
         $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
 
         $options = array(
             'cluster' => 'ap1',
@@ -109,33 +110,24 @@ class BookingController extends Controller
                 env('PUSHER_APP_ID'),
                 $options
             );
-        $pusher->trigger('my-channel', 'admin-notif', $data);
-        $options = array(
-            'cluster' => 'ap1',
-            'useTLS' => true
-            );
-    
-            $pusher = new Pusher(
-                env('PUSHER_APP_KEY'),
-                env('PUSHER_APP_SECRET'),
-                env('PUSHER_APP_ID'),
-                $options
-            );
-        $pusher->trigger('my-channel', 'customer-notif', $data);
-        $options = array(
-            'cluster' => 'ap1',
-            'useTLS' => true
-            );
-    
-            $pusher = new Pusher(
-                env('PUSHER_APP_KEY'),
-                env('PUSHER_APP_SECRET'),
-                env('PUSHER_APP_ID'),
-                $options
-            );
-        $id = $user;  
-        $data = ['messages' => $messages, 'id' => $id];
-        $pusher->trigger('my-channel', 'status', $data);
+            $messages = 'Status Updated';
+            $data = ['messages' => $messages];    
+            $pusher->trigger('my-channel', 'customer-notif', $data);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+                );
+        
+                $pusher = new Pusher(
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    $options
+                );
+            $id = $user;  
+            $data = ['messages' => $messages, 'id' => $id];
+            $pusher->trigger('my-channel', 'status', $data);
 
        $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->get();
        if($cleaner != null){
@@ -163,6 +155,7 @@ class BookingController extends Controller
             $messages = 'Status Updated';
             $data = ['messages' => $messages];
             $pusher->trigger('my-channel', 'cleaner-notif', $data);
+            
             $options = array(
                 'cluster' => 'ap1',
                 'useTLS' => true

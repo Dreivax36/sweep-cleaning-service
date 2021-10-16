@@ -377,7 +377,7 @@ $(document).ready(function(){
     <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div class="modal-body1">
+        <div class="modal-body">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -388,7 +388,10 @@ $(document).ready(function(){
                 Booking Success!
             </div>
             <div class="description">
-                Thank You For Booking. We will notify you for updates regarding the details of your transaction.
+                Thank You For Booking. We will notify you for
+            </div>
+            <div class="description">
+                updates regarding the details of your transaction.
             </div>
         </div>
         <div class="modal-footer">

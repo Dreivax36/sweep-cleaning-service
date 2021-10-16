@@ -297,11 +297,7 @@
     margin: 0;
     align-items: center;
 }
-.modal-body{
-    padding: 40px;
-    max-height: 75vh;
-    overflow-y: auto;
-}
+
 .customer_services_modal_footer{
     padding: 16px;
 }
