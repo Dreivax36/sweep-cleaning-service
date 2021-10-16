@@ -32,7 +32,7 @@
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <?php
-            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'On-Progress' )->orWhere('status', 'On-the-Way')->orderBy('updated_at','DESC')->get();
+            $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'Done' )->orWhere('status', 'On-Progress' )->orWhere('status', 'On-the-Way')->orderBy('updated_at','DESC')->get();
         ?>
         @foreach($booking_data as $key => $value)
         @if($booking->booking_id == $value->booking_id)
@@ -183,7 +183,8 @@
                                 $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();    
                                 $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
                                 $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-Progress")->count();       
-                                $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();              
+                                $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();  
+                                $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->first();              
                             ?>
                                                 
                             <div class="modal-footer cleaner_job_modal_footer">
