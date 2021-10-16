@@ -12,6 +12,7 @@ use App\Models\Assigned_cleaner;
 use App\Models\Event;
 use App\Models\Service;
 use App\Models\Review;
+use App\Models\Address;
 use App\Models\Service_review;
 use App\Models\Cleaner_review;
 use App\Post;
@@ -252,6 +253,8 @@ class BookingController extends Controller
         $bookings->address_id = $address;
         $book = $bookings->save();
 
+        $id = $bookings->booking_id;
+
         $date = $request->schedule_date;
         $time = $request->schedule_time;        
         $startdate = $date . ' ' . $time;
@@ -270,7 +273,7 @@ class BookingController extends Controller
 
         $notifications = new Notification();
         $notifications->message = 'New Booking';
-        $notifications->booking_id = $bookings->booking_id;
+        $notifications->booking_id = $id;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
         $assign = $notifications->save();
