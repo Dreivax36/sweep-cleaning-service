@@ -41,7 +41,9 @@ Route::post('/customer/customer_check',[MainController::class, 'customer_check']
 Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->name('cleaner.cleaner_save');
 Route::post('/cleaner/cleaner_check',[MainController::class, 'cleaner_check'])->name('cleaner.cleaner_check');
 
-
+  //Calendar
+  Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'index']);
+  Route::get('cleaner/cleaner_dashboard/action', [FullCalendarController::class, 'action']);
 
 Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/',[MainController::class, 'sweep_welcome'])->name('sweep_welcome');
@@ -106,15 +108,15 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/notification',[BookingController::class, 'notification'])->name('notification');
     Route::get('/userNotification/{id}',[BookingController::class, 'userNotification'])->name('userNotification');
     Route::get('/customer/customer_transaction/{id}/{isRead}',[BookingController::class, 'read'])->name('read');
+    Route::get('/admin_transaction/{id}/{isRead}',[BookingController::class, 'read'])->name('read');
+    Route::get('/cleaner/cleaner_job/{id}/{isRead}',[BookingController::class, 'read'])->name('read');
 
     //Booking Module
     Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
     Route::get('/updateStatus', [BookingController::class, 'updateStatus'])->name('updateStatus');
     Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 
-    //Calendar
-    Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'index']);
-    Route::get('cleaner/cleaner_dashboard/action', [FullCalendarController::class, 'action']);
+  
     //Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'getEvents']);
 
     //Service Module
