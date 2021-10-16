@@ -60,13 +60,18 @@
                             
                            <a id="navbarDropdown cleaner" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> 
-                                
                                 <span class="badge alert-danger pending">{{$notifCount}}</span>
-                                
                             </a>    
-                            <div class="wrapper" id="notification">
-                            @include('notification')
-                            </div>
+                            @forelse ($notif as $notification)
+                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
+                                {{ $notification->message}}
+                            </a>
+                                                    
+                            @empty
+                            <a class="dropdown-item">
+                                No record found
+                            </a>
+                            @endforelse
                     </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -148,30 +153,10 @@
             }else{
                 $('#cleaner').find('.pending').html(pending + 1);
             } 
+            $('#refresh').load(window.location.href + " #refresh");
         }
         });
 
-        $('.read').click (function(event){
-            id = event.target.id;
-            $.ajax({
-            method: "GET",
-            url: "/read/" + id
-            });
-        });
-
-    $('#cleaner').click( function(){
-        var id = "{{ $LoggedUserInfo['user_id'] }}";
-        $.ajax({
-        type: "get",
-        url: "/userNotification/" + id,
-        data: "",
-        cache: false,
-        success:function(data) {
-            $data = $(data);
-            $('#notification').hide().html($data).fadeIn();
-        }
-        });
-    }); 
 
     </script>
 </body>

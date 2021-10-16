@@ -30,7 +30,7 @@
     <div class="row justify-content-center">
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
     ?>
 
         @if($bookingID != null)
@@ -41,7 +41,7 @@
         ?>
         @else
         <?php
-        $booking_data = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->orWhere('status', 'Cancelled')->get();
+        $booking_data = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->orWhere('status', 'Cancelled')->orderBy('updated_at','DESC')->get();
         ?>
         @endif
         @foreach($booking_data as $key => $value)

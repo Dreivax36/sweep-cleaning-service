@@ -61,7 +61,7 @@ use App\Models\Event;
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)
             <?php
-            $booking_data = Booking::Where('status', 'Pending')->Where('booking_id', $id->booking_id)->get();
+            $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-the-Way')->orWhere('status', 'On-Progress')->Where('booking_id', $id->booking_id)->get();
             ?>
             @foreach($booking_data as $key => $value)
             <?php
@@ -116,7 +116,7 @@ use App\Models\Event;
                 $id = $booking->booking_id;
                 $cancel = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Declined')->count();
                 $done = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Done')->count();
-                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id',$id)->Where('status', 'Pending')->count();
+                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id',$id)->Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-the-Way')->orWhere('status', 'On-Progress')->count();
                 if($cancel == 1){
                     $canceljobs++;
                 }

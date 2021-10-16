@@ -54,9 +54,16 @@
                                 <span class="badge alert-danger pending">{{$notifCount}}</span>
                                 @endif
                             </a>    
-                            <div class="wrapper" id="notification">
-                            @include('notification')
-                            </div>
+                            @forelse ($notif as $notification)
+                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
+                                {{ $notification->message}}
+                            </a>
+                                                    
+                            @empty
+                            <a class="dropdown-item">
+                                No record found
+                            </a>
+                            @endforelse
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -345,37 +352,8 @@ function displayMessage(message) {
             }else{
                 $('#admin').find('.pending').html(pending + 1);
             } 
+            $('#refresh').load(window.location.href + " #refresh");
           });
-
-          $('.read').click (function(event){
-            
-            id = event.target.id;
-            $.ajax({
-              method: "GET",
-              url: "/read/" + id
-            });
-        });
-
-      $('.admin').click( function(){
-        var notifClicked = $('.admin').find('.clicked');
-        if(notifClicked == null){
-          $('.admin').addClass('.clicked');
-        $.ajax({
-          type: "get",
-          url: "/notification",
-          data: "",
-          cache: false,
-          success:function(data) {
-            $data = $(data);
-            $('#notification').hide().html($data);
-          }
-        });
-        }
-        else {
-          $('.admin').removeClass('.clicked');
-          $('#notification').hide();
-        }
-      }); 
 
     </script>
 <footer id="footer">

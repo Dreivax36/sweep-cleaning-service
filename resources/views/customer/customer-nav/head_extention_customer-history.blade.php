@@ -52,7 +52,6 @@
                     <a id="service" class="nav-link" href="{{ url('/customer/customer_services') }}" role="button">Services</a>
                     <a id="transactions" class="nav-link" href="{{ url('/customer/customer_transaction') }}" role="button">Transactions</a>
                     <a id="Notifications" class="nav-link active" href="{{ url('/customer/customer_history') }}" role="button">History</a>
-                    
                     <li class="nav-item dropdown" id="customer">
                              <?php
                                 $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
@@ -61,13 +60,18 @@
                             
                            <a id="navbarDropdown customer" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> 
-                                
                                 <span class="badge alert-danger pending">{{$notifCount}}</span>
-                                
                             </a>    
-                            <div class="wrapper" id="notification">
-                            @include('notification')
-                            </div>
+                            @forelse ($notif as $notification)
+                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
+                                {{ $notification->message}}
+                            </a>
+                                                    
+                            @empty
+                            <a class="dropdown-item">
+                                No record found
+                            </a>
+                            @endforelse
                     </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -156,30 +160,11 @@
             }else{
                 $('#customer').find('.pending').html(pending + 1);
             } 
+            
+            $('#refresh').load(window.location.href + " #refresh");
+
         }
         });
-
-        $('.read').click (function(event){
-            id = event.target.id;
-            $.ajax({
-            method: "GET",
-            url: "/read/" + id
-            });
-        });
-
-    $('#customer').click( function(){
-        var id = "{{ $LoggedUserInfo['user_id'] }}";
-        $.ajax({
-        type: "get",
-        url: "/userNotification/" + id,
-        data: "",
-        cache: false,
-        success:function(data) {
-            $data = $(data);
-            $('#notification').hide().html($data).fadeIn();
-        }
-        });
-    }); 
 
     </script>
 </body>

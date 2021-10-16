@@ -73,16 +73,6 @@ class BookingController extends Controller
        $notifications->location = 'admin_transaction';
        $updateStatus = $notifications->save();
 
-       $customerid= Booking::Where('booking_id', $bookingID )->value('customer_id');
-       $user = Customer::Where('customer_id', $customerid)->value('user_id');
-       $notifications = new Notification();
-       $notifications->message = "Status of Transaction $bookingID is $status.";
-       $notifications->booking_id = $bookingID;
-       $notifications->isRead = false; 
-       $notifications->user_id = $user;
-       $notifications->location = 'customer/customer_transaction';
-       $updateStatus = $notifications->save();
-             
        $options = array(
         'cluster' => 'ap1',
         'useTLS' => true
@@ -99,6 +89,17 @@ class BookingController extends Controller
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
+       $customerid= Booking::Where('booking_id', $bookingID )->value('customer_id');
+       $user = Customer::Where('customer_id', $customerid)->value('user_id');
+       $notifications = new Notification();
+       $notifications->message = "Status of Transaction $bookingID is $status.";
+       $notifications->booking_id = $bookingID;
+       $notifications->isRead = false; 
+       $notifications->user_id = $user;
+       $notifications->location = 'customer/customer_transaction';
+       $updateStatus = $notifications->save();
+             
+
         $options = array(
             'cluster' => 'ap1',
             'useTLS' => true
@@ -111,23 +112,9 @@ class BookingController extends Controller
                 $options
             );
             $messages = 'Status Updated';
-            $data = ['messages' => $messages];    
+            $id = $user;
+            $data = ['messages' => $messages, 'id' => $id];    
             $pusher->trigger('my-channel', 'customer-notif', $data);
-
-            $options = array(
-                'cluster' => 'ap1',
-                'useTLS' => true
-                );
-        
-                $pusher = new Pusher(
-                    env('PUSHER_APP_KEY'),
-                    env('PUSHER_APP_SECRET'),
-                    env('PUSHER_APP_ID'),
-                    $options
-                );
-            $id = $user;  
-            $data = ['messages' => $messages, 'id' => $id];
-            $pusher->trigger('my-channel', 'status', $data);
 
        $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->get();
        if($cleaner != null){
@@ -151,28 +138,14 @@ class BookingController extends Controller
                     env('PUSHER_APP_ID'),
                     $options
                 );
-            $messages = 'Status Updated';
-            $data = ['messages' => $messages];
-            $pusher->trigger('my-channel', 'cleaner-notif', $data);
-
-            $options = array(
-                'cluster' => 'ap1',
-                'useTLS' => true
-                );
-        
-                $pusher = new Pusher(
-                    env('PUSHER_APP_KEY'),
-                    env('PUSHER_APP_SECRET'),
-                    env('PUSHER_APP_ID'),
-                    $options
-                );
-            $id = $userCleaner;  
-            $data = ['messages' => $messages, 'id' => $id];
-            $pusher->trigger('my-channel', 'cleaner-status', $data);
+                $messages = 'Status Updated';
+                $id = $userCleaner;
+                $data = ['messages' => $messages, 'id' => $id];
+                $pusher->trigger('my-channel', 'cleaner-notif', $data);
        }
     }
 
-       if($status == 'Completed'){
+       if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
             $updateEvent= Event::Where('booking_id', $request->booking_id )->delete();
        }
 
@@ -207,7 +180,7 @@ class BookingController extends Controller
         $notifications->message = "Cleaner $name update the status of Transaction $request->booking_id.";
         $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
-        $notifications->location = 'cleaner/cleaner_job';
+        $notifications->location = 'admin_transaction';
         $cleaner = $notifications->save();
 
         $options = array(
@@ -267,7 +240,8 @@ class BookingController extends Controller
         );
 
         $messages = 'Status Updated';
-        $data = ['messages' => $messages];
+        $id = $cleaner;
+        $data = ['messages' => $messages, 'id' => $id];
         $pusher->trigger('my-channel', 'cleaner-notif', $data);
 
 
@@ -541,7 +515,7 @@ class BookingController extends Controller
 
 
     function read(Request $request){
-        $notif = Notification::where('id', $request->route('id'))->update(['isRead' => true]);
+        $notif = Notification::where('id', $request->route('id'))->update(['isRead' => $request->route('isRead')]);
         $location = Notification::where('id', $request->route('id'))->value('location');
         if($notif){
             return redirect()->route($location);

@@ -24,10 +24,10 @@
         </h1>
     </div>
     <div class="body">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="status">
         <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->get();
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->orderBy('updated_at','DESC')->get();
         ?>
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
@@ -180,7 +180,10 @@
 
 
                             <?php
-                                $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();       
+                                $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();    
+                                $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
+                                $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-Progress")->count();       
+                                $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();              
                             ?>
                                                 
                             <div class="modal-footer cleaner_job_modal_footer">
@@ -192,17 +195,17 @@
                                     DECLINE
                                 </button> 
                             @endif   
-                            @if($value->status == "Accepted" )
+                            @if($value->status == "Accepted" && $otwcount != $price_data->number_of_cleaner)
                                 <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way" >
                                     ON-THE-WAY
                                 </button>    
                             @endif  
-                            @if($value->status == "On-the-Way" )
+                            @if($value->status == "On-the-Way" && $onprogresscount != $price_data->number_of_cleaner)
                                 <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
                                     ON-PROGRESS
                                 </button>    
                             @endif   
-                            @if($value->status == "On-Progress")
+                            @if($value->status == "On-Progress" && $donecount != $price_data->number_of_cleaner)
                                 <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
                                     CLEANING COMPLETE
                                 </button> 
@@ -317,23 +320,6 @@
         @endif
     </div>
     </div>
-<script>
-
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('21a2d0c6b21f78cd3195', {
-    cluster: 'ap1'
-    });
-
-    var channel = pusher.subscribe('my-channel');
-        channel.bind('cleaner-status', function(data) {
-        var id = "{{ $LoggedUserInfo['user_id'] }}";
-        if(data.id == id){
-            $('#status').text(data.messages);
-        }
-        });
-    </script>
 
     @if(!empty(Session::get('success')))
         <script>

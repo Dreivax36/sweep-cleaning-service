@@ -25,22 +25,6 @@ use Pusher\Pusher;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Calendar
-Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'index']);
-Route::get('cleaner/cleaner_dashboard/action', [FullCalendarController::class, 'action']);
-//Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'getEvents']);
-
-//Service Module
-Route::resource('services', ServiceController::class);
-Route::post('/store',[ServiceController::class, 'store'])->name('store');
-Route::get('/store',[ServiceController::class, 'store'])->name('store');
-Route::post('/destroy',[ServiceController::class, 'destroy'])->name('destroy');
-Route::post('/update',[ServiceController::class, 'update'])->name('update');
-Route::get('/update',[ServiceController::class, 'update'])->name('update');
-Route::get('/admin_services',[ServiceController::class, 'admin_services'])->name('admin_services'); 
-Route::get('/admin_transaction',[ServiceController::class, 'admin_transaction'])->name('admin_transaction');
-Route::get('/admin_transaction_history',[ServiceController::class, 'admin_transaction_history'])->name('admin_transaction_history'); 
-Route::get('/customer/customer_services',[ServiceController::class, 'customer_services'])->name('customer.customer_services');
 
 //Admin
 Route::POST('/auth/save',[MainController::class, 'save'])->name('auth.save');
@@ -49,13 +33,9 @@ Route::get('/auth/logout',[MainController::class, 'logout'])->name('auth.logout'
 Route::get('/logout_cleaner',[MainController::class, 'logout_cleaner'])->name('logout_cleaner');
 
 
-//Booking Module
-Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
-Route::get('/updateStatus', [BookingController::class, 'updateStatus'])->name('updateStatus');
-Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
-
 //Customer
-
+Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
+Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
 
 //Cleaner
 Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->name('cleaner.cleaner_save');
@@ -86,22 +66,21 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/updateProfile',[MainController::class, 'updateProfile'])->name('updateProfile');
     Route::post('/addAddress',[MainController::class, 'addAddress'])->name('addAddress');
     Route::get('/addAddress',[MainController::class, 'addAddress'])->name('addAddress');
-    Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
-    Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
+   
     Route::post('/book',[BookingController::class, 'book'])->name('book');
     Route::get('/book',[BookingController::class, 'book'])->name('book');
     Route::get('/customer/customer_transaction',[BookingController::class, 'customer_transaction'])->name('customer.customer_transaction');
     Route::get('/customer/customer_pay',[BookingController::class, 'customer_pay'])->name('customer.customer_pay');
-Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
-Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
-Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
-Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pay'])->name('customer_pay');
-Route::get('/customer/customer_rating/{id}',[BookingController::class, 'customer_rating'])->name('customer_rating');
-Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
-Route::post('/addAddress',[MainController::class, 'addAddress'])->name('addAddress');
-Route::post('/deleteAddress',[MainController::class, 'deleteAddress'])->name('deleteAddress');
-Route::get('/deleteAddress',[MainController::class, 'deleteAddress'])->name('deleteAddress');
-Route::post('/updateAddress',[BookingController::class, 'updateAddress'])->name('updateAddress');
+    Route::get('/customer/customer_history',[BookingController::class, 'customer_history'])->name('customer.customer_history');
+    Route::get('/cleaner/cleaner_job',[BookingController::class, 'cleaner_job'])->name('cleaner.cleaner_job');
+    Route::get('/cleaner/cleaner_history',[BookingController::class, 'cleaner_history'])->name('cleaner.cleaner_history');
+    Route::get('/customer/customer_pay/{id}',[BookingController::class, 'customer_pay'])->name('customer_pay');
+    Route::get('/customer/customer_rating/{id}',[BookingController::class, 'customer_rating'])->name('customer_rating');
+    Route::post('/newDate',[BookingController::class, 'newDate'])->name('newDate');
+    Route::post('/addAddress',[MainController::class, 'addAddress'])->name('addAddress');
+    Route::post('/deleteAddress',[MainController::class, 'deleteAddress'])->name('deleteAddress');
+    Route::get('/deleteAddress',[MainController::class, 'deleteAddress'])->name('deleteAddress');
+    Route::post('/updateAddress',[BookingController::class, 'updateAddress'])->name('updateAddress');
 
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
@@ -126,8 +105,31 @@ Route::post('/updateAddress',[BookingController::class, 'updateAddress'])->name(
 
     Route::get('/notification',[BookingController::class, 'notification'])->name('notification');
     Route::get('/userNotification/{id}',[BookingController::class, 'userNotification'])->name('userNotification');
-    Route::get('/read/{id}',[BookingController::class, 'read'])->name('read');
-    
+    Route::get('/customer/customer_transaction/{id}/{isRead}',[BookingController::class, 'read'])->name('read');
+
+    //Booking Module
+    Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
+    Route::get('/updateStatus', [BookingController::class, 'updateStatus'])->name('updateStatus');
+    Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
+
+    //Calendar
+    Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'index']);
+    Route::get('cleaner/cleaner_dashboard/action', [FullCalendarController::class, 'action']);
+    //Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'getEvents']);
+
+    //Service Module
+    Route::resource('services', ServiceController::class);
+    Route::post('/store',[ServiceController::class, 'store'])->name('store');
+    Route::get('/store',[ServiceController::class, 'store'])->name('store');
+    Route::post('/destroy',[ServiceController::class, 'destroy'])->name('destroy');
+    Route::post('/update',[ServiceController::class, 'update'])->name('update');
+    Route::get('/update',[ServiceController::class, 'update'])->name('update');
+    Route::get('/admin_services',[ServiceController::class, 'admin_services'])->name('admin_services'); 
+    Route::get('/admin_transaction',[ServiceController::class, 'admin_transaction'])->name('admin_transaction');
+    Route::get('/admin_transaction_history',[ServiceController::class, 'admin_transaction_history'])->name('admin_transaction_history'); 
+    Route::get('/customer/customer_services',[ServiceController::class, 'customer_services'])->name('customer.customer_services');
+
+    Route::get('/update_account/{id}',[MailSend::class, 'mailsend'])->name('update_account');
 });
 
 Route::get('/cleaner/cleaner_welcome', function () {
@@ -175,20 +177,10 @@ Route::get('test', function () {
         $options
     );
     $messages = 'Okay';
-    $data = ['messages' => $messages];
-    $pusher->trigger('my-channel', 'admin-notif', $data);
+    $id = 4;
+    $data = ['messages' => $messages, 'id' => $id];
+    $pusher->trigger('my-channel', 'cleaner-refresh', $data);
     return "Event has been sent";
 });
 
 
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('e-wallet/pay', [EWalletPaymentController::class, 'pay'])->name('ewallet.pay');
-});
-
-Route::get('cleaner/x', function(){
-    $user = Auth::user();
-    $user->notify(new NotifyUser(User::findOrFail(2)));
-});
-
-Route::get('/update_account/{id}',[MailSend::class, 'mailsend'])->name('update_account');

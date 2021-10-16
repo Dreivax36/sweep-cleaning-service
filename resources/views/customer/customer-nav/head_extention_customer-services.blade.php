@@ -61,13 +61,18 @@
                             
                            <a id="navbarDropdown customer" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> 
-                                
                                 <span class="badge alert-danger pending">{{$notifCount}}</span>
-                                
                             </a>    
-                            <div class="wrapper" id="notification">
-                            @include('notification')
-                            </div>
+                            @forelse ($notif as $notification)
+                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
+                                {{ $notification->message}}
+                            </a>
+                                                    
+                            @empty
+                            <a class="dropdown-item">
+                                No record found
+                            </a>
+                            @endforelse
                     </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -136,48 +141,27 @@
     </main>
     <script>
 
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
 
-    var pusher = new Pusher('21a2d0c6b21f78cd3195', {
-    cluster: 'ap1'
+var pusher = new Pusher('21a2d0c6b21f78cd3195', {
+cluster: 'ap1'
+});
+
+var channel = pusher.subscribe('my-channel');
+    channel.bind('customer-notif', function(data) {
+    
+    var id = "{{ $LoggedUserInfo['user_id'] }}";
+    if(data.id == id){
+        var pending = parseInt($('#customer').find('.pending').html());
+        if(pending) {
+            $('#customer').find('.pending').html(pending + 1);
+        }else{
+            $('#customer').find('.pending').html(pending + 1);
+        } 
+        $('#refresh').load(window.location.href + " #refresh");
+    }
     });
 
-    var channel = pusher.subscribe('my-channel');
-        channel.bind('customer-notif', function(data) {
-        
-        var id = "{{ $LoggedUserInfo['user_id'] }}";
-        if(data.id == id){
-            var pending = parseInt($('#customer').find('.pending').html());
-            if(pending) {
-                $('#customer').find('.pending').html(pending + 1);
-            }else{
-                $('#customer').find('.pending').html(pending + 1);
-            } 
-        }
-        });
-
-        $('.read').click (function(event){
-            id = event.target.id;
-            $.ajax({
-            method: "GET",
-            url: "/read/" + id
-            });
-        });
-
-    $('#customer').click( function(){
-        var id = "{{ $LoggedUserInfo['user_id'] }}";
-        $.ajax({
-        type: "get",
-        url: "/userNotification/" + id,
-        data: "",
-        cache: false,
-        success:function(data) {
-            $data = $(data);
-            $('#notification').hide().html($data).fadeIn();
-        }
-        });
-    }); 
-
-    </script>
+</script>
 </body>

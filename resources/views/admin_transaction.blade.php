@@ -47,9 +47,16 @@
                                 <span class="badge alert-danger pending">{{$notifCount}}</span>
                                 @endif
                             </a>    
-                            <div class="wrapper" id="notification">
-                            @include('notification')
-                            </div>
+                            @forelse ($notif as $notification)
+                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
+                                {{ $notification->message}}
+                            </a>
+                                                    
+                            @empty
+                            <a class="dropdown-item">
+                                No record found
+                            </a>
+                            @endforelse
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -97,7 +104,7 @@
 </div>
     <div class="transaction_con">
     
-        <div class="row row_transaction">
+        <div class="row row_transaction" id="status">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
     <?php
@@ -620,41 +627,12 @@
             if(pending) {
                 $('#admin').find('.pending').html(pending + 1);
             }else{
-                $('#admin').append('<span class="badge alert-danger pending">1</span>');
+                $('#admin').find('.pending').html(pending + 1);
             } 
-         
+            $('#refresh').load(window.location.href + " #refresh");
+            $('#status').load(window.location.href + " #status");
         });
 
-        $('.read').click (function(event){
-           
-            id = event.target.id;
-            $.ajax({
-            method: "GET",
-            url: "/read/" + id
-            });
-        });
-
-    $('#admin').click( function(){
-        
-        $.ajax({
-        type: "get",
-        url: "/notification",
-        data: "",
-        cache: false,
-        success:function(data) {
-            $data = $(data);
-            $('#notification').hide().html($data).fadeIn();
-        }
-        });
-    }); 
-
-    var channel = pusher.subscribe('my-channel');
-        channel.bind('status', function(data) {
-        var id = "{{ $LoggedUserInfo['user_id'] }}";
-        if(data.id == id){
-            $('#status').text(data.messages);
-        }
-    });
 </script>  
 
     @if(!empty(Session::get('success')))

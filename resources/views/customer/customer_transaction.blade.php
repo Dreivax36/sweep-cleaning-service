@@ -32,7 +32,7 @@ use App\Models\Review;
             </div>
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="status">
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
             $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->orderBy('updated_at','DESC')->get();
@@ -225,7 +225,11 @@ use App\Models\Review;
                                 <form action="{{ route('updateStatus') }}" method="post">
                                     @if(Session::get('success'))
                                     <div class="alert alert-success">
-                                        {{ Session::get('success') }}
+                                    <script>
+                                        $(function(){
+                                            $('#success').modal('show');
+                                        });
+                                    </script>
                                     </div>
                                     @endif
 
@@ -492,7 +496,6 @@ use App\Models\Review;
         </div>
     </div>
     </div>
-
     <div class="mobile-spacer">
 
     </div>
