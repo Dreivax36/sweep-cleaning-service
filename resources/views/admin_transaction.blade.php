@@ -77,7 +77,7 @@
                 <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
             </div> 
         </div>
-    </div>
+
     <?php
         $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orderBy('updated_at','DESC')->get();
         $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
@@ -549,7 +549,7 @@
                                         </div> <!-- End of Modal Content --> 
                                     </div>
                                 </div>
-
+                                </div>
                         <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
