@@ -64,7 +64,7 @@ class BookingController extends Controller
         //Update data into database
         $bookingID = $request->booking_id;
         $status = $request->status;
-       $updateStatus= Booking::Where('booking_id', $bookingID )->update(['status' => $status]);
+        $updateStatus= Booking::Where('booking_id', $bookingID )->update(['status' => $status]);
     
        $notifications = new Notification();
        $notifications->message = "Status of Transaction $bookingID is $status.";
@@ -132,8 +132,7 @@ class BookingController extends Controller
        $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->get();
        if($cleaner != null){
        foreach($cleaner as $cleanerID){
-            $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner-id)->value('user_id');
-
+            $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner_id)->value('user_id');
             $notifications = new Notification();
             $notifications->message = "Status of Transaction $bookingID is $status.";
             $notifications->booking_id = $bookingID;
