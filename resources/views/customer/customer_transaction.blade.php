@@ -110,7 +110,7 @@ use App\Models\Review;
                                 Pay
                             </button>
                             @endif
-                            @if($value->status == "Done" && $reviews != 0 )           
+                            @if($value->status == "Done" && $reviews == 0 )           
                             <button type="button" class="btn btn-primary rate_btn" onclick="document.location='{{ route('customer_rating', $value->booking_id) }}'">
                                 Rate
                             </button>

@@ -73,7 +73,7 @@ class BookingController extends Controller
        $notifications->location = 'admin_transaction';
        $updateStatus = $notifications->save();
 
-       $customerid= Booking::Where('booking_id', $request->booking_id )->value('customer_id');
+       $customerid= Booking::Where('booking_id', $bookingID )->value('customer_id');
        $user = Customer::Where('customer_id', $customerid)->value('user_id');
        $notifications = new Notification();
        $notifications->message = "Status of Transaction $bookingID is $status.";
