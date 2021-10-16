@@ -40,6 +40,7 @@
                                 <span class="badge alert-danger pending">{{$notifCount}}</span>
                                 @endif
                             </a>    
+                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                             @forelse ($notif as $notification)
                             <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
                                 {{ $notification->message}}
@@ -49,7 +50,8 @@
                             <a class="dropdown-item">
                                 No record found
                             </a>
-                            @endforelse
+                            @endforelse 
+                        </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
