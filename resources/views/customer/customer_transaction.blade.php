@@ -243,12 +243,8 @@ use App\Models\Review;
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
 
                                     <div class="d-flex no_yes_con">
-                                        <button type="button" class="btn btn-block btn-primary no_btn" data-dismiss="modal">
-                                            NO
-                                        </button>
-                                        <button type="submit" class="btn btn-block btn-primary yes_btn" name="status" value="Cancelled">
-                                            YES
-                                        </button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                        <button type="submit"  name="status" value="Cancelled" class="btn btn-primary">YES</button>
                                     </div>
                                 </form>
                             </div>

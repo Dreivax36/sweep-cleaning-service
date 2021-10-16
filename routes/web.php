@@ -175,9 +175,8 @@ Route::get('test', function () {
         $options
     );
     $messages = 'Okay';
-    $id = 4;
-    $data = ['messages' => $messages, 'id' => $id];
-    $pusher->trigger('my-channel', 'status', $data);
+    $data = ['messages' => $messages];
+    $pusher->trigger('my-channel', 'admin-notif', $data);
     return "Event has been sent";
 });
 

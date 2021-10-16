@@ -105,8 +105,8 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content p-4 cleaner_job_modal_content">
                         <div class="modal-header cleaner_job_modal_header">
-                        <img src="/img/broom.png" class="cleaner_trans_broom_2_1_img p-1">
                             <div class="d-flex pt-5">
+                            <img src="/img/broom.png" class="cleaner_trans_broom_2_1_img p-1">
                                 <div class="d-flex flex-column">
                                     <h4 class="cleaner_job_modal_title">
                                         {{ $service_name}}
