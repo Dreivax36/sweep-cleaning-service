@@ -119,7 +119,7 @@ class BookingController extends Controller
        $cleaner = Assigned_cleaner::Where('booking_id', $bookingID)->get();
        if($cleaner != null){
        foreach($cleaner as $cleanerID){
-            if($status == 'Cancelled'){
+            if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
                 $assign= Assigned_cleaner::Where('booking_id', '=', $bookingID )->Where('cleaner_id', '=', $cleanerID->cleaner_id )->update(['status'=> $status ] );
             }
             $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner_id)->value('user_id');
