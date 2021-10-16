@@ -176,7 +176,7 @@ use App\Models\Assigned_cleaner;
         <div class="banner-container">
             <div class="banner">
                 <div class="text">
-                    <h1> You currently have no transaction.</h1>
+                    <h1> You currently have no history.</h1>
                 </div>
                 <div class="image">
                     <img src="/images/services/header_img.png" class="img-fluid">

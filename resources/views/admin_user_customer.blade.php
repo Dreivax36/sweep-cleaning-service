@@ -323,8 +323,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('auth.logout') }}'">Logout</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
         </div>
         </div>
     </div>

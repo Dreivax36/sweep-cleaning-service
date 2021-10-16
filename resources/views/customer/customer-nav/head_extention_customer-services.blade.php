@@ -109,10 +109,10 @@
                 </ul>
             </div>
         </nav>
-        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div class="modal-body">
+        <div class="modal-body1">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
             </button>
@@ -120,12 +120,12 @@
                 <i class="fa fa-sign-out-alt"></i>
             </div>
             <div class="title">
-                Leaving so Soon?
+            Are you sure you want to Logout?
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('auth.logout') }}'">Logout</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
         </div>
         </div>
     </div>

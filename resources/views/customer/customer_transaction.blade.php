@@ -201,12 +201,12 @@ use App\Models\Review;
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
                             @if($value->status != "On-Progress" && $value->status != "Done")
-                            <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-toggle="modal" data-target="#canceltransaction-{{ $value->booking_id }}">
+                            <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-dismiss="modal" data-toggle="modal" data-target="#canceltransaction-{{ $value->booking_id }}">
                                 CANCEL
                             </button>
                             @endif
                             @if($value->status == "No-Available-Cleaner") 
-                                <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-toggle="modal" data-target="#nocleaner-{{ $value->booking_id }}" >
+                                <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-dismiss="modal" data-toggle="modal" data-target="#nocleaner-{{ $value->booking_id }}" >
                                     CHOOSE NEW SCHEDULE
                                 </button>
                             @endif
@@ -221,9 +221,8 @@ use App\Models\Review;
                         <!-- Modal Content -->
                         <div class="modal-header customer_trans_modal_header_inside">
                             <div class="p-3 customer_trans_modal_inside_con">
-                                <h3 class="cancel_booking_question">
-                                    Are you sure you want to cancel your booking?
-                                </h3>
+                            <h5 class="modal-title" id="exampleModalLabel">Cancel</h5>
+                                
                                 <form action="{{ route('updateStatus') }}" method="post">
                                     @if(Session::get('success'))
                                     <div class="alert alert-success">
@@ -238,6 +237,9 @@ use App\Models\Review;
                                     @endif
 
                                     @csrf
+                                    <h3 class="cancel_booking_question">
+                                    Are you sure you want to cancel your booking?
+                                </h3>
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
 
                                     <div class="d-flex no_yes_con">
@@ -471,26 +473,7 @@ use App\Models\Review;
         </div>
     </div>
     </div>
-    <div class="modal fade" id="success-pay" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Payment Successful
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
+    
     <div class="modal fade" id="success-rate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

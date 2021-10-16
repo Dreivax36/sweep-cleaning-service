@@ -99,7 +99,7 @@
     <div class="transaction_con">
     
         <div class="row row_transaction">
-        @if($booking_data == null )
+        @if($booking_data != null )
         @foreach($booking_data as $key => $value)
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
@@ -588,9 +588,9 @@
             @endforeach 
             @else
             <div class="banner-container">
-            <div class="banner1">
+            <div class="banner">
                 <div class="text">
-                    <h1> You currently have no job.</h1>
+                    <h1> Currently no transaction.</h1>
                 </div>
                 <div class="image">
                     <img src="/images/services/header_img.png" class="img-fluid">
@@ -755,8 +755,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" onclick="document.location='{{ route('auth.logout') }}'">Logout</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
         </div>
         </div>
     </div>

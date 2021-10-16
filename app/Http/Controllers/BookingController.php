@@ -346,7 +346,7 @@ class BookingController extends Controller
 
         $notifications = new Notification();
         $notifications->message = 'Customer submit reviews';
-        $notifications->booking_id = $bookings->booking_id;
+        $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
         $assign = $notifications->save();
@@ -381,7 +381,7 @@ class BookingController extends Controller
       
         $notifications = new Notification();
         $notifications->message = 'Customer paid';
-        $notifications->booking_id = $bookings->booking_id;
+        $notifications->booking_id = $_GET['booking_id'];
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
         $assign = $notifications->save();
@@ -422,7 +422,7 @@ class BookingController extends Controller
       
         $notifications = new Notification();
         $notifications->message = 'Customer pay to the cleaner';
-        $notifications->booking_id = $bookings->booking_id;
+        $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
         $assign = $notifications->save();
@@ -458,7 +458,7 @@ class BookingController extends Controller
 
         $notifications = new Notification();
         $notifications->message = 'Customer choose new schedule';
-        $notifications->booking_id = $bookings->booking_id;
+        $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
         $assign = $notifications->save();

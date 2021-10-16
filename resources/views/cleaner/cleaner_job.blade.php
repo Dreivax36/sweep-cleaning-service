@@ -105,6 +105,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content p-4 cleaner_job_modal_content">
                         <div class="modal-header cleaner_job_modal_header">
+                        <img src="/img/broom.png" class="cleaner_trans_broom_2_1_img p-1">
                             <div class="d-flex pt-5">
                                 <div class="d-flex flex-column">
                                     <h4 class="cleaner_job_modal_title">
@@ -187,7 +188,7 @@
                                 <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                     CONFIRM BOOKING
                                 </button> 
-                                <button  class="btn btn-block btn-danger decline_btn" type="submit" name="status" value="Declined" >
+                                <button  class="btn btn-block btn-danger decline_btn" data-toggle="modal" data-target="#decline-{{ $value->service_id }}"  data-dismiss="modal"> >
                                     DECLINE
                                 </button> 
                             @endif   
@@ -217,6 +218,43 @@
                 </div>
             </div>
         </div><!-- End of Modal -->
+        <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form action="{{ route('cleaner') }}" method="post">
+                                            @if(Session::get('success'))
+                                                <div class="alert alert-success">
+                                                    {{ Session::get('success') }}
+                                                </div>
+                                            @endif
+
+                                            @if(Session::get('fail'))
+                                                <div class="alert alert-danger">
+                                                    {{ Session::get('fail') }}
+                                                </div>
+                                            @endif
+                                            @csrf
+                                        Are you sure you want to decline this job?
+                                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                        <input type="hidden" name="status" value="Declined">
+                                   
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                        <button type="submit" class="btn btn-danger">YES</button>
+                                    </div>
+                                    </form> 
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End of Modal -->
         <!-- Modal -->
                             <div class="modal fade" id="pay-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
