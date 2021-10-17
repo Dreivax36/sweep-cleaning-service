@@ -214,16 +214,15 @@
                                 </div>
                                 
                                 <form action="{{ route('updateStatus') }}" method="post" >
-                                    @if(Session::get('success'))
+                                    @if(Session::has('success'))
                                     <script>
-                                    swal({
-                                        title: "Transaction Status Updated Successfully!",
-                                        icon: "success",
-                                        button: "Close",
-                                    });
+                                        swal({
+                                            title: "Transaction Status Updated Successfully!",
+                                            icon: "success",
+                                            button: "Close",
+                                        });
                                     </script>
                                     @endif
-
                                     @if(Session::get('fail'))
                                     <script>
                                     swal({
@@ -585,13 +584,13 @@
                                     </div>
                                     <div class="modal-body">
                                     <form action="{{ route('updateStatus') }}" method="post">
-                                        @if(Session::get('success'))
+                                    @if(Session::get('success-decline'))
                                         <script>
-                                        swal({
-                                            title: "Successfully Declined Transaction!",
-                                            icon: "success",
-                                            button: "Close",
-                                        });
+                                            swal({
+                                                title: "Successfully Declined Transaction!",
+                                                icon: "success",
+                                                button: "Close",
+                                            });
                                         </script>
                                         @endif
 
