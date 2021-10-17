@@ -99,11 +99,11 @@ use Illuminate\Http\Request;
             </h5>
             <input type="hidden" name="cleaner_id[]" value="{{$cleaners->cleaner_id}}">
         <fieldset class="rating">
-            <input type="radio" id="cleaner_star1-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="5" /><label class="full" for="cleaner_star1-{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star2-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="4" /><label class="full" for="cleaner_star2-{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star3-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="3" /><label class="full" for="cleaner_star3-{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star4-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="2" /><label class="full" for="cleaner_star4-{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star5-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="1" /><label class="full" for="cleaner_star5-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star1-{{$cleaners->cleaner_id}}" name="cleaner_rate[{{$counter}}]" value="5" /><label class="full" for="cleaner_star1-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star2-{{$cleaners->cleaner_id}}" name="cleaner_rate[{{$counter}}]" value="4" /><label class="full" for="cleaner_star2-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star3-{{$cleaners->cleaner_id}}" name="cleaner_rate[{{$counter}}]" value="3" /><label class="full" for="cleaner_star3-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star4-{{$cleaners->cleaner_id}}" name="cleaner_rate[{{$counter}}]" value="2" /><label class="full" for="cleaner_star4-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star5-{{$cleaners->cleaner_id}}" name="cleaner_rate[{{$counter}}]" value="1" /><label class="full" for="cleaner_star5-{{$cleaners->cleaner_id}}"></label>
         </fieldset>
          <br>
         <br>

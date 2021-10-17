@@ -334,17 +334,17 @@
                                     @endif
                                     @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
-                                            ASSIGN
+                                            ASSIGN CLEANER
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner ) <!-- add is_paid -->
                                         <button  type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="Accepted">
-                                            ACCEPT
+                                            ACCEPT TRANSACTION
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $bookingcount != $price_data->number_of_cleaner )    
                                         <button  type="submit" class="btn btn-block btn-danger on_progress_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}"  data-dismiss="modal">
-                                            DECLINE
+                                            DECLINE TRANSACTION
                                         </button>
                                     @endif
                                     <?php
@@ -365,12 +365,12 @@
                                      @endif    
                                     @if($value->status == "On-Progress" && $statusdone == $price_data->number_of_cleaner)
                                      <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
-                                              DONE
+                                        CLEANING DONE
                                      </button> 
                                      @endif 
                                      @if($value->status == "Done" && $value->is_paid == true && $reviews != 0)
                                      <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed" >
-                                              COMPLETE
+                                            TRANSACTION COMPLETE
                                      </button> 
                                      @endif 
                                 </div>
@@ -660,7 +660,7 @@
             $('#status').load(window.location.href + " #status");
         });
 
-</script>  
+</script> 
 @if(Session::get('success-decline'))
     <script>
         swal({
@@ -669,9 +669,18 @@
             button: "Close",
         });
     </script>
-@endif
+    @endif
 
-@if(Session::get('fail'))
+    @if(Session::has('success'))
+    <script>
+        swal({
+            title: "Transaction Status Updated Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(session('fail'))
     <script>
         swal({
             title: "Something went wrong, try again!",
@@ -679,7 +688,7 @@
             button: "Close",
         });
     </script>
-@endif
+    @endif
 
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

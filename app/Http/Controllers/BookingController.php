@@ -21,7 +21,6 @@ use Carbon\Carbon;
 use App\Models\Notification;
 use App\Models\Payment;
 use Pusher\Pusher;
-use Session;
 
 class BookingController extends Controller
 {
@@ -151,11 +150,10 @@ class BookingController extends Controller
 
        if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
             $updateEvent= Event::Where('booking_id', $request->booking_id )->delete();
-            Session::flash('success-status', 'Status Updated');
        }
       
        if($updateStatus){
-            if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
+            if($status == 'Declined' || $status == 'Cancelled'){
                 return back()->with('success-decline', 'Successfully Update the Booking Status');
             }
             else{
@@ -279,7 +277,7 @@ class BookingController extends Controller
         ]);
         
         $id = Customer::Where('user_id', $request->user_id )->value('customer_id');
-        $address = Address::Where('customer_id', $id )->value('address_id');
+        $address = Address::Where('customer_id', $id )->value('address_id')->orderBy('address_id', 'ASC')->first();
         $bookings = new Booking();
         $bookings->service_id = $request->service_id;
         $bookings->customer_id = $id;
@@ -289,7 +287,7 @@ class BookingController extends Controller
         $bookings->mode_of_payment = $request->mode_of_payment;
         $bookings->status = 'Pending';
         $bookings->is_paid = false;
-        $bookings->address_id = $address;
+        $bookings->address_id = $address['address_id'];
         $book = $bookings->save();
 
         $id = $bookings->booking_id;
@@ -377,7 +375,9 @@ class BookingController extends Controller
         foreach($request->input('cleaner_comment') AS $cleaner_comment){
             $comment[$countComment++] = $cleaner_comment;
         }
+        
         print_r($comment);
+        print_r($request->cleaner_rate);
         $counter = 0;
         foreach($request->input('cleaner_id') AS $cleaner_id){
             
@@ -390,7 +390,7 @@ class BookingController extends Controller
             $cleaner_reviews = new Cleaner_review();
             $cleaner_reviews->cleaner_id = $cleaner_id;
             $cleaner_reviews->comment = $comment[$counter];
-            $cleaner_reviews->rate = $request->cleaner_rate+$cleaner_id;
+            $cleaner_reviews->rate = $request->cleaner_rate[$counter];
             $cleaner_reviews->review_id = $id;
             $rate = $cleaner_reviews->save();
             $counter++;

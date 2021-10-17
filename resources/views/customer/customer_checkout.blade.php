@@ -279,62 +279,44 @@
                     success: function (response) {
                     }
                 });
-                $(function(){
-                    $('#success-pay').modal('show');
-                });
+               
                 window.location.href = "{{ url('/customer/customer_transaction') }}";
                 });
             },
             onCancel: function(data) {
-                $(function(){
-                    $('#error').modal('show');
-                });
                 window.location.href = "{{ url('/customer/customer_transaction') }}";
             },
             }).render('#paypal-button-container');
         </script>
         @endforeach
-     
-    <div class="modal fade" id="success-pay" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Payment Successful
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-times-circle"></i>
-            </div>
-            <div class="title">
-                Something went wrong, try again.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
+    @if(Session::has('success-add'))
+    <script>
+        swal({
+            title: "Added Address Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(Session::has('success'))
+    <script>
+        swal({
+            title: "Address Successfully Updated!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        swal({
+            title: "Something went wrong, try again!",
+            icon: "error",
+            button: "Close",
+        });
+    </script>
+    @endif 
+    
     <div class="mobile-spacer">
 
     </div>

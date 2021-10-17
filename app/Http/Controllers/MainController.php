@@ -258,7 +258,7 @@ class MainController extends Controller
         $addAddress = $addresses->save();
  
         if($addAddress){
-            return back()->with('success', 'Address successfully added');
+            return back()->with('success-add', 'Address successfully added');
          }
          else {
              return back()->with('fail','Something went wrong, try again later ');
