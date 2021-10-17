@@ -214,15 +214,7 @@ use App\Models\Review;
                     </div> <!-- End of Modal Content -->
                 </div>
             </div> <!-- End of Modal -->
-            <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content customer_trans_modal_content_inside">
-                        <!-- Modal Content -->
-                        <div class="modal-header customer_trans_modal_header_inside">
-                            <div class="p-3 customer_trans_modal_inside_con">
-                            
-                            <div class="modal-body">
-                                <form action="{{ route('updateStatus') }}" method="post">
+            <form action="{{ route('updateStatus') }}" method="post">
                                     @if(Session::get('success'))  
                                     <script>
                                         $(function(){
@@ -240,6 +232,15 @@ use App\Models\Review;
                                     @endif
 
                                     @csrf
+            <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content customer_trans_modal_content_inside">
+                        <!-- Modal Content -->
+                        <div class="modal-header customer_trans_modal_header_inside">
+                            <div class="p-3 customer_trans_modal_inside_con">
+                            
+                            <div class="modal-body">
+                                
                                     <h3 class="cancel_booking_question">
                                     Are you sure you want to cancel your booking?
                                 </h3>
@@ -269,7 +270,7 @@ use App\Models\Review;
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">No Cleaner Availble</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">No Cleaner Available</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
