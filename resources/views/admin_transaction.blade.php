@@ -588,7 +588,7 @@
                                         @if(Session::get('success'))
                                         <script>
                                         swal({
-                                            title: "Transaction Status Updated Successfully!",
+                                            title: "Successfully Declined Transaction!",
                                             icon: "success",
                                             button: "Close",
                                         });
@@ -604,7 +604,7 @@
                                         });
                                         </script>
                                         @endif
-                                            @csrf
+                                         @csrf
                                         Are you sure you want to decline this booking?
                                         <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                         <input type="hidden" name="status" value="Declined">
