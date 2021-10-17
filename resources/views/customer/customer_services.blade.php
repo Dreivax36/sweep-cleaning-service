@@ -170,6 +170,7 @@ use App\Models\Service_review;
                                                     <b>Price:</b> ₱{{ $data->price }}
                                                     <br>
                                                     <b>Cleaners:</b> {{ $data->number_of_cleaner }}
+                                                    <br>
                                                     @endforeach
                                                 </ul>   
                                             </div>

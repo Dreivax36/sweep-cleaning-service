@@ -277,7 +277,7 @@ class BookingController extends Controller
         ]);
         
         $id = Customer::Where('user_id', $request->user_id )->value('customer_id');
-        $address = Address::Where('customer_id', $id )->value('address_id')->orderBy('address_id', 'ASC')->first();
+        $address = Address::Where('customer_id', $id )->orderBy('address_id', 'ASC')->first();
         $bookings = new Booking();
         $bookings->service_id = $request->service_id;
         $bookings->customer_id = $id;
