@@ -21,7 +21,7 @@ use Carbon\Carbon;
 use App\Models\Notification;
 use App\Models\Payment;
 use Pusher\Pusher;
-use App\Http\Controllers\Session;
+use Session;
 
 class BookingController extends Controller
 {
