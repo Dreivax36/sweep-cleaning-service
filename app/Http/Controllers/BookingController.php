@@ -555,22 +555,14 @@ class BookingController extends Controller
 
 
     function read(Request $request){
-        $notif = Notification::where('id', $request->route('id'))->update(['isRead' => $request->route('isRead')]);
+        $notif = Notification::where('id', $request->route('id'))->update(['isRead' => true]);
         $location = Notification::where('id', $request->route('id'))->value('location');
         if($notif){
-            return redirect()->route($location);
+            return redirect($location);
          }
          else {
              return back()->with('fail','Something went wrong, try again later ');
          }
     }
 
-    function notification(Request $request){
-        $notif = Notification::where('isRead', false)->orderBy('id', 'DESC')->get();
-        return view('notification', ['notif' => $notif]); 
-    }
-    function userNotification(Request $request){
-        $notif = Notification::where('isRead', false)->where('user_id',$request->route('id') )->orderBy('id', 'DESC')->get();
-        return view('notification', ['notif' => $notif]); 
-    }
 }

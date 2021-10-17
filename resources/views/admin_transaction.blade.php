@@ -661,35 +661,6 @@
         });
 
 </script> 
-@if(session('success-decline'))
-    <script>
-        swal({
-            title: "Successfully Declined Transaction!",
-            icon: "success",
-            button: "Close",
-        });
-    </script>
-    @endif
-
-    @if(session('success'))
-    <script>
-        swal({
-            title: "Transaction Status Updated Successfully!",
-            icon: "success",
-            button: "Close",
-        });
-    </script>
-    @endif
-    @if(session('fail'))
-    <script>
-        swal({
-            title: "Something went wrong, try again!",
-            icon: "error",
-            button: "Close",
-        });
-    </script>
-    @endif
-
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -712,7 +683,35 @@
         </div>
     </div>
     </div> 
-    
+    @if(Session::get('success-decline'))
+    <script>
+        swal({
+            title: "Successfully Declined Transaction!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+
+    @if(Session::has('success'))
+    <script>
+        swal({
+            title: "Transaction Status Updated Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        swal({
+            title: "Something went wrong, try again!",
+            icon: "error",
+            button: "Close",
+        });
+    </script>
+    @endif
+
     <footer id="footer">
     <div class="sweep-title">
         SWEEP © 2021. All Rights Reserved.

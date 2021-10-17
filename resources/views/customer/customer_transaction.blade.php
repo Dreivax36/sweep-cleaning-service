@@ -414,7 +414,7 @@ use App\Models\Review;
     @if(Session::get('success-decline'))
     <script>
         swal({
-            title: "Successfully Declined Transaction!",
+            title: "Successfully Cancel Transaction!",
             icon: "success",
             button: "Close",
         });
