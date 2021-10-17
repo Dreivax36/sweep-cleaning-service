@@ -127,7 +127,7 @@
                 </thead>
                 <tbody>
                 <?php
-                    $user_data = User::Where('user_type', 'Customer')->orderBy('updated_at','DESC')->get();
+                    $user_data = User::Where('user_type', 'Customer')->where('email_verified_at', '!=', null)->orderBy('updated_at','DESC')->get();
                 ?>
                 @foreach($user_data as $key => $value)
                 
@@ -181,14 +181,14 @@
                         </div>
                         </td>
                         <td class="user_table_data">
-                            @if($value->account_status == "To_verify")
+                            @if($value->account_status == "Approve-account")
                             <div class="verify_con">
                                 <button class="btn btn-success" onclick="document.location='{{ route('update_account', $value->user_id) }}'">
                                     APPROVE
                                 </button>
                             </div>
                             @endif
-                            @if($value->account_status != "To_verify")
+                            @if($value->account_status != "Approve-account")
                                 {{ $value->account_status }}
                             @endif
                         </td>

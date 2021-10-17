@@ -12,6 +12,7 @@ use App\Models\Service_review;
 
 <head>
     <link href="{{ asset('css/customer_services.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/popup.css') }}" rel="stylesheet">
     <title>
         Customer Services Page
     </title>
@@ -203,11 +204,22 @@ use App\Models\Service_review;
                                 </div>
                                 <form action="{{ route('book') }}" method="post" id="book">
                                     @if(Session::get('success'))
-                                    <script>
-                                        $(function(){
-                                            $('#success').modal('show');
-                                        });
-                                    </script>
+                                    <div class="popup1 center">
+                                        <div class="icon">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                        <div class="title">
+                                            Booking Success!
+                                        </div>
+                                        <div class="description">
+                                            Thank You For Booking. We will notify you for updates regarding the details of your transaction.
+                                        </div>
+                                        <div class="dismiss-btn">
+                                            <button id="dismiss-popup-btn1">
+                                                Dismiss
+                                            </button>
+                                        </div>
+                                    </div>
                                     @endif
 
                                     @if(Session::get('fail'))
@@ -300,8 +312,32 @@ use App\Models\Service_review;
                 </div>
             </div>
         </div>
+       
+        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+            </button>
+            <div class="icon">
+                <i class="fa fa-sign-out-alt"></i>
+            </div>
+            <div class="title">
+                Booking Success!
+            </div>
+            <div class="description">
+                Thank You For Booking. We will notify you for updates regarding the details of your transaction.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+        </div>
+        </div>
+    </div>
+    </div> 
         <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog1 modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -314,10 +350,7 @@ use App\Models\Service_review;
                             Booking Success!
                         </div>
                         <div class="description">
-                            Thank You For Booking. We will notify you for
-                        </div>
-                        <div class="description">
-                            updates regarding the details of your transaction.
+                            Thank You For Booking. We will notify you for updates regarding the details of your transaction.
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -327,7 +360,7 @@ use App\Models\Service_review;
                 </div>
                 </div>
                 <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog1 modal-dialog-centered" role="document">
+                <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
