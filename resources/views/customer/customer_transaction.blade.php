@@ -16,6 +16,7 @@ use App\Models\Review;
 
 <head>
     <link href="{{ asset('css/customer_trans.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>
         Customer Transaction Page
     </title>
@@ -224,19 +225,23 @@ use App\Models\Review;
                             
                             <div class="modal-body">
                                 <form action="{{ route('updateStatus') }}" method="post">
-                                    @if(Session::get('success'))  
+                                @if(Session::get('success'))
                                     <script>
-                                        $(function(){
-                                            $('#success').modal('show');
-                                        });
+                                    swal({
+                                        title: "Transaction Status Updated Successfully!",
+                                        icon: "success",
+                                        button: "Close",
+                                    });
                                     </script>
                                     @endif
 
                                     @if(Session::get('fail'))
                                     <script>
-                                        $(function(){
-                                            $('#fail').modal('show');
-                                        });
+                                    swal({
+                                        title: "Something went wrong, try again!",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
                                     </script>
                                     @endif
 
@@ -406,6 +411,43 @@ use App\Models\Review;
         
     @endif
 
+    @if(Session::has('success-status'))
+    <script>
+        swal({
+            title: "Transaction Status Updated Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(session('fail'))
+    <script>
+        swal({
+            title: "Something went wrong, try again!",
+            icon: "error",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(session('success-rate'))
+    <script>
+        swal({
+            title: "Thank You for your Feedback!",
+            text: "Your feedback help us improve our service. Thank You for trusting Sweep.",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(session('success-pay'))
+    <script>
+        swal({
+            title: "Payment Successful!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
     
     <div class="mobile-spacer">
 
@@ -417,96 +459,3 @@ use App\Models\Review;
     </div>
 </body>
 @endsection
-
-@if(Session::has('success-status'))
-        <script>
-            $(function(){
-                $('#success').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('fail'))
-        <script>
-            $(function(){
-                $('#error').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('success-rate'))
-        <script>
-            $(function(){
-                $('#success-rate').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('success-pay'))
-        <script>
-            $(function(){
-                $('#success-pay').modal('show');
-            });
-        </script>
-    @endif
-    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Transaction Status Updated Successfully.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-times-circle"></i>
-            </div>
-            <div class="title">
-                Something went wrong, try again.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    
-    <div class="modal fade" id="success-rate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Thank You for your Feedback.
-            </div>
-            <div class="description">
-                Your feedback help us improve our service. Thank You for trusting Sweep.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>

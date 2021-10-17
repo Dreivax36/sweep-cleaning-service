@@ -23,7 +23,7 @@ use App\Models\Service_review;
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet"/>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -204,29 +204,23 @@ use App\Models\Service_review;
                                 </div>
                                 <form action="{{ route('book') }}" method="post" id="book">
                                     @if(Session::get('success'))
-                                    <div class="popup1 center">
-                                        <div class="icon">
-                                            <i class="fa fa-check"></i>
-                                        </div>
-                                        <div class="title">
-                                            Booking Success!
-                                        </div>
-                                        <div class="description">
-                                            Thank You For Booking. We will notify you for updates regarding the details of your transaction.
-                                        </div>
-                                        <div class="dismiss-btn">
-                                            <button id="dismiss-popup-btn1">
-                                                Dismiss
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <script>
+                                    swal({
+                                        title: "Booking Success!",
+                                        text: "Thank You For Booking. We will notify you for updates regarding the details of your transaction.",
+                                        icon: "success",
+                                        button: "Close",
+                                    });
+                                    </script>
                                     @endif
 
                                     @if(Session::get('fail'))
                                     <script>
-                                        $(function(){
-                                            $('#error').modal('show');
-                                        });
+                                    swal({
+                                        title: "Something went wrong, try again!",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
                                     </script>
                                     @endif
                                                                     
@@ -313,72 +307,6 @@ use App\Models\Service_review;
             </div>
         </div>
        
-        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-sign-out-alt"></i>
-            </div>
-            <div class="title">
-                Booking Success!
-            </div>
-            <div class="description">
-                Thank You For Booking. We will notify you for updates regarding the details of your transaction.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-        </div>
-        </div>
-    </div>
-    </div> 
-        <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="icon">
-                            <i class="fa fa-check"></i>
-                        </div>
-                        <div class="title">
-                            Booking Success!
-                        </div>
-                        <div class="description">
-                            Thank You For Booking. We will notify you for updates regarding the details of your transaction.
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                        <div class="icon">
-                            <i class="fa fa-times-circle"></i>
-                        </div>
-                        <div class="title">
-                            Something went wrong, try again.
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                    </div>
-                </div>
-                </div>
         @endforeach
     </div>
     <?php

@@ -19,6 +19,7 @@
     </title>
 
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -214,15 +215,23 @@
                                 
                                 <form action="{{ route('updateStatus') }}" method="post" >
                                     @if(Session::get('success'))
-                                        <div class="alert alert-success">
-                                            {{ Session::get('success') }}
-                                        </div>
+                                    <script>
+                                    swal({
+                                        title: "Transaction Status Updated Successfully!",
+                                        icon: "success",
+                                        button: "Close",
+                                    });
+                                    </script>
                                     @endif
 
                                     @if(Session::get('fail'))
-                                        <div class="alert alert-danger">
-                                            {{ Session::get('fail') }}
-                                        </div>
+                                    <script>
+                                    swal({
+                                        title: "Something went wrong, try again!",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                    </script>
                                     @endif
 
                                     @csrf
@@ -385,17 +394,25 @@
                                             </div>
                                             
                                             <form action="{{ route('assignCleaner') }}" method="post" >
-                                                @if(Session::get('success'))
-                                                    <div class="alert alert-success">
-                                                        {{ Session::get('success') }}
-                                                    </div>
-                                                @endif
+                                            @if(Session::get('success-assign'))
+                                            <script>
+                                            swal({
+                                                title: "Cleaner assigned successfully!",
+                                                icon: "success",
+                                                button: "Close",
+                                            });
+                                            </script>
+                                            @endif
 
-                                                @if(Session::get('fail'))
-                                                    <div class="alert alert-danger">
-                                                        {{ Session::get('fail') }}
-                                                    </div>
-                                                @endif                  
+                                            @if(Session::get('fail'))
+                                            <script>
+                                            swal({
+                                                title: "Something went wrong, try again!",
+                                                icon: "error",
+                                                button: "Close",
+                                            });
+                                            </script>
+                                            @endif                
                                                 @csrf
                                         
                                                     <?php  
@@ -568,21 +585,25 @@
                                     </div>
                                     <div class="modal-body">
                                     <form action="{{ route('updateStatus') }}" method="post">
-                                            @if(Session::get('success'))
-                                            <script>
-                                                $(function(){
-                                                    $('#success').modal('show');
-                                                });
-                                            </script>
-                                            @endif
+                                        @if(Session::get('success'))
+                                        <script>
+                                        swal({
+                                            title: "Transaction Status Updated Successfully!",
+                                            icon: "success",
+                                            button: "Close",
+                                        });
+                                        </script>
+                                        @endif
 
-                                            @if(Session::get('fail'))
-                                            <script>
-                                                $(function(){
-                                                    $('#fail').modal('show');
-                                                });
-                                            </script>
-                                            @endif
+                                        @if(Session::get('fail'))
+                                        <script>
+                                        swal({
+                                            title: "Something went wrong, try again!",
+                                            icon: "error",
+                                            button: "Close",
+                                        });
+                                        </script>
+                                        @endif
                                             @csrf
                                         Are you sure you want to decline this booking?
                                         <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
@@ -641,88 +662,6 @@
 
 </script>  
 
-    @if(!empty(Session::get('success')))
-        <script>
-            $(function(){
-                $('#success').modal('show');
-            });
-        </script>
-    @endif
-    @if(!empty(Session::get('success-assign')))
-        <script>
-            $(function(){
-                $('#success-assign').modal('show');
-            });
-        </script>
-    @endif
-    @if(!empty(Session::get('fail')))
-        <script>
-            $(function(){
-                $('#error').modal('show');
-            });
-        </script>
-    @endif
-    
-    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Transaction Status Updated Successfully.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="success-assign" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Cleaner assigned successfully.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-times-circle"></i>
-            </div>
-            <div class="title">
-                Something went wrong, try again.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

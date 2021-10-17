@@ -12,6 +12,7 @@
         Admin Services Page
     </title>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -95,17 +96,25 @@
                     </div>
                     <div class="modal-body">
                         <form action="{{ route('store') }}" method="post" id="myform">
-                            @if(Session::get('success-add'))
-                                <div class="alert alert-success">
-                                    {{ Session::get('success') }}
-                                </div>
-                            @endif
+                                @if(Session::get('success-add'))
+                                    <script>
+                                    swal({
+                                        title: "Service added successfully!",
+                                        icon: "success",
+                                        button: "Close",
+                                    });
+                                    </script>
+                                    @endif
 
-                            @if(Session::get('fail'))
-                                <div class="alert alert-danger">
-                                    {{ Session::get('fail') }}
-                                </div>
-                            @endif
+                                    @if(Session::get('fail'))
+                                    <script>
+                                    swal({
+                                        title: "Something went wrong, try again!",
+                                        icon: "error",
+                                        button: "Close",
+                                    });
+                                    </script>
+                                @endif
                             
                             @csrf
                             <div class="row">
@@ -321,15 +330,23 @@
                 <div class="modal-body">
                 <form action="{{ route('destroy') }}" method="post" id="delete">
                         @if(Session::get('success-delete'))
-                            <div class="alert alert-success">
-                                {{ Session::get('success') }}
-                            </div>
+                            <script>
+                            swal({
+                                title: "Service deleted successfully!",
+                                icon: "success",
+                                button: "Close",
+                            });
+                            </script>
                         @endif
 
                         @if(Session::get('fail'))
-                            <div class="alert alert-danger">
-                                {{ Session::get('fail') }}
-                            </div>
+                            <script>
+                            swal({
+                                title: "Something went wrong, try again!",
+                                icon: "error",
+                                button: "Close",
+                                });
+                            </script>
                         @endif
                         @csrf
                     Are you sure you want to delete a service?
@@ -366,16 +383,24 @@
                         
                     <!-- Form for Updating a Service -->
                     <form action="{{ route('update') }}" method="post" >
-                        @if(Session::get('success'))
-                            <div class="alert alert-success">
-                                {{ Session::get('success') }}
-                            </div>
+                    @if(Session::get('success'))
+                            <script>
+                            swal({
+                                title: "Service updated successfully!",
+                                icon: "success",
+                                button: "Close",
+                            });
+                            </script>
                         @endif
 
                         @if(Session::get('fail'))
-                            <div class="alert alert-danger">
-                                {{ Session::get('fail') }}
-                            </div>
+                            <script>
+                            swal({
+                                title: "Something went wrong, try again!",
+                                icon: "error",
+                                button: "Close",
+                                });
+                            </script>
                         @endif
                         @csrf
                         <input type="hidden" name="service_id" value="{{ $value->service_id }}"> 
@@ -512,115 +537,6 @@
         });
 
     </script>    
-
-    @if(!empty(Session::get('success')))
-        <script>
-            $(function(){
-                $('#success').modal('show');
-            });
-        </script>
-    @endif
-    @if(!empty(Session::get('success-add')))
-        <script>
-            $(function(){
-                $('#success-add').modal('show');
-            });
-        </script>
-    @endif
-    @if(!empty(Session::get('success-delete')))
-        <script>
-            $(function(){
-                $('#success-delete').modal('show');
-            });
-        </script>
-    @endif
-    @if(!empty(Session::get('fail')))
-        <script>
-            $(function(){
-                $('#error').modal('show');
-            });
-        </script>
-    @endif
-    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Service updated successfully.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="success-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Service deleted successfully.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="success-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Service added successfully.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-times-circle"></i>
-            </div>
-            <div class="title">
-                Something went wrong, try again.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

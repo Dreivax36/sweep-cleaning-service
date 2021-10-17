@@ -12,6 +12,7 @@
         Admin Cleaner Page
     </title>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -284,61 +285,25 @@
 
     </script>  
     <!-- Scripts -->
-    @if(!empty(Session::get('success')))
-        <script>
-            $(function(){
-                $('#success').modal('show');
-            });
-        </script>
+    @if(Session::has('success'))
+    <script>
+        swal({
+            title: " Cleaner account successfully approved!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
     @endif
-    @if(!empty(Session::get('fail')))
-        <script>
-            $(function(){
-                $('#error').modal('show');
-            });
-        </script>
+    @if(session('fail'))
+    <script>
+        swal({
+            title: "Something went wrong, try again!",
+            icon: "error",
+            button: "Close",
+        });
+    </script>
     @endif
     
-    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Cleaner account successfully approved .
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-times-circle"></i>
-            </div>
-            <div class="title">
-                Something went wrong, try again.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

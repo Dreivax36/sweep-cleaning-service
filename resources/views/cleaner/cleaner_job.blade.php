@@ -16,6 +16,7 @@
     Cleaner Job Page
 </title>
 <link href="{{ asset('css/cleaner_job.css') }}" rel="stylesheet">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <body>
     <div class="jobs">
@@ -162,15 +163,23 @@
                         <form action="{{ route('cleaner') }}" method="post" id="cleaner">
                             <!-- Modal Content-->
                             @if(Session::get('success'))
-                            <div class="alert alert-success">
-                                {{ Session::get('success') }}
-                            </div>
+                                <script>
+                                    swal({
+                                    title: "Transaction Status Updated Successfully!",
+                                    icon: "success",
+                                    button: "Close",
+                                    });
+                                </script>
                             @endif
 
                             @if(Session::get('fail'))
-                            <div class="alert alert-danger">
-                                {{ Session::get('fail') }}
-                            </div>
+                                <script>
+                                    swal({
+                                    title: "Something went wrong, try again!",
+                                    icon: "error",
+                                    button: "Close",
+                                });
+                                </script>
                             @endif
                             @csrf
 
@@ -234,15 +243,23 @@
                                     <div class="modal-body">
                                     <form action="{{ route('cleaner') }}" method="post">
                                             @if(Session::get('success'))
-                                                <div class="alert alert-success">
-                                                    {{ Session::get('success') }}
-                                                </div>
+                                            <script>
+                                                swal({
+                                                    title: "Transaction Status Updated Successfully!",
+                                                    icon: "success",
+                                                    button: "Close",
+                                                });
+                                                </script>
                                             @endif
 
                                             @if(Session::get('fail'))
-                                                <div class="alert alert-danger">
-                                                    {{ Session::get('fail') }}
-                                                </div>
+                                                <script>
+                                                swal({
+                                                    title: "Something went wrong, try again!",
+                                                    icon: "error",
+                                                    button: "Close",
+                                                });
+                                                </script>
                                             @endif
                                             @csrf
                                         Are you sure you want to decline this job?
@@ -323,86 +340,32 @@
     
 
     @if(!empty(Session::get('success')))
-        <script>
-            $(function(){
-                $('#success').modal('show');
-            });
-        </script>
+    <script>
+        swal({
+            title: "Transaction Status Updated Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
     @endif
     @if(!empty(Session::get('success-cleaner')))
-        <script>
-            $(function(){
-                $('#success-cleaner').modal('show');
-            });
-        </script>
+    <script>
+        swal({
+            title: "On-site Payment Successful!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
     @endif
     @if(!empty(Session::get('fail')))
-        <script>
-            $(function(){
-                $('#error').modal('show');
-            });
-        </script>
+    <script>
+        swal({
+            title: "Something went wrong, try again!",
+            icon: "error",
+            button: "Close",
+        });
+    </script>
     @endif
-    <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Transaction Status Updated Successfully.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="success-cleaner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-check"></i>
-            </div>
-            <div class="title">
-                Onsite Payment Successful.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-times-circle"></i>
-            </div>
-            <div class="title">
-                Something went wrong, try again.
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        </div>
-    </div>
-    </div>  
 
     <div class="mobile-spacer">
 
