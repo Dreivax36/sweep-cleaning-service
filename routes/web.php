@@ -95,7 +95,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('/assignCleaner',[BookingController::class, 'assignCleaner'])->name('assignCleaner');
     Route::post('/checkout',[BookingController::class, 'checkout'])->name('checkout');
     Route::get('/checkout',[BookingController::class, 'checkout'])->name('checkout');
-    Route::get('/onsite_payment',[BookingController::class, 'onsite_payment'])->name('onsite_payment');
+    Route::get('/onsitePayment',[BookingController::class, 'onsitePayment'])->name('onsitePayment');
 
     //Payment Paypal
     Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');

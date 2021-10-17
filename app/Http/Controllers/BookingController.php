@@ -451,21 +451,21 @@ class BookingController extends Controller
         }
     }
 
-    function onsite_payment(Request $request){
+    function onsitePayment(Request $request){
         $booking = $request->booking_id;
         $payments = new Payment();
         $payments->booking_id = $booking;
         $payments->amount = $request->amount; 
-        $onsite_payment = $payments->save();
+        $onsitePayment = $payments->save();
 
-        $onsite_payment= Booking::Where('booking_id', $booking )->update(['is_paid' => true]);
+        $onsitePayment= Booking::Where('booking_id', $booking )->update(['is_paid' => true]);
       
         $notifications = new Notification();
         $notifications->message = 'Customer pay to the cleaner';
         $notifications->booking_id = $booking;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
-        $onsite_payment = $notifications->save();
+        $onsitePayment = $notifications->save();
 
         
         $options = array(
@@ -484,7 +484,7 @@ class BookingController extends Controller
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
 
-        if($onsite_payment){
+        if($onsitePayment){
            return back()->with('success-cleaner', 'Payment Successful');
         }
         else {
