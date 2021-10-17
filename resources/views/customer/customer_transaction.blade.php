@@ -33,24 +33,6 @@ use App\Models\Review;
         </div>
     </div>
     <div class="row justify-content-center" id="status">
-    <form action="{{ route('updateStatus') }}" method="post">
-                                    @if(Session::get('success'))  
-                                    <script>
-                                        $(function(){
-                                            $('#success').modal('show');
-                                        });
-                                    </script>
-                                    @endif
-
-                                    @if(Session::get('fail'))
-                                    <script>
-                                        $(function(){
-                                            $('#fail').modal('show');
-                                        });
-                                    </script>
-                                    @endif
-
-                                    @csrf
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
             $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->orderBy('updated_at','DESC')->get();
@@ -240,10 +222,27 @@ use App\Models\Review;
                             <div class="p-3 customer_trans_modal_inside_con">
                             
                             <div class="modal-body">
-                                
+                                <form action="{{ route('updateStatus') }}" method="post">
+                                    @if(Session::get('success'))  
+                                    <script>
+                                        $(function(){
+                                            $('#success').modal('show');
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                    <script>
+                                        $(function(){
+                                            $('#fail').modal('show');
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @csrf
                                     <h3 class="cancel_booking_question">
                                     Are you sure you want to cancel your booking?
-                                </h3>
+                                    </h3>
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                     </div>
                                     <div class="modal-footer">
@@ -340,6 +339,34 @@ use App\Models\Review;
 
             </div>
         </div>
+        @if(session('success'))
+        <script>
+            $(function(){
+                $('#success').modal('show');
+            });
+        </script>
+    @endif
+    @if(session('fail'))
+        <script>
+            $(function(){
+                $('#error').modal('show');
+            });
+        </script>
+    @endif
+    @if(session('success-rate'))
+        <script>
+            $(function(){
+                $('#success-rate').modal('show');
+            });
+        </script>
+    @endif
+    @if(session('success-pay'))
+        <script>
+            $(function(){
+                $('#success-pay').modal('show');
+            });
+        </script>
+    @endif
         @endif
     </div>
     <?php
@@ -405,34 +432,6 @@ use App\Models\Review;
         
     @endif
 
-    @if(session('success'))
-        <script>
-            $(function(){
-                $('#success').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('fail'))
-        <script>
-            $(function(){
-                $('#error').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('success-rate'))
-        <script>
-            $(function(){
-                $('#success-rate').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('success-pay'))
-        <script>
-            $(function(){
-                $('#success-pay').modal('show');
-            });
-        </script>
-    @endif
     <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
