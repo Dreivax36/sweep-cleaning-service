@@ -192,7 +192,7 @@
                                 <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
                                     CONFIRM BOOKING
                                 </button> 
-                                <button  class="btn btn-block btn-danger decline_btn" data-toggle="modal" data-target="#decline-{{ $value->service_id }}"  data-dismiss="modal"> 
+                                <button  class="btn btn-block btn-danger decline_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}"  data-dismiss="modal"> 
                                     DECLINE
                                 </button> 
                             @endif   
@@ -247,7 +247,7 @@
                                             @csrf
                                         Are you sure you want to decline this job?
                                         <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                        <input type="hidden" name="status" value="Declined">
+                                        <input type="hidden" name="status" value="Declined" >
                                    
                                     </div>
                                     <div class="modal-footer">
@@ -321,6 +321,17 @@
         @endif
     </div>
     </div>
+    <script>
+        $('#success').click(function(){
+            @if(!empty(Session::get('success')))
+                <script>
+                    $(function(){
+                        $('#success').modal('show');
+                    });
+                </script>
+            @endif
+        });
+    </script>    
 
     @if(!empty(Session::get('success')))
         <script>

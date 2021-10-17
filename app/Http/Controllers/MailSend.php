@@ -15,7 +15,7 @@ class MailSend extends Controller
         ];
 
         $email = User::Where('user_id', $request->route('id'))->value('email');
-        \Mail::to('lykacedroncasilao@gmail.com')->send(new \App\Mail\SendMailApprove($details));
+        \Mail::to($email)->send(new \App\Mail\SendMailApprove($details));
         $update = User::Where('user_id', $request->route('id'))->update(['account_status' => 'Approved']);
         $userType = User::Where('user_id', $request->route('id'))->value('user_type');
         if($userType == 'Customer'){
