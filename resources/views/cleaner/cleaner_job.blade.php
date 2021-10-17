@@ -185,7 +185,7 @@
                                 $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
                                 $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-Progress")->count();       
                                 $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();  
-                                $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->orderBy('cleaner_id', 'ASC')->first();              
+                                $idcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->orderBy('cleaner_id', 'ASC')->first();              
                             ?>
                                                 
                             <div class="modal-footer cleaner_job_modal_footer">
@@ -212,7 +212,7 @@
                                     CLEANING COMPLETE
                                 </button> 
                             @endif 
-                            @if($value->status == "Done" && $value->mode_of_payment == "On-site" && $donecount['cleaner_id'] == $cleanerID)
+                            @if($value->status == "Done" && $value->mode_of_payment == "On-site" && $idcount['cleaner_id'] == $cleanerID)
                             <button type="button" class="btn btn-block btn-primary on_progress_btn" data-toggle="modal" data-dismiss="modal" data-target="#pay-{{ $value->booking_id }}">
                                 PAY
                             </button>

@@ -64,7 +64,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">    
                             @forelse ($notif as $notification)
-                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
+                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
                             </a>
                                                     

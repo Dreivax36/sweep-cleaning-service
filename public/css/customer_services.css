@@ -237,6 +237,10 @@
         margin: 0;
         height: 100%;
     }
+    .modal-dialog1 {
+        max-width: 100%;
+        margin: 0;
+    }
     .close-web{
         display: none;
     }
@@ -329,6 +333,10 @@
     }
     .modal-dialog {
         max-width: 80%;
+        margin: 1.75rem auto;
+    }
+    .modal-dialog1 {
+        max-width: 500px;
         margin: 1.75rem auto;
     }
     .mobile-spacer, .close-mobile{
@@ -468,6 +476,9 @@ h4{
     .modal-dialog{
         margin: 0;
         height: 100%;
+    }
+    .modal-dialog1{
+        margin: 0;
     }
     .customer_services_modal_con{
         margin: auto;

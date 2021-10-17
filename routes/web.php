@@ -108,9 +108,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     Route::get('/notification',[BookingController::class, 'notification'])->name('notification');
     Route::get('/userNotification/{id}',[BookingController::class, 'userNotification'])->name('userNotification');
-    Route::get('/customer/customer_transaction/{id}/{isRead}',[BookingController::class, 'read'])->name('read');
-    Route::get('/admin_transaction/{id}/{isRead}',[BookingController::class, 'read'])->name('read');
-    Route::get('/cleaner/cleaner_job/{id}/{isRead}',[BookingController::class, 'read'])->name('read');
+    Route::get('/customer/customer_transaction/{id}',[BookingController::class, 'read'])->name('read');
+    Route::get('/admin_transaction/{id}',[BookingController::class, 'read'])->name('read');
+    Route::get('/cleaner/cleaner_job/{id}',[BookingController::class, 'read'])->name('read');
 
     //Booking Module
     Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');

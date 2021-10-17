@@ -50,7 +50,7 @@
                             </a>    
                             <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                             @forelse ($notif as $notification)
-                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}/true">
+                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
                             </a>
                                                     
@@ -661,7 +661,7 @@
         });
 
 </script> 
-@if(Session::get('success-decline'))
+@if(session('success-decline'))
     <script>
         swal({
             title: "Successfully Declined Transaction!",
@@ -671,7 +671,7 @@
     </script>
     @endif
 
-    @if(Session::has('success'))
+    @if(session('success'))
     <script>
         swal({
             title: "Transaction Status Updated Successfully!",
