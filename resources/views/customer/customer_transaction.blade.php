@@ -339,34 +339,6 @@ use App\Models\Review;
 
             </div>
         </div>
-        @if(session('success'))
-        <script>
-            $(function(){
-                $('#success').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('fail'))
-        <script>
-            $(function(){
-                $('#error').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('success-rate'))
-        <script>
-            $(function(){
-                $('#success-rate').modal('show');
-            });
-        </script>
-    @endif
-    @if(session('success-pay'))
-        <script>
-            $(function(){
-                $('#success-pay').modal('show');
-            });
-        </script>
-    @endif
         @endif
     </div>
     <?php
@@ -432,6 +404,34 @@ use App\Models\Review;
         
     @endif
 
+    @if(session('success'))
+        <script>
+            $(function(){
+                $('#success').modal('show');
+            });
+        </script>
+    @endif
+    @if(session('fail'))
+        <script>
+            $(function(){
+                $('#error').modal('show');
+            });
+        </script>
+    @endif
+    @if(session('success-rate'))
+        <script>
+            $(function(){
+                $('#success-rate').modal('show');
+            });
+        </script>
+    @endif
+    @if(session('success-pay'))
+        <script>
+            $(function(){
+                $('#success-pay').modal('show');
+            });
+        </script>
+    @endif
     <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

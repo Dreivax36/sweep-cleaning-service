@@ -152,7 +152,7 @@ class BookingController extends Controller
             $updateEvent= Event::Where('booking_id', $request->booking_id )->delete();
        }
       
-
+       session()->flash('success', 'Status Updated');
        if($updateStatus){
            return back()->with('success', 'Successfully Update the Booking Status');
         }
