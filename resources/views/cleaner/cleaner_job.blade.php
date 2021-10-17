@@ -268,7 +268,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                    <form action="{{ route('onsite_payment') }}" method="post" >
+                                    <form action="{{ route('onsitePayment') }}" method="post" >
                                     @if(Session::get('success'))
                                         <div class="alert alert-success">
                                             {{ Session::get('success') }}
