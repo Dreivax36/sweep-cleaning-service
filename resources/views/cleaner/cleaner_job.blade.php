@@ -247,12 +247,11 @@
                                             @csrf
                                         Are you sure you want to decline this job?
                                         <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                        <input type="hidden" name="status" value="Declined" >
-                                   
+                                        <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                                        <button type="submit" class="btn btn-danger">YES</button>
+                                        <button type="submit" class="btn btn-danger" name="status" value="Declined" id="success" >YES</button>
                                     </div>
                                     </form> 
                                 </div>
@@ -323,13 +322,11 @@
     </div>
     <script>
         $('#success').click(function(){
-            @if(!empty(Session::get('success')))
-                <script>
-                    $(function(){
-                        $('#success').modal('show');
-                    });
-                </script>
-            @endif
+            if(!empty(Session::get('success'))){
+                $(function(){
+                    $('#success').modal('show');
+                });
+            }
         });
     </script>    
 

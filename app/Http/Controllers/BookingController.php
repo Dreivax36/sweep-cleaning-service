@@ -483,6 +483,22 @@ class BookingController extends Controller
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+            );
+    
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+            $messages = 'Status Updated';
+            $id = $user;
+            $data = ['messages' => $messages, 'id' => $id];    
+            $pusher->trigger('my-channel', 'customer-notif', $data);
+
 
         if($onsitePayment){
            return back()->with('success-cleaner', 'Payment Successful');
