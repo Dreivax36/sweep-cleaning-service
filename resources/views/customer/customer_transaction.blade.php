@@ -33,6 +33,24 @@ use App\Models\Review;
         </div>
     </div>
     <div class="row justify-content-center" id="status">
+    <form action="{{ route('updateStatus') }}" method="post">
+                                    @if(Session::get('success'))  
+                                    <script>
+                                        $(function(){
+                                            $('#success').modal('show');
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                    <script>
+                                        $(function(){
+                                            $('#fail').modal('show');
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @csrf
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
             $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->orderBy('updated_at','DESC')->get();
@@ -214,24 +232,6 @@ use App\Models\Review;
                     </div> <!-- End of Modal Content -->
                 </div>
             </div> <!-- End of Modal -->
-            <form action="{{ route('updateStatus') }}" method="post">
-                                    @if(Session::get('success'))  
-                                    <script>
-                                        $(function(){
-                                            $('#success').modal('show');
-                                        });
-                                    </script>
-                                    @endif
-
-                                    @if(Session::get('fail'))
-                                    <script>
-                                        $(function(){
-                                            $('#fail').modal('show');
-                                        });
-                                    </script>
-                                    @endif
-
-                                    @csrf
             <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content customer_trans_modal_content_inside">
