@@ -32,6 +32,7 @@ use App\Models\Review;
             </div>
         </div>
     </div>
+    <div class="body">
     <div class="row justify-content-center" id="status">
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
@@ -341,6 +342,7 @@ use App\Models\Review;
         </div>
         @endif
     </div>
+</div>
     <?php
         $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
         $items = array();
@@ -404,7 +406,19 @@ use App\Models\Review;
         
     @endif
 
-    @if(session('success'))
+    
+    <div class="mobile-spacer">
+
+    </div>
+    <div class="footer">
+        <div class="sweep-title">
+            SWEEP © 2021. All Rights Reserved.
+        </div>
+    </div>
+</body>
+@endsection
+
+@if(Session::has('success-status'))
         <script>
             $(function(){
                 $('#success').modal('show');
@@ -496,13 +510,3 @@ use App\Models\Review;
         </div>
     </div>
     </div>
-    <div class="mobile-spacer">
-
-    </div>
-    <div class="footer">
-        <div class="sweep-title">
-            SWEEP © 2021. All Rights Reserved.
-        </div>
-    </div>
-</body>
-@endsection

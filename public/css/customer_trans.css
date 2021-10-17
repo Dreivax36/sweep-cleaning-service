@@ -1,9 +1,11 @@
 body{
     min-height: 100%;
     position: relative;
+    
+}
+.body{
     min-height: 70vh;
 }
-
 .banner-container{
     align-items: center;
     font-size: 30px;
