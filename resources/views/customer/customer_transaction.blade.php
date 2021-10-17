@@ -411,7 +411,17 @@ use App\Models\Review;
         
     @endif
 
-    @if(Session::has('success-status'))
+    @if(Session::get('success-decline'))
+    <script>
+        swal({
+            title: "Successfully Declined Transaction!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+
+    @if(Session::has('success'))
     <script>
         swal({
             title: "Transaction Status Updated Successfully!",

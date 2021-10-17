@@ -661,6 +661,25 @@
         });
 
 </script>  
+@if(Session::get('success-decline'))
+    <script>
+        swal({
+            title: "Successfully Declined Transaction!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+@endif
+
+@if(Session::get('fail'))
+    <script>
+        swal({
+            title: "Something went wrong, try again!",
+            icon: "error",
+            button: "Close",
+        });
+    </script>
+@endif
 
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

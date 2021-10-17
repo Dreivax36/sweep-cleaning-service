@@ -162,25 +162,17 @@
                         @endforeach
                         <form action="{{ route('cleaner') }}" method="post" id="cleaner">
                             <!-- Modal Content-->
-                            @if(Session::get('success'))
-                                <script>
-                                    swal({
-                                    title: "Transaction Status Updated Successfully!",
-                                    icon: "success",
-                                    button: "Close",
-                                    });
-                                </script>
-                            @endif
+                                    @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
 
-                            @if(Session::get('fail'))
-                                <script>
-                                    swal({
-                                    title: "Something went wrong, try again!",
-                                    icon: "error",
-                                    button: "Close",
-                                });
-                                </script>
-                            @endif
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
                             @csrf
 
                             <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
@@ -243,23 +235,15 @@
                                     <div class="modal-body">
                                     <form action="{{ route('cleaner') }}" method="post">
                                             @if(Session::get('success'))
-                                            <script>
-                                                swal({
-                                                    title: "Successfully Declined Job!",
-                                                    icon: "success",
-                                                    button: "Close",
-                                                });
-                                                </script>
+                                                <div class="alert alert-success">
+                                                    {{ Session::get('success') }}
+                                                </div>
                                             @endif
 
                                             @if(Session::get('fail'))
-                                                <script>
-                                                swal({
-                                                    title: "Something went wrong, try again!",
-                                                    icon: "error",
-                                                    button: "Close",
-                                                });
-                                                </script>
+                                                <div class="alert alert-danger">
+                                                    {{ Session::get('fail') }}
+                                                </div>
                                             @endif
                                             @csrf
                                         Are you sure you want to decline this job?
@@ -285,7 +269,7 @@
                                     </div>
                                     <div class="modal-body">
                                     <form action="{{ route('onsitePayment') }}" method="post" >
-                                    @if(Session::get('success'))
+                                    @if(Session::get('success-cleaner'))
                                         <div class="alert alert-success">
                                             {{ Session::get('success') }}
                                         </div>
@@ -339,10 +323,19 @@
     </div>
     
 
-    @if(!empty(Session::get('success')))
+    @if(!empty(Session::get('success-decline')))
     <script>
         swal({
             title: "Successfully Declined Job!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(!empty(Session::get('success')))
+    <script>
+        swal({
+            title: "Transaction Status Updated Successfully!",
             icon: "success",
             button: "Close",
         });

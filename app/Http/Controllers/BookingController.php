@@ -155,7 +155,12 @@ class BookingController extends Controller
        }
       
        if($updateStatus){
-           return back()->with('success', 'Successfully Update the Booking Status');
+            if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
+                return back()->with('success-decline', 'Successfully Update the Booking Status');
+            }
+            else{
+                return back()->with('success', 'Successfully Update the Booking Status');
+            }
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -177,7 +182,8 @@ class BookingController extends Controller
     function cleaner(Request $request){
  
         //Update data into database
-        $updateCleaner = Assigned_cleaner::Where('booking_id', '=', $request->booking_id )->Where('cleaner_id', '=', $request->cleaner_id )->update(['status'=> $request->status ] );
+        $status = $request->status;
+        $updateCleaner = Assigned_cleaner::Where('booking_id', '=', $request->booking_id )->Where('cleaner_id', '=', $request->cleaner_id )->update(['status'=> $status ] );
         
         $notifications = new Notification();
         $id = Cleaner::where('cleaner_id', $request->cleaner_id)->value('user_id');
@@ -206,7 +212,12 @@ class BookingController extends Controller
 
 
         if($updateCleaner){
-           return back()->with('success', 'Cleaner Successfully Update the Booking Status');
+            if($status == 'Declined'){
+                return back()->with('success-decline', 'Cleaner Successfully Update the Booking Status');
+            }
+            else {
+                return back()->with('success', 'Cleaner Successfully Update the Booking Status');
+            }
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
