@@ -376,8 +376,6 @@ class BookingController extends Controller
             $comment[$countComment++] = $cleaner_comment;
         }
         
-        print_r($comment);
-        print_r($request->cleaner_rate);
         $counter = 0;
         foreach($request->input('cleaner_id') AS $cleaner_id){
             
