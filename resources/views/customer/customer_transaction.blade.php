@@ -404,28 +404,28 @@ use App\Models\Review;
         
     @endif
 
-    @if(!empty(Session::get('success')))
+    @if(session('success'))
         <script>
             $(function(){
                 $('#success').modal('show');
             });
         </script>
     @endif
-    @if(!empty(Session::get('fail')))
+    @if(session('fail'))
         <script>
             $(function(){
                 $('#error').modal('show');
             });
         </script>
     @endif
-    @if(!empty(Session::get('success-rate')))
+    @if(session('success-rate'))
         <script>
             $(function(){
                 $('#success-rate').modal('show');
             });
         </script>
     @endif
-    @if(!empty(Session::get('success-pay')))
+    @if(session('success-pay'))
         <script>
             $(function(){
                 $('#success-pay').modal('show');

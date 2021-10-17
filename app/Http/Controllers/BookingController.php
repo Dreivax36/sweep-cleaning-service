@@ -407,7 +407,7 @@ class BookingController extends Controller
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
-        return redirect()->route('customer.customer_transaction')->with('success-rate', 'Rate Successful');
+        return redirect('customer/customer_transaction')->with('success-rate', 'Rate Successful');
     }
 
     function checkout(Request $request){
@@ -444,7 +444,7 @@ class BookingController extends Controller
 
 
         if($checkout){
-           return redirect()->route('customer.customer_transaction')->with('success-pay', 'Payment Successful');
+           return redirect('customer/customer_transaction')->with('success-pay', 'Payment Successful');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');

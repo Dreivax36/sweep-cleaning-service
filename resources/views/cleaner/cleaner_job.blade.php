@@ -251,7 +251,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                                        <button type="submit" class="btn btn-danger" name="status" value="Declined" id="success" >YES</button>
+                                        <button type="submit" class="btn btn-danger" name="status" value="Declined">YES</button>
                                     </div>
                                     </form> 
                                 </div>
@@ -402,17 +402,7 @@
         </div>
         </div>
     </div>
-    </div>
-
-    <script>
-        $('#success').click(function(){
-            if(!empty(Session::get('success'))){
-                $(function(){
-                    $('#success').modal('show');
-                });
-            }
-        });
-    </script>   
+    </div>  
 
     <div class="mobile-spacer">
 
