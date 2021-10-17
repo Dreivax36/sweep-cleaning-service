@@ -27,20 +27,18 @@ use Illuminate\Http\Request;
     <?php
     $serviceName = Service::where('service_id', $value->service_id)->value('service_name');
     ?>
-  <div class="row justify-content-center">
-        <div class="main_profile_con">
      
-    <div class="banner">
-        <button type="button" class="close-mobile" data-dismiss="modal" onclick="document.location='{{ route('customer.customer_transaction') }}'">
+     <div class="banner">
+        <div class="p-4 customer_cards_title">
+            <button type="button" class="close-mobile" data-dismiss="modal">
                 <i class="fas fa-arrow-to-left"></i>Back
             </button>
-        <div class="p-4 customer_cards_title">
-            <h2 class="modal_customer_services_title">
+            <h3 class="modal_customer_services_title">
                 {{$serviceName}}
-            </h2>
+            </h3>
         </div>
     </div>
-    <form action="{{ route('rate') }}" method="post" id="book">
+    <form action="{{ route('rate') }}" method="post" id="book" >
         @if(Session::get('success-rate'))
         <div class="alert alert-success">
             {{ Session::get('success') }}
@@ -56,12 +54,10 @@ use Illuminate\Http\Request;
         @csrf
         <input type="hidden" name="booking_id" value="{{$booking_id}}">
         <input type="hidden" name="service_id" value="{{$value->service_id}}">
-        <div class="row">
-            <div class="col-md-6">
         <div class="service_title">
-            <h3 class="customer_rating_title">
+            <h4 class="customer_rating_title">
                 How was the Service?
-            </h3>
+            </h4>
             <fieldset class="rating">
             <input type="radio" id="field1_star5" name="service_rate" value="5" /><label class="full" for="field1_star5"></label>
             <input type="radio" id="field1_star4" name="service_rate" value="4" /><label class="full" for="field1_star4"></label>
@@ -79,53 +75,55 @@ use Illuminate\Http\Request;
                     @error('message'){{ $message }} @enderror
                 </span>
         </div>
-    </div>
-    <div class="col-md-6">
+   
         <div class="service_title">
             
-            <h3 class="customer_rating_title">
+            <h4 class="customer_rating_title">
                 How was the cleaner/s?
-            </h3>
+            </h4>
             <?php
+            $counter = 0;
             $cleaner = Assigned_cleaner::where('booking_id', $booking_id)->where('status', 'Done')->get();
             ?>
+            <div class="row">
             @foreach($cleaner as $cleaners)
             <?php
             $userID = Cleaner::where('cleaner_id', $cleaners->cleaner_id)->value('user_id');
             $fullname = User::where('user_id', $userID)->value('full_name');
             ?>
             <br>
+           
+            <div class="col-md-6">
             <h5 class="customer_rating_title">
                 {{$fullname}}:
             </h5>
             <input type="hidden" name="cleaner_id[]" value="{{$cleaners->cleaner_id}}">
         <fieldset class="rating">
-            <input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="5" /><label class="full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="4" /><label class="full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="3" /><label class="full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="2" /><label class="full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
-            <input type="radio" id="cleaner_star{{$cleaners->cleaner_id}}" name="cleaner_rate" value="1" /><label class="full" for="cleaner_star{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star1-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="5" /><label class="full" for="cleaner_star1-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star2-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="4" /><label class="full" for="cleaner_star2-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star3-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="3" /><label class="full" for="cleaner_star3-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star4-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="2" /><label class="full" for="cleaner_star4-{{$cleaners->cleaner_id}}"></label>
+            <input type="radio" id="cleaner_star5-{{$cleaners->cleaner_id}}" name="cleaner_rate{{$counter}}" value="1" /><label class="full" for="cleaner_star5-{{$cleaners->cleaner_id}}"></label>
         </fieldset>
-        </div>
+         <br>
         <br>
-        <div class="input-div">
                 <h5>Would you like to share more?</h5>
-                <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="cleaner_comment" placeholder="Message" value="{{ old('message') }}"></textarea>
+                <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="cleaner_comment[]" placeholder="Message" value="{{ old('message') }}"></textarea>
                 <span class="text-danger">
                     @error('message'){{ $message }} @enderror
                 </span>
         </div>
+        <?php $counter++; ?>
         @endforeach
         </div>
         </div>
+</div>
         <div class="customer_services_modal_footer">
             <button type="submit" class="btn btn-block btn-primary confirm_btn">
                 SUBMIT
             </button>
         </div>
     </form>
-    </div>
-    </div>
     
     @endforeach
    <div class="mobile-spacer"></div>

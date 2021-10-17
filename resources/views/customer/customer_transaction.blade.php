@@ -223,20 +223,20 @@ use App\Models\Review;
                             
                             <div class="modal-body">
                                 <form action="{{ route('updateStatus') }}" method="post">
-                                    @if(Session::get('success'))
-                                    <div class="alert alert-success">
+                                    @if(Session::get('success'))  
                                     <script>
                                         $(function(){
                                             $('#success').modal('show');
                                         });
                                     </script>
-                                    </div>
                                     @endif
 
                                     @if(Session::get('fail'))
-                                    <div class="alert alert-danger">
-                                        {{ Session::get('fail') }}
-                                    </div>
+                                    <script>
+                                        $(function(){
+                                            $('#fail').modal('show');
+                                        });
+                                    </script>
                                     @endif
 
                                     @csrf

@@ -129,7 +129,7 @@
                            $pending = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
                            $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                         ?>
-                        <h5 class="service_status" id="status">
+                        <h5 class="service_status">
                             @if($value->status == 'Pending')
                                 @if ($pending == 0)
                                     {{ $value->status }}
@@ -319,17 +319,17 @@
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
                                     @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner && (strtotime($value->created_at) > strtotime("-1 hour")))
-                                        <button  type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="No-Available-Cleaner">
+                                        <button  type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="No-Available-Cleaner">
                                             NO AVAILABLE CLEANER
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
-                                        <button type="button" class="btn btn-block btn-primary accept_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
+                                        <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner ) <!-- add is_paid -->
-                                        <button  type="submit" class="btn btn-block btn-primary accept_btn" name="status" value="Accepted">
+                                        <button  type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="Accepted">
                                             ACCEPT
                                         </button>
                                     @endif
@@ -569,15 +569,19 @@
                                     <div class="modal-body">
                                     <form action="{{ route('updateStatus') }}" method="post">
                                             @if(Session::get('success'))
-                                                <div class="alert alert-success">
-                                                    {{ Session::get('success') }}
-                                                </div>
+                                            <script>
+                                                $(function(){
+                                                    $('#success').modal('show');
+                                                });
+                                            </script>
                                             @endif
 
                                             @if(Session::get('fail'))
-                                                <div class="alert alert-danger">
-                                                    {{ Session::get('fail') }}
-                                                </div>
+                                            <script>
+                                                $(function(){
+                                                    $('#fail').modal('show');
+                                                });
+                                            </script>
                                             @endif
                                             @csrf
                                         Are you sure you want to decline this booking?

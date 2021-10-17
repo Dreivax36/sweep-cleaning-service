@@ -342,9 +342,10 @@ class BookingController extends Controller
     }
 
     function rate(Request $request){
+        $booking = $request->booking_id;
         $reviews = new Review();
         $reviews->review_type = 'Service';
-        $reviews->booking_id = $request->booking_id;
+        $reviews->booking_id = $booking;
         $rate = $reviews->save();
 
         $id = $reviews->review_id;
@@ -356,22 +357,31 @@ class BookingController extends Controller
         $service_reviews->review_id = $id;
         $rate = $service_reviews->save();
 
+        $comment = array();
+        $rate = array();
+        $countRate= 0;
+        $countComment= 0;
         
+        foreach($request->input('cleaner_comment') AS $cleaner_comment){
+            $comment[$countComment++] = $cleaner_comment;
+        }
+        print_r($comment);
+        $counter = 0;
         foreach($request->input('cleaner_id') AS $cleaner_id){
             
             $reviews = new Review();
             $reviews->review_type = 'Cleaner';
-            $reviews->booking_id = $request->booking_id;
+            $reviews->booking_id = $booking;
             $rate = $reviews->save(); 
+            $id = $reviews->review_id;   
 
-            $id = $reviews->review_id;
             $cleaner_reviews = new Cleaner_review();
             $cleaner_reviews->cleaner_id = $cleaner_id;
-            $cleaner_reviews->comment = $request->cleaner_comment;
-            $cleaner_reviews->rate = $request->cleaner_rate;
+            $cleaner_reviews->comment = $comment[$counter];
+            $cleaner_reviews->rate = $request->cleaner_rate+$cleaner_id;
             $cleaner_reviews->review_id = $id;
             $rate = $cleaner_reviews->save();
-
+            $counter++;
         }
 
         $notifications = new Notification();
@@ -448,7 +458,7 @@ class BookingController extends Controller
         $payments->amount = $request->amount; 
         $checkout = $payments->save();
 
-        $checkout= Booking::Where('booking_id', $_GET['booking_id'] )->update(['is_paid' => true]);
+        $checkout= Booking::Where('booking_id', $request->booking_id )->update(['is_paid' => true]);
       
         $notifications = new Notification();
         $notifications->message = 'Customer pay to the cleaner';

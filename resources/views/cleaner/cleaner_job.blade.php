@@ -47,7 +47,7 @@
 
         <div class="card job" style="width: 25rem;">
             <div class="card-body">
-                <h5 class="cleaner_job_status float-right" id="status">
+                <h5 class="cleaner_job_status float-right">
                     {{ $value->status }}
                 </h5>
                 <div class="d-flex card_body">
