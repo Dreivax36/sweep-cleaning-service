@@ -320,15 +320,7 @@
         @endif
     </div>
     </div>
-    <script>
-        $('#success').click(function(){
-            if(!empty(Session::get('success'))){
-                $(function(){
-                    $('#success').modal('show');
-                });
-            }
-        });
-    </script>    
+    
 
     @if(!empty(Session::get('success')))
         <script>
@@ -411,6 +403,16 @@
         </div>
     </div>
     </div>
+
+    <script>
+        $('#success').click(function(){
+            if(!empty(Session::get('success'))){
+                $(function(){
+                    $('#success').modal('show');
+                });
+            }
+        });
+    </script>   
 
     <div class="mobile-spacer">
 
