@@ -301,7 +301,7 @@ use App\Models\Service_review;
             </div>
         </div>
         <div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog1 modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog1 modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -327,7 +327,7 @@ use App\Models\Service_review;
                 </div>
                 </div>
                 <div class="modal fade" id="error" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-dialog modal-dialog1 modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
