@@ -29,7 +29,7 @@ class SendMailApprove extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account Approval')
-                    ->view('emails.approveAccount');
+        return $this->markdown('emails.approveAccount')->with('detail', $this->details)
+                    ->subject('Account Approval')->from('cleaningservicesweep@gmail.com', 'Sweep Cleaning Service Team');
     }
 }

@@ -35,6 +35,7 @@ Route::get('/logout_cleaner',[MainController::class, 'logout_cleaner'])->name('l
 
 //Customer
 Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
+Route::get('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
 Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
 
 //Cleaner

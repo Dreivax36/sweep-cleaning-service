@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sweep Cleaning Service</title>
-</head>
+@component('mail::message')
+# Hello {{$details['name']}},
+{{ $details['title'] }} <br>
+{{ $details['body'] }}<br>
 
-<body>
-  <h3> {{ $details['title'] }} </h3>
-  <p> {{ $details['body'] }} </p>
-  <p> Thank you! </p>
-  <br>
-  <p> Regards,</p>
-  <p> Sweep Cleaning Service Team </p>
-</body>
+Thank you.<br>
+Regards,<br>
+Sweep Cleaning Service Team 
 
-</html>
+@component('mail::subcopy')
+
+You can now avail our services. 
+<br> 
+Here's the link of our website. <br>
+    <a target="_blank" href="https://sweep-cleaning-service.herokuapp.com">https://sweep-cleaning-service.herokuapp.com</a>   
+@endcomponent
+@endcomponent

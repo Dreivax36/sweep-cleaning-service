@@ -229,14 +229,13 @@
                         </td>
                         @endforeach
                         <td class="user_table_data">
-                            @if($value->account_status == "Approve-account")
+                            @if($value->account_status == "To_validate")
                             <div class="verify_con">
                                 <button class="btn btn-success" onclick="document.location='{{ route('update_account', $value->user_id) }}'">
-                                    APPROVE
+                                    VALIDATE
                                 </button>
                             </div>
-                            @endif
-                            @if($value->account_status != "Approve-account")
+                            @else
                                 {{ $value->account_status }}
                             @endif
                         </td>
@@ -285,10 +284,10 @@
 
     </script>  
     <!-- Scripts -->
-    @if(Session::has('success'))
+    @if(session('success'))
     <script>
         swal({
-            title: " Cleaner account successfully approved!",
+            title: "Cleaner account successfully approved!",
             icon: "success",
             button: "Close",
         });

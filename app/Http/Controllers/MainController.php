@@ -136,7 +136,7 @@ class MainController extends Controller
            $users->password = Hash::make($request->password);
            // Store the record, using the new file hashname which will be it's new filename identity.
            $users->profile_picture = $profile;
-           $users->account_status = 'Approve-account';
+           $users->account_status = 'To_validate';
            $users->user_type = 'Customer';
            $customer_save = $users->save();
 
@@ -161,12 +161,13 @@ class MainController extends Controller
         
            $id = $users->user_id;
            $email = $users->email;
+           $name = $users->full_name;
     
-
            $details = [
             'title' => 'Mail from Sweep Cleaning Service',
             'user_id' => $id ,
             'user_type' => 'Customer',
+            'name' => $name,
         ];
 
         \Mail::to($email)->send(new \App\Mail\SendMail($details));
@@ -205,12 +206,15 @@ class MainController extends Controller
             'password'=>'required|min:5|max:12'
         ]);
 
-        $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Customer')->first();
+        $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Customer')->where('email_verified_at','!=', null)->first();
         $email =  User::where('email','=', $request->email)->get();
+        $verified =  User::where('email_verified_at','!=', null)->get();
 
         if(!$userInfo){
             if($email == null){
                 return back()->with('fail', 'Your email address is not verified');
+            }elseif($verified == null){
+                return back()->with('fail', 'Please verified your email first.');
             }else{
                 return back()->with('fail', 'We do not recognize your email address');
             }
@@ -331,7 +335,7 @@ class MainController extends Controller
              $users->contact_number = $request->contact_number;
              $users->password = Hash::make($request->password);
              $users->profile_picture = $profile;
-             $users->account_status = 'Approve-account';
+             $users->account_status = 'To_validate';
              $users->user_type = 'Cleaner';
              $cleaner_save = $users->save();
  
@@ -359,15 +363,17 @@ class MainController extends Controller
              $clearances->description = $request->description;
              $cleaner_save = $clearances->save();
 
-
-             $id = $users->user_id;
-           $email = $users->email;
-
-             $details = [
-                'title' => 'Mail from Sweep Cleaning Service',
-                'user_id' => $id ,
-                'user_type' => 'Cleaner',
+            $id = $users->user_id;
+            $email = $users->email;
+            $name = $users->full_name;
+     
+            $details = [
+             'title' => 'Mail from Sweep Cleaning Service',
+             'user_id' => $id ,
+             'user_type' => 'Cleaner',
+             'name' => $name,
             ];
+ 
     
             \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
@@ -385,12 +391,16 @@ class MainController extends Controller
             'password'=>'required|min:5|max:12'
         ]);
 
-        $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Cleaner')->first();
+        $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Cleaner')->where('email_verified_at','!=', null)->first();
         $email =  User::where('email','=', $request->email)->get();
+        $verified =  User::where('email_verified_at','!=', null)->get();
 
         if(!$userInfo){
             if($email == null){
                 return back()->with('fail', 'Your email address is not verified');
+            }
+            elseif($verified == null){
+                return back()->with('fail', 'Please verified your email first.');
             }else{
                 return back()->with('fail', 'We do not recognize your email address');
             }

@@ -177,7 +177,7 @@ use App\Models\Service_review;
                                         </div>
                                     </div>
                                 </div>
-                                @if($LoggedUserInfo['account_status'] == "Verified")
+                                @if($LoggedUserInfo['account_status'] == "Validated")
                                 <div class="modal-footer customer_services_modal_footer">
                                     <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#exampleModalLong101-{{ $value->service_id }}">
                                         BOOK NOW

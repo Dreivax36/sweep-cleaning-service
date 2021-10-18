@@ -251,7 +251,11 @@
         padding-top: 20px;
         margin: 0;
     }
-    
+    .modal-body{
+        padding: 40px;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
 }
 
 .book_now_btn, .confirm_btn {

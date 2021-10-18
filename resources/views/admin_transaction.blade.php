@@ -418,7 +418,7 @@
                                                         $total = $price_data->number_of_cleaner;
                                                         $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->count();
                                                         $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->get();
-                                                        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Verified')->get(); 
+                                                        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->get(); 
                                                         $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
                                                     ?>
                                                     @while($total > 0)
@@ -429,7 +429,7 @@
                                                     <select name="cleaner_id[]" id="cleaner" class="form-control" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
                                                     @if($cleanerCount == 0) <!-- Booking does not exist in Assign Table -->
                                                         @if($cleanerSchedule == 0) <!-- Check if the booking have the no same Schedule -->
-                                                            @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
+                                                            @if($cleaner_data != null) <!-- Check if Validated Cleaner exist-->
                                                                 @foreach($cleaner_data as $key => $cleaner)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
@@ -444,7 +444,7 @@
                                                                 $itemExist = array();
                                                                 $counter = 0;
                                                             ?>
-                                                            @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
+                                                            @if($cleaner_data != null) <!-- Check if Validated Cleaner exist-->
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
                                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
@@ -486,7 +486,7 @@
                                                         
                                                         ?>
                                                         @if($cleanerSchedule == 0)   <!-- Check if the booking have the no same Schedule --> 
-                                                            @if($cleaner_data != null) <!-- Check if Verified Cleaner exist-->
+                                                            @if($cleaner_data != null) <!-- Check if Validated Cleaner exist-->
                                                             <?php  
                                                                 $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
                                                             ?>
