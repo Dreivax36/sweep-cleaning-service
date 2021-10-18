@@ -17,6 +17,13 @@ use App\Models\Review;
 <head>
     <link href="{{ asset('css/customer_trans.css') }}" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet"/>
     <title>
         Customer Transaction Page
     </title>
@@ -37,8 +44,22 @@ use App\Models\Review;
     <div class="row justify-content-center" id="status">
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
+            $customerCount = Booking::Where('customer_id', $customer_id )->orWhere('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->count();
             $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->orderBy('updated_at','DESC')->get();
         ?>
+        @if($customerCount == 0)
+        <div class="banner-container">
+            <div class="banner">
+                <div class="text">
+                    <h1> You currently have no transaction.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
+        @endif
         @if($booking_data !=null)
         @foreach($booking_data as $key => $value)
             <?php
@@ -107,7 +128,7 @@ use App\Models\Review;
                             <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#exampleModalLong10-{{ $value->booking_id }}">
                                 DETAILS
                             </button>
-                            @if(($value->status == "Pending" || $value->is_paid == false) && $value->mode_of_payment == 'Paypal')
+                            @if($value->status == "Pending" && ($value->mode_of_payment == 'Paypal' && $value->is_paid == false))
                             <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'">
                                 Pay
                             </button>
@@ -296,7 +317,7 @@ use App\Models\Review;
 
                             @csrf
                             <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                        
+                           
                             <h3> Sorry for the Inconvenience </h3>
                             <h5> Your Booking that is Schedule for 
                                 {{ date('F d, Y', strtotime($value->schedule_date)) }} at {{ date('h:i A', strtotime($value->schedule_time)) }} 
@@ -333,18 +354,6 @@ use App\Models\Review;
         </div>
         </div>
         @endforeach
-        @else
-        <div class="banner-container">
-            <div class="banner">
-                <div class="text">
-                    <h1> You currently have no transaction.</h1>
-                </div>
-                <div class="image">
-                    <img src="/images/services/header_img.png" class="img-fluid">
-                </div>
-
-            </div>
-        </div>
         @endif
     </div>
 </div>
@@ -411,7 +420,7 @@ use App\Models\Review;
         
     @endif
 
-    @if(Session::get('success-decline'))
+    @if(Session::has('success-decline'))
     <script>
         swal({
             title: "Successfully Cancel Transaction!",

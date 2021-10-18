@@ -108,9 +108,6 @@
                         Service Name
                     </th>
                     <th scope="col" class="user_table_trans_his_header">
-                        Property Type
-                    </th>
-                    <th scope="col" class="user_table_trans_his_header">
                         Service Fee
                     </th>
                     <th scope="col" class="user_table_trans_his_header">
@@ -119,6 +116,9 @@
                     <th scope="col" class="user_table_trans_his_header">
                         Status
                     </th>
+                    <th scope="col" class="user_table_trans_his_header">
+                     
+                    </th> 
                 </tr>
             </thead>
             <tbody>
@@ -128,6 +128,7 @@
             <?php
                 $service = Service::Where('service_id', $value->service_id )->get();
                 $userID = Customer::Where('customer_id', $value->customer_id )->value('user_id');
+                $address = Address::Where('customer_id', $value->customer_id )->value('address');
                 $user = User::Where('user_id', $userID )->get();
             ?>
             @foreach($service as $key => $service_data)
@@ -139,14 +140,11 @@
             @foreach($user as $key => $user_data)
             
                 <tr class="table_trans_his_row">
-                    <th class="user_table_trans_his_header">
+                    <th class="user_table_data">
                     {{ $user_data -> full_name }}
                     </th>
                     <td class="user_table_data">
                     {{ $service_data -> service_name }}
-                    </td>
-                    <td class="user_table_data">
-                    {{ $value -> property_type }}
                     </td>
                     <td class="user_table_data">
                      ₱{{ $price_data -> price }}
@@ -157,7 +155,168 @@
                     <td class="user_table_data">
                     {{ $value -> status }}
                     </td>
-                </tr>
+                    <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
+                            View Details
+                    </button>
+
+                    <div class="modal fade" id="details-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content p-3 trans_modal_content"> <!-- Modal Content-->
+                                <div class="modal-header trans_modal_header">
+                                    <div class="d-flex pt-5">
+                                        <i class="bi bi-card-checklist check_icon_inside"></i>
+                                        <h4 class="modal_service_title_trans">
+                                            {{ $service_data->service_name }}
+                                        </h4>
+                                    </div>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                        <ul class="customer_detail">
+                                            <li>
+                                                <b>Customer:</b>
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Name:</b> {{ $user_data->full_name }}
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Contact Number:</b> {{ $user_data->contact_number }}
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Address:</b> {{ $address }}
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <b>Service:</b>
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                                            </li>
+                                            <?php
+                                            $price = Price::Where('property_type', $value->property_type )->Where('service_id', $value->service_id )->get();
+                                            ?>
+                                            @foreach($price as $price_data)
+                                            <li class="list_booking_info">
+                                                <b>Cleaner/s:</b> {{ $price_data->number_of_cleaner}}
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Property Type:</b> {{ $value->property_type}}
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Status:</b> {{ $value->status }}
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Price:</b> ₱{{ $price_data->price }}
+                                            </li>
+                                            <br>
+                                            <li>
+                                                <b>Payment:</b>
+                                            </li>
+                                            <li class="list_booking_info">
+                                                <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
+                                            </li>
+                                            @if ( $value->mode_of_payment == 'Paypal')
+                                            <li class="list_booking_info">
+                                                <b>Paypal ID:</b> {{ $value->paypal_id }}
+                                            </li>
+                                            @endif
+                                            @if ( $value->is_paid == true)
+                                            <li class="list_booking_info">
+                                                <b>Status:</b> Paid
+                                            </li>
+                                            @endif
+                                            <br>
+                                            <?php
+                                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id )->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
+                                            ?> 
+                                            <li>
+                                                <b>Cleaners:</b>
+                                            </li>
+                                            @if($id != null)
+                                            @foreach($id as $cleaner)
+                                            <?php
+
+                                                $user_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id )->value('user_id');
+                                                $full = User::Where('user_id', $user_id )->value('full_name');
+
+                                            ?>
+                                            <li class="list_booking_info">
+                                                <b>Name:</b> {{ $full }}
+                                            </li>
+                                            <?php
+                                                $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
+                                                ?>
+                                                @if($reviewId != null)
+                                                @foreach($reviewId as $review)
+
+                                                <?php
+
+                                                $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleaner->cleaner_id)->value('rate');
+                                                ?>
+                                                @if($total != null)
+                                                <div>
+                                                    <?php
+                                                    for ($i = 1; $i <= 5; $i++) {
+                                                        if ($total >= $i) {
+                                                            echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                        } else {
+                                                            echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                        }
+                                                    }
+
+                                                    $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
+
+                                                    ?>
+                                                </div>
+                                            </li>
+
+                                            <li class="list_booking_info">
+                                                <b>Comment:</b> {{$comment}}
+                                                @endif
+                                                @endforeach
+                                                @endif
+
+                                            </li>
+                                            @endforeach  
+                                            @endif
+                                            <li>
+                                            <b>Service Feedback:</b>
+                                            </li>
+                                            <li class="list_booking_info">
+
+                                                <?php
+                                                $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
+                                                ?>
+                                                @if($review_id != null)
+                                                <div>
+                                                    <?php
+                                                    $total = Service_review::where('review_id', $review_id)->value('rate');
+
+                                                    for ($i = 1; $i <= 5; $i++) {
+                                                        if ($total >= $i) {
+                                                            echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                        } else {
+                                                            echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                        }
+                                                    }
+
+                                                    $comment = Service_review::where('review_id', $review_id)->value('comment');
+                                                    ?>
+                                                </div>
+                                            </li>
+
+                                            <li class="list_booking_info">
+                                                <b>Comment:</b> {{$comment}}
+                                                @endif
+                                            </li>
+                                                    
+                                        </ul>
+                            </div>
+                        @endforeach  
+                        @endforeach 
+                    </div>
+                </div>  
+
+                    </tr>
             
             @endforeach
             @endforeach

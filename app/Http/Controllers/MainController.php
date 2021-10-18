@@ -19,7 +19,7 @@ use App\Models\Notification;
 use App\Mail\SendMail;
 class MainController extends Controller
 {
-    //Admin Pages
+    //View Landing Page
     function sweep_welcome(){
         return view('sweep_welcome');
     }
@@ -29,6 +29,7 @@ class MainController extends Controller
     function register(){
         return view('auth.register');
     }
+    //Create admin account
     function save(Request $request){
         
         //Validate Requests
@@ -52,6 +53,7 @@ class MainController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+    //Verify Admin Login
     function check(Request $request){
         //Validate requests
         $request->validate([
@@ -73,7 +75,7 @@ class MainController extends Controller
             }
         }
     }
-    
+    //Logout of Admin and Customer
     function logout(){
         if(session()->has('LoggedUser')){
             session()->pull('LoggedUser');
@@ -81,54 +83,64 @@ class MainController extends Controller
         }
         return redirect('/');
     }
-
+    //View Admin Dashboard Page
     function admin_dashboard(){
+        //Get the data of user logged in
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_dashboard', $data);
     }
+    //View Admin User Page
     function admin_user(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user', $data);
     }
+    //View Admin User Customer Page
     function admin_user_customer(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user_customer', $data);
     }
+    //View Admin User Cleaner Page
     function admin_user_cleaner(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user_cleaner', $data);
     }
+    //View Admin Payroll Page
     function admin_payroll(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll', $data);
     }
-    function admin_payroll_employee(){
+
+    /*function admin_payroll_employee(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll_employee', $data);
     }
     function admin_payroll_cleaner(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll_cleaner', $data);
+    }*/
+    //Customer registration page
+    function customer_register(){
+        return view('customer.customer_register');
     }
-
-    //Customer Pages
+    //Register customer account
     function customer_save(Request $request){
         
         //Validate Requests
         $request->validate([
             'full_name'=>'required',
             'address'=>'required',
-            'email'=>'required|email|unique:admins',
-            'contact_number'=>'required',
+            'email'=>'required|email|unique:users',
+            'contact_number'=>'required|numeric|digits:11',
             'password'=>'required|confirmed|min:5|max:12',
             'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg',// Only allow .jpg, .bmp and .png file types.
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
-           // Save the file locally in the storage/public/ folder under a new folder named /user
+           // Save the file in the /public/ folder under a new folder named /images
            $profile = time().'.'.$request->profile_picture->extension();
            $request->profile_picture->move(public_path('images'),$profile);
            
            //Insert data into database
+           //Insert to user table
            $users = new User;
            $users->full_name = $request->full_name;
            $users->email = $request->email;
@@ -139,26 +151,31 @@ class MainController extends Controller
            $users->account_status = 'To_validate';
            $users->user_type = 'Customer';
            $customer_save = $users->save();
-
            $id = $users->user_id;
+
+           // Save the file in the /public/ folder under a new folder named /images
            $validID = time().'.'.$request->valid_id->extension();
            $request->valid_id->move(public_path('images'),$validID);
 
+           //Insert to Identification table
            $identifications = new Identification;
            $identifications->user_id = $id;
            $identifications->valid_id =  $validID;
            $customer_save = $identifications->save();
           
+           //Insert to Customer table
            $customers = new Customer;
            $customers->user_id = $id;
            $customer_save = $customers->save();
 
+           //Insert to Address table
            $id = $customers->customer_id;
            $addresses = new Address;
            $addresses->address = $request->address;
            $addresses->customer_id = $id;
            $customer_save = $addresses->save();
         
+           //Send email to verify the email address
            $id = $users->user_id;
            $email = $users->email;
            $name = $users->full_name;
@@ -168,9 +185,9 @@ class MainController extends Controller
             'user_id' => $id ,
             'user_type' => 'Customer',
             'name' => $name,
-        ];
+            ];
 
-        \Mail::to($email)->send(new \App\Mail\SendMail($details));
+            \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
         if($customer_save){
             return back()->with('success', 'Successfully created an account. Please check your email to verify it.');
@@ -179,6 +196,7 @@ class MainController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+    //Update Customer user table that email address is verified
     function verify(Request $request){
         $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
@@ -189,23 +207,18 @@ class MainController extends Controller
             return redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
         }
     }
-    function verify_cleaner(Request $request){
-        $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
-        
-        if($verify){
-            return redirect('customer/customer_login')->with('success', 'Email Verified');
-        }
-        else {
-            return redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
-        }
+    //Customer login page
+    function customer_login(){
+        return view('customer.customer_login');
     }
+    //Customer login validation
     function customer_check(Request $request){
         //Validate requests
         $request->validate([
             'email'=>'required|email',
             'password'=>'required|min:5|max:12'
         ]);
-
+        //Check if the email inputted exist in user table, user is a customer and email verified
         $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Customer')->where('email_verified_at','!=', null)->first();
         $email =  User::where('email','=', $request->email)->get();
         $verified =  User::where('email_verified_at','!=', null)->get();
@@ -229,17 +242,18 @@ class MainController extends Controller
         }
     }
 
-    
+    //Customer update information 
     public function updateProfile(Request $request)
     {
         $request->validate([
             'full_name'=>'required',
-            'email'=>'required',
-            'contact_number'=>'required',
+            'email'=>'required|email|unique:users',
+            'contact_number'=>'required|numeric|digits:11',
             'address'=>'required',
         ]);
-        
+        //Update User table
         $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
+        //Update Address table
         $count = 0;  
         foreach($request->input('address_id') AS $address_id){
             $address = $request->input('address')[$count];
@@ -254,8 +268,12 @@ class MainController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+    //Customer add new address
     function addAddress(Request $request){
-  
+        $request->validate([
+            'address'=>'required',
+        ]);
+        //insert to address table
         $addresses = new Address();
         $addresses->customer_id = $request->customer_id;
         $addresses->address = $request->address;
@@ -268,62 +286,51 @@ class MainController extends Controller
              return back()->with('fail','Something went wrong, try again later ');
          }
      }
-
+     //Customer delete address
      function deleteAddress(Request $request){
-  
         $deleteAddress = Address::Where('address_id', $request->address_id)->delete();
+
         if($deleteAddress){
             return back()->with('success-delete', 'Address successfully deleted');
          }
          else {
              return back()->with('fail','Something went wrong, try again later ');
          }
-     }
-
-    function customer_login(){
-        return view('customer.customer_login');
     }
-    function customer_register(){
-        return view('customer.customer_register');
-    }
+    //Customer dashboard page
     function customer_dashboard(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_dashboard', $data);
     }
-
+    //Customer profile page
     function customer_profile(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_profile', $data);
     }
 
 
-    //Cleaner Pages
-    function cleaner_login(){
-        return view('cleaner.cleaner_login');
-    }
+    //Cleaner registration page
     function cleaner_register(){
         return view('cleaner.cleaner_register');
     }
-    function cleaner_dashboard(){
-        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
-        return view('cleaner.cleaner_dashboard', $data);
-    }
+    //Register cleaner account
     function cleaner_save(Request $request){
         
         //Validate Requests
         $request->validate([
             'full_name'=>'required',
             'address'=>'required',
-            'email'=>'required|email|unique:admins',
-            'contact_number'=>'required',
+            'email'=>'required|email|unique:users',
+            'contact_number'=>'required|numeric|digits:11',
             'password'=>'required|confirmed|min:5|max:12',
-            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg', // Only allow .jpg, .bmp and .png file types.
+            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg', // Only allow .jpg, .gif, .svg and .png file types.
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
             'description'=>'required',
-            'requirement' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
+            'requirement' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'age' => 'required|numeric',
         ]);
 
-             // Save the file locally in the storage/public/ folder under a new folder named /product
+             // Save the file in the /public/ folder under a new folder named /images
              $profile = time().'.'.$request->profile_picture->extension();
              $request->profile_picture->move(public_path('images'),$profile);
              
@@ -340,41 +347,42 @@ class MainController extends Controller
              $cleaner_save = $users->save();
  
              $id = $users->user_id;
+             // Save the file in the /public/ folder under a new folder named /images
              $validId = time().'.'.$request->valid_id->extension();
              $request->valid_id->move(public_path('images'),$validId);
-             
+
+             //Insert to identification table
              $identifications = new Identification;
              $identifications->user_id = $id;
              $identifications->valid_id = $validId;
              $customer_save = $identifications->save();
-         
+            //Insert to cleaner table
              $cleaners = new Cleaner;
              $cleaners->user_id = $id;
              $cleaners->age = $request->age;
              $cleaners->address = $request->address;
              $cleaner_save = $cleaners->save();
-             
+             // Save the file in the /public/ folder under a new folder named /images
              $require = time().'.'.$request->requirement->extension();
              $request->requirement->move(public_path('images'),$require);
              $id = $cleaners->cleaner_id;
+             //Insert to clearance table
              $clearances = new Clearance;
              $clearances->cleaner_id = $id;
              $clearances->requirement = $require;
              $clearances->description = $request->description;
              $cleaner_save = $clearances->save();
 
+            //Send email to verify the email address
             $id = $users->user_id;
             $email = $users->email;
             $name = $users->full_name;
-     
             $details = [
              'title' => 'Mail from Sweep Cleaning Service',
              'user_id' => $id ,
              'user_type' => 'Cleaner',
              'name' => $name,
             ];
- 
-    
             \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
             if($cleaner_save){
@@ -384,13 +392,28 @@ class MainController extends Controller
                 return back()->with('fail','Something went wrong, try again later ');
             }
     }
-
+    //Update Cleaner user table that email address is verified
+    function verify_cleaner(Request $request){
+        $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
+        
+        if($verify){
+            return redirect('customer/customer_login')->with('success', 'Email Verified');
+        }
+        else {
+            return redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
+        }
+    }
+    //Cleaner login page
+    function cleaner_login(){
+        return view('cleaner.cleaner_login');
+    }
+    //Cleaner login validation
     function cleaner_check(Request $request){
         $request->validate([
             'email'=>'required|email',
             'password'=>'required|min:5|max:12'
         ]);
-
+        //Check if the email inputted exist in user table, user type is cleaner and email verified 
         $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Cleaner')->where('email_verified_at','!=', null)->first();
         $email =  User::where('email','=', $request->email)->get();
         $verified =  User::where('email_verified_at','!=', null)->get();
@@ -414,21 +437,29 @@ class MainController extends Controller
             }
         }
     }
+    //Cleaner dashboard page
+    function cleaner_dashboard(){
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('cleaner.cleaner_dashboard', $data);
+    }
+    //Cleaner Profile
     function cleaner_profile(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('cleaner.cleaner_profile', $data);
     }
+    //Cleaner update information
     public function updateCleaner(Request $request)
     {
         $request->validate([
             'full_name'=>'required',
-            'email'=>'required',
-            'contact_number'=>'required',
+            'email'=>'required|email|unique:users',
+            'contact_number'=>'required|numeric|digits:11',
             'address'=>'required',
-            'age'=>'required'
+            'age'=>'required|numeric',
         ]);
-
+        //Update user table
         $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
+        //Update cleaner table
         $update= Cleaner::Where('user_id', $request->user_id )->update(['address' => $request->address, 'age' => $request->age]);
 
         if($update){   
@@ -438,7 +469,7 @@ class MainController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
-
+    //Cleaner logout
     function logout_cleaner(){
         if(session()->has('LoggedUser')){
             session()->pull('LoggedUser');

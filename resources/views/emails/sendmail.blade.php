@@ -16,14 +16,4 @@ Thank you.<br>
 Regards,<br>
 Sweep Cleaning Service Team 
 
-@component('mail::subcopy')
-
-If you're having trouble clicking the "Verify Email Address" button, click the link below.  
-<br> 
-    @if ($details['user_type'] == 'Customer')
-      "<a target="_blank" href="https://sweep-cleaning-service.herokuapp.com/verify/{{ $details['user_id'] }}/">https://sweep-cleaning-service.herokuapp.com/verify/{{ $details['user_id'] }}</a>"   
-    @else
-      "<a target="_blank" href="https://sweep-cleaning-service.herokuapp.com/verify/{{ $details['user_id'] }}/">https://sweep-cleaning-service.herokuapp.com/verify/{{ $details['user_id'] }}</a>"
-    @endif
-@endcomponent
 @endcomponent

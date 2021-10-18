@@ -28,6 +28,11 @@
                         {{ Session::get('fail') }}
                     </div>
                 @endif
+                @if(Session::get('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
 
                 @csrf
                 <div class="input-div">

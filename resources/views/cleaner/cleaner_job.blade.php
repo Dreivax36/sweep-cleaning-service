@@ -28,8 +28,22 @@
     <div class="row justify-content-center" id="status">
         <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+        $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orWhere('status', '!=', 'Declined')->count();
         $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->orderBy('updated_at','DESC')->get();
         ?>
+        @if($cleanerCount == 0)
+        <div class="banner-container">
+            <div class="banner1">
+                <div class="text">
+                    <h1> You currently have no job.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
+        @endif
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <?php
@@ -204,7 +218,7 @@
                             @endif  
                             @if($value->status == "On-the-Way" && $onprogresscount != $price_data->number_of_cleaner)
                                 <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
-                                    ON-PROGRESS
+                                    START CLEANING
                                 </button>    
                             @endif   
                             @if($value->status == "On-Progress" && $donecount != $price_data->number_of_cleaner)
@@ -306,18 +320,6 @@
         @endif
         @endforeach
         @endforeach
-        @else
-        <div class="banner-container">
-            <div class="banner1">
-                <div class="text">
-                    <h1> You currently have no job.</h1>
-                </div>
-                <div class="image">
-                    <img src="/images/services/header_img.png" class="img-fluid">
-                </div>
-
-            </div>
-        </div>
         @endif
     </div>
     </div>

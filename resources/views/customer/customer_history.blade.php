@@ -30,11 +30,26 @@ use App\Models\Assigned_cleaner;
             </div>
         </div>
     </div>
+    <div class="body">
     <div class="row justify-content-center">
         <?php
         $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'])->value('customer_id');
+        $customerCount = Booking::Where('customer_id', $customer_id)->orWhere('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->count();
         $booking_data = Booking::Where('customer_id', $customer_id)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->orderBy('updated_at','DESC')->get();
         ?>
+        @if($customerCount == 0)
+         <div class="banner-container">
+            <div class="banner">
+                <div class="text">
+                    <h1> You currently have no history.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
+        @endif
         @if($booking_data != null)
         @foreach($booking_data as $key => $value)
         <?php
@@ -172,19 +187,9 @@ use App\Models\Assigned_cleaner;
             @endforeach
         </div>
         @endforeach
-        @else
-        <div class="banner-container">
-            <div class="banner">
-                <div class="text">
-                    <h1> You currently have no history.</h1>
-                </div>
-                <div class="image">
-                    <img src="/images/services/header_img.png" class="img-fluid">
-                </div>
-
-            </div>
-        </div>
         @endif
+       
+    </div>
     </div>
     <div class="mobile-spacer">
 

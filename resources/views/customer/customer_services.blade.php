@@ -47,11 +47,6 @@ use App\Models\Service_review;
                 </h1> 
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="customer_search_con"> <!-- Search Field -->
-            <input class="form-control searchbar" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()"> 
-            </div> <!-- End of Search Field -->
-        </div>
     </div>
    
     <div class="row justify-content-center">

@@ -284,7 +284,7 @@
 
     </script>  
     <!-- Scripts -->
-    @if(session('success'))
+    @if(Session::has('success'))
     <script>
         swal({
             title: "Cleaner account successfully approved!",

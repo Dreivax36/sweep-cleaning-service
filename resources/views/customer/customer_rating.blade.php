@@ -85,7 +85,7 @@ use Illuminate\Http\Request;
             $counter = 0;
             $cleaner = Assigned_cleaner::where('booking_id', $booking_id)->where('status', 'Done')->get();
             ?>
-            <div class="row">
+            
             @foreach($cleaner as $cleaners)
             <?php
             $userID = Cleaner::where('cleaner_id', $cleaners->cleaner_id)->value('user_id');
@@ -93,7 +93,7 @@ use Illuminate\Http\Request;
             ?>
             <br>
            
-            <div class="col-md-6">
+            
             <h5 class="customer_rating_title">
                 {{$fullname}}:
             </h5>
@@ -112,10 +112,10 @@ use Illuminate\Http\Request;
                 <span class="text-danger">
                     @error('message'){{ $message }} @enderror
                 </span>
-        </div>
+        
         <?php $counter++; ?>
         @endforeach
-        </div>
+        
         </div>
 </div>
         <div class="customer_services_modal_footer">

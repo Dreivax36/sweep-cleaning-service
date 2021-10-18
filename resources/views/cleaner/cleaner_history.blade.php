@@ -30,9 +30,23 @@
     <div class="row justify-content-center">
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+        $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->count();
         $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
     ?>
 
+        @if($cleanerCount == 0)
+        <div class="banner-container">
+            <div class="banner1">
+                <div class="text">
+                    <h1> You currently have no history.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
+
+            </div>
+        </div>
+        @endif
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         @if($booking->status == 'Declined')
@@ -261,18 +275,6 @@
         @endif
         @endforeach
         @endforeach
-        @else
-        <div class="banner-container">
-            <div class="banner1">
-                <div class="text">
-                    <h1> You currently have no history.</h1>
-                </div>
-                <div class="image">
-                    <img src="/images/services/header_img.png" class="img-fluid">
-                </div>
-
-            </div>
-        </div>
         @endif
 
     </div>

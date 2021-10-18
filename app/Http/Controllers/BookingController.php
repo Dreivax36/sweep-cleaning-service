@@ -24,6 +24,7 @@ use Pusher\Pusher;
 
 class BookingController extends Controller
 {
+    //View admin transaction page
     function admin_transaction(){
         //Retrieve Services Data from database  
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
@@ -96,7 +97,11 @@ class BookingController extends Controller
        $notifications->booking_id = $bookingID;
        $notifications->isRead = false; 
        $notifications->user_id = $user;
-       $notifications->location = 'customer/customer_transaction';
+       if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
+            $notifications->location = 'customer/customer_history';
+       }else{
+            $notifications->location = 'customer/customer_transaction';
+       }
        $updateStatus = $notifications->save();
              
 
@@ -128,7 +133,11 @@ class BookingController extends Controller
             $notifications->booking_id = $bookingID;
             $notifications->isRead = false; 
             $notifications->user_id = $userCleaner;
-            $notifications->location = 'cleaner/cleaner_job';
+            if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
+                $notifications->location = 'cleaner/cleaner_history';
+           }else{
+                $notifications->location = 'cleaner/cleaner_job';
+           }
             $updateStatus = $notifications->save();
             $options = array(
                 'cluster' => 'ap1',
@@ -520,7 +529,7 @@ class BookingController extends Controller
 
     function newDate(Request $request){
         
-        $newDate= Booking::Where('booking_id', $request->booking_id )->update(['schedule_date' => $request->schedule_date, 'schedule_time' => $request->schedule_time ]);
+        $newDate= Booking::Where('booking_id', $request->booking_id )->update(['schedule_date' => $request->schedule_date, 'schedule_time' => $request->schedule_time, 'status' => 'Pending' ]);
 
         $notifications = new Notification();
         $notifications->message = 'Customer choose new schedule';
@@ -541,7 +550,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'New Booking';
+        $messages = 'New Date';
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
