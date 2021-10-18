@@ -213,6 +213,7 @@
     </div>
         </div>
     </div>
+    
     @if(!empty(Session::get('success')))
     <script>
         swal({

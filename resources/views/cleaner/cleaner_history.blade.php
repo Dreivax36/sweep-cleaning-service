@@ -30,7 +30,7 @@
     <div class="row justify-content-center">
     <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->count();
+        $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->where('status', 'Completed')->count();
         $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
     ?>
 

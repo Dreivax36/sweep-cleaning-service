@@ -144,6 +144,7 @@ use App\Models\Address;
             </div> <!-- End of Modal for Updating a Service -->
         </div>
     </div>
+    
     @if(!empty(Session::get('success')))
     <script>
         swal({
