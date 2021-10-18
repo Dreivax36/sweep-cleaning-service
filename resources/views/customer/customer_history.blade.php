@@ -34,7 +34,7 @@ use App\Models\Assigned_cleaner;
     <div class="row justify-content-center">
         <?php
         $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'])->value('customer_id');
-        $customerCount = Booking::Where('customer_id', $customer_id)->orWhere('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->count();
+        $customerCount = Booking::Where('customer_id', $customer_id)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->count();
         $booking_data = Booking::Where('customer_id', $customer_id)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Accepted')->Where('status', '!=', 'On-Progress')->Where('status', '!=', 'Done')->orderBy('updated_at','DESC')->get();
         ?>
         @if($customerCount == 0)

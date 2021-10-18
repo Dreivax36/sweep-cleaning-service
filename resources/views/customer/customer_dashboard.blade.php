@@ -156,11 +156,11 @@
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#bannerSlides" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#recommended" role="button" data-slide="prev">
                     <i class="fas fa-chevron-left back"></i>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#bannerSlides" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#recommended" role="button" data-slide="next">
                     <i class="fas fa-chevron-right next"></i>
                     <span class="sr-only">Next</span>
                 </a>

@@ -44,7 +44,7 @@ use App\Models\Review;
     <div class="row justify-content-center" id="status">
         <?php
             $customer_id = Customer::Where('user_id', $LoggedUserInfo['user_id'] )->value('customer_id');
-            $customerCount = Booking::Where('customer_id', $customer_id )->orWhere('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->count();
+            $customerCount = Booking::Where('customer_id', $customer_id )->count();
             $booking_data = Booking::Where('customer_id', $customer_id )->Where('status','!=', 'Declined' )->Where('status', '!=','Completed')->Where('status', '!=','Cancelled')->orderBy('updated_at','DESC')->get();
         ?>
         @if($customerCount == 0)

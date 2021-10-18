@@ -7,6 +7,10 @@
     use App\Models\User;
     use App\Models\Cleaner;
     use App\Models\Notification;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Review;
+    use App\Models\Cleaner_review;
+    use App\Models\Service_review;
 ?>
 
 @extends('head_extention_admin') 
@@ -263,7 +267,7 @@
                                                         }
                                                     }
 
-                                                    $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
+                                                    $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleaner->cleaner_id)->value('comment');
 
                                                     ?>
                                                 </div>
@@ -271,13 +275,11 @@
 
                                             <li class="list_booking_info">
                                                 <b>Comment:</b> {{$comment}}
-                                                @endif
+                                            </li>
+                                            @endif
                                                 @endforeach
                                                 @endif
-
-                                            </li>
-                                            @endforeach  
-                                            @endif
+                                            
                                             <li>
                                             <b>Service Feedback:</b>
                                             </li>
@@ -308,10 +310,10 @@
                                                 <b>Comment:</b> {{$comment}}
                                                 @endif
                                             </li>
-                                                    
+                                                @endforeach  
+                                            @endif    
                                         </ul>
                             </div>
-                        @endforeach  
                         @endforeach 
                     </div>
                 </div>  

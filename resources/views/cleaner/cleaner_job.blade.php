@@ -28,7 +28,7 @@
     <div class="row justify-content-center" id="status">
         <?php
         $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orWhere('status', '!=', 'Declined')->count();
+        $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->count();
         $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->orderBy('updated_at','DESC')->get();
         ?>
         @if($cleanerCount == 0)
