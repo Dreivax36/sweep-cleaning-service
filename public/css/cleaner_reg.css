@@ -206,6 +206,26 @@
     align-items: center;
 }
 
+.form-group{
+    width: 100%;
+}
+
+.id-cont{
+    background-color: #BEE7FD;
+    width: 100%;
+}
+
+.req-cont{
+
+    background-color:#F6A06F;
+    width: 100%;
+}
+
+.id-cont, .req-cont{
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
 
 
 @media (max-width: 800px){
@@ -259,7 +279,7 @@
     text-align: center;
 }
  
-form .user-details .input-div, .form-group{
+form .user-details .input-div {
     width: calc(100% / 2 - 10px);
 }
 
@@ -300,4 +320,3 @@ form .user-details .input-div, .form-group{
         text-align: center;
     }
 }
-

@@ -223,6 +223,20 @@
     text-align: center;
 }
 
+
+.id-cont{
+    background-color: #BEE7FD;
+    width: 100%;
+}
+
+
+
+.id-cont{
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
 @media (max-width: 800px){
 
     .register_con {
@@ -295,4 +309,3 @@
         text-align: center;
     }
 }
-

@@ -7,6 +7,7 @@ use App\Models\Price;
 use App\Models\User;
 use App\Models\Cleaner;
 use App\Models\Assigned_cleaner;
+use App\Models\Address;
 use App\Models\Review;
 ?>
 
@@ -228,8 +229,13 @@ use App\Models\Review;
                                 CANCEL
                             </button>
                             @endif
+                            @if($value->status == "Pending")
+                            <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-dismiss="modal" data-toggle="modal" data-target="#addresses-{{$value->booking_id}}">
+                                CHANGE ADDRESS
+                            </button>
+                            @endif
                             @if($value->status == "No-Available-Cleaner") 
-                                <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-dismiss="modal" data-toggle="modal" data-target="#nocleaner-{{ $value->booking_id }}" >
+                                <button type="button" class="btn btn-block btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#nocleaner-{{ $value->booking_id }}" >
                                     CHOOSE NEW SCHEDULE
                                 </button>
                             @endif
@@ -291,6 +297,121 @@ use App\Models\Review;
                 });   
             </script>
             @endif
+            <?php 
+                $addressData = Address::Where('customer_id', $value->customer_id )->get();
+            ?>
+            <div class="modal fade" id="addresses-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <!-- Modal -->
+            <div class="modal-dialog" role="document">
+                <div class="modal-content customer_services_modal_content">
+                    <!-- Modal Content -->
+                    <div class="modal-header customer_services_modal_header">
+                        <div class="d-flex">
+                            <div class="d-flex flex-column">
+                                <h4 class="modal_customer_services_title">
+                                    Property Address
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-body">
+                       
+                        <form action="{{ route('updateAddress') }}" method="post" id="book">
+                        @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
+                                                                    
+                                    @csrf
+                        <input type="hidden" name="booking_id" value="{{$value->booking_id}}">    
+                        @foreach($addressData as $key => $add)
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="address" value="{{$add->address_id}}" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            <h5>{{$add->address}}</h5>
+                        </label>
+                        </div>
+                        @endforeach
+                        
+                    </div>
+                    <div class="modal-footer customer_services_modal_footer">
+                        <button class="btn btn-block btn-primary confirm_btn" data-toggle="modal" data-target="#addAddress-{{$value->booking_id}}" data-dismiss="modal">
+                                Add New Address
+                        </button>
+                        <button type="submit" class="btn btn-block btn-success ">
+                            Apply
+                        </button>
+                        <button type="button" class="btn btn-block btn-danger cancel_btn" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="addAddress-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <!-- Modal -->
+            <div class="modal-dialog" role="document">
+                <div class="modal-content customer_services_modal_content">
+                    <!-- Modal Content -->
+                    <div class="modal-header customer_services_modal_header">
+                       
+                        <div class="d-flex">
+                            <div class="d-flex flex-column">
+                                <h4 class="modal_customer_services_title">
+                                    Add Address
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-body">
+                      
+                        <form action="{{ route('addAddress') }}" method="post" id="book">
+                        @if(Session::get('success'))
+                                        <div class="alert alert-success">
+                                            {{ Session::get('success') }}
+                                        </div>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                        <div class="alert alert-danger">
+                                            {{ Session::get('fail') }}
+                                        </div>
+                                    @endif
+                                                                    
+                                    @csrf
+                        <input type="hidden" name="customer_id" value="{{$value->customer_id}}">           
+                        <div class="form-group">
+                            <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address') }}">
+                            <span class="text-danger">@error('address'){{ $message }} @enderror</span>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer customer_services_modal_footer">
+                        <button type="submit" class="btn btn-block btn-primary confirm_btn">
+                            ADD
+                        </button>
+                        <button type="button" class="btn btn-block btn-primary cancel_btn" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
             <!-- Modal -->
             <div class="modal fade" id="nocleaner-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -419,7 +540,24 @@ use App\Models\Review;
     </script>
         
     @endif
-
+    @if(Session::has('success-add'))
+    <script>
+        swal({
+            title: "Added Address Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(Session::has('success-address'))
+    <script>
+        swal({
+            title: "Address Successfully Updated!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
     @if(Session::has('success-decline'))
     <script>
         swal({

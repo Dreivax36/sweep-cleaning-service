@@ -131,6 +131,10 @@
                                 @error('profile_picture'){{ $message }} @enderror
                             </span>
                         </div>
+                        <div class="id-cont">
+                            <h5>Acceptable Valid ID's:</h5>
+                            <p>UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, School ID, PhilSys ID</p>
+                        </div> 
                         <div class="form-group">
                             <label class="upload_label">
                                 Valid ID
@@ -140,6 +144,13 @@
                                 @error('valid_id'){{ $message }} @enderror
                             </span>
                         </div>
+                          
+                        <div class="req-cont">
+                            <h5>Acceptable Documents:</h5>
+                            <p>NSO Birth Certificate, Barangay Clearance, NBI Clearance, Police Clearance, or Matriculation Form (If currently enrolled)</p>
+
+                            <p style="font-size: 14px;">Please indicate the type of document you uploaded down on the description box below.</p>
+                        </div> 
                         <div class="form-group">
                             <label class="upload_label">
                                 Requirement
@@ -149,7 +160,7 @@
                                 @error('requirement'){{ $message }} @enderror
                             </span>
                         </div>
-                
+                         
                     <div class="form-group">
                         <input type="text" class="form-control reg_fields" name="description" placeholder="Description" value="{{ old('description') }}">
                         <span class="text-danger">

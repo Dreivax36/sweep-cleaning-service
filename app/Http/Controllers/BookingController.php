@@ -183,7 +183,7 @@ class BookingController extends Controller
         $updateAddress= Booking::Where('booking_id', $request->booking_id )->update(['address_id' => $request->address]);
 
        if($updateAddress){
-           return back()->with('success', 'Address Updated');
+           return back()->with('success-address', 'Address Updated');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
