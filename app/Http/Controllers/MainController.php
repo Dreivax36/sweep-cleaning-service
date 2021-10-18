@@ -397,10 +397,10 @@ class MainController extends Controller
         $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
         if($verify){
-            return redirect('customer/customer_login')->with('success', 'Email Verified');
+            return redirect('cleaner/cleaner_login')->with('success', 'Email Verified');
         }
         else {
-            return redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
+            return redirect('cleaner/cleaner_login')->with('fail','Something went wrong, try again later ');
         }
     }
     //Cleaner login page
