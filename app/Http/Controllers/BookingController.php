@@ -71,7 +71,11 @@ class BookingController extends Controller
        $notifications->message = "Status of Transaction $bookingID is $status.";
        $notifications->booking_id = $bookingID;
        $notifications->isRead = false; 
-       $notifications->location = 'admin_transaction';
+       if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
+            $notifications->location = 'admin_transaction_history';
+        }else{
+            $notifications->location = 'admin_transaction';
+        }
        $updateStatus = $notifications->save();
 
        $options = array(
