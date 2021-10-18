@@ -326,7 +326,7 @@
                                
                                 ?>
                                 <div class="modal-footer trans_modal_footer">
-                                    @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner && (strtotime($value->created_at) > strtotime("-1 hour")))
+                                    @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner)
                                         <button  type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="No-Available-Cleaner">
                                             NO AVAILABLE CLEANER
                                         </button>
