@@ -159,8 +159,10 @@
                     <td class="user_table_data">
                     {{ $value -> status }}
                     </td>
-                    <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
-                            View Details
+                    <td class="user_table_data">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
+                    View Details
+                    </td>
                     </button>
 
                     <div class="modal fade" id="details-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
@@ -245,7 +247,7 @@
                                             ?>
                                             <li class="list_booking_info">
                                                 <b>Name:</b> {{ $full }}
-                                            </li>
+                                            </li class="list_booking_info">
                                             <?php
                                                 $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
                                                 ?>
