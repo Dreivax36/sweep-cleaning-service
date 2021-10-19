@@ -123,7 +123,7 @@
     </div>
    
     <!-- Paypal Integration -->
-    <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AXR1Mw2TTniagpmnaDLAt1gRjNhCtpRhlerD1xbxBamBRdZQjBvZeoKGMYVMOFn-Z_1xGtSoAccCa1wf&currency=PHP&locale=en_PH"></script>
+    <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AXR1Mw2TTniagpmnaDLAt1gRjNhCtpRhlerD1xbxBamBRdZQjBvZeoKGMYVMOFn-Z_1xGtSoAccCa1wf&currency=PHP&locale=en_PH&disable-funding=credit,card"></script>
     <!-- Paypal Button -->
     <script>
         paypal.Buttons({
