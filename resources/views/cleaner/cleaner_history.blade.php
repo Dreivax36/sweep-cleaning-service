@@ -17,7 +17,7 @@
 <title>
     Cleaner History Page
 </title>
-<link href="{{ asset('css/cleaner_job.css') }}" rel="stylesheet">
+<link href="{{ asset('css/cleaner_history.css') }}" rel="stylesheet">
 
 <body>
     <div class="jobs">
@@ -25,15 +25,15 @@
             History
         </h1>
     </div>
-
     <div class="body">
-    <div class="row justify-content-center">
-    <?php
-        $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-        $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->where('status', 'Completed')->count();
-        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
-    ?>
-
+        <div class="row justify-content-center">
+        <!-- Get job history - status with completed, declined, cancelled -->
+        <?php
+            $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+            $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->count();
+            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
+        ?>
+        <!-- No history display this -->
         @if($cleanerCount == 0)
         <div class="banner-container">
             <div class="banner1">
@@ -49,30 +49,32 @@
         @endif
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
+        <!-- Get transaction equal to the transaction assigned -->
         @if($booking->status == 'Declined')
         <?php
-        $booking_data = Booking::Where('booking_id', $booking->booking_id)->get();
+            $booking_data = Booking::Where('booking_id', $booking->booking_id)->get();
         ?>
         @else
         <?php
-        $booking_data = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->orWhere('status', 'Cancelled')->orderBy('updated_at','DESC')->get();
+            $booking_data = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->orWhere('status', 'Cancelled')->orderBy('updated_at','DESC')->get();
         ?>
         @endif
+        
         @foreach($booking_data as $key => $value)
+        <!-- Check the transaction if it is equal to the transaction in assigned cleaner table  -->
         @if($booking->booking_id == $value->booking_id || $booking->status == 'Declined')
-
         <?php
-        $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
-        $serviceName = Service::Where('service_id', $value->service_id)->value('service_name');
-        $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-        $user_data = User::Where('user_id', $userID)->get();
-        $address = Address::Where('customer_id', $value->customer_id)->value('address');
-        $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
+            $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
+            $serviceName = Service::Where('service_id', $value->service_id)->value('service_name');
+            $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+            $user_data = User::Where('user_id', $userID)->get();
+            $address = Address::Where('customer_id', $value->customer_id)->value('address');
+            $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
         ?>
 
         <div class="card job" style="width: 25rem;">
             <div class="card-body">
-            @if ($booking->status != 'Declined' || $booking->status != 'Cleaner-no-response' )
+                @if ($booking->status != 'Declined' || $booking->status != 'Cleaner-no-response' )
                 <h5 class="cleaner_job_status float-right">
                     {{ $value->status }}
                 </h5>
@@ -139,149 +141,136 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
         <div class="modal fade" id="details-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-            <!-- Modal -->
             <div class="modal-dialog" role="document">
                 <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                 <div class="modal-content p-4 cleaner_job_modal_content">
                     <div class="modal-header cleaner_job_modal_header">
-                        <div class="d-flex pt-5">
-                        <img src="/img/broom.png" class="cleaner_trans_broom_2_1_img p-1">
-                            <div class="d-flex flex-column">
-                                <h4 class="cleaner_job_modal_title">
-                                    {{ $serviceName }}
-                                </h4>
-                                <h6 class="cleaner_job_modal_date_1_1">
-                                    {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
-                                </h6>
-                                <h6 class="cleaner_job_modal_amount_1">
-                                    Total Amount: ₱{{ $price_data->price }}
-                                </h6>
-                            </div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="p-4">
+                            <button type="button" class="close-mobile" data-dismiss="modal">
+                                Back
+                            </button>
+                            <h4 class="cleaner_job_modal_title">
+                                {{ $serviceName }}
+                            </h4>
+                            <h6 class="cleaner_job_modal_date_1_1">
+                                {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                            </h6>
+                            <h6 class="cleaner_job_modal_amount_1">
+                                Total Amount: ₱{{ $price_data->price }}
+                            </h6>
                         </div>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="modal-body d-flex p-4">
-                        <div class="cleaner_job_modal_body_1_con">
-                            <ul class="cleaner_detail">
-                                @foreach($user_data as $key => $user)
-                                <li>
-                                    <b>Customer:</b>
-                                </li>
-                                <li class="list_booking_info">
-                                    <b>Name:</b> {{ $user->full_name }}
-                                </li>
-                                <li class="list_booking_info">
-                                    <b>Contact Number:</b> {{ $user->contact_number }}
-                                </li>
-                                <li class="list_booking_info">
-                                    <b>Address:</b> {{ $address }}
-                                </li>
-                                <br>
-                                <li><b>Service Details:</b></li>
-                                <li class="list_booking_info">
-                                    <b>Property Type:</b> {{ $value->property_type}}
-                                </li>
-                                <li class="list_booking_info">
-                                    <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
-                                </li>
-                                <li class="list_booking_info">
-                                    <b>Cleaner/s:</b> {{ $price_data->number_of_cleaner}}
-                                </li>
-                                <li class="list_booking_info">
-                                    <b>Status:</b> {{ $value->status }}
-                                </li>
-                                <br>
-                                <li>
-                                    <b>Feedback:</b>
-                                </li>
-                                <li class="list_booking_info">
-                                    <b>Service:</b>
-
-                                    <?php
-                                    $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
-                                    ?>
-                                    @if($review_id != null)
-                                    <div>
+                        <div class="modal-body">
+                            <div class="cleaner_job_modal_body_1_con">
+                                <ul class="cleaner_detail">
+                                    @foreach($user_data as $key => $user)
+                                    <li>
+                                        <b>Customer:</b>
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Name:</b> {{ $user->full_name }}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Contact Number:</b> {{ $user->contact_number }}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Address:</b> {{ $address }}
+                                    </li>
+                                    <br>
+                                    <li><b>Service Details:</b></li>
+                                    <li class="list_booking_info">
+                                        <b>Property Type:</b> {{ $value->property_type}}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Cleaner/s:</b> {{ $price_data->number_of_cleaner}}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Status:</b> {{ $value->status }}
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <b>Feedback:</b>
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Service:</b>
+                                        <!-- Services review -->
                                         <?php
-                                        $total = Service_review::where('review_id', $review_id)->value('rate');
-
-                                        for ($i = 1; $i <= 5; $i++) {
-                                            if ($total >= $i) {
-                                                echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                                            } else {
-                                                echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
-                                            }
-                                        }
-
-                                        $comment = Service_review::where('review_id', $review_id)->value('comment');
+                                            $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
                                         ?>
-                                    </div>
-                                </li>
-
-                                <li class="list_booking_info">
-                                    <b>Comment:</b> {{$comment}}
-                                    @endif
-                                </li>
-
-                                <li class="list_booking_info">
-                                    <b>Review for you:</b>
-
-                                    <?php
-                                    $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
-                                    ?>
-                                    @if($reviewId != null)
-                                    @foreach($reviewId as $review)
-
-                                    <?php
-
-                                    $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('rate');
-                                    ?>
-                                    @if($total != null)
-                                    <div>
+                                        @if($review_id != null)
+                                        <div>
+                                            <?php
+                                                $total = Service_review::where('review_id', $review_id)->value('rate');
+                                                for ($i = 1; $i <= 5; $i++) {
+                                                    if ($total >= $i) {
+                                                        echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                    } else {
+                                                        echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                    }
+                                                }
+                                                $comment = Service_review::where('review_id', $review_id)->value('comment');
+                                            ?>
+                                        </div>
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Comment:</b> {{$comment}}
+                                    </li>
+                                        @endif
+                                    <li class="list_booking_info">
+                                        <b>Review for you:</b>
+                                        <!-- Cleaner review -->
                                         <?php
-                                        for ($i = 1; $i <= 5; $i++) {
-                                            if ($total >= $i) {
-                                                echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                                            } else {
-                                                echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
-                                            }
-                                        }
-
-                                        $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
-
+                                            $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
                                         ?>
-                                    </div>
-                                </li>
-
-                                <li class="list_booking_info">
-                                    <b>Comment:</b> {{$comment}}
+                                        @if($reviewId != null)
+                                        @foreach($reviewId as $review)
+                                        <?php
+                                            $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('rate');
+                                        ?>
+                                        @if($total != null)
+                                        <div>
+                                            <?php
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                if ($total >= $i) {
+                                                    echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                } else {
+                                                    echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                }
+                                            }
+                                            $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
+                                            ?>
+                                        </div>
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Comment:</b> {{$comment}}
+                                    </li>
                                     @endif
                                     @endforeach
                                     @endif
-
-                                </li>
-
-                                @endforeach
-                            </ul>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    </div><!-- End of Modal Content -->
                 </div>
-                <!-- End of Modal Content -->
-            </div>
-        </div> <!-- End of Modal -->
-
-        @endforeach
-        @endif
-        @endforeach
-        @endforeach
-        @endif
-
+            </div> <!-- End of Modal -->
+            @endforeach
+            @endif
+            @endforeach
+            @endforeach
+            @endif
+        </div>
     </div>
-    </div>
+    <!-- Mobile -->
     <div class="mobile-spacer">
-
     </div>
+    <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

@@ -28,7 +28,6 @@
                         {{ Session::get('fail') }}
                     </div>
                 @endif
-
                 @csrf
                 <div class="input-div">
                     <div class="icon">
@@ -39,7 +38,7 @@
                         <input type="text" class="input" name="email" value="{{ old('email') }}">
                         <span class="text-danger">
                         @error('email'){{ $message }} @enderror
-                    </span>
+                        </span>
                     </div>
                 </div>
                 <div class="input-div">
@@ -51,7 +50,7 @@
                         <input type="password" class="input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         <span class="text-danger">
                         @error('password'){{ $message }} @enderror
-                    </span>
+                        </span>
                     </div>
                 </div> 
                 <button type="submit" class="login_customer_btn">

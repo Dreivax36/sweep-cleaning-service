@@ -72,19 +72,6 @@
             </div>
         </div>
     </section>
-    <!--
-    <div class="banner">
-        <div class="book_container">
-            <h1 class="no_active">
-                The best cleaners are ready for your spaces!
-            </h1>
-            <p class="qoute">
-                Making your comfort zones squeaky clean one step at a time.
-            </p>
-            <a class="btn btn-primary down_btn btn-lg" href="{{ url('/customer/customer_services') }}">{{ __('Book Now') }}</a>
-        </div>
-    </div>
-    -->
     <div class="recommendation">
         <div class="recom_title">
             <h5 class="for-you1">Services</h5>
@@ -167,11 +154,13 @@
             </div>
         </div>
     </div>
-
     </div>
+
+    <!-- Mobile -->
     <div class="mobile-spacer">
-
     </div>
+    
+    <!-- Footer -->
     <div class="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

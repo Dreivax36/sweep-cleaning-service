@@ -44,7 +44,7 @@ use App\Models\Address;
                 </div>
 
                 <?php
-                $cleaner_data = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->get();
+                    $cleaner_data = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->get();
                 ?>
 
                 @foreach($cleaner_data as $key => $value)
@@ -58,7 +58,6 @@ use App\Models\Address;
                         {{$value->age}}
                     </h5>
                 </div>
-
             </div>
             <div class="modal-footer cleaner_services_modal_footer">
                 <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#updateProfile">
@@ -66,7 +65,6 @@ use App\Models\Address;
                 </button>
                 <a class="btn btn-block btn-primary logout_btn" data-dismiss="modal" data-toggle="modal" data-target="#logout" >LOGOUT</a>
             </div>
-
 
             <!-- Modal for Updating a Profile -->
             <div class="modal fade" id="updateProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -81,8 +79,7 @@ use App\Models\Address;
                             </button>
                         </div>
                         <div class="modal-body">
-
-                            <!-- Form for Updating a Service -->
+                            <!-- Form for Updating a Profile -->
                             <form action="{{ route('updateCleaner') }}" method="post" id="update">
                                 @if(Session::get('success'))
                                 <div class="alert alert-success">
@@ -96,6 +93,7 @@ use App\Models\Address;
                                 </div>
                                 @endif
                                 @csrf
+
                                 <input type="hidden" class="form-control w-100 add_service_form" id="user_id" name="user_id" value="{{$LoggedUserInfo['user_id']}}">
                                 <div class="form-group">
                                     <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ old('full_name',$LoggedUserInfo['full_name']) }}">
@@ -127,7 +125,6 @@ use App\Models\Address;
                                         @error('age'){{ $message }} @enderror
                                     </span>
                                 </div>
-
                             </form>
                         </div>
                         <div class="modal-footer service_modal_header">
@@ -139,12 +136,13 @@ use App\Models\Address;
                             </button>
                         </div>
                     </div>
-                    @endforeach
+                @endforeach
                 </div>
-            </div> <!-- End of Modal for Updating a Service -->
+            </div> 
         </div>
     </div>
     
+    <!-- Success Popup -->
     @if(!empty(Session::get('success')))
     <script>
         swal({
@@ -154,6 +152,7 @@ use App\Models\Address;
         });
     </script>
     @endif
+    <!-- Fail Popup -->
     @if(!empty(Session::get('fail')))
     <script>
         swal({
@@ -164,30 +163,32 @@ use App\Models\Address;
     </script>
     @endif
 
+    <!-- Logout Popup Modal -->
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-sign-out-alt"></i>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <div class="icon">
+                        <i class="fa fa-sign-out-alt"></i>
+                    </div>
+                    <div class="title">
+                        Are you sure you want to Logout?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('logout_cleaner') }}'">Yes</button>
+                </div>
             </div>
-            <div class="title">
-            Are you sure you want to Logout?
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" onclick="document.location='{{ route('logout_cleaner') }}'">Yes</button>
-        </div>
         </div>
     </div>
-    </div>
+    <!-- Mobile -->
     <div class="mobile-spacer">
-
     </div>
+    <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

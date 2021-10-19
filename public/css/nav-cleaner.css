@@ -103,6 +103,10 @@ body{
         font-weight:700;
         text-decoration: underline;
     }
+    .dropdown{
+        position: relative;
+        list-style: none;
+    }
     
 }
 @media only screen and (max-width: 800px){

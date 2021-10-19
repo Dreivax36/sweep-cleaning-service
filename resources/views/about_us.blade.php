@@ -35,7 +35,6 @@
 </head>
 
 <body>
-
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -75,7 +74,6 @@
             <div class="image">
                 <img src="/images/jobs/jobs-header.png" class="img-fluid">
             </div>
-
         </div>
     </div>
 
@@ -89,10 +87,8 @@
             <div class="col-6">
                 <img src="images/jobs/headhome.png" class="img-fluid">
             </div>
-
         </div>
     </div>
-
 
     <div class="download">
         <div class="row3">
@@ -104,6 +100,7 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

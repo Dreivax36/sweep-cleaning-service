@@ -5,7 +5,6 @@
     use App\Models\Address;
     use App\Models\Customer;
     use App\Models\User;
-
 ?>
 
 @extends('customer/customer-nav/head_extention_customer-transactions')
@@ -13,7 +12,6 @@
 @section('content')
 
 <head>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link href="{{ asset('css/customer_checkout.css') }}" rel="stylesheet">
     <title>
@@ -27,17 +25,17 @@
 </head>
 
 <body>
-<?php
-    $booking = Booking::where('booking_id', $booking_id)->get();
-    ?>
-    @foreach($booking as $value)
+    <!-- Get Details of booking -->
     <?php
-    $serviceName = Service::where('service_id', $value->service_id)->value('service_name');
-    $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('price');
-    $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
-    $user_data = User::Where('user_id', $userId )->get();
-    $addressData = Address::Where('customer_id', $value->customer_id )->get();
-    $address = Address::Where('address_id', $value->address_id )->value('address');
+        $booking = Booking::where('booking_id', $booking_id)->get();
+        ?>
+        @foreach($booking as $value)
+        <?php
+        $serviceName = Service::where('service_id', $value->service_id)->value('service_name');
+        $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('price');
+        $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
+        $user_data = User::Where('user_id', $userId )->get();
+        $address = Address::Where('address_id', $value->address_id )->value('address');
     ?>
     <div class="banner">
         <div class="p-4 customer_cards_title">
@@ -46,6 +44,7 @@
             </button>
         </div>
     </div>
+    <!-- Display Details of booking -->
     <div class="row justify-content-center">
         <div class="info">
             <div class="d-flex">
@@ -53,14 +52,13 @@
                     <i class="fas fa-map-marker-alt"></i> Customer Information:
                 </h3>
             </div>
-            
             @foreach($user_data as $user)
             <div class="customer-details">
                 <h4 class="name">
-                {{ $user->full_name }}
+                    {{ $user->full_name }}
                 </h4>
                 <h5 class="contact">
-                {{ $user->contact_number }}
+                    {{ $user->contact_number }}
                 </h5>
                 <h5 class="address">
                     {{$address}}
@@ -68,20 +66,18 @@
             </div>
             @endforeach
         </div>
- 
         <div class="summary">
             <div class="main_profile_con">
                 <div class="checkout-summary">
-                <h3 class="modal_customer_services_title">
-                {{$serviceName}}
-                </h3>
-                <h6 class="customer_services_trans">
-                Transaction ID: {{$value->booking_id}}
-                </h6>
+                    <h3 class="modal_customer_services_title">
+                        {{$serviceName}}
+                    </h3>
+                    <h6 class="customer_services_trans">
+                        Transaction ID: {{$value->booking_id}}
+                    </h6>
                     <h5>
                         Checkout Summary
                     </h5>
-
                     <table class="table table-striped user_info_table">
                         <tbody>
                             <tr class="user_table_row">
@@ -89,7 +85,7 @@
                                     Schedule:
                                 </th>
                                 <td class="user_table_data float-right">
-                                {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                                    {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                                 </td>
                             </tr>
                             <tr class="user_table_row">
@@ -97,7 +93,7 @@
                                     Property:
                                 </th>
                                 <td class="user_table_data float-right">
-                                {{ $value->property_type}}
+                                    {{ $value->property_type}}
                                 </td>
                             </tr>
                             <tr class="user_table_row">
@@ -105,35 +101,34 @@
                                     Price:
                                 </th>
                                 <td class="user_table_data float-right">
-                                ₱{{ $price }}
+                                    ₱{{ $price }}
                                 </td>
                             </tr>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
-                                <h3>Subtotal:</h3>
+                                    <h3>Subtotal:</h3>
                                 </th>
                                 <td class="user_table_data float-right">
-                                <h3><b>{{ $price }} Pesos</b></h3>
+                                    <h3><b>{{ $price }} Pesos</b></h3>
                                 </td>
                             </tr>
-                          
                         </tbody>
                     </table>
-                     
                     <div class="footer" style="margin:0 auto;width:40%;">
-                    <div id="paypal-button-container"></div>
+                        <div id="paypal-button-container"></div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
    
+    <!-- Paypal Integration -->
     <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AWIHuW0P8CWfwO_fMMmWkiMa2jEhsI231WVL1ihLTqjY_PQtTlaDcE4lOVP-nL7EeTD0yrcLUxQMuHu0&currency=PHP&locale=en_PH"></script>
-        <script>
-            paypal.Buttons({
+    <!-- Paypal Button -->
+    <script>
+        paypal.Buttons({
             createOrder: function(data, actions) {
-                // This function sets up the details of the transaction, including the amount and line item details.
+                // This function sets up the details of the transaction, including the amount and application content.
                 return actions.order.create({
                 purchase_units: [{
                     amount: {
@@ -153,31 +148,31 @@
                 // This function shows a transaction success message to your buyer.
                 var booking_id = '{{$value->booking_id}}';
                 var amount  = '{{ $price }}';
-                //var CSRF_TOKEN = $
-                
-                $.ajax({
-                    type: 'GET',
-                    url: "{{ route('checkout') }}",
-                    data: {
-                        'booking_id': booking_id,
-                        'paypal_id': details.id,
-                        'amount': amount,
-                        'payment_mode':  'Paypal'
-                    },
-                    success: function (response) {
-                    }
-                });
-               
-                window.location.href = "{{ url('/customer/customer_transaction') }}";
+                    $.ajax({
+                        type: 'GET',
+                        url: "{{ route('checkout') }}",
+                        data: {
+                            'booking_id': booking_id,
+                            'paypal_id': details.id,
+                            'amount': amount,
+                            'payment_mode':  'Paypal'
+                        },
+                        success: function (response) {
+                        }
+                    });
+                    //Redirect to customer transaction when success
+                    window.location.href = "{{ url('/customer/customer_transaction') }}";
                 });
             },
             onCancel: function(data) {
+                //Redirect to customer transaction when cancel payment
                 window.location.href = "{{ url('/customer/customer_transaction') }}";
             },
             }).render('#paypal-button-container');
         </script>
         @endforeach
 
+    <!-- Popup when fail -->    
     @if(session('fail'))
     <script>
         swal({
@@ -187,10 +182,9 @@
         });
     </script>
     @endif 
-    
-    <div class="mobile-spacer">
 
+    <!-- Mobile -->
+    <div class="mobile-spacer">
     </div>
-    
 </body>
 @endsection

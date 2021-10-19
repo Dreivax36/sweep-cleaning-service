@@ -37,59 +37,83 @@
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
-
-
 </head>
 
 <body>
-        <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm sticky-top">
-            <div class="container-fluid">
-                <a class="navbar-brandname" href="{{ url('/cleaner/cleaner_dashboard') }}">
-                    SWEEP
-                </a>
-                <div class="bell"><a class="bell-icon fas fa-bell"></a></div>
-                <ul class="navbar-nav ml-auto">
-                    <a href="{{ url('/cleaner/cleaner_dashboard') }}" class="nav-link active">Home</a>
-                    <a id="service" class="nav-link" href="{{ url('/cleaner/cleaner_job') }}" role="button">Jobs</a>
-                    <a id="history" class="nav-link" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
-                    <li class="nav-item dropdown" id="cleaner">
-                             <?php
-                                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
-                                  $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
-                            ?>      
+    <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brandname" href="{{ url('/cleaner/cleaner_dashboard') }}">
+                SWEEP
+            </a>
+            <li class="nav-item dropdown bell" id="cleaner">
+                <!-- Notification Data -->
+                <?php
+                    $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
+                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
+                ?>      
                             
-                           <a id="navbarDropdown cleaner" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-bell"></i> 
-                                <span class="badge alert-danger pending">{{$notifCount}}</span>
-                            </a>   
-                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown"> 
-                            @forelse ($notif as $notification)
+                <a id="navbarDropdown cleaner" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <i class="fa fa-bell"></i> 
+                    @if($notifCount != 0)
+                        <span class="badge alert-danger pending">{{$notifCount}}</span>
+                    @endif
+                </a>
+                <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">    
+                    @forelse ($notif as $notification)
+                        <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                            {{ $notification->message}}
+                        </a>
+                    @empty
+                        <a class="dropdown-item">
+                            No record found
+                        </a>
+                    @endforelse
+                </div>
+            </li>
+            <ul class="navbar-nav ml-auto">
+                <a href="{{ url('/cleaner/cleaner_dashboard') }}" class="nav-link active">Home</a>
+                <a id="service" class="nav-link" href="{{ url('/cleaner/cleaner_job') }}" role="button">Jobs</a>
+                <a id="history" class="nav-link" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
+                <li class="nav-item dropdown" id="cleaner">
+                    <!-- Notification Data -->
+                    <?php
+                        $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
+                        $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
+                    ?>        
+                    <a id="navbarDropdown cleaner" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class="fa fa-bell"></i> 
+                        @if($notifCount != 0)
+                            <span class="badge alert-danger pending">{{$notifCount}}</span>
+                        @endif
+                    </a>   
+                    <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown"> 
+                        @forelse ($notif as $notification)
                             <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
                             </a>
-                                                    
-                            @empty
+                        @empty
                             <a class="dropdown-item">
                                 No record found
                             </a>
-                            @endforelse
-                            </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ $LoggedUserInfo['email'] }}
+                        @endforelse
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ $LoggedUserInfo['email'] }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="cleaner_profile">
+                            Profile
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="cleaner_profile">
-                                Profile
-                            </a>
-                            <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
-                                Logout
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="mobile-nav sticky-bottom">
+                        <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
+                            Logout
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <!-- Mobile Navbar -->
+            <ul class="mobile-nav sticky-bottom">
                 <a class="nav-button active" href="{{ url('/cleaner/cleaner_dashboard') }}">
                     <i class="fas fa-home fas-active"></i>
                     <h6>Home</h6>
@@ -107,37 +131,37 @@
                     <h6>Profile</h6>
                 </a>
             </ul>
-            </div>
-        </nav>
-
-        <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-            </button>
-            <div class="icon">
-                <i class="fa fa-sign-out-alt"></i>
-            </div>
-            <div class="title">
-            Are you sure you want to Logout?
+        </div>
+    </nav>
+    <!-- Logout modal -->
+    <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <div class="icon">
+                        <i class="fa fa-sign-out-alt"></i>
+                    </div>
+                    <div class="title">
+                        Are you sure you want to Logout?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('logout_cleaner') }}'">Yes</button>
+                </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-            <button type="button" class="btn btn-danger" onclick="document.location='{{ route('logout_cleaner') }}'">Yes</button>
-        </div>
-        </div>
-    </div>
     </div>    
 
     <main>
         @yield('content')
     </main>
-    <script>
 
-    // Enable pusher logging - don't include this in production
+    <script>
+    // Enable pusher logging 
     Pusher.logToConsole = true;
 
     var pusher = new Pusher('21a2d0c6b21f78cd3195', {
@@ -150,15 +174,16 @@
         var id = "{{ $LoggedUserInfo['user_id'] }}";
         if(data.id == id){
             var pending = parseInt($('#cleaner').find('.pending').html());
+             //Trigger and add notification in badge
             if(pending) {
                 $('#cleaner').find('.pending').html(pending + 1);
             }else{
                 $('#cleaner').find('.pending').html(pending + 1);
             } 
+            //Reload notification
             $('#refresh').load(window.location.href + " #refresh");
         }
         });
-
-
     </script>
+
 </body>

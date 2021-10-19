@@ -38,8 +38,6 @@
     <link href="{{ asset('css/cleaner_welcome.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
-
-
 </head>
 
 <body>
@@ -60,6 +58,7 @@
                     <h4 class="signin_label">
                         Sign In
                     </h4>
+                    <!-- Form for login -->
                     <form action="{{ route('cleaner.cleaner_check') }}" method="post">
                         @if(Session::get('fail'))
                         <div class="alert alert-danger">
@@ -106,7 +105,6 @@
         </div>
     </div>
 
-
     <div class="mobile-bg">
         <div class="row justify-content-center">
             <div class="recommendation">
@@ -139,7 +137,5 @@
                 <a class="btn btn-link signup_btn1" href="/cleaner/cleaner_login">{{ __('Have an account? Login.') }}</a>
             </div>
         </div>
-
     </div>
-
 </body>

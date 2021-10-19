@@ -15,25 +15,23 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //View admin services page
     function admin_services(){
         //Retrieve Services Data from database  
        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_services', $data);
-
-      //  $services = Service::latest()->paginate(5);
-    
-      //  return view('admin_services',compact('services'))
-         //   ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    //View admin transaction page
     function admin_transaction(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_transaction', $data);
     }
+    //View Admin transaction history page
     function admin_transaction_history(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_transaction_history', $data);
     }
-    
+    //View customer services page
     function customer_services(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_services', $data);
@@ -44,10 +42,6 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('services.create');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -55,23 +49,24 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //Add new Service
     public function store(Request $request)
     {
         $request->validate([
-            'service_name'=>'required',
-            'description'=>'required',
-            'equipment'=>'required',
-            'material'=>'required',
-            'personal_protection'=>'required',
-            'resident_number_of_cleaner'=>'required',
-            'apartment_number_of_cleaner'=>'required',
-            'condo_number_of_cleaner'=>'required',
-            'resident_price'=>'required',
-            'apartment_price'=>'required',
-            'condo_price'=>'required'
+            'service_name' => 'required',
+            'description' => 'required',
+            'equipment' => 'required',
+            'material' => 'required',
+            'personal_protection' => 'required',
+            'resident_number_of_cleaner' => 'required|numeric',
+            'apartment_number_of_cleaner' => 'required|numeric',
+            'condo_number_of_cleaner' => 'required|numeric',
+            'resident_price' => 'required|numeric',
+            'apartment_price' => 'required|numeric',
+            'condo_price' => 'required|numeric',
         ]);
 
-        //Insert data into database
+        //Add new service
         $services = new Service();
         $services->service_name = $request->service_name;
         $services->service_description = $request->description;
@@ -81,7 +76,7 @@ class ServiceController extends Controller
         $addService = $services->save();
 
         $id = $services->service_id;
-
+        //Insert data to price table
         $prices = new Price();
         $prices->property_type = 'Medium-Upper Class Residential Areas';
         $prices->price = $request->resident_price;
@@ -111,10 +106,6 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
-    {
-        return view('services.edit',compact('service'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -126,19 +117,19 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $request->validate([
-            'service_name'=>'required',
-            'description'=>'required',
-            'equipment'=>'required',
-            'material'=>'required',
-            'personal_protection'=>'required',
-            'resident_number_of_cleaner'=>'required',
-            'apartment_number_of_cleaner'=>'required',
-            'condo_number_of_cleaner'=>'required',
-            'resident_price'=>'required',
-            'apartment_price'=>'required',
-            'condo_price'=>'required'
+            'service_name' => 'required',
+            'description' => 'required',
+            'equipment' => 'required',
+            'material' => 'required',
+            'personal_protection' => 'required',
+            'resident_number_of_cleaner' => 'required|numeric',
+            'apartment_number_of_cleaner' => 'required|numeric',
+            'condo_number_of_cleaner' => 'required|numeric',
+            'resident_price' => 'required|numeric',
+            'apartment_price' => 'required|numeric',
+            'condo_price' => 'required|numeric',
         ]);
-
+        //Update service and price table
         $id = $request->service_id;
         $update= Service::Where('service_id', $id )->update(['service_name' => $request->service_name, 'service_description' => $request->description,'equipment' => $request->equipment, 'material' => $request->material, 'personal_protection' => $request->personal_protection]);
         $update= Price::Where('service_id', $id )->Where('property_type', 'Medium-Upper Class Residential Areas' )->update(['price' => $request->resident_price, 'number_of_cleaner' => $request->resident_number_of_cleaner]);
@@ -159,6 +150,7 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
+    //Delete a service
     public function destroy(Request $request, Service $service)
     {
         $id =  $request->service_id;

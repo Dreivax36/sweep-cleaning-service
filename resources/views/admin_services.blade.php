@@ -30,6 +30,7 @@
                         <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
+                        <!-- Notification -->
                         <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
@@ -38,33 +39,30 @@
                            <a id="navbarDropdown admin" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-bell"></i> 
                                 @if($notifCount != 0)
-                                <span class="badge alert-danger pending">{{$notifCount}}</span>
+                                    <span class="badge alert-danger pending">{{$notifCount}}</span>
                                 @endif
                             </a>    
                             <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-                            @forelse ($notif as $notification)
-                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
-                                {{ $notification->message}}
-                            </a>
-                                                    
-                            @empty
-                            <a class="dropdown-item">
-                                No record found
-                            </a>
-                            @endforelse 
-                        </div>
+                                @forelse ($notif as $notification)
+                                <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                                    {{ $notification->message}}
+                                </a>
+                                @empty
+                                <a class="dropdown-item">
+                                    No record found
+                                </a>
+                                @endforelse 
+                            </div>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ $LoggedUserInfo['email'] }}
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
                                     Logout
                                 </a>
                             </div>
-
                         </li>
                     </ul>
                 </div>
@@ -95,91 +93,92 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <!-- Form for adding services -->
                         <form action="{{ route('store') }}" method="post" id="myform">
-                                @if(Session::get('success-add'))
-                                    <script>
+                            @if(Session::get('success-add'))
+                                <script>
                                     swal({
                                         title: "Service added successfully!",
                                         icon: "success",
                                         button: "Close",
                                     });
-                                    </script>
-                                    @endif
+                                </script>
+                            @endif
 
-                                    @if(Session::get('fail'))
-                                    <script>
+                            @if(Session::get('fail'))
+                                <script>
                                     swal({
                                         title: "Something went wrong, try again!",
                                         icon: "error",
                                         button: "Close",
                                     });
-                                    </script>
-                                @endif
+                                </script>
+                            @endif
                             
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control w-100 add_service_form" id="service_title" name="service_name" placeholder="Service Name" value="{{ old('service_name') }}">
-                                <span class="text-danger">@error('service_name'){{ $message }} @enderror</span>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control w-100 add_service_form" id="description" name="description" placeholder="Description"  value="{{ old('description') }}" ></textarea>
-                                <span class="text-danger">@error('description'){{ $message }} @enderror</span>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control w-100 add_service_form" id="description" placeholder="Equipments" name="equipment" value="{{ old('equipment') }}"></textarea>
-                                <span class="text-danger">@error('equipment'){{ $message }} @enderror</span>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control w-100 add_service_form" id="description" placeholder="Materials" name="material" value="{{ old('material') }}" ></textarea>
-                                <span class="text-danger">@error('material'){{ $message }} @enderror</span>
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control w-100 add_service_form" id="description" placeholder="Personal Protection" name="personal_protection" value="{{ old('personal_protection') }}" ></textarea>
-                                <span class="text-danger">@error('personal_protection'){{ $message }} @enderror</span>
-                            </div>
-                            </div>
-                            <div class="col-md-6">
-                            <div class="row">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control w-100 add_service_form" id="service_title" name="service_name" placeholder="Service Name" value="{{ old('service_name') }}">
+                                        <span class="text-danger">@error('service_name'){{ $message }} @enderror</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100 add_service_form" id="description" name="description" placeholder="Description"  value="{{ old('description') }}" ></textarea>
+                                        <span class="text-danger">@error('description'){{ $message }} @enderror</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100 add_service_form" id="description" placeholder="Equipments" name="equipment" value="{{ old('equipment') }}"></textarea>
+                                        <span class="text-danger">@error('equipment'){{ $message }} @enderror</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100 add_service_form" id="description" placeholder="Materials" name="material" value="{{ old('material') }}" ></textarea>
+                                        <span class="text-danger">@error('material'){{ $message }} @enderror</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100 add_service_form" id="description" placeholder="Personal Protection" name="personal_protection" value="{{ old('personal_protection') }}" ></textarea>
+                                        <span class="text-danger">@error('personal_protection'){{ $message }} @enderror</span>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
-                                    <h5 class="pricing_title">
-                                        Number of Cleaner
-                                    </h5>
-                                    <div class="form-group">
-                                        <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="resident_number_of_cleaner" placeholder="Residential Areas" value="{{ old('resident_number_of_cleaner') }}">
-                                        <span class="text-danger">@error('resident_number_of_cleaner'){{ $message }} @enderror</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="apartment_number_of_cleaner" placeholder="Apartments" value="{{ old('apartment_number_of_cleaner') }}">
-                                        <span class="text-danger">@error('apartment_number_of_cleaner'){{ $message }} @enderror</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="condo_number_of_cleaner" placeholder="Condominiums" value="{{ old('condo_number_of_cleaner') }}">
-                                        <span class="text-danger">@error('condo_number_of_cleaner'){{ $message }} @enderror</span>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5 class="pricing_title">
+                                                Number of Cleaner
+                                            </h5>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="resident_number_of_cleaner" placeholder="Residential Areas" value="{{ old('resident_number_of_cleaner') }}">
+                                                <span class="text-danger">@error('resident_number_of_cleaner'){{ $message }} @enderror</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="apartment_number_of_cleaner" placeholder="Apartments" value="{{ old('apartment_number_of_cleaner') }}">
+                                                <span class="text-danger">@error('apartment_number_of_cleaner'){{ $message }} @enderror</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="condo_number_of_cleaner" placeholder="Condominiums" value="{{ old('condo_number_of_cleaner') }}">
+                                                <span class="text-danger">@error('condo_number_of_cleaner'){{ $message }} @enderror</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">   
+                                            <h5 class="pricing_title">
+                                                Pricing
+                                            </h5>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control w-100 add_service_form" id="property_residential" name="resident_price" placeholder="Residential Areas" value="{{ old('resident_price') }}">
+                                                <span class="text-danger">@error('resident_price'){{ $message }} @enderror</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control w-100 add_service_form" id="property_apartment" name="apartment_price" placeholder="Apartments" value="{{ old('apartment_price') }}">
+                                                <span class="text-danger">@error('apartment_price'){{ $message }} @enderror</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control w-100 add_service_form" id="property_condo" name="condo_price" placeholder="Condominiums" value="{{ old('condo_price') }}">
+                                                <span class="text-danger">@error('condo_price'){{ $message }} @enderror</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">   
-                                    <h5 class="pricing_title">
-                                        Pricing
-                                    </h5>
-                                    <div class="form-group">
-                                        <input type="number" class="form-control w-100 add_service_form" id="property_residential" name="resident_price" placeholder="Residential Areas" value="{{ old('resident_price') }}">
-                                        <span class="text-danger">@error('resident_price'){{ $message }} @enderror</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" class="form-control w-100 add_service_form" id="property_apartment" name="apartment_price" placeholder="Apartments" value="{{ old('apartment_price') }}">
-                                        <span class="text-danger">@error('apartment_price'){{ $message }} @enderror</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" class="form-control w-100 add_service_form" id="property_condo" name="condo_price" placeholder="Condominiums" value="{{ old('condo_price') }}">
-                                        <span class="text-danger">@error('condo_price'){{ $message }} @enderror</span>
-                                    </div>
-                                </div>
                             </div>
-                            </div>
-                            </div>
-                            </form>
+                             </form>
                         </div>
                         <div class="modal-footer service_modal_header">
                             <button form="myform" type="submit" class="btn btn-primary update_btn">
