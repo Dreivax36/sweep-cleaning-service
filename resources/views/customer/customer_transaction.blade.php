@@ -303,13 +303,11 @@
                             <div class="modal-content customer_services_modal_content">
                                 <div class="modal-header customer_services_modal_header">
                                     <div class="d-flex">
-                                        <div class="d-flex flex-column">
-                                            <h4 class="modal_customer_services_title">
-                                                Property Address
-                                            </h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
+                                        <h4 class="modal_customer_services_title">
+                                            Property Address
+                                        </h4>
                                     </div>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form for updating address for booking -->
@@ -359,13 +357,11 @@
                             <div class="modal-content customer_services_modal_content">
                                 <div class="modal-header customer_services_modal_header">
                                     <div class="d-flex">
-                                        <div class="d-flex flex-column">
-                                            <h4 class="modal_customer_services_title">
-                                                Add Address
-                                            </h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
+                                        <h4 class="modal_customer_services_title">
+                                            Add Address
+                                        </h4>
                                     </div>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form for adding address -->

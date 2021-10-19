@@ -427,6 +427,9 @@
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner" class="form-control" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
+                                                    @if( $cleaner_data == null)
+                                                        <option  value="">No Validated Cleaner</option>
+                                                    @endif
                                                     @if($cleanerCount == 0) <!-- Booking does not exist in Assign Table -->
                                                         @if($cleanerSchedule == 0) <!-- Check if the booking have the no same Schedule -->
                                                             @if($cleaner_data != null) <!-- Check if Validated Cleaner exist-->
@@ -584,7 +587,7 @@
                                     </div>
                                     <div class="modal-body">
                                     <form action="{{ route('updateStatus') }}" method="post">
-                                    @if(Session::get('success-decline'))
+                                    @if(Session::has('success-decline'))
                                         <script>
                                             swal({
                                                 title: "Successfully Declined Transaction!",
@@ -682,7 +685,7 @@
         </div>
     </div>
     </div> 
-    @if(Session::get('success-decline'))
+    @if(Session::has('success-decline'))
     <script>
         swal({
             title: "Successfully Declined Transaction!",

@@ -305,7 +305,7 @@
                                 @csrf
                                 <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">                                   
                                 <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="Amount" value="{{ old('amount') }}">
+                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="Amount" value="₱{{$price_data->price}}" readonly>
                                     <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
                                 </div>
                         </div>
