@@ -58,7 +58,7 @@
                 <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#updateProfile-{{ $value->customer_id }}">
                     UPDATE
                 </button>
-                @if ($addresscount > 1)
+                @if ($addressCount > 1)
                 <button type="button" class="btn btn-block btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#delete-{{ $value->customer_id }}">
                     DELETE ADDRESS
                 </button>

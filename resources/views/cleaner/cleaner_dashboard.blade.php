@@ -57,11 +57,9 @@
             ?>
             <!-- If no active job display this -->
             @if($countJob == 0)
-            <div class="row justify-content-center">
                 <h1 class="center">
                     You currently have no Active Jobs.
                 </h1>
-            </div>
             @endif
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)

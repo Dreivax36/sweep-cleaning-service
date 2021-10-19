@@ -29,7 +29,7 @@
             <!-- Get job data assigned to cleaner -->
             <?php
                 $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-                $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->count();
+                $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Completed')->Where('status', '!=', 'Cancelled')->count();
                 $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->orderBy('updated_at','DESC')->get();
             ?>
             @if($cleanerCount == 0)

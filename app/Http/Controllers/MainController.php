@@ -247,7 +247,7 @@ class MainController extends Controller
     {
         $request->validate([
             'full_name'=>'required',
-            'email'=>'required|email|unique:users',
+            'email'=>'required',
             'contact_number'=>'required|numeric|digits:11',
             'address'=>'required',
         ]);
@@ -397,10 +397,10 @@ class MainController extends Controller
         $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
         if($verify){
-            return redirect('cleaner/cleaner_login')->with('success', 'Email Verified');
+            return redirect('cleaner/cleaner_welcome')->with('success', 'Email Verified');
         }
         else {
-            return redirect('cleaner/cleaner_login')->with('fail','Something went wrong, try again later ');
+            return redirect('cleaner/cleaner_welcome')->with('fail','Something went wrong, try again later ');
         }
     }
     //Cleaner login page
@@ -452,17 +452,17 @@ class MainController extends Controller
     {
         $request->validate([
             'full_name'=>'required',
-            'email'=>'required|email|unique:users',
+            'email'=>'required',
             'contact_number'=>'required|numeric|digits:11',
             'address'=>'required',
-            'age'=>'required|numeric',
+            'age'=>'required',
         ]);
         //Update user table
-        $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
+        $updateCleaner= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
         //Update cleaner table
-        $update= Cleaner::Where('user_id', $request->user_id )->update(['address' => $request->address, 'age' => $request->age]);
+        $updateCleaner= Cleaner::Where('user_id', $request->user_id )->update(['address' => $request->address, 'age' => $request->age]);
 
-        if($update){   
+        if($updateCleaner){   
             return back()->with('success', 'Profile successfully Updated');
         }
         else {
@@ -476,6 +476,21 @@ class MainController extends Controller
             return redirect('/cleaner/cleaner_welcome');
         }
         return redirect('/cleaner/cleaner_welcome');
+    }
+    function contactUs(Request $request){
+        
+        $full_name = $request->full_name;
+        $email = $request->email;
+        $message = $request->message;
+
+        $details = [
+         'name' => $full_name,
+         'email' => $email ,
+         'message' => $message,
+        ];
+        \Mail::to('cleaningservicesweep@gmail.com')->send(new \App\Mail\ContactUs($details));
+
+        return redirect('contact_us');
     }
 
 }

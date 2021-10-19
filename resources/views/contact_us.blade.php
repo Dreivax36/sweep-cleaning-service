@@ -96,7 +96,7 @@
             </div>
             <div class="col-md-7">
                 <div class="card message">
-                    <form action="{{ route('customer.customer_save') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('contactUs') }}" method="post" enctype="multipart/form-data">
                         @if(Session::get('success'))
                         <div class="alert alert-success">
                             {{ Session::get('success') }}
@@ -139,6 +139,9 @@
                                 </div>
                             </div>
                         </div>
+                        <button  class="btn btn-primary" type="submit" >
+                            SUBMIT
+                        </button>
                     </form>
                 </div>
             </div>

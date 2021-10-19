@@ -113,6 +113,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/customer/customer_transaction/{id}',[BookingController::class, 'read'])->name('read');
     Route::get('/admin_transaction/{id}',[BookingController::class, 'read'])->name('read');
     Route::get('/cleaner/cleaner_job/{id}',[BookingController::class, 'read'])->name('read');
+    Route::get('/cleaner/cleaner_history/{id}',[BookingController::class, 'read'])->name('read');
+    Route::get('/admin_transaction_history/{id}',[BookingController::class, 'read'])->name('read');
+    Route::get('/customer/customer_history/{id}',[BookingController::class, 'read'])->name('read');
 
     //Booking Module
     Route::post('/updateStatus',[BookingController::class, 'updateStatus'])->name('updateStatus');
@@ -135,6 +138,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/customer/customer_services',[ServiceController::class, 'customer_services'])->name('customer.customer_services');
 
     Route::get('/update_account/{id}',[MailSend::class, 'mailsend'])->name('update_account');
+
+    Route::get('/contactUs',[MainController::class, 'contactUs'])->name('contactUs');
+    Route::post('/contactUs',[MainController::class, 'contactUs'])->name('contactUs');
 });
 
 Route::get('/cleaner/cleaner_welcome', function () {

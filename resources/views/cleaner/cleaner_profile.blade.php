@@ -125,16 +125,17 @@ use App\Models\Address;
                                         @error('age'){{ $message }} @enderror
                                     </span>
                                 </div>
-                            </form>
+                            
                         </div>
                         <div class="modal-footer service_modal_header">
-                            <button form="update" type="submit" class="btn btn-primary update_btn" class="close-modal">
+                            <button type="submit" class="btn btn-primary update_btn" class="close-modal">
                                 UPDATE
                             </button>
                             <button type="button" class="btn btn-danger" class="close" data-dismiss="modal">
                                 CANCEL
                             </button>
                         </div>
+                        </form>
                     </div>
                 @endforeach
                 </div>
