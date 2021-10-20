@@ -419,13 +419,13 @@
                                                         $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->count();
                                                         $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->get();
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->get(); 
-                                                        $countValidate = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->count(); 
                                                         $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
+                                                        $acceptedCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                                                     ?>
-                                                    @if($cleanerCount == 0)
+                                                    @if($acceptedCount == 0)
                                                     <?php $total = $total; ?>
                                                     @else
-                                                    <?php $total = $total - $cleanerCount; ?>
+                                                    <?php $total = $total - $acceptedCount; ?>
                                                     @endif
                                                     @while($total > 0)   
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
