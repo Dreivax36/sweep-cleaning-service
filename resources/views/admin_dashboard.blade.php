@@ -26,6 +26,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
     
     <div id="app">
       <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">

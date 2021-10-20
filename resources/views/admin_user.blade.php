@@ -9,6 +9,7 @@
         Admin User Page
     </title>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
