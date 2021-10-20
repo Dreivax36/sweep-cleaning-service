@@ -261,7 +261,9 @@
                                                 ?>
                                                 @if($total != null)
                                                 <br>
-                                                <div class="rating">
+                                               
+                                            </li>
+                                            <div class="rating">
                                                     <?php
                                                     for ($i = 1; $i <= 5; $i++) {
                                                         if ($total >= $i) {
@@ -275,8 +277,6 @@
 
                                                     ?>
                                                 </div>
-                                            </li>
-
                                             <li class="list_booking_info">
                                                 <b>Comment:</b> {{$comment}}
                                             </li>
@@ -294,7 +294,9 @@
                                                 ?>
                                                 @if($review_id != null)
                                                 <br>
-                                                <div class="rating">
+                                                
+                                            </li>
+                                            <div class="rating">
                                                     <?php
                                                     $total = Service_review::where('review_id', $review_id)->value('rate');
 
@@ -309,8 +311,6 @@
                                                     $comment = Service_review::where('review_id', $review_id)->value('comment');
                                                     ?>
                                                 </div>
-                                            </li>
-
                                             <li class="list_booking_info">
                                                 <b>Comment:</b> {{$comment}}
                                                 @endif
