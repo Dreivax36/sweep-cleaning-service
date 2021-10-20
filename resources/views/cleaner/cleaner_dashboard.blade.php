@@ -69,7 +69,7 @@ use App\Models\Event;
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)
             <?php
-            $booking_data = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->Where('booking_id', $id->booking_id)->get();
+            $booking_data = Booking::Where('booking_id', $id->booking_id)->get();
             ?>
             @foreach($booking_data as $key => $value)
             <?php
@@ -183,11 +183,9 @@ use App\Models\Event;
             
                 <div id='calendar'></div>
                 <?php
-                $bookingEvent = Booking::Where('status', 'Accepted')->orwhere('status', 'On-the-Way')->get();
+                    $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
                 ?>
-            
-
-
+        
             <script>
                 $(document).ready(function() {
 
@@ -208,7 +206,7 @@ use App\Models\Event;
                         events: [
                             @foreach($bookingEvent as $bookings)
                             <?php
-                            $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
+                            $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->orwhere('status', 'On-the-Way')->get();
                             ?>
                             @foreach($booking as $id)
                             <?php

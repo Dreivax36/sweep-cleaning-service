@@ -520,6 +520,21 @@ class BookingController extends Controller
         $notifications->location = 'admin_transaction';
         $assign = $notifications->save();
 
+        $scheduledate = Booking::where('booking_id', $request->booking_id )->value('schedule_date');
+        $scheduletime = Booking::where('booking_id', $request->booking_id )->value('schedule_time');
+
+        $date =  $scheduledate;
+        $time = $scheduletime;       
+        $startdate = $date . ' ' . $time;
+
+        $time = Carbon::parse($startdate);
+        $enddate = $time->addHours(2);
+    
+        $book = Event::where('booking_id', $request->booking_id )->count();
+        if($book != 0){
+            $newDate = Event::where('booking_id', $request->booking_id )->update(['start'=> $startdate, 'end' => $enddate]);
+        }
+
         //Trigger pusher channel to notify the admin
         $options = array(
             'cluster' => 'ap1',
