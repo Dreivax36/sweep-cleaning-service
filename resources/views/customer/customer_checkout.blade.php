@@ -14,6 +14,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link href="{{ asset('css/customer_checkout.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>
         Customer Payment Page
     </title>
@@ -161,12 +162,21 @@
                         }
                     });
                     //Redirect to customer transaction when success
+                    swal({
+                        title: "Payment Successful!",
+                        icon: "success",
+                        button: "Close",
+                    });
                     window.location.href = "{{ url('/customer/customer_transaction') }}";
                 });
             },
             onCancel: function(data) {
                 //Redirect to customer transaction when cancel payment
-                window.location.href = "{{ url('/customer/customer_transaction') }}";
+                swal({
+                    title: "Cancel Payment!",
+                    icon: "error",
+                    button: "Close",
+                });
             },
             }).render('#paypal-button-container');
         </script>

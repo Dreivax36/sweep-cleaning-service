@@ -433,17 +433,17 @@ class BookingController extends Controller
     function checkout(Request $request){
         //Add new payment
         $payments = new Payment();
-        $payments->booking_id = $_GET['booking_id'];
-        $payments->amount = $_GET['amount']; 
+        $payments->booking_id = $request->booking_id;
+        $payments->amount = $request->amount;
         $checkout = $payments->save();
         //Update the booking table
-        $checkout= Booking::Where('booking_id', $_GET['booking_id'] )->update(['is_paid' => true, 'paypal_id' => $_GET['paypal_id']]);
+        $checkout= Booking::Where('booking_id', $request->booking_id )->update(['is_paid' => true, 'paypal_id' => $request->paypal_id]);
         //Add admin notification
         $notifications = new Notification();
-        $notifications->message = 'Customer paid';
-        $notifications->booking_id = $_GET['booking_id'];
+        $notifications->message = 'Payment Confirmed';
+        $notifications->booking_id = $request->booking_id;
         $notifications->isRead = false;
-        $notifications->location = 'admin_transaction';
+        $notifications->location = 'customer/customer_transaction';
         $assign = $notifications->save();
 
         //Trigger pusher channel to notify the admin
@@ -457,9 +457,11 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'New Booking';
-        $data = ['messages' => $messages];
-        $pusher->trigger('my-channel', 'admin-notif', $data);
+        $user = Booking::Where('booking_id', $request->booking_id )->value('customer_id');
+        $messages = 'Payment';
+        $id = $user;
+        $data = ['messages' => $messages, 'id' => $id];    
+        $pusher->trigger('my-channel', 'customer-notif', $data);
 
         if($checkout){
            return redirect('customer/customer_transaction')->with('success-pay', 'Payment Successful');
