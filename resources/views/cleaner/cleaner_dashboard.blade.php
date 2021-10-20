@@ -110,6 +110,7 @@ use App\Models\Event;
             
             @endif
         </div>
+        <div class="col-md-9">
         <?php
             $canceljobs = 0;
             $totaljobs = 0;
@@ -144,7 +145,7 @@ use App\Models\Event;
                 }  
             }
             ?>
-        <div class="col-md-9">
+        
             <div class="row justify-content-center" id="report">
                 <!-- Reports -->
                 <div class="weekly_revenue">
@@ -180,12 +181,12 @@ use App\Models\Event;
                     </p>
                 </div>
             </div> <!-- End of Reports -->
-            <div class="container mt-5 calendar_con">
+            
                 <div id='calendar'></div>
                 <?php
                     $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
                 ?>
-            </div>
+            
         </div>
     </div>    
             <script>
