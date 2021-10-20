@@ -82,9 +82,7 @@
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 } 
-.calendar_con {
-    max-width: 1000px;
-}
+
 
 @media (max-width: 800px){
     .col-md-3 {
@@ -116,7 +114,7 @@
         transform: translate(-50%, 50%);
         font-size: 30px;
         color: #afafaf;
-        padding-top: 300px;
+        padding-top: 400px;
         text-align: center;
     }
     .weekly_revenue {

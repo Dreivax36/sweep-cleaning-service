@@ -458,7 +458,8 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $user = Booking::Where('booking_id', $booking )->value('customer_id');
+        $customer = Booking::Where('booking_id', $booking )->value('customer_id');
+        $user = Customer::where('customer_id', $customer )->value('user_id');
         $messages = 'Payment';
         $id = $user;
         $data = ['messages' => $messages, 'id' => $id];    
