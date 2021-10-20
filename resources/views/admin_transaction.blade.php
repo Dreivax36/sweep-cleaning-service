@@ -50,7 +50,7 @@
                             </a>    
                             <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                             @forelse ($notif as $notification)
-                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                            <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
                             </a>
                                                     
@@ -212,7 +212,7 @@
                                     
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-                                
+                                <div class="modal-body">
                                 <form action="{{ route('updateStatus') }}" method="post" >
                                     @if(Session::has('success'))
                                     <script>
@@ -325,6 +325,7 @@
                                     $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
                                
                                 ?>
+                                </div>
                                 <div class="modal-footer trans_modal_footer">
                                     @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner && $statuscount != $price_data->number_of_cleaner)
                                         <button  type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="No-Available-Cleaner">

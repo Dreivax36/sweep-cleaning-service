@@ -51,7 +51,7 @@
                             </a>    
                             <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                             @forelse ($notif as $notification)
-                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                            <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
                             </a>
                    
@@ -259,7 +259,8 @@
                                                 $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleaner->cleaner_id)->value('rate');
                                                 ?>
                                                 @if($total != null)
-                                                <div>
+                                                <br>
+                                                <div class="rating">
                                                     <?php
                                                     for ($i = 1; $i <= 5; $i++) {
                                                         if ($total >= $i) {
@@ -291,7 +292,8 @@
                                                 $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
                                                 ?>
                                                 @if($review_id != null)
-                                                <div>
+                                                <br>
+                                                <div class="rating">
                                                     <?php
                                                     $total = Service_review::where('review_id', $review_id)->value('rate');
 

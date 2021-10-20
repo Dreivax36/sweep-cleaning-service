@@ -9,6 +9,7 @@
     use App\Models\Event;
     use App\Models\Notification;
     use Carbon\Carbon;
+    use App\Models\Service_review;
 ?>
 @extends('head_extention_admin') 
 
@@ -56,7 +57,7 @@
                 </a> 
                 <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">   
                   @forelse ($notif as $notification)
-                    <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                    <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                       {{ $notification->message}}
                     </a>                       
                   @empty
@@ -118,10 +119,10 @@
             </div>
           </div>
           <p class="transaction_id"> 
-            Transaction ID: {{ $value->booking_ID }}
+            Transaction ID: {{ $value->booking_id }}
           </p>
           <p class="customer_name"> 
-            Customer: {{ $user->full_name }}
+            <b>Customer:</b> {{ $user->full_name }}
           </p>
         </div>
       </div>
@@ -140,6 +141,10 @@
     <div class="col-sm-9">
       <!-- Compute daily revenue, total revenue, sweep customer, sweep cleaner -->
     <?php
+      $decline = Booking::where('status', 'Cancelled')->where('status', 'Declined')->count();
+      $complete = Booking::where('status', 'Completed')->count();
+      $services = Service::count();
+      $satisfaction = Service_review::avg('rate');
       $total = 0;
       $revenue= 0;
       $totalToday = 0;
@@ -163,27 +168,61 @@
       <!-- Reports -->
       <div class="row" id="report"> 
         <div class="daily_revenue">
-          <h3 class="value">
-            {{ number_format((float)$revenueToday, 2, '.', '')}} php 
-          </h3>
-          <p class="report_title">
+        <p class="report_title">
             Daily Revenue 
           </p>
+          <h3 class="value1">
+           ₱ {{ number_format((float)$revenueToday, 2, '.', '')}} 
+          </h3>
+          
         </div>
         <div class="weekly_revenue">
           <h3 class="value"> 
-            {{ number_format((float)$revenue, 2, '.', '')}} php 
+            {{number_format((float)$satisfaction, 0, '.', '')}} / 5
           </h3>
           <p class="report_title"> 
-            Total Revenue 
+            Overall Service Rating
           </p>
         </div>
         <div class="sweep_user">
           <h3 class="value"> 
-            {{ $customer }}
+            {{ $complete }}
           </h3>
           <p class="report_title"> 
-            Sweep Customers 
+          Transaction Completed 
+          </p>
+        </div>
+        <div class="sweep_cleaner">
+          <h3 class="value"> 
+          {{ $customer }}
+          </h3>
+          <p class="report_title"> 
+            Sweep Customers
+          </p>
+        </div>
+        <div class="daily_revenue">
+        <p class="report_title">
+          Total Revenue 
+          </p>
+          <h3 class="value1">
+          ₱ {{ number_format((float)$revenue, 2, '.', '')}} 
+          </h3>
+          
+        </div>
+        <div class="weekly_revenue">
+          <h3 class="value"> 
+            {{$services}}
+          </h3>
+          <p class="report_title"> 
+          Total Services
+          </p>
+        </div>
+        <div class="sweep_user">
+          <h3 class="value"> 
+            {{ $decline }}
+          </h3>
+          <p class="report_title"> 
+            Transaction Cancelled 
           </p>
         </div>
         <div class="sweep_cleaner">

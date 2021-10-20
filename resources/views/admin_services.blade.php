@@ -44,7 +44,7 @@
                             </a>    
                             <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                                 @forelse ($notif as $notification)
-                                <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                                <a class="dropdown-item read" id="refresh"  href="/{{$notification->location}}/{{$notification->id}}">
                                     {{ $notification->message}}
                                 </a>
                                 @empty
@@ -84,14 +84,14 @@
         <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document" style="max-width: 70%;">
                 <div class="modal-content service_modal_content">
-                    <div class="modal-header service_modal_header">
-                        <h4 class="modal-title" id="exampleModalLabel">
-                            Add New Service
-                        </h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="modal-header customer_services_modal_header">
+                                   <div class="p-4">
+                                       <h4 class="modal_customer_services_title modal-title">
+                                           <b> Add New Service</b>
+                                       </h4>
+                                   </div>
+                                   <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
+                               </div>    
                     <div class="modal-body">
                         <!-- Form for adding services -->
                         <form action="{{ route('store') }}" method="post" id="myform">
@@ -119,42 +119,67 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control w-100 add_service_form" id="service_title" name="service_name" placeholder="Service Name" value="{{ old('service_name') }}">
+                                        <label class="upload_label">
+                                            Service Name
+                                        </label>
+                                        <input type="text" class="form-control w-100 add_service_form" id="service_title" name="service_name" value="{{ old('service_name') }}">
                                         <span class="text-danger">@error('service_name'){{ $message }} @enderror</span>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control w-100 add_service_form" id="description" name="description" placeholder="Description"  value="{{ old('description') }}" ></textarea>
+                                        <label class="upload_label">
+                                        Description
+                                        </label>
+                                        <textarea class="form-control w-100 add_service_form" id="description" name="description" value="{{ old('description') }}" ></textarea>
                                         <span class="text-danger">@error('description'){{ $message }} @enderror</span>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control w-100 add_service_form" id="description" placeholder="Equipments" name="equipment" value="{{ old('equipment') }}"></textarea>
+                                        <label class="upload_label">
+                                        Equipments
+                                        </label>
+                                        <textarea class="form-control w-100 add_service_form" id="description" name="equipment" value="{{ old('equipment') }}"></textarea>
                                         <span class="text-danger">@error('equipment'){{ $message }} @enderror</span>
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control w-100 add_service_form" id="description" placeholder="Materials" name="material" value="{{ old('material') }}" ></textarea>
+                                        <label class="upload_label">
+                                        Materials
+                                        </label>
+                                        <textarea class="form-control w-100 add_service_form" id="description" name="material" value="{{ old('material') }}" ></textarea>
                                         <span class="text-danger">@error('material'){{ $message }} @enderror</span>
                                     </div>
+                                    </div>
+                                    <div class="col-md-6">
                                     <div class="form-group">
-                                        <textarea class="form-control w-100 add_service_form" id="description" placeholder="Personal Protection" name="personal_protection" value="{{ old('personal_protection') }}" ></textarea>
+                                        <label class="upload_label">
+                                        Personal Protection
+                                        </label>
+                                        <textarea class="form-control w-100 add_service_form" id="description" name="personal_protection" value="{{ old('personal_protection') }}" ></textarea>
                                         <span class="text-danger">@error('personal_protection'){{ $message }} @enderror</span>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
+                               
                                     <div class="row">
                                         <div class="col-md-6">
                                             <h5 class="pricing_title">
                                                 Number of Cleaner
                                             </h5>
                                             <div class="form-group">
-                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="resident_number_of_cleaner" placeholder="Residential Areas" value="{{ old('resident_number_of_cleaner') }}">
+                                                <label class="upload_label">
+                                                Residential Areas
+                                                </label>
+                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="resident_number_of_cleaner"  value="{{ old('resident_number_of_cleaner') }}">
                                                 <span class="text-danger">@error('resident_number_of_cleaner'){{ $message }} @enderror</span>
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="apartment_number_of_cleaner" placeholder="Apartments" value="{{ old('apartment_number_of_cleaner') }}">
+                                                <label class="upload_label">
+                                                Apartments
+                                                </label>
+                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="apartment_number_of_cleaner"  value="{{ old('apartment_number_of_cleaner') }}">
                                                 <span class="text-danger">@error('apartment_number_of_cleaner'){{ $message }} @enderror</span>
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="condo_number_of_cleaner" placeholder="Condominiums" value="{{ old('condo_number_of_cleaner') }}">
+                                                <label class="upload_label">
+                                                Condominiums
+                                                </label>
+                                                <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="condo_number_of_cleaner"  value="{{ old('condo_number_of_cleaner') }}">
                                                 <span class="text-danger">@error('condo_number_of_cleaner'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
@@ -163,15 +188,24 @@
                                                 Pricing
                                             </h5>
                                             <div class="form-group">
-                                                <input type="number" class="form-control w-100 add_service_form" id="property_residential" name="resident_price" placeholder="Residential Areas" value="{{ old('resident_price') }}">
+                                                <label class="upload_label">
+                                                Residential Areas
+                                                </label>
+                                                <input type="number" class="form-control w-100 add_service_form" id="property_residential" name="resident_price" value="{{ old('resident_price') }}">
                                                 <span class="text-danger">@error('resident_price'){{ $message }} @enderror</span>
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" class="form-control w-100 add_service_form" id="property_apartment" name="apartment_price" placeholder="Apartments" value="{{ old('apartment_price') }}">
+                                                <label class="upload_label">
+                                                Apartments
+                                                </label>
+                                                <input type="number" class="form-control w-100 add_service_form" id="property_apartment" name="apartment_price" value="{{ old('apartment_price') }}">
                                                 <span class="text-danger">@error('apartment_price'){{ $message }} @enderror</span>
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" class="form-control w-100 add_service_form" id="property_condo" name="condo_price" placeholder="Condominiums" value="{{ old('condo_price') }}">
+                                                <label class="upload_label">
+                                                Condominiums
+                                                </label>
+                                                <input type="number" class="form-control w-100 add_service_form" id="property_condo" name="condo_price"  value="{{ old('condo_price') }}">
                                                 <span class="text-danger">@error('condo_price'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
@@ -235,30 +269,31 @@
                         <div class="modal fade" id="details-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> <!-- Modal -->
                             <div class="modal-dialog" role="document" style="max-width: 70%;">
                             <div class="modal-content p-3 service_modal_content"> <!-- Modal Content -->
-                                <div class="modal-header service_modal_header">
-                                
-                                    <img src="/img/broom.png" class="broom_img_inside p-1">
-                                    <div style="margin-left:20px;">
-                                    <h4 class="modal_service_title">
-                                        {{ $value->service_name }}
-                                    </h4>
-                                    <?php
-                                        $total = Service_review::where('service_id', $value->service_id)->avg('rate');
-                                        $avg = (int)$total;
-                                                    
-                                        for ( $i = 1; $i <= 5; $i++ ) {
-                                            if ( $avg >= $i ) {
-                                                echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                                            } else {
-                                                echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
-                                            }
-                                        }
-                                        echo '</span>';
-                                    ?>
+                                <div class="modal-header customer_services_modal_header">
+                                   
+                                    <div class="p-4">
+                                        <h4 class="modal_customer_services_title">
+                                            <b>{{ $value->service_name }}</b>
+                                        </h4>
+                                        <div>
+                                            <!-- Service Rating -->
+                                            <?php
+                                                $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                                                $avg = (int)$total;
+                                                            
+                                                for ( $i = 1; $i <= 5; $i++ ) {
+                                                    if ( $avg >= $i ) {
+                                                        echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                    } else {
+                                                        echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                    }
+                                                }
+                                                echo '</span>';
+                                            ?>
+                                        </div>
                                     </div>
-                               
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
+                                    <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
+                                </div>    
                                 <div class="modal-body p-4">
                                 <div class="row">
                                 <div class="col-md-6">
@@ -267,23 +302,26 @@
                                     </p>
                                     <ul class="package_list">
                                         <li>
-                                            <b>Equipment:</b> {{ $value->equipment }}
+                                            <b>Equipment:</b> <br> {{ $value->equipment }}
                                         </li>
+                                        <br>
                                         <li>
-                                            <b>Materials:</b> {{ $value->material }}
+                                            <b>Materials:</b><br> {{ $value->material }}
                                         </li>
+                                        <br>
                                         <li>
-                                            <b>Personal Protection:</b> {{ $value->personal_protection }}
+                                            <b>Personal Protection:</b> <br>{{ $value->personal_protection }}
                                         </li>
                                         <br>
                                         </ul>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 price">
                                     <ul class="package_list">
                                         <!-- Retrieve Price Data from Database -->
                                         <?php 
                                             $price_data = Price::Where('service_id', $value->service_id )->get();
                                         ?>
+                                        <div class="price">
                                         @foreach($price_data as $key => $value)
                                             <li>
                                                 <b>{{ $value->property_type }}</b>
@@ -295,7 +333,8 @@
                                                 <b>Cleaners:</b> {{ $value->number_of_cleaner }}
                                             </li>
                                             <br>
-                                        @endforeach     
+                                        @endforeach  
+                                            </div>   
                                     </ul>
                                     </div>
                                     </div>
@@ -370,14 +409,14 @@
  
                 <div class="modal-dialog" role="document" style="max-width: 70%;">
                     <div class="modal-content service_modal_content">
-                        <div class="modal-header service_modal_header">
-                            <h5 class="modal-title" id="exampleModalLabel">
-                                Update Service
-                            </h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                    <div class="modal-header customer_services_modal_header">
+                                   <div class="p-4">
+                                       <h4 class="modal_customer_services_title">
+                                           <b>Update Service</b>
+                                       </h4>
+                                   </div>
+                                   <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
+                               </div>    
                     <div class="modal-body">
                         
                     <!-- Form for Updating a Service -->
@@ -406,39 +445,55 @@
                         <div class="row">
                             <div class="col-md-6">  
                         <div class="form-group">
+                            <label class="upload_label">
+                                Service Name
+                            </label>
                             <input type="text" class="form-control w-100 add_service_form" id="service_title" name="service_name" placeholder="Service Name" value="{{ old('service_name',$value->service_name) }}">
                             <span class="text-danger">
                                 @error('service_name'){{ $message }} @enderror
                             </span>
                         </div>
                         <div class="form-group">
+                            <label class="upload_label">
+                               Description
+                            </label>
                             <textarea class="form-control w-100 add_service_form" id="description" name="description" placeholder="Description"  >{{ $value->service_description }}</textarea>
                             <span class="text-danger">
                                 @error('description'){{ $message }} @enderror
                             </span>
                         </div>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Equipments
+                            </label>
                             <textarea class="form-control w-100 add_service_form" id="description" placeholder="Equipments" name="equipment">{{ $value->equipment }}</textarea>
                             <span class="text-danger">
                                 @error('equipment'){{ $message }} @enderror
                             </span>
                         </div>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Materials
+                            </label>
                             <textarea class="form-control w-100 add_service_form" id="description" placeholder="Materials" name="material" >{{ $value->material }}</textarea>
                             <span class="text-danger">
                                 @error('material'){{ $message }} @enderror
                             </span>
                         </div>
+                        </div>
+                        <div class="col-md-6">
+                        
                         <div class="form-group">
+                            <label class="upload_label">
+                               Personal Protection 
+                            </label>
                             <textarea class="form-control w-100 add_service_form" id="description" placeholder="Personal Protection" name="personal_protection" >{{ $value->personal_protection }}</textarea>
                             <span class="text-danger">
                                 @error('personal_protection'){{ $message }} @enderror
                             </span>
                         </div>
-                        </div>
-                        <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6"> 
+                            <div class="row">
+                            <div class="col-md-6">  
                         <?php
                             $resident_price = Price::Where('service_id', $value->service_id )->Where('property_type', 'Medium-Upper Class Residential Areas' )->value('price');
                             $resident_cleaner = Price::Where('service_id', $value->service_id )->Where('property_type', 'Medium-Upper Class Residential Areas' )->value('number_of_cleaner');
@@ -448,45 +503,63 @@
                             $condo_cleaner = Price::Where('service_id', $value->service_id )->Where('property_type', 'Condominiums' )->value('number_of_cleaner');
                         ?>
                             
-                        <h5 class="pricing_title">
+                        <h6 class="pricing_title">
                             Number of Cleaner
-                        </h5>
+                        </h6>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Residential Areas
+                            </label>
                             <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="resident_number_of_cleaner" placeholder="Residential Areas" value="{{old('resident_number_of_cleaner',$resident_cleaner)}}">
                             <span class="text-danger">
                                 @error('resident_number_of_cleaner'){{ $message }} @enderror
                             </span>
                         </div>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Apartments
+                            </label>
                             <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="apartment_number_of_cleaner" placeholder="Apartments" value="{{old('apartment_number_of_cleaner',$apartment_cleaner )}}">
                             <span class="text-danger">
                                 @error('apartment_number_of_cleaner'){{ $message }} @enderror
                             </span>
                         </div>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Condominiums
+                            </label>
                             <input type="number" class="form-control w-100 add_service_form" id="service_cleaners" name="condo_number_of_cleaner" placeholder="Condominiums" value="{{ old('condo_number_of_cleaner', $condo_cleaner) }}">
                             <span class="text-danger">
                                 @error('condo_number_of_cleaner'){{ $message }} @enderror
                             </span>
                         </div>
                         </div>
-                        <div class="col-md-6"> 
+                        <div class="col-md-6">
                         <h5 class="pricing_title">
                             Pricing
                         </h5>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Residential Areas
+                            </label>
                             <input type="number" class="form-control w-100 add_service_form" id="property_residential" name="resident_price" placeholder="Residential Areas" value="{{ old('resident_price', $resident_price) }}">
                             <span class="text-danger">
                                 @error('resident_price'){{ $message }} @enderror
                             </span>
                         </div>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Apartments
+                            </label>
                             <input type="number" class="form-control w-100 add_service_form" id="property_apartment" name="apartment_price" placeholder="Apartments" value="{{ old('apartment_price', $apartment_price) }}">
                             <span class="text-danger">
                                 @error('apartment_price'){{ $message }} @enderror
                             </span>
                         </div>
                         <div class="form-group">
+                            <label class="upload_label">
+                                Condominiums
+                            </label>
                             <input type="number" class="form-control w-100 add_service_form" id="property_condo" name="condo_price" placeholder="Condominiums" value="{{ old('condo_price', $condo_price) }}">
                             <span class="text-danger">
                                 @error('condo_price'){{ $message }} @enderror
@@ -494,8 +567,9 @@
                         </div>
                         </div>
                         </div>
+                          
                         </div>
-                        </div>          
+                                
                     </div>
                         <div class="modal-footer service_modal_header">
                             <button  type="submit" class="btn btn-primary update_btn" class="close-modal">
@@ -507,6 +581,7 @@
                         </div>
                         </form>
                     </div>
+                    </div>  
                     @endforeach
                 </div>
             </div> <!-- End of Modal for Updating a Service -->

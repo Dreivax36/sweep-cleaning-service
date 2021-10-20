@@ -115,12 +115,11 @@ body {
     margin-top: 30px;
 }
 .upload_label {
-    font-size: 15px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    margin-top: 2px;
     margin-left: auto;
     margin-right: auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .upload_file {
     margin-top: 10px;
@@ -283,8 +282,8 @@ body {
 }
 .dashboard_title {
     margin-top: 50px;
-    font-family: sans-serif;
-    margin-left: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50px;
     font-weight: bolder;
     font-size: 20px;
 }
@@ -304,13 +303,16 @@ body {
     margin-top: auto;
     margin-bottom: auto;
     width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .transaction_id {
-    font-size: 12px;
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 }
 .customer_name {
     font-size: 15px;
-    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .arrow_right_con {
     width: 100%;
@@ -319,7 +321,7 @@ body {
     display: inline-block;
     width: 2.2em;
     height: 2.2em;
-    border: 4px solid #219EBC;
+    border: 4px solid #f58c00;
     border-radius: 50%;
 }
 .right:after {
@@ -329,8 +331,8 @@ body {
     margin-left: 0.2em;
     width: 1em;
     height: 1em;
-    border-top: 0.2em solid #219EBC;
-    border-right: 0.2em solid #219EBC;
+    border-top: 0.2em solid #f58c00;
+    border-right: 0.2em solid #f58c00;
     -moz-transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -342,47 +344,66 @@ body {
     color: #000000;
 }
 .daily_revenue{
-    height: 90px;
-    width: 170px;
+    height: 100px;
+    width: 180px;
     background-color: #ffcf8f;
-    border-left: 6px solid #f58c00;
+    border-left: 10px solid #f58c00;
+    border-bottom: 1px solid #f58c00;
+    border-top: 1px solid #f58c00;
+    border-right: 1px solid #f58c00;
     padding: 13px;
-    border-radius: 10px;
     margin-right: 50px;
 }
 .weekly_revenue{
-    height: 90px;
-    width: 170px;
+    height: 100px;
+    width: 180px;
     background-color: #ffdd42;
-    border-left: 6px solid #ffae42;
+    border-left: 10px solid #ffae42;
+    border-bottom: 1px solid #ffae42;
+    border-top: 1px solid #ffae42;
+    border-right: 1px solid #ffae42;
     padding: 13px;
-    border-radius: 10px;
     margin-right: 50px;
 }
 .sweep_user{
-    height: 90px;
-    width: 170px;
+    height: 100px;
+    width: 180px;
     background-color: #42c2ff;
-    border-left: 6px solid #0069f5;
+    border-left: 10px solid #0069f5;
+    border-bottom: 1px solid #0069f5;
+    border-top: 1px solid #0069f5;
+    border-right: 1px solid #0069f5;
     padding: 13px;
-    border-radius: 10px;
     margin-right: 50px;
 }
 .sweep_cleaner{
-    height: 90px;
-    width: 170px;
+    height: 100px;
+    width: 180px;
     background-color: #ffdceb;
-    border-left: 6px solid #ff4393;
+    border-left: 10px solid #ff4393;
+    border-bottom: 1px solid #ff4393;
+    border-top: 1px solid #ff4393;
+    border-right: 1px solid #ff4393;
     padding: 13px;
-    border-radius: 10px;
     margin-right: 50px;
 }
 .value {
     font-size: 25px;
     font-weight: bold;
+    float: right;
+    text-align: center;
+    padding: 15px;
+}
+.value1 {
+    font-size: 25px;
+    font-weight: bold;
+    float: right;
+    padding: 4px;
 }
 .report_title {
-    font-size: 15px;
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: lighter;
 }
 #daily_transaction {
     margin-left: 30px;
@@ -409,6 +430,7 @@ body {
     font-weight: bolder;
     margin-left: 60px;
     margin-top: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .show_info {
     margin-top: 20px;
@@ -451,6 +473,10 @@ body {
     text-align: center;
     font-size: 15px;
     font-weight: bolder;
+} 
+.head_user {
+    background-color: #0069f5;
+
 }
 .center{
     position: absolute;
@@ -462,10 +488,13 @@ body {
 }
 .user_table_header {
     background-color: rgba(211, 211, 211, .8);
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .user_table_row, 
 .user_table_data {
     border: 1px solid rgba(211, 211, 211, .5);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: lighter;
 }
 .active_sub {
     color: #FFB703;
@@ -522,10 +551,12 @@ body {
     margin-left: auto;
     margin-right: auto;
     font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .service_title {
     font-weight: bolder;
     font-size: 22px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .modal_service_title{
     font-weight: bold;
@@ -535,6 +566,8 @@ body {
 .pricing_title {
     margin-top: 50px;
     font-weight: bold;
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .services_title_con {
     margin-top: 4vw;
@@ -621,6 +654,12 @@ body {
     text-indent: 50px;
     font-size: 15px;
     margin-top: 5px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.modal_customer_services_title{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #0069f5;
+    font-size: 25px;
 }
 .view_details_btn {
     width:300px;
@@ -635,6 +674,10 @@ body {
     list-style-type: none;
     padding-left: 0;
     font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.price {
+    margin-top: 25px;
 }
 .update_btn {
     background-color: #BEE7FD;
@@ -688,19 +731,22 @@ body {
     font-size: 22px;
     margin-top: 5px;
     color: #FB8500;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .service_status {
     float: right;
     margin-top: 5px;
-    font-size: 18px;
+    font-size: 15px;
 }
 .booking_date {
     font-size: 14px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .modal_service_title_trans {
     font-weight: bold;
     font-size: 30px;
     color: #FB8500;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .user_info_table{
     font-size: 15px;
@@ -709,6 +755,7 @@ body {
     list-style-type: none;
     padding-left: 0;
     font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .list_booking_info {
     text-indent: 50px;
@@ -859,9 +906,25 @@ body {
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #0069f5;
 }
-
-
+.modal-body{
+    padding: 40px;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+.upload_label{
+    margin: 0px;
+}
+.modal-header{
+    background-image: url(/images/home/header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 .55rem .5rem rgba(0,0,0,.07)!important;
+    border-radius: 0.75rem;
+}
  .select2-hidden-accessible {
     border: 0 !important;
     clip: rect(0 0 0 0) !important;
@@ -932,7 +995,13 @@ body {
     max-height: 400px;
     overflow-y: auto;
 }
-
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}
 .cleaner {
     max-height: 400px;
     overflow-y: auto;
@@ -1006,4 +1075,8 @@ body {
     color: #222;
     font-size: 15px;
     padding: 5px;
+}
+
+.rating{
+    padding: 10px;
 }
