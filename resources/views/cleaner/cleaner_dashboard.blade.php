@@ -57,7 +57,15 @@ use App\Models\Event;
             <?php
             $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
             $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->orWhere('status', '!=', 'Cancelled')->orWhere('status', '!=', 'Completed')->get();
+            $bookingCount = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
             ?>
+            @if($bookingCount == 0)
+            <div class="no-jobs">
+                <h3>
+                    You currently have no Active Jobs.
+                </h3>
+            </div>
+            @endif
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)
             <?php
@@ -99,12 +107,7 @@ use App\Models\Event;
             @endforeach
             @endforeach
             @endforeach
-            @else
-            <div class="no-jobs">
-                <h1>
-                    You currently have no Active Jobs.
-                </h1>
-            </div>
+            
             @endif
         </div>
         <?php
@@ -177,12 +180,12 @@ use App\Models\Event;
                     </p>
                 </div>
             </div> <!-- End of Reports -->
-            <div class="container mt-5 calendar_con">
+            
                 <div id='calendar'></div>
                 <?php
                 $bookingEvent = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
                 ?>
-            </div><!-- End of Sidebar -->
+            
 
 
             <script>

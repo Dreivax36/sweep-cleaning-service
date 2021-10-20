@@ -564,7 +564,7 @@ body {
 .transaction_con {
     margin-left: 110px;
     margin-top: 20px;
-    min-height: 65vh;
+    min-height: 75vh;
 }
 .col_services, 
 .col_transaction {
