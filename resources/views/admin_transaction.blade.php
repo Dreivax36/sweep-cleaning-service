@@ -492,8 +492,8 @@
                                                         @if($cleanerSchedule == 0)   <!-- Check if the booking have the no same Schedule --> 
                                                             @if($cleaner_data != null) <!-- Check if Validated Cleaner exist-->
                                                             <?php  
-                                                                $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();
-                                                                $countID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->count();        
+                                                                $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->Where('status', 'Pending')->get();
+                                                                $countID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->Where('status', 'Pending')->count();        
                                                             ?>
                                                                 @if($countID == $countValidate)
                                                                     <option  value="">No Cleaner</option>
