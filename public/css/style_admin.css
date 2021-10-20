@@ -736,7 +736,8 @@ body {
 .service_status {
     float: right;
     margin-top: 5px;
-    font-size: 15px;
+    font-size: 18px;
+    margin-left: 5px;
 }
 .booking_date {
     font-size: 14px;
