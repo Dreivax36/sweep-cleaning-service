@@ -432,19 +432,18 @@ class BookingController extends Controller
     //Paypal payment and store the data to payment table
     function checkout(Request $request){
         //Add new payment
-        $booking = $request->booking_id;
         $payments = new Payment();
-        $payments->booking_id = $booking;
-        $payments->amount = $request->amount;
+        $payments->booking_id = $_GET['booking_id'];
+        $payments->amount = $_GET['amount']; 
         $checkout = $payments->save();
         //Update the booking table
-        $checkout= Booking::Where('booking_id', $booking )->update(['is_paid' => true, 'paypal_id' => $request->paypal_id]);
+        $checkout= Booking::Where('booking_id', $_GET['booking_id'] )->update(['is_paid' => true, 'paypal_id' => $_GET['paypal_id']]);
         //Add admin notification
         $notifications = new Notification();
-        $notifications->message = 'Payment Confirmed';
-        $notifications->booking_id = $booking;
+        $notifications->message = 'Customer paid';
+        $notifications->booking_id = $_GET['booking_id'];
         $notifications->isRead = false;
-        $notifications->location = 'customer/customer_transaction';
+        $notifications->location = 'admin_transaction';
         $assign = $notifications->save();
 
         //Trigger pusher channel to notify the admin
@@ -458,12 +457,9 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $customer = Booking::Where('booking_id', $booking )->value('customer_id');
-        $user = Customer::where('customer_id', $customer )->value('user_id');
-        $messages = 'Payment';
-        $id = $user;
-        $data = ['messages' => $messages, 'id' => $id];    
-        $pusher->trigger('my-channel', 'customer-notif', $data);
+        $messages = 'New Booking';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
 
         if($checkout){
            return redirect('customer/customer_transaction')->with('success-pay', 'Payment Successful');

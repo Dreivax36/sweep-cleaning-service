@@ -145,8 +145,10 @@
             },
             onApprove: function(data, actions) {
                 // This function captures the funds from the transaction.
-                return actions.order.capture().then(function(details) {
-                // This function shows a transaction success message to your buyer.
+            return actions.order.capture().then(function(orderData) {
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                var paypalid = transaction.id;
                 var booking_id = '{{$value->booking_id}}';
                 var amount  = '{{ $price }}';
                     $.ajax({
@@ -154,19 +156,20 @@
                         url: "{{ route('checkout') }}",
                         data: {
                             'booking_id': booking_id,
-                            'paypal_id': details.id,
+                            'paypal_id': paypalid,
                             'amount': amount,
                             'payment_mode':  'Paypal'
                         },
                         success: function (response) {
+                            swal({
+                            title: "Payment Successful!",
+                            icon: "success",
+                            button: "Close",
+                        });
                         }
                     });
                     //Redirect to customer transaction when success
-                    swal({
-                        title: "Payment Successful!",
-                        icon: "success",
-                        button: "Close",
-                    });
+                   
                     window.location.href = "{{ url('/customer/customer_transaction') }}";
                 });
             },

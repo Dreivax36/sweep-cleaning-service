@@ -1,13 +1,14 @@
 <?php
-    use App\Models\Booking;
-    use App\Models\Customer;
-    use App\Models\Service;
-    use App\Models\Price;
-    use App\Models\Address;
-    use App\Models\User;
-    use App\Models\Cleaner;
-    use App\Models\Assigned_cleaner;
-    use App\Models\Event;
+
+use App\Models\Booking;
+use App\Models\Customer;
+use App\Models\Service;
+use App\Models\Price;
+use App\Models\Address;
+use App\Models\User;
+use App\Models\Cleaner;
+use App\Models\Assigned_cleaner;
+use App\Models\Event;
 ?>
 
 @extends('cleaner/cleaner-nav/head_extention_cleaner-home')
@@ -20,7 +21,9 @@
     </title>
 
     <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
+
     <script type="text/javascript" id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
     {{-- Scripts --}}
@@ -31,6 +34,7 @@
 </head>
 
 <body>
+
     <div class="row cleaner_row_dashboard">
         <!-- Sidebar -->
         <div class="col-md-3 cleaner_side_con">
@@ -49,31 +53,22 @@
                 <!-- Search Field -->
                 <input class="form-control searchbar_dash" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
             </div>
-            <!-- Get transaction who has status Accepted, On-the-Way and On-Progress -->
+            
             <?php
-                $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-                $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->get();
-                $countJob = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->count();
+            $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->orWhere('status', '!=', 'Cancelled')->orWhere('status', '!=', 'Completed')->get();
             ?>
-            <!-- If no active job display this -->
-            @if($countJob == 0)
-                <h1 class="center">
-                    You currently have no Active Jobs.
-                </h1>
-            @endif
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)
-            <!-- Get booking data who has status Accepted, On-the-Way and On-Progress and equal to the booking id from the assigned_cleaner -->
             <?php
-                $booking_data = Booking::Where('booking_id', $id->booking_id)->Where('status', 'Accepted')->orWhere('status', 'On-the-Way')->orWhere('status', 'On-Progress')->get();
+            $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-the-Way')->orWhere('status', 'On-Progress')->Where('booking_id', $id->booking_id)->get();
             ?>
             @foreach($booking_data as $key => $value)
-            <!-- Get data related to the transaction  -->
             <?php
-                $service_data = Service::Where('service_id', $value->service_id)->get();
-                $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-                $user_data = User::Where('user_id', $userID)->get();
-                $address = Address::Where('customer_id', $value->customer_id)->value('address');
+            $service_data = Service::Where('service_id', $value->service_id)->get();
+            $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+            $user_data = User::Where('user_id', $userID)->get();
+            $address = Address::Where('customer_id', $value->customer_id)->value('address');
             ?>
             @foreach($service_data as $key => $data)
             @foreach($user_data as $key => $user)
@@ -104,10 +99,15 @@
             @endforeach
             @endforeach
             @endforeach
+            @else
+            <div class="no-jobs">
+                <h1>
+                    You currently have no Active Jobs.
+                </h1>
+            </div>
             @endif
-        </div><!-- End of Sidebar -->
+        </div>
         <?php
-            //Get Cleaner reports - cancel job, total job, pending job and total earned
             $canceljobs = 0;
             $totaljobs = 0;
             $pendingjobs = 0;
@@ -116,14 +116,14 @@
                 $id = $booking->booking_id;
                 $cancel = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Declined')->count();
                 $done = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Done')->count();
-                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id',$id)->Where('status', 'Pending')->count();
-                if($cancel != 0){
+                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id',$id)->Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-the-Way')->orWhere('status', 'On-Progress')->count();
+                if($cancel == 1){
                     $canceljobs++;
                 }
-                if($done != 0){
+                if($done == 1){
                     $totaljobs++;
                 }
-                if($pending != 0){
+                if($pending == 1){
                     $pendingjobs++;
                 }
             }
@@ -177,21 +177,23 @@
                     </p>
                 </div>
             </div> <!-- End of Reports -->
-            <!-- Calendar -->
             <div class="container mt-5 calendar_con">
                 <div id='calendar'></div>
                 <?php
-                    $bookingEvent = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
+                $bookingEvent = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
                 ?>
-            </div>
+            </div><!-- End of Sidebar -->
+
 
             <script>
                 $(document).ready(function() {
+
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                     });
+
                     var calendar = $('#calendar').fullCalendar({
                         editable: false,
                         header: {
@@ -199,19 +201,22 @@
                             center: 'title',
                             right: 'month, agendaWeek, agendaDay'
                         },
+
                         events: [
                             @foreach($bookingEvent as $bookings)
-                                <?php
-                                    $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
-                                ?>
+                            <?php
+                            $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
+                            ?>
                             @foreach($booking as $id)
-                                <?php
-                                    $data = Event::Where('booking_id', $id->booking_id)->get();
-                                ?>
+                            <?php
+                            $data = Event::Where('booking_id', $id->booking_id)->get();
+                            ?>
                             @foreach($data as $event) {
+
                                 title: '{{$event->title}}',
                                 start: '{{$event->start}}',
                                 end: '{{$event->end}}'
+
                             },
                             @endforeach
                             @endforeach
@@ -219,18 +224,18 @@
                         ],
                         eventColor: '#FFB703'
                     });
+
                 });
+
                 function displayMessage(message) {
                     toastr.success(message, 'Event');
                 }
             </script>
         </div>
     </div>
-    <!-- Mobile -->
     <div class="mobile-spacer">
         <br>
     </div>
-    <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.
