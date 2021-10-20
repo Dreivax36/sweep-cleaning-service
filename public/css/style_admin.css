@@ -1007,3 +1007,16 @@ body {
     font-size: 15px;
     padding: 5px;
 }
+
+
+#footer {
+    margin-top: 30px;
+    background-color: #061835;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0px;
+    padding: .75%;
+    color: white;
+}
