@@ -180,12 +180,14 @@ use App\Models\Event;
                     </p>
                 </div>
             </div> <!-- End of Reports -->
-            
+            <div class="container mt-5 calendar_con">
                 <div id='calendar'></div>
                 <?php
                     $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
                 ?>
-        
+            </div>
+        </div>
+    </div>    
             <script>
                 $(document).ready(function() {
 
@@ -232,8 +234,8 @@ use App\Models\Event;
                     toastr.success(message, 'Event');
                 }
             </script>
-        </div>
-    </div>
+
+
     <div class="mobile-spacer">
         <br>
     </div>
