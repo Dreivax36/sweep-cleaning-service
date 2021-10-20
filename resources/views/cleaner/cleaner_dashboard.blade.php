@@ -146,7 +146,7 @@ use App\Models\Event;
             }
             ?>
         
-            <div class="row justify-content-center" id="report">
+            <div class="row" id="report">
                 <!-- Reports -->
                 <div class="weekly_revenue">
                     <h3 class="value">
