@@ -69,7 +69,7 @@ use App\Models\Event;
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)
             <?php
-            $booking_data = Booking::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->orWhere('status', '!=', 'Cancelled')->orWhere('status', '!=', 'Completed')->Where('booking_id', $id->booking_id)->get();
+            $booking_data = Booking::Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->Where('booking_id', $id->booking_id)->get();
             ?>
             @foreach($booking_data as $key => $value)
             <?php
