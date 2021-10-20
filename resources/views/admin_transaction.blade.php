@@ -384,6 +384,53 @@
                         @endforeach 
                     </div>
                 </div>  
+                 <!-- Pay Modal -->
+            <div class="modal fade" id="pay-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">On Site Payment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form for Onsite Payment -->
+                            <form action="{{ route('checkout') }}" method="post" >
+                                @if(Session::get('success-cleaner'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+
+                                @if(Session::get('fail'))
+                                    <div class="alert alert-danger">
+                                        {{ Session::get('fail') }}
+                                    </div>
+                                @endif
+                                @csrf
+                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">                                   
+                                <div class="form-group">
+                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="Amount" value="₱{{ $price_data->price }}" readonly>
+                                    <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control w-100 add_service_form" id="paypal_id" name="paypal_id" placeholder="paypal_id">
+                                    <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
+                                CANCEL
+                            </button>
+                            <button type="submit" class="btn btn-block btn-primary yes_btn" > 
+                                CONFIRM PAYMENT
+                            </button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>    
                             <div class="modal-footer customer_services_modal_footer">
                                 <div class="modal fade" id="assign-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">  <!-- Modal --> 
                                     <div class="modal-dialog" role="document">
@@ -626,53 +673,6 @@
                             </div>
                     </div><!-- End of Modal -->
 
-                     <!-- Pay Modal -->
-            <div class="modal fade" id="pay-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">On Site Payment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Form for Onsite Payment -->
-                            <form action="{{ route('checkout') }}" method="post" >
-                                @if(Session::get('success-cleaner'))
-                                    <div class="alert alert-success">
-                                        {{ Session::get('success') }}
-                                    </div>
-                                @endif
-
-                                @if(Session::get('fail'))
-                                    <div class="alert alert-danger">
-                                        {{ Session::get('fail') }}
-                                    </div>
-                                @endif
-                                @csrf
-                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">                                   
-                                <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="Amount" value="₱{{$price_data->price}}" readonly>
-                                    <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="paypal_id" name="paypal_id" placeholder="paypal_id">
-                                    <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
-                                CANCEL
-                            </button>
-                            <button type="submit" class="btn btn-block btn-primary yes_btn" > 
-                                CONFIRM PAYMENT
-                            </button>
-                        </div>
-                            </form>
-                    </div>
-                </div>
-            </div>    
                     @endforeach       
             @endforeach 
             @else
