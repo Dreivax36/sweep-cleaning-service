@@ -206,7 +206,7 @@ use App\Models\Event;
                         events: [
                             @foreach($bookingEvent as $bookings)
                             <?php
-                            $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status', 'Accepted')->orwhere('status', 'On-Progress')->orwhere('status', 'On-the-Way')->get();
+                            $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status','!=', 'Declined')->where('status','!=', 'Pending')->where('status', 'Cancelled')->where('status', 'Completed')->get();
                             ?>
                             @foreach($booking as $id)
                             <?php
