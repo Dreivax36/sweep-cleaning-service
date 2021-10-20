@@ -422,8 +422,12 @@
                                                         $countValidate = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->count(); 
                                                         $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
                                                     ?>
-                                                    @while($total > 0)
-                                                        
+                                                    @if($cleanerCount == 0)
+                                                    <?php $total = $total; ?>
+                                                    @else
+                                                    <?php $total = $total - $cleanerCount; ?>
+                                                    @endif
+                                                    @while($total > 0)   
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="cleaner">Cleaner: </label>
