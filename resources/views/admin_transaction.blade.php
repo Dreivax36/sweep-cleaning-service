@@ -419,6 +419,7 @@
                                                         $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->count();
                                                         $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->get();
                                                         $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->get(); 
+                                                        $countValidate = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->count(); 
                                                         $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
                                                     ?>
                                                     @while($total > 0)
@@ -491,29 +492,34 @@
                                                         @if($cleanerSchedule == 0)   <!-- Check if the booking have the no same Schedule --> 
                                                             @if($cleaner_data != null) <!-- Check if Validated Cleaner exist-->
                                                             <?php  
-                                                                $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();        
+                                                                $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();
+                                                                $countID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->count();        
                                                             ?>
-                                                                @foreach($cleaner_data as $key => $cleaner)
-                                                                    @foreach($cleanerID as $key => $assignCleaner)
+                                                                @if($countID == $countValidate)
+                                                                    <option  value="">No Cleaner</option>
+                                                                @else{
+                                                                    @foreach($cleaner_data as $key => $cleaner)
+                                                                        @foreach($cleanerID as $key => $assignCleaner)
+                                                                            <?php
+                                                                                $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                                            ?> 
+                                                                            @if($cleaner->user_id != $assignUser)
+                                                                                <?php $items[$count++] =  $cleaner->user_id; ?>
+                                                                            @else
+                                                                                @break
+                                                                            @endif   
+                                                                        @endforeach
+                                                                    @endforeach 
+    \                                                               <?php
+                                                                        $items = array_unique($items);
+                                                                    ?>
+                                                                    @foreach($items as $userID)
                                                                         <?php
-                                                                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
-                                                                        ?> 
-                                                                        @if($cleaner->user_id != $assignUser)
-                                                                            <?php $items[$count++] =  $cleaner->user_id; ?>
-                                                                        @else
-                                                                            @break
-                                                                        @endif   
-                                                                    @endforeach
-                                                                @endforeach 
-\                                                               <?php
-                                                                    $items = array_unique($items);
-                                                                ?>
-                                                                @foreach($items as $userID)
-                                                                    <?php
-                                                                        $fullname = User::Where('user_id', $userID )->value('full_name');
-                                                                    ?>    
-                                                                        <option  value="{{  $userID }}">{{ $fullname }}</option>
-                                                                @endforeach 
+                                                                            $fullname = User::Where('user_id', $userID )->value('full_name');
+                                                                        ?>    
+                                                                            <option  value="{{  $userID }}">{{ $fullname }}</option>
+                                                                    @endforeach 
+                                                                @endif
                                                             @endif
                                                         @else
                                                                 <?php  
