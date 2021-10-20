@@ -20,8 +20,6 @@ use App\Models\Event;
         Cleaner Dashboard
     </title>
 
-    <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
-
     <script type="text/javascript" id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
@@ -31,6 +29,7 @@ use App\Models\Event;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -146,7 +145,7 @@ use App\Models\Event;
             }
             ?>
         
-            <div class="row" id="report">
+            <div class="row justify-content-center" id="report">
                 <!-- Reports -->
                 <div class="weekly_revenue">
                     <h3 class="value">
