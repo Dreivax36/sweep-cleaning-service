@@ -331,7 +331,7 @@
                                             NO AVAILABLE CLEANER
                                         </button>
                                     @endif
-                                    @if($value->status == "pending" && $value->mode_of_payment == "Paypal" && $value->is_paid == false)
+                                    @if($value->status == "Pending" && $value->mode_of_payment == "Paypal" && $value->is_paid == false)
                                     <button type="button" class="btn btn-block btn-primary on_progress_btn" data-toggle="modal" data-dismiss="modal" data-target="#pay-{{ $value->booking_id }}">
                                         CONFIRM PAYMENT
                                     </button>
