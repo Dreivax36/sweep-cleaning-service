@@ -119,7 +119,7 @@ use App\Models\Event;
                 $id = $booking->booking_id;
                 $cancel = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Declined')->count();
                 $done = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Completed')->count();
-                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id',$id)->Where('status', 'Pending')->Where('status', 'Accepted')->Where('status', 'On-the-Way')->Where('status', 'On-Progress')->count();
+                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id',$id)->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
                 if($cancel == 1){
                     $canceljobs++;
                 }
