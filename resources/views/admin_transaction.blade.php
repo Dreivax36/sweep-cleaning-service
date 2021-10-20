@@ -105,9 +105,9 @@
             </p>
         </a>
 </div>
-    <div class="transaction_con">
+    <div class="transaction_con" id="status">
     
-        <div class="row row_transaction" id="status">
+        <div class="row row_transaction" >
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
     <?php
@@ -587,7 +587,7 @@
                                     </div>
                                     <div class="modal-body">
                                     <form action="{{ route('updateStatus') }}" method="post">
-                                    @if(Session::has('success-decline'))
+                                    @if(Session::get('success-decline'))
                                         <script>
                                             swal({
                                                 title: "Successfully Declined Transaction!",

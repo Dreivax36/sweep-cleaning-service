@@ -1,4 +1,3 @@
-<!-- Account Validated Email Content -->
 @component('mail::message')
 
     # Hello {{$details['name']}},

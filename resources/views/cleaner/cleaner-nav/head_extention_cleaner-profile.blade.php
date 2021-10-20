@@ -118,7 +118,7 @@
                     <i class="fas fa-home"></i>
                     <h6>Home</h6>
                 </a>
-                <a class="nav-button" href="{{ url('/cleaner/cleaner_jobs') }}">
+                <a class="nav-button" href="{{ url('/cleaner/cleaner_job') }}">
                     <i class="fas fa-hand-sparkles"></i>
                     <h6>Jobs</h6>
                 </a>

@@ -536,7 +536,7 @@ class BookingController extends Controller
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
         if($newDate){
-           return back()->with('success', 'Date is successfuly updated');
+           return back()->with('success-date', 'Date is successfuly updated');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');

@@ -60,7 +60,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">    
                     @forelse ($notif as $notification)
-                        <a class="dropdown-item read" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                        <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
                             {{ $notification->message}}
                         </a>                          
                     @empty
@@ -88,7 +88,7 @@
                     </a>    
                     <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                         @forelse ($notif as $notification)
-                            <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                            <a class="dropdown-item read" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
                             </a>
                         @empty
@@ -118,7 +118,7 @@
                     <i class="fas fa-home"></i>
                     <h6>Home</h6>
                 </a>
-                <a class="nav-button active" href="{{ url('/cleaner/cleaner_jobs') }}">
+                <a class="nav-button active" href="{{ url('/cleaner/cleaner_job') }}">
                     <i class="fas fa-hand-sparkles fas-active"></i>
                     <h6>Jobs</h6>
                 </a>

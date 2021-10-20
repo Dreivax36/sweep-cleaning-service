@@ -256,7 +256,7 @@
                                         <div class="modal-body">
                                             <!-- Form to update booking status-->
                                             <form action="{{ route('updateStatus') }}" method="post">
-                                            @if(Session::get('success'))
+                                                @if(Session::get('success'))
                                                 <script>
                                                     swal({
                                                         title: "Transaction Status Updated Successfully!",
@@ -403,14 +403,14 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">No Cleaner Available</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Sorry for the Inconvenience</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <form action="{{ route('newDate') }}" method="post" >
-                                    @if(Session::get('success'))
+                                    @if(Session::get('success-date'))
                                         <div class="alert alert-success">
                                             {{ Session::get('success') }}
                                         </div>
@@ -425,11 +425,13 @@
                                     @csrf
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                 
-                                    <h3> Sorry for the Inconvenience </h3>
-                                    <h5> Your Booking that is Schedule for 
+                                   
+                                    <h5> There is no cleaner available for your booking on 
                                         {{ date('F d, Y', strtotime($value->schedule_date)) }} at {{ date('h:i A', strtotime($value->schedule_time)) }} 
-                                        with the Booking ID - {{$value->booking_id}} is NO CLEANER AVAILABLE. </h5>
-                                    <h5> Please choose other date and time. Thank you! </h5> 
+                                        with the Booking number {{$value->booking_id}}. </h5>
+                                    <h5> Please select a different date and time. </h5> 
+                                    <h5> Thank you! </h5> 
+                                    <br>
                                     <h4 class="place-type"> Schedule: </h4>   
                                     <div class="place"> 
                                     <label for="appt">
@@ -531,6 +533,15 @@
     <script>
         swal({
             title: "Added Address Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+    @if(Session::has('success-date'))
+    <script>
+        swal({
+            title: "Schedule time and date Updated!",
             icon: "success",
             button: "Close",
         });
