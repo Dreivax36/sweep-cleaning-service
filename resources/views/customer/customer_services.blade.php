@@ -66,8 +66,8 @@
                         <h3 class="card-title">
                             {{ $value->service_name }}
                         </h3>
-                        <p>
-                            {{ \Illuminate\Support\Str::limit($value->service_description, 100, $end='...') }}
+                        <p class="description">
+                            {{ \Illuminate\Support\Str::limit($value->service_description, 120, $end='...') }}
                         </p>   
                         <div class="row">
                             <div class="col">
@@ -271,7 +271,7 @@
                                                     </label>
                                                     <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
                                                     <br>
-                                                    <label for="appt" class="place-type">
+                                                    <label for="appt">
                                                         Time:
                                                     </label>
                                                     <input class="timepicker form-control" type="text" name="schedule_time" >

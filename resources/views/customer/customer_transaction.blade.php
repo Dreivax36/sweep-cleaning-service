@@ -185,7 +185,8 @@
                                             <li>
                                                 <b>Property Type:</b> {{ $value->property_type }}
                                             </li>
-                                            <li class="list_booking_info">
+                                            <br>
+                                            <li>
                                                 <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
                                             </li>
                                             <br>

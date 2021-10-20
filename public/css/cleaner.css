@@ -6,7 +6,13 @@
     padding-bottom: 20px;
     color: white;
 }
-
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}
 .no_job{
     text-align: center;
     margin: auto;
@@ -38,11 +44,10 @@
 
 .side_con_title {
     margin-top: 50px;
-    font-family: sans-serif;
-    margin-left: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50px;
     font-weight: bolder;
     font-size: 20px;
-    margin-bottom: 30px;
 }
 .available_job_con {
     height: 100%;
@@ -61,6 +66,7 @@
     margin-top: auto;
     margin-bottom: auto;
     width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .customer_info {
     font-size: 13px;
@@ -72,7 +78,7 @@
     display: inline-block;
     width: 2.2em;
     height: 2.2em;
-    border: 4px solid #219EBC;
+    border: 4px solid #f58c00;
     border-radius: 50%;
 }
 .right:after {
@@ -165,17 +171,40 @@
     margin-bottom: 50px;
     text-align: center;
 }
-.value{
-    font-weight: 700;
+.value {
     font-size: 25px;
+    font-weight: bold;
+    float: right;
+    text-align: center;
+    padding: 15px;
 }
 
 .weekly_revenue {
-    height: 90px;
+    height: 100px;
     background-color: #a7e9fa;
     border-left: 10px solid #2B81B0;
+    border-right: 1px solid #2B81B0;
+    border-bottom: 1px solid #2B81B0;
+    border-top: 1px solid #2B81B0;
     padding: 13px;
-    border-radius: 10px;
     margin: 10px;
     /* margin-right: 50px; */
+}
+
+.transaction_id {
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+.customer_name {
+    font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.no-jobs {
+    margin-top: 50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50px;
+    font-weight: bolder;
+    font-size: 20px;
 }

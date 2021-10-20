@@ -158,3 +158,11 @@ body{
     font-size: 15px;
     padding: 5px;
 }
+
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}

@@ -104,7 +104,7 @@
             </fieldset>
             <br>
             <br>
-            <h5>Would you like to share more?</h5>
+            <h5 class="title2">Would you like to share more?</h5>
             <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="cleaner_comment[]" placeholder="Message" value="{{ old('message') }}"></textarea>
             <span class="text-danger">
                 @error('message'){{ $message }} @enderror

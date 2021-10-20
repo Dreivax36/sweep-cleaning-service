@@ -1,11 +1,18 @@
 .body {
     min-height: 70vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .card-job {
     padding: 10px;
 }
-
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}
 .job {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 15px;
@@ -55,6 +62,7 @@
     font-size: 25px;
     color: #FB8500;
     margin-left: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .fa-clipboard-list {
@@ -65,6 +73,10 @@
 .booking_date {
     font-size: 18px;
     padding-bottom: 7px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.user_table_row{
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .title {
@@ -77,8 +89,11 @@
 
 .buttons {
     align-items: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+.cleaner_job_modal_title, .cleaner_job_modal_date_1_1, .cleaner_job_modal_amount_1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
 .title {
     margin-left: 0;
     margin-right: 0;
@@ -86,8 +101,11 @@
 
 .cleaner_cards_title {
     margin: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+.cleaner_job_status{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
 .row {
     display: flex;
     -ms-flex-wrap: wrap;
@@ -101,6 +119,7 @@
     padding-left: 0;
     font-size: 15px;
     text-indent: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .list_booking_info {
@@ -158,6 +177,7 @@
     text-align: left;
     align-items: center;
     justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .book_container {

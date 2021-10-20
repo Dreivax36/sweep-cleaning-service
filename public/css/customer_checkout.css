@@ -9,7 +9,13 @@ body{
     background-size: cover;
 }
 
-
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}
 .banner {
     background-image: url(/images/home/header1.jpg);
     background-position: center;

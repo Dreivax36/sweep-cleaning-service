@@ -3,15 +3,26 @@ body{
     position: relative;
     
 }
+.customer_cards_title{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
 .body{
     min-height: 70vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .banner-container{
     align-items: center;
     font-size: 30px;
     background-size: cover;
 }
-
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}
 .banner{
     background-color: #F7f7f7;
     height: max-content;
@@ -260,8 +271,11 @@ body{
 
 .service_title_trans{
     font-size: 25px;
+    font-weight: bold;
 }
-
+.customer_trans_modal_title{
+    font-weight: bold;
+}
 .card-body{
     align-content: space-between;
 }

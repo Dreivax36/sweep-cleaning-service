@@ -5,10 +5,17 @@
     margin-right: 0;
     margin-left: 0;
 }
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}
 .main_profile_con {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 45%;
-    height: 640px;
+    height: 680px;
     padding: 20px;
     margin: 20px;
     background-color: #fff;
@@ -48,6 +55,7 @@
     outline: none;
     border-bottom: 2px solid #FFEDDF;
     background-color: #fff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .customer_profile_info {
     font-size: 15px;
@@ -138,3 +146,7 @@
     padding: .75%;
     color: white;
 }    
+
+.customer_cards_title{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
