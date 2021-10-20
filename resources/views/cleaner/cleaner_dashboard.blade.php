@@ -37,7 +37,7 @@ use App\Models\Event;
 
     <div class="row cleaner_row_dashboard">
         <!-- Sidebar -->
-        <div class="col-md-3 cleaner_side_con">
+        <div class="col-sm-3 cleaner_side_con">
             <div class="local_time_con">
                 <div id="pst-container">
                     <div class="local_time_title">
@@ -110,7 +110,7 @@ use App\Models\Event;
             
             @endif
         </div>
-        <div class="col-md-9">
+        <div class="col-sm-9">
         <?php
             $canceljobs = 0;
             $totaljobs = 0;
