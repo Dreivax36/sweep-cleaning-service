@@ -332,7 +332,7 @@
                                         </button>
                                     @endif
                                     @if($value->status == "Pending" && $value->mode_of_payment == "Paypal" && $value->is_paid == false)
-                                    <button type="button" class="btn btn-block btn-primary on_progress_btn" data-toggle="modal" data-dismiss="modal" data-target="#pay-{{ $value->booking_id }}">
+                                    <button type="button" class="btn btn-block btn-primary on_progress_btn" data-toggle="modal" data-dismiss="modal" data-target="#confirmpayment-{{ $value->booking_id }}">
                                         CONFIRM PAYMENT
                                     </button>
                                     @endif
@@ -385,11 +385,11 @@
                     </div>
                 </div>  
                  <!-- Pay Modal -->
-            <div class="modal fade" id="pay-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="confirmpayment-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">On Site Payment</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm Payment</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -411,11 +411,11 @@
                                 @csrf
                                 <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">                                   
                                 <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="Amount" value="₱{{ $price_data->price }}" readonly>
+                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="₱{{ $price_data->price }}" value="₱{{ $price_data->price }}" readonly>
                                     <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="paypal_id" name="paypal_id" placeholder="paypal_id">
+                                    <input type="text" class="form-control w-100 add_service_form" id="paypal_id" name="paypal_id" placeholder="Paypal ID">
                                     <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
                                 </div>
                         </div>
