@@ -474,13 +474,16 @@
                                                                     $itemExist = array_unique($itemExist);
                                                                     $final = array_diff($items,$itemExist);
                                                                 ?>
-                                        
+                                                                @if($final != null)
                                                                 @foreach($final as $userID)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                     ?>    
                                                                     <option  value="{{  $userID }}">{{ $fullname }}</option>
                                                                 @endforeach 
+                                                                @else
+                                                                <option  value="">No Cleaner</option>
+                                                                @endif
                                                             @endif
                                                         @endif
                                                     @else 
@@ -493,11 +496,9 @@
                                                             @if($cleaner_data != null) <!-- Check if Validated Cleaner exist-->
                                                             <?php  
                                                                 $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->Where('status', 'Pending')->get();
-                                                                $countID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->Where('status', 'Declined')->Where('status', 'Pending')->count();        
+                                                                
                                                             ?>
-                                                                @if($countID == $countValidate)
-                                                                    <option  value="">No Cleaner</option>
-                                                                @else{
+                                    
                                                                     @foreach($cleaner_data as $key => $cleaner)
                                                                         @foreach($cleanerID as $key => $assignCleaner)
                                                                             <?php
@@ -513,13 +514,17 @@
     \                                                               <?php
                                                                         $items = array_unique($items);
                                                                     ?>
+                                                                    @if($items != null)
                                                                     @foreach($items as $userID)
                                                                         <?php
                                                                             $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                         ?>    
                                                                             <option  value="{{  $userID }}">{{ $fullname }}</option>
                                                                     @endforeach 
-                                                                @endif
+                                                                    @else
+                                                                    <option  value="">No Cleaner</option>
+                                                                    @endif
+                                        
                                                             @endif
                                                         @else
                                                                 <?php  
@@ -554,12 +559,16 @@
                                                                     $itemExist = array_unique($itemExist);
                                                                     $final = array_diff($items,$itemExist);
                                                                 ?>
+                                                                @if($final != null)
                                                                 @foreach($final as $userID)
                                                                     <?php
                                                                         $fullname = User::Where('user_id', $userID )->value('full_name');
                                                                     ?>    
                                                                         <option  value="{{  $userID }}">{{ $fullname }}</option>
                                                                 @endforeach 
+                                                                @else
+                                                                <option  value="">No Cleaner</option>
+                                                                @endif
                                                             @endif
                                                         @endif
                                                     @endif
