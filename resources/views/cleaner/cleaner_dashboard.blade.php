@@ -183,7 +183,7 @@ use App\Models\Event;
             
                 <div id='calendar'></div>
                 <?php
-                $bookingEvent = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->get();
+                $bookingEvent = Booking::Where('status', 'Accepted')->orwhere('status', 'On-the-Way')->get();
                 ?>
             
 

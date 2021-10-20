@@ -199,7 +199,7 @@
       <div class="container mt-5 calendar_con">
         <div id='calendar'></div>
         <?php
-          $booking = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->orwhere('status', 'Done')->get();
+          $booking = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->orwhere('status', 'On-the-Way')->get();
         ?>
       </div>
     </div>
