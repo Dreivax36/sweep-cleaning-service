@@ -145,10 +145,10 @@
             },
             onApprove: function(data, actions) {
                 // This function captures the funds from the transaction.
-            return actions.order.capture().then(function(orderData) {
+            return actions.order.capture().then(function(data) {
                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                 var transaction = orderData.purchase_units[0].payments.captures[0];
-                var paypalid = transaction.id;
+                var paypalid = data.id;
                 var booking_id = '{{$value->booking_id}}';
                 var amount  = '{{ $price }}';
                     $.ajax({
