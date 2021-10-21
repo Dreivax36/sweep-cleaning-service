@@ -16,7 +16,8 @@ class CreateCleanerReviewsTable extends Migration
         Schema::create('cleaner_reviews', function (Blueprint $table) {
             $table->bigIncrements('cleaner_review_id');
             $table->String('comment')->nullable();
-            $table->integer('rating');
+            $table->integer('rate');
+            $table->unsignedBigInteger('cleaner_id');
             $table->unsignedBigInteger('review_id');
             $table->foreign('review_id')->references('review_id')->on('reviews')
                 ->onUpdate('cascade')->onDelete('cascade');
