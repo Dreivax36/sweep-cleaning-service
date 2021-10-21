@@ -111,6 +111,7 @@ use App\Models\Event;
         </div>
         <div class="col-sm-9">
         <?php
+            $rating = Cleaner_review::where('cleaner_id', $cleaner)->avg('rate');
             $canceljobs = 0;
             $totaljobs = 0;
             $pendingjobs = 0;
@@ -173,7 +174,15 @@ use App\Models\Event;
                 </div>
                 <div class="weekly_revenue">
                     <h3 class="value1">
-                    {{ number_format((float)$totalSalary, 2, '.', '')}} php
+                    {{number_format((float)$rating, 0, '.', '')}} / 5
+                    </h3>
+                    <p class="report_title">
+                    Performance Rating
+                    </p>
+                </div>
+                <div class="weekly_revenue">
+                    <h3 class="value1">
+                    ₱ {{ number_format((float)$totalSalary, 2, '.', '')}}
                     </h3>
                     <p class="report_title">
                     Total Earned Salary
