@@ -310,7 +310,7 @@
     <!-- Check Schedule date and time -->
     <?php
         $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
-        if($scheduleCount == 5){
+        if($scheduleCount == 2){
             $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
         }
     ?>
