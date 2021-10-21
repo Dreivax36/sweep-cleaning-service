@@ -13,8 +13,8 @@
     @endcomponent
   @endif 
 
-  Thank you.<br>
-  Regards,<br>
+  Thank you.
+  Regards,
   Sweep Cleaning Service Team 
 
 @endcomponent

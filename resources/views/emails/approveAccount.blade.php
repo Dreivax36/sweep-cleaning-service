@@ -1,12 +1,12 @@
 @component('mail::message')
 
     # Hello {{$details['name']}},
-    {{ $details['title'] }} <br>
-    {{ $details['body'] }}<br>
+    {{ $details['title'] }} 
+    {{ $details['body'] }}
 
-    You can now avail our services. <br>
-    Thank you.<br>
-    Regards,<br>
+    You can now avail our services.
+    Thank you.
+    Regards,
     Sweep Cleaning Service Team 
 
 @endcomponent
