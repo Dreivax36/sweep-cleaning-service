@@ -57,10 +57,10 @@
                     Login
                 </button>
                 <br>
-                
+                <!--
                 <a class="register_link_btn" href="/auth/register"> 
                     I don't have an Account, Create New
-                </a> 
+                </a> -->
                 
             </form>
     </div>
