@@ -260,10 +260,10 @@
                                                 $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleaner->cleaner_id)->value('rate');
                                                 ?>
                                                 @if($total != null)
-                                                <br>
+                                        
                                                
                                             </li>
-                                            <div class="rating">
+                                            <div class="starRate">
                                                     <?php
                                                     for ($i = 1; $i <= 5; $i++) {
                                                         if ($total >= $i) {
@@ -293,10 +293,10 @@
                                                 $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
                                                 ?>
                                                 @if($review_id != null)
-                                                <br>
+                                                
                                                 
                                             </li>
-                                            <div class="rating">
+                                            <div class="starRate">
                                                     <?php
                                                     $total = Service_review::where('review_id', $review_id)->value('rate');
 

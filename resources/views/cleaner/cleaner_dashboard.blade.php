@@ -147,35 +147,35 @@ use App\Models\Event;
         
             <div class="row justify-content-center" id="report">
                 <!-- Reports -->
-                <div class="weekly_revenue">
-                    <h3 class="value">
+                <div class="weekly_revenue1">
+                    <h3 class="value1">
                         {{$pendingjobs}}
                     </h3>
-                    <p class="report_title">
+                    <p class="report_title1">
                         Pending Jobs
                     </p>
                 </div>
-                <div class="weekly_revenue">
-                    <h3 class="value">
+                <div class="weekly_revenue1">
+                    <h3 class="value1">
                        {{$canceljobs}}
                     </h3>
-                    <p class="report_title">
+                    <p class="report_title1">
                         Cancelled Jobs
                     </p>
                 </div>
-                <div class="weekly_revenue">
-                    <h3 class="value">
+                <div class="weekly_revenue1">
+                    <h3 class="value1">
                         {{$totaljobs}}
                     </h3>
-                    <p class="report_title">
+                    <p class="report_title1">
                     Job Commissioned
                     </p>
                 </div>
-                <div class="weekly_revenue">
-                    <h3 class="value">
+                <div class="weekly_revenue1">
+                    <h3 class="value1">
                     {{ number_format((float)$totalSalary, 2, '.', '')}} php
                     </h3>
-                    <p class="report_title">
+                    <p class="report_title1">
                     Total Earned Salary
                     </p>
                 </div>
