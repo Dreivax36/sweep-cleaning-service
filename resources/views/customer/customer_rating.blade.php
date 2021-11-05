@@ -71,7 +71,7 @@
         <br>
         <div class="input-div">
             <h5 class="title2">Would you like to share more?</h5>
-            <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="service_comment" placeholder="Message" value="{{ old('message') }}"></textarea>
+            <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="service_comment" placeholder="Message" value="{{ old('message') }}" required></textarea>
             <span class="text-danger">
                 @error('message'){{ $message }} @enderror
             </span>
@@ -105,7 +105,7 @@
             <br>
             <br>
             <h5 class="title2">Would you like to share more?</h5>
-            <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="cleaner_comment[]" placeholder="Message" value="{{ old('message') }}"></textarea>
+            <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="cleaner_comment[]" placeholder="Message" value="{{ old('message') }}" required></textarea>
             <span class="text-danger">
                 @error('message'){{ $message }} @enderror
             </span>

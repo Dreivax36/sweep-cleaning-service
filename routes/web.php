@@ -60,6 +60,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/admin_payroll',[MainController::class, 'admin_payroll'])->name('admin_payroll'); 
     Route::get('/admin_payroll_cleaner',[MainController::class, 'admin_payroll_cleaner'])->name('admin_payroll_cleaner'); 
     Route::get('/admin_payroll_employee',[MainController::class, 'admin_payroll_employee'])->name('admin_payroll_employee'); 
+    Route::get('/admin_reports',[MainController::class, 'admin_reports'])->name('admin_reports'); 
+    Route::get('/admin_user_employees',[MainController::class, 'admin_user_employees'])->name('admin_user_employees'); 
 
     //Route for Customer Pages
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');
@@ -99,6 +101,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/checkout',[BookingController::class, 'checkout'])->name('checkout');
     Route::get('/onsitePayment',[BookingController::class, 'onsitePayment'])->name('onsitePayment');
     Route::post('/onsitePayment',[BookingController::class, 'onsitePayment'])->name('onsitePayment');
+    Route::get('/gcash',[BookingController::class, 'gcash'])->name('gcash');
+    Route::post('/gcash',[BookingController::class, 'gcash'])->name('gcash');
+    Route::post('/paid',[BookingController::class, 'paid'])->name('paid');
     
     //Payment Paypal
     Route::get('paypal/checkout/{booking}', [PayPalController::class, 'getExpressCheckout'])->name('paypal.checkout');
@@ -122,7 +127,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/updateStatus', [BookingController::class, 'updateStatus'])->name('updateStatus');
     Route::post('/cleaner',[BookingController::class, 'cleaner'])->name('cleaner');
 
-  
+    Route::post('/Webhook',[BookingController::class, 'Webhook'])->name('Webhook');
+
     //Route::get('cleaner/cleaner_dashboard', [FullCalendarController::class, 'getEvents']);
 
     //Service Module
@@ -141,6 +147,11 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     Route::get('/contactUs',[MainController::class, 'contactUs'])->name('contactUs');
     Route::post('/contactUs',[MainController::class, 'contactUs'])->name('contactUs');
+
+    Route::get('/employee/home',[MainController::class, 'home'])->name('employee.home');
+
+    Route::get('/employee',[MainController::class, 'employee'])->name('employee');
+
 });
 
 Route::get('/cleaner/cleaner_welcome', function () {
@@ -170,6 +181,11 @@ Route::get('/contact_us', function () {
 Route::get('/faqs', function () {
     return view('sweep_faqs');
 });
+
+Route::get('/sanitation', function () {
+    return view('sanitation');
+});
+
 
 Route::get('/index', function () {
     return view('index');

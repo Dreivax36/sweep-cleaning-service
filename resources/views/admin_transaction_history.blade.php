@@ -39,6 +39,7 @@
                         <a class="nav-link" href="admin_transaction" role="button"id="active">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
+                        <a class="nav-link" href="admin_reports" role="button">Reports</a>
                         <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();

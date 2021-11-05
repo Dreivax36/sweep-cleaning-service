@@ -170,7 +170,7 @@ use App\Models\Cleaner_review;
                         {{$totaljobs}}
                     </h3>
                     <p class="report_title">
-                    Job Commissioned
+                    Commissioned
                     </p>
                 </div>
                 <div class="weekly_revenue">
@@ -178,7 +178,7 @@ use App\Models\Cleaner_review;
                     {{number_format((float)$rating, 0, '.', '')}} / 5
                     </h3>
                     <p class="report_title">
-                    Performance Rating
+                    Performance
                     </p>
                 </div>
                 <div class="weekly_revenue">
@@ -186,7 +186,7 @@ use App\Models\Cleaner_review;
                     ₱ {{ number_format((float)$totalSalary, 2, '.', '')}}
                     </h3>
                     <p class="report_title">
-                    Total Earned Salary
+                    Total Salary
                     </p>
                 </div>
             </div> <!-- End of Reports -->
@@ -210,7 +210,7 @@ use App\Models\Cleaner_review;
                     var calendar = $('#calendar').fullCalendar({
                         editable: false,
                         header: {
-                            left: 'prev,next today',
+                            left: 'prev,next',
                             center: 'title',
                             right: 'month, agendaWeek, agendaDay'
                         },

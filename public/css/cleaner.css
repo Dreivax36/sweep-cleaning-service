@@ -98,6 +98,20 @@
     max-width: 1000px;
 }
 
+.weekly_revenue {
+    height: 100px;
+    width: 180px;
+    background-color: #a7e9fa;
+    border-left: 10px solid #2B81B0;
+    border-right: 1px solid #2B81B0;
+    border-bottom: 1px solid #2B81B0;
+    border-top: 1px solid #2B81B0;
+    padding: 15px;
+    border-radius: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
 @media (max-width: 800px){
     .col-md-3 {
         flex: 0 0 100%;
@@ -133,15 +147,16 @@
     }
     .weekly_revenue {
         height: 100px;
-        width: 180px;
-        padding: 15px;
-        margin: 10px;
+        width: 80%;
         background-color: #a7e9fa;
         border-left: 10px solid #2B81B0;
         border-right: 1px solid #2B81B0;
         border-bottom: 1px solid #2B81B0;
         border-top: 1px solid #2B81B0;
-
+        padding: 15px;
+        border-radius: 20px;
+        margin: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -169,9 +184,7 @@
 }
 
 #report {
-    margin-left: 80px;
-    margin-top: 60px;
-    margin-bottom: 50px;
+    margin:40px 10px;
     color: #000000;
 }
 .value {
@@ -188,18 +201,7 @@
     float: left;
 }
 
-.weekly_revenue {
-    height: 100px;
-    width: 180px;
-    background-color: #a7e9fa;
-    border-left: 10px solid #2B81B0;
-    border-right: 1px solid #2B81B0;
-    border-bottom: 1px solid #2B81B0;
-    border-top: 1px solid #2B81B0;
-    padding: 15px;
-    margin: 10px;
-    /* margin-right: 50px; */
-}
+
 
 .transaction_id {
     font-size: 13px;

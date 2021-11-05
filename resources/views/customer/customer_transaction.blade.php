@@ -16,6 +16,7 @@
 
 <head>
     <link href="{{ asset('css/customer_trans.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/gcash.css') }}" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -128,9 +129,14 @@
                                     <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
                                         DETAILS
                                     </button>
-                                    <!-- Show if status is pending and mode of payment is paypal and not yet paid -->
+                                    <!-- Show if status is pending and mode of  payment is paypal and not yet paid -->
                                     @if($value->status == "Pending" && ($value->mode_of_payment == 'Paypal' && $value->is_paid == false))
                                     <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('customer_pay', $value->booking_id) }}'">
+                                        Pay
+                                    </button>
+                                    @endif
+                                    @if($value->status == "Pending" && ($value->mode_of_payment == 'G-cash' && $value->is_paid == false))
+                                    <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#gcash-{{ $value->booking_id }}">
                                         Pay
                                     </button>
                                     @endif
@@ -248,6 +254,61 @@
                         </div>
                     </div>
 
+                    <!-- Gcash Payment -->
+                    <div class="modal fade modal-cont" id="gcash-{{ $value->booking_id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content services_modal_content">
+                                        <div class="modal-header services_modal_header">
+                                            <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
+                                            <div>
+                                                <button type="button" class="close-mobile" data-dismiss="modal">
+                                                    <i class="fas fa-arrow-to-left"></i>Back
+                                                </button>
+                                                <h4 class="modal_customer_services_title">
+                                                {{ $data->service_name}}
+                                                </h4>
+                                                <h6 class="customer_services_sub_1">
+                                                    Gcash Payment
+                                                </h6>
+
+                                            </div>
+                                        </div>
+                                        <form action="{{ route('gcash') }}" method="post" >
+                                        @if(Session::get('success-cleaner'))
+                                            <div class="alert alert-success">
+                                                {{ Session::get('success') }}
+                                            </div>
+                                        @endif
+
+                                        @if(Session::get('fail'))
+                                            <div class="alert alert-danger">
+                                                {{ Session::get('fail') }}
+                                            </div>
+                                        @endif
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="gcashqr">
+                                                <h6>Scan the QR Code below using your GCash App</h6>
+                                                <img src="/images/gcashqr.png" class="img-gcash">
+                                            </div>
+                                            <input type="hidden" name="amount" value="{{$price_data->price}}" >
+                                            <div class="services_modal_body_1_con">
+                                                <h5>Transaction ID:</h5>
+                                                <p>Please input the Transaction ID of the GCash Payment Below</p>
+                                                <input type="text" class="form-control input" name="transaction_id" placeholder="Transaction ID" value="">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer services_modal_footer">
+                                            <button type="submit" class="btn btn-block btn-primary book_now_btn">
+                                                CONFIRM
+                                            </button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                
                     <!-- Modal for Cancel transaction -->
                     <div class="modal fade" id="canceltransaction-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -382,7 +443,7 @@
                                         @csrf
                                         <input type="hidden" name="customer_id" value="{{$value->customer_id}}">           
                                         <div class="form-group">
-                                            <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address') }}">
+                                            <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address') }}" required>
                                             <span class="text-danger">@error('address'){{ $message }} @enderror</span>
                                         </div>
                                 </div>
@@ -438,12 +499,12 @@
                                     <label for="appt">
                                         Date:
                                     </label>
-                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
+                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control" required>
                                     <br>
                                     <label for="appt" class="place-type">
                                         Time:
                                     </label>
-                                    <input class="timepicker form-control" type="text" name="schedule_time" >
+                                    <input class="timepicker form-control" type="text" name="schedule_time" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 

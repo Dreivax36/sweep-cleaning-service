@@ -95,19 +95,19 @@
                             @csrf
                             <input type="hidden" class="form-control w-100 add_service_form" id="user_id" name="user_id" value="{{$LoggedUserInfo['user_id']}}">    
                             <div class="form-group">
-                                <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ old('full_name',$LoggedUserInfo['full_name']) }}">
+                                <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ $LoggedUserInfo['full_name'] }}" required>
                                 <span class="text-danger">
                                     @error('full_name'){{ $message }} @enderror
                                 </span>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control w-100 add_service_form" id="email" name="email" placeholder="Email" value="{{ old('email',$LoggedUserInfo['email']) }}">
+                                <input type="text" class="form-control w-100 add_service_form" id="email" name="email" placeholder="Email" value="{{ $LoggedUserInfo['email'] }}" required>
                                 <span class="text-danger">
                                     @error('email'){{ $message }} @enderror
                                 </span>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control w-100 add_service_form" id="contact_number" name="contact_number" placeholder="Contact Number" value="{{ old('contact_number',$LoggedUserInfo['contact_number']) }}">
+                                <input type="text" class="form-control w-100 add_service_form" id="contact_number" name="contact_number" placeholder="Contact Number" value="{{ $LoggedUserInfo['contact_number'] }}" required>
                                 <span class="text-danger">
                                     @error('contact_number'){{ $message }} @enderror
                                 </span>
@@ -115,7 +115,7 @@
                             @foreach($address_data as $key => $value)
                             <div class="form-group">
                             <input type="hidden" id="address" name="address_id[]"  value="{{ old('address',$value->address_id) }}">
-                                <input type="text" class="form-control w-100 add_service_form" id="address" name="address[]" placeholder="Address" value="{{ old('address',$value->address) }}">
+                                <input type="text" class="form-control w-100 add_service_form" id="address" name="address[]" placeholder="Address" value="{{ $value->address }}" required>
                                 <span class="text-danger">
                                     @error('address'){{ $message }} @enderror
                                 </span>
@@ -124,7 +124,7 @@
                         </form>
                     </div>
                     <div class="modal-footer service_modal_header">
-                        <button form="update" type="submit" class="btn btn-primary update_btn" class="close-modal">
+                        <button form="update" type="submit" class="btn btn-primary update_btn">
                             UPDATE
                         </button>
                         <button type="button" class="btn btn-danger" class="close" data-dismiss="modal">

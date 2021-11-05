@@ -251,7 +251,7 @@
                                                 <div class="place">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="On-site">
+                                                            <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="On-site" checked>
                                                             On-site
                                                         </label>
                                                     </div>
@@ -259,6 +259,12 @@
                                                         <label class="form-check-label">
                                                         <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="Paypal" >
                                                             Paypal 
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="G-cash" >
+                                                            G-cash
                                                         </label>
                                                     </div>
                                                 </div>
@@ -269,12 +275,12 @@
                                                     <label for="appt">
                                                         Date:
                                                     </label>
-                                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
+                                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control" required>
                                                     <br>
                                                     <label for="appt">
                                                         Time:
                                                     </label>
-                                                    <input class="timepicker form-control" type="text" name="schedule_time" >
+                                                    <input class="timepicker form-control" type="text" name="schedule_time" required>
                                                 </div>
                                             </div>
                                         </div>

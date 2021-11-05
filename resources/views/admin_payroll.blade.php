@@ -31,6 +31,7 @@
                         <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button" >User</a>
                         <a class="nav-link" href="admin_payroll" role="button" id="active">Payroll</a>
+                        <a class="nav-link" href="admin_reports" role="button">Reports</a>
                         <!-- Notification -->
                         <li class="nav-item dropdown" id="admin">
                             <?php

@@ -4,13 +4,14 @@ body {
     font-family: sans-serif;
     background-color: #EDF1F8;
     overflow-x: hidden;
-    
-
 }
 #active {
     color: #FFB703;
 }
+.head{
+    align-items: center;
 
+}
 /* Admin Search Bar */
 
 .search_con {
@@ -269,145 +270,6 @@ body {
 }
 
 
-/* Admin Dashboard */
-
-.col_dashboard_main {
-    background-color: #FFFFFF;
-}
-.col-dashboard {
-    margin: 40px;
-    background-color: #EDF1F8;
-    height: 100%;
-    width: 300px;
-}
-.dashboard_title {
-    margin-top: 50px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-left: 50px;
-    font-weight: bolder;
-    font-size: 20px;
-}
-.active_services_con {
-    height: 100%;
-    width: 100%;
-    margin: 15px;;
-    background-color: rgba(255, 183, 3, .5);
-    border-left: 15px solid #FFB703;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-.service_name {
-    font-size: 20px;
-    font-weight: bolder;
-    margin-top: auto;
-    margin-bottom: auto;
-    width: 100%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-.transaction_id {
-    font-size: 13px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-}
-.customer_name {
-    font-size: 15px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-.arrow_right_con {
-    width: 100%;
-}
-.right {
-    display: inline-block;
-    width: 2.2em;
-    height: 2.2em;
-    border: 4px solid #f58c00;
-    border-radius: 50%;
-}
-.right:after {
-    content: '';
-    display: inline-block;
-    margin-top: 0.30em;
-    margin-left: 0.2em;
-    width: 1em;
-    height: 1em;
-    border-top: 0.2em solid #f58c00;
-    border-right: 0.2em solid #f58c00;
-    -moz-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-#report {
-    margin-left: 80px;
-    margin-top: 60px;
-    margin-bottom: 50px;
-    color: #000000;
-}
-.daily_revenue{
-    height: 100px;
-    width: 180px;
-    background-color: #ffcf8f;
-    border-left: 10px solid #f58c00;
-    border-bottom: 1px solid #f58c00;
-    border-top: 1px solid #f58c00;
-    border-right: 1px solid #f58c00;
-    padding: 13px;
-    margin-right: 50px;
-}
-.weekly_revenue{
-    height: 100px;
-    width: 180px;
-    background-color: #ffdd42;
-    border-left: 10px solid #ffae42;
-    border-bottom: 1px solid #ffae42;
-    border-top: 1px solid #ffae42;
-    border-right: 1px solid #ffae42;
-    padding: 13px;
-    margin-right: 50px;
-}
-.sweep_user{
-    height: 100px;
-    width: 180px;
-    background-color: #42c2ff;
-    border-left: 10px solid #0069f5;
-    border-bottom: 1px solid #0069f5;
-    border-top: 1px solid #0069f5;
-    border-right: 1px solid #0069f5;
-    padding: 13px;
-    margin-right: 50px;
-}
-.sweep_cleaner{
-    height: 100px;
-    width: 180px;
-    background-color: #ffdceb;
-    border-left: 10px solid #ff4393;
-    border-bottom: 1px solid #ff4393;
-    border-top: 1px solid #ff4393;
-    border-right: 1px solid #ff4393;
-    padding: 13px;
-    margin-right: 50px;
-}
-.value {
-    font-size: 25px;
-    font-weight: bold;
-    float: right;
-    text-align: center;
-    padding: 15px;
-}
-.value1 {
-    font-size: 25px;
-    font-weight: bold;
-    float: right;
-    padding: 4px;
-}
-.report_title {
-    font-size: 18px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: lighter;
-}
-#daily_transaction {
-    margin-left: 30px;
-}
 
 
 
@@ -535,7 +397,6 @@ body {
 .view_btn:focus {
     outline: none;
 }
-                                                        
 
 
 /* Admin Services Page */
@@ -558,13 +419,31 @@ body {
     font-size: 22px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.service-card{
+    width: 25rem; 
+    height: 20rem; 
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.card-footer:last-child{
+    border-radius: 0px 0px 20px 20px;
+}
+
+.service-header{
+    margin: 20px;
+}
+.head{
+    align-items: center;
+    margin: 40px;
+}
 .modal_service_title{
     font-weight: bold;
     font-size: 30px;
     margin-left: 10px;
 }
 .pricing_title {
-    margin-top: 50px;
     font-weight: bold;
     font-size: 18px;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -586,11 +465,9 @@ body {
     margin-top: 30px;
 }
 .add_service_form {
-    border: none;
     border-bottom: 2px solid #CCCCCC;
     outline: none;
-    margin-top: 25px;
-    width: 250px;
+    width: 100%;
     padding: 3px;
 }
 .services_con, 
@@ -662,7 +539,6 @@ body {
     font-size: 25px;
 }
 .view_details_btn {
-    width:300px;
     background-color: #BEE7FD;
     border: #BEE7FD;
     color: black;
@@ -676,9 +552,7 @@ body {
     font-size: 15px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-.price {
-    margin-top: 25px;
-}
+
 .update_btn {
     background-color: #BEE7FD;
     border: #BEE7FD;
@@ -897,7 +771,6 @@ body {
     margin:0 auto;
     width:100%;
     height:auto;
-    overflow:hidden;
     position: relative;
     bottom: 0px;
     padding: .75%;
@@ -907,7 +780,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Roboto';
     color: #0069f5;
 }
 .modal-body{

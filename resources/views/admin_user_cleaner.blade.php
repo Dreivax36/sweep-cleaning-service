@@ -31,6 +31,7 @@
                         <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button" id="active">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
+                        <a class="nav-link" href="admin_reports" role="button">Reports</a>
                         <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
@@ -96,6 +97,12 @@
         </a>
         <a class="user_type_btn_cleaner active_sub" href="admin_user_cleaner">
             CLEANER 
+            <p class="total_value">
+            ({{ $cleaner_count }})
+            </p>
+        </a>
+        <a class="user_type_btn_cleaner" href="admin_user_employees">
+            EMPLOYEES
             <p class="total_value">
             ({{ $cleaner_count }})
             </p>

@@ -43,36 +43,51 @@
 </head>
 
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brandname" href="{{ url('/') }}">
-                    SWEEP
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
+                SWEEP
+            </a>
+            <!-- Notification -->
+            <ul class="navbar-nav mx-auto">
+                <a id="home" class="nav-link active" href="/" role="button">Home</a>
+                <a id="services" class="nav-link" href="services" role="button">Services</a>
+                <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
+                <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
+                <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
+            </ul>
+            <ul class="navbar-nav login-web d-flex">
+                <!-- Authentication Links -->
+                @if (Route::has('customer.customer_login'))
+                <a class="btn login_btn-top" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
+                @endif
+            </ul>
+            <!-- Mobile -->
+            <ul class="mobile-nav sticky-bottom">
+                <p class="login-text">Cheers to a cleaner lifestyle!</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <ul class="navbar-nav d-flex">
+                            <!-- Authentication Links -->
+                            @if (Route::has('customer.customer_login'))
+                            <a class="btn login_btn" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
+                            @endif
+                        </ul>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Center Of Navbar -->
-                    <ul class="navbar-nav mx-auto">
-                        <a id="home" class="nav-link active" href="/" role="button">Home</a>
-                        <a id="services" class="nav-link" href="services" role="button">Services</a>
-                        <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
-                        <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                        <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
-                    </ul>
-
-                    <ul class="navbar-nav d-flex">
-                        <!-- Authentication Links -->
-                        @if (Route::has('customer.customer_login'))
-                        <a class="btn login_btn" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
-                        @endif
-                    </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="navbar-nav d-flex">
+                            <!-- Authentication Links -->
+                            @if (Route::has('customer.customer_login'))
+                            <a class="btn reg_btn" href="{{ route('customer.customer_register') }}">{{ __('Register') }}</a>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </div>
+            </ul>
+        </div>
+    </nav>
+
     <div class="banner-container">
         <div class="banner">
             <div class="text">
@@ -116,7 +131,6 @@
     </div>
 
 
-    <!-- has some bugs -->
     <div class="more-info">
         <div class="row1">
             <div class="foryou">
@@ -141,7 +155,6 @@
             </div>
         </div>
     </div>
-    <!-- emd has some bugs -->
 
     <div class="faqs_con">
         <h2 class="faqs_title">
@@ -235,66 +248,127 @@
     </div>
 
     <div class="mobile-bg">
-        <div class="row justify-content-center">
-            <div class="recommendation">
-                <div class="slider">
-                    <div id="bannerSlides" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="carousel-container1">
-                                    <div class="image">
-                                        <img src="images/home/home_header.png" class="img-fluid img">
-                                    </div>
-                                    <div class="text">
-                                        <h1>The Road to Cleanliness has never been easier.</h1>
-                                        <p>Making your comfort zones squeaky clean one step at a time.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-container1">
-                                    <div class="image">
-                                        <img src="images/img1.png" class="img-fluid img1">
-                                    </div>
-                                    <div class="text">
-                                        <h1>We're all about cleanliness and convenience.</h1>
-                                        <p>Save yourself the hassle by booking cleaning services. Our goal is to to make sure everyone would live and work in a clean, safe, and enjoyable environment.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <div class="carousel-container1">
-                                    <div class="image">
-                                        <img src="images/img2.png" class="img-fluid img">
-                                    </div>
-                                    <div class="text">
-                                        <h1>Longing for Cleanliness? Easy.</h1>
-                                        <p>Sweep provides quality cleaning and sanitation services ready for you to avail.</p>
+        <section>
+            <div class="slider">
+                <div id="bannerSlides" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="banner" style="background-image: url('/images/home/homeheader.jpg')">
+                                <div class="carousel-container">
+                                    <div class="caption">
+                                        <h1 class="text black">Your BEST Companion towards Cleanliness is here!</h1>
+                                        <p class="text">Making your comfort zones squeaky clean one step at a time.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <ol class="carousel-indicators indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                        </ol>
+                        <div class="carousel-item">
+                            <div class="banner" style="background-image:  url('/images/home/headhome.jpg')">
+                                <div class="carousel-container">
+                                    <div class="caption">
+                                        <h1 class="text black">Upholstery Cleaning</h1>
+                                        <p class="text">Concentrating on cleaning your sofas, pillows, and mattresses in order to eliminate accumulated dust and debris and restore their original appearance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="banner" style="background-image: url('/images/home/deep_cleaning.jpg')">
+                                <div class="carousel-container">
+                                    <div class="caption">
+                                        <h1 class="text black">Deep Cleaning</h1>
+                                        <p class="text"> A deeper dive into a clean environment, this service includes deep cleaning, bedroom organization, simple upholstery cleaning and simple disinfection.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="recommendation">
+            <div class="recom_title">
+                <h3 class="title1 text">Our Recommendations</h3>
+            </div>
+            <div class="slider1">
+                <div class="slider-cont">
+                    <div class="recom-service">
+                        <div class="card reco-service1">
+                            <div class="services">
+                                <h5 class="for-you2">Good for a Weekly Service</h5>
+                                <h2 class="title2">Light Home Cleaning</h2>
+                                <p class="for-you-text">
+                                    This service will ensure that your home is clear of dust, filth, and
+                                    debris. Additionally, be virus and bacteria-free. Daily/weekly service is recommended.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recom-service">
+                        <div class="card reco-service">
+                            <div class="services">
+                                <h5 class="for-you2">Recommended for Monthly</h5>
+                                <h2 class="title2">Deep Home Cleaning</h2>
+                                <p class="for-you-text">A deeper dive into maintaining a clean environment. This focuses all attention to every nook and crany. Makes sure that your space is clean and safe.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recom-service">
+                        <div class="card reco-service1">
+                            <div class="services">
+                                <h5 class="for-you2">Good for Daily/Weekly Service</h5>
+                                <h2 class="title2">Maid for a Day Service</h2>
+                                <p class="for-you-text">
+                                    This service will provide a worry-free day in the house by having a maid take care of the essential household chores.
+                                    Four to eight hours a day with one to two maids.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="footer" class="get-started">
-            <div class="signup">
-                New to Sweep?
-                <a class="btn btn-primary signup_btn1" style="height: 35px; border-radius: 15px;" href="/customer/customer_register">{{ __('Sign Up') }}</a>
+        <div class="recommendation">
+            <div class="recom_title">
+                <h3 class="title1 text">Other Services</h3>
             </div>
-            <div class="login">
-                <a class="btn btn-link signup_btn1" href="/customer/customer_login">{{ __('Have an account? Login.') }}</a>
+            <div class="slider2">
+                <div class="d-flex slider-cont2">
+                    <a href="{{ url('/cleaning') }}" class="recom">
+                        <div class="card other">
+                            <div class="services">
+                                <h2 class="title3">Home Cleaning Services</h2>
+                                <p class="for-you-text">
+                                    Various Cleaning Services tailored for you Needs.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ url('/sanitation') }}" class="recom">
+                        <div class="card other">
+                            <div class="services">
+                                <h2 class="title3">Sanitation Services</h2>
+                                <p class="for-you-text">
+                                    Keeping you Safe and Protected from Viruses and Bacteria.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
 
+
+
+        <!-- Mobile -->
+        <div class="mobile-spacer">
+        </div>
     </div>
 
 </body>

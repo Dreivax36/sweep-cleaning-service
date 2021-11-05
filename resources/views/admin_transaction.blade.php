@@ -38,6 +38,7 @@
                         <a class="nav-link" href="admin_transaction" role="button" id="active">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
+                        <a class="nav-link" href="admin_reports" role="button">Reports</a>
                         <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
@@ -333,6 +334,11 @@
                                             NO AVAILABLE CLEANER
                                         </button>
                                     @endif
+                                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ( $value->mode_of_payment == 'G-cash' || $value->mode_of_payment == 'Paypal') && $pendingcount != $price_data->number_of_cleaner)
+                                        <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#paid-{{ $value->booking_id }}">
+                                            PAYMENT DETAILS
+                                        </button>
+                                    @endif
                                     @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
                                         <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                                             ASSIGN CLEANER
@@ -597,6 +603,58 @@
                                     </div>
                                 </div>
                                 </div>
+            <!-- Pay Modal -->
+            <div class="modal fade" id="paid-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">G-cash Payment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Form for Onsite Payment -->
+                            <form action="{{ route('paid') }}" method="post" >
+                                @if(Session::get('success-cleaner'))
+                                    <div class="alert alert-success">
+                                        {{ Session::get('success') }}
+                                    </div>
+                                @endif
+
+                                @if(Session::get('fail'))
+                                    <div class="alert alert-danger">
+                                        {{ Session::get('fail') }}
+                                    </div>
+                                @endif
+                                @csrf
+                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                <?php
+                                    $payment = Payment::where('booking_id', $value->booking_id )->get();
+                                ?>
+                                @foreach($payment as $payments)                                   
+                                <div class="form-group">
+                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="₱{{$payments->amount}}" readonly>
+                                    <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" class="form-control w-100 add_service_form" id="transaction_id" name="transaction_id" placeholder="{{$payments->transaction_id}}" readonly>
+                                    <span class="text-danger">@error('transaction_id'){{ $message }} @enderror</span>
+                                </div>
+                                @endforeach
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
+                                CANCEL
+                            </button>
+                            <button type="submit" class="btn btn-block btn-primary yes_btn" > 
+                                PAID
+                            </button>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+            </div>                 
                         <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">

@@ -130,8 +130,8 @@
                                         <h5 class="for-you2">Good for Daily/Weekly Service</h5>
                                         <h2 class="title2">Maid for a Day Service</h2>
                                         <p class="for-you-text">
-                                        This service will provide a worry-free day in the house by having a maid take care of the essential household chores.
-                                        Four to eight hours a day with one to two maids, depending on the size of the residence.
+                                            This service will provide a worry-free day in the house by having a maid take care of the essential household chores.
+                                            Four to eight hours a day with one to two maids, depending on the size of the residence.
                                         </p>
                                         <a class="btn btn-primary learn_srvbtn" href="{{ url('/customer/customer_services') }}">{{ __('Learn More') }}</a>
                                     </div>
@@ -154,12 +154,11 @@
             </div>
         </div>
     </div>
-    </div>
 
     <!-- Mobile -->
     <div class="mobile-spacer">
     </div>
-    
+
     <!-- Footer -->
     <div class="footer">
         <div class="sweep-title">

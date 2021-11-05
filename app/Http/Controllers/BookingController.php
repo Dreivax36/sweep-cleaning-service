@@ -435,9 +435,8 @@ class BookingController extends Controller
         $payments = new Payment();
         $payments->booking_id = $_GET['booking_id'];
         $payments->amount = $_GET['amount']; 
+        $payments->transaction_id = $_GET['paypal_id'];
         $checkout = $payments->save();
-        //Update the booking table
-        $checkout= Booking::Where('booking_id', $_GET['booking_id'] )->update(['is_paid' => true, 'paypal_id' => $_GET['paypal_id']]);
         //Add admin notification
         $notifications = new Notification();
         $notifications->message = 'Customer paid';
@@ -478,6 +477,56 @@ class BookingController extends Controller
         $onsitePayment = $payments->save();
         //Update the booking table
         $onsitePayment= Booking::Where('booking_id', $booking )->update(['is_paid' => true]);
+        //Add admin notification
+        $notifications = new Notification();
+        $notifications->message = 'Customer pay to the cleaner';
+        $notifications->booking_id = $booking;
+        $notifications->isRead = false;
+        $notifications->location = 'admin_transaction';
+        $onsitePayment = $notifications->save();
+
+        //Trigger pusher channel to notify the admin
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $messages = 'New Booking';
+        $data = ['messages' => $messages];
+        $pusher->trigger('my-channel', 'admin-notif', $data);
+
+        if($onsitePayment){
+           return back()->with('success-cleaner', 'Payment Successful');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+
+    function paid(Request $request){
+        $paid = Booking::Where('booking_id', $request->booking_id )->update(['is_paid' => true]);
+
+        if($paid){
+            return back()->with('success', 'Paid');
+         }
+         else {
+             return back()->with('fail','Something went wrong, try again later ');
+         }
+    }
+
+    function gcash(Request $request){
+        //Add new payment
+        $booking = $request->booking_id;
+        $payments = new Payment();
+        $payments->booking_id = $booking;
+        $payments->amount = $request->amount;
+        $payments->transaction_id = $request->transaction_id; 
+        $onsitePayment = $payments->save();
         //Add admin notification
         $notifications = new Notification();
         $notifications->message = 'Customer pay to the cleaner';
@@ -569,6 +618,30 @@ class BookingController extends Controller
          else {
              return back()->with('fail','Something went wrong, try again later ');
          }
+    }
+
+    public function Webhook()
+    {
+        $webhook = new \PayPal\Api\Webhook();
+
+        // Set webhook notification URL
+        $webhook->setUrl("https://f615ef32.ngrok.io");
+        
+        // Set webhooks to subscribe to
+        $webhookEventTypes = array();
+        $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
+          '{
+            "name":"PAYMENT.SALE.COMPLETED"
+          }'
+        );
+        
+        $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
+          '{
+            "name":"PAYMENT.SALE.DENIED"
+          }'
+        );
+        
+        $webhook->setEventTypes($webhookEventTypes);
     }
 
 }

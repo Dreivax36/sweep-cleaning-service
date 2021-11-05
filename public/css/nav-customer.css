@@ -40,12 +40,10 @@ body{
     text-decoration: none;
     color: #FFB703;
     font-weight: 600;
-    text-decoration: underline;
 }
 .navbar-light .navbar-nav .nav-link.active{
     color: #1A5184 ;
     font-weight:700;
-    text-decoration: underline;
 }
 
 .login_btn {
@@ -102,7 +100,6 @@ body{
     .nav-button.active, .fas-active{
         color: #1A5184 ;
         font-weight:700;
-        text-decoration: underline;
     }
 
     .dropdown{

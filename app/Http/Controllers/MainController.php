@@ -83,6 +83,12 @@ class MainController extends Controller
         }
         return redirect('/');
     }
+
+    function home(){
+        //Get the data of user logged in
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('employee.home', $data);
+    }
     //View Admin Dashboard Page
     function admin_dashboard(){
         //Get the data of user logged in
@@ -108,6 +114,16 @@ class MainController extends Controller
     function admin_payroll(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll', $data);
+    }
+
+    //View Admin User Employee Page
+    function admin_user_employees(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_user_employees', $data);
+    }
+    function admin_reports(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('admin_reports', $data);
     }
 
     /*function admin_payroll_employee(){
@@ -249,7 +265,7 @@ class MainController extends Controller
             'full_name'=>'required',
             'email'=>'required',
             'contact_number'=>'required|numeric|digits:11',
-            'address'=>'required',
+            'address[]'=>'required'
         ]);
         //Update User table
         $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);

@@ -1,0 +1,418 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #EDF1F8;
+    overflow-x: hidden;
+}
+#active {
+    color: #FFB703;
+}
+.head{
+    align-items: center;
+
+}
+
+/* Admin Dashboard */
+
+.col_dashboard_main {
+    background-color: #FFFFFF;
+}
+.col-dashboard {
+    margin: 40px;
+    background-color: #EDF1F8;
+    height: 100%;
+    width: 300px;
+}
+.dashboard_title {
+    margin-top: 50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-left: 50px;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.active_services_con {
+    height: 100%;
+    width: 100%;
+    margin: 15px;;
+    background-color: rgba(255, 183, 3, .5);
+    border-left: 15px solid #FFB703;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.service_name {
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.transaction_id {
+    font-size: 13px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+.customer_name {
+    font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.arrow_right_con {
+    width: 100%;
+}
+.right {
+    display: inline-block;
+    width: 2.2em;
+    height: 2.2em;
+    border: 4px solid #f58c00;
+    border-radius: 50%;
+}
+.right:after {
+    content: '';
+    display: inline-block;
+    margin-top: 0.30em;
+    margin-left: 0.2em;
+    width: 1em;
+    height: 1em;
+    border-top: 0.2em solid #f58c00;
+    border-right: 0.2em solid #f58c00;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+#report {
+    margin: 40px 20px 0px 20px;
+    color: #000000;
+}
+.daily_revenue{
+    height: 100px;
+    width: 180px;
+    background-color: #ffcf8f;
+    border-left: 10px solid #f58c00;
+    border-bottom: 1px solid #f58c00;
+    border-top: 1px solid #f58c00;
+    border-right: 1px solid #f58c00;
+    padding: 13px;
+}
+.weekly_revenue{
+    height: 100px;
+    width: 180px;
+    background-color: #ffdd42;
+    border-left: 10px solid #ffae42;
+    border-bottom: 1px solid #ffae42;
+    border-top: 1px solid #ffae42;
+    border-right: 1px solid #ffae42;
+    padding: 13px;
+}
+.sweep_user{
+    height: 100px;
+    width: 180px;
+    background-color: #42c2ff;
+    border-left: 10px solid #0069f5;
+    border-bottom: 1px solid #0069f5;
+    border-top: 1px solid #0069f5;
+    border-right: 1px solid #0069f5;
+    padding: 13px;
+}
+.sweep_cleaner{
+    height: 100px;
+    width: 180px;
+    background-color: #ffdceb;
+    border-left: 10px solid #ff4393;
+    border-bottom: 1px solid #ff4393;
+    border-top: 1px solid #ff4393;
+    border-right: 1px solid #ff4393;
+    padding: 13px;
+}
+.value {
+    font-size: 25px;
+    font-weight: bold;
+    float: right;
+    text-align: center;
+    padding: 15px;
+}
+.value1 {
+    font-size: 25px;
+    font-weight: bold;
+    float: right;
+    padding: 4px;
+}
+.report_title {
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: lighter;
+}
+#daily_transaction {
+    margin-left: 30px;
+}
+
+.calendar_con{
+    margin-bottom: 30px;
+}
+
+.spacing{
+    margin: 0px 10px;
+}
+
+
+/* Responsiveness */
+
+@media (max-width: 991px){
+    header {
+        padding: 0 20px;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    
+    .cards_title {
+        padding-left: 5%;
+        padding-top: 30%;
+    }
+    .services_con, 
+    .transaction_con, 
+    .trans_his_con {
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
+    .add_service_con {
+        padding-left: 10%;
+        margin-left: 230px;
+    }
+    .card_services, 
+    .card_transaction {
+        margin-left: 20px;
+    }
+}
+
+
+/* lost
+
+.trans-history-btn {
+    width: 200px;
+    background-color: #FB8500;
+    border: #FB8500;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    border-radius: 10px; 
+}
+.trans-history {
+    padding-left: 695px;
+}
+.trans-view-details-btn {
+    width:300px;
+    background-color: #BEE7FD;
+    border: #BEE7FD;
+    color: black;
+    font-weight: bold;
+    border-radius: 15px; 
+    font-size: 13px;
+}
+
+*/
+
+.stars {
+    color: #ff7501;
+    font-size: 1.2em;
+}
+.sweep-title{
+    font-size: clamp(15px, 4vw, 17px);
+    font-weight:400;
+    color: #F7f7f7;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.footer{
+    background-color: #061835;
+    padding: .75%;
+}
+
+#footer {
+    background-color: #061835;
+    margin:0 auto;
+    width:100%;
+    position: relative;
+    bottom: 0px;
+    padding: .75%;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+    font-family: 'Roboto';
+    color: #0069f5;
+}
+.modal-body{
+    padding: 40px;
+    max-height: 75vh;
+    overflow-y: auto;
+}
+.upload_label{
+    margin: 0px;
+}
+.modal-header{
+    background-image: url(/images/home/header.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 .55rem .5rem rgba(0,0,0,.07)!important;
+    border-radius: 0.75rem;
+}
+ .select2-hidden-accessible {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important
+}
+
+.select2-container--default .select2-selection--single,
+.select2-selection .select2-selection--single {
+    border: 1px solid #d2d6de;
+    border-radius: 0;
+    padding: 6px 12px;
+    height: 34px
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px
+}
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    user-select: none;
+    -webkit-user-select: none
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-right: 10px
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    margin-top: -3px
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 28px
+}
+
+.select2-container--default .select2-selection--single,
+.select2-selection .select2-selection--single {
+    border: 1px solid #d2d6de;
+    border-radius: 0 !important;
+    padding: 6px 12px;
+    height: 40px !important
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 6px !important;
+    right: 1px;
+    width: 20px
+}
+
+.notification {         
+    max-height: 400px;
+    overflow-y: auto;
+}
+.read {
+    background-color:#f2f3f4; 
+    border:1px solid #dcdcdc;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 5px;
+    margin: 7px;
+}
+.cleaner {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.banner-container{
+    align-items: center;
+    font-size: 30px;
+    background-size: cover;
+}
+
+.banner{
+    background-color: #F7f7f7;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-container .banner .image{
+    flex:1 1 250px;
+    padding: 35px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.banner-container .banner .image img{
+    width: clamp(80%, 4vw, 90%);
+}
+
+.banner-container .banner .text{
+    flex:1 1 250px;
+    padding: clamp(60px, 4vw, 10%);
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    margin: 5px 0px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #34f234;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 60px;
+    text-align: center;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+.icon i.fa {
+    font-size: 30px;
+    color: #34f234;
+}
+
+.icon i.fa {
+    font-size: 30px;
+    color: #34f234;
+}
+
+.title {
+    margin: 5px 0px;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.description{
+    color: #222;
+    font-size: 15px;
+    padding: 5px;
+}
+
+.starRate{
+    margin-left: 30px;
+}

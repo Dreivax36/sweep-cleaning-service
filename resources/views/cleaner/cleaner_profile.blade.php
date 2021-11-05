@@ -96,31 +96,31 @@ use App\Models\Address;
 
                                 <input type="hidden" class="form-control w-100 add_service_form" id="user_id" name="user_id" value="{{$LoggedUserInfo['user_id']}}">
                                 <div class="form-group">
-                                    <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ old('full_name',$LoggedUserInfo['full_name']) }}">
+                                    <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ old('full_name',$LoggedUserInfo['full_name']) }}" required>
                                     <span class="text-danger">
                                         @error('full_name'){{ $message }} @enderror
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control w-100 add_service_form" id="email" name="email" placeholder="Email" value="{{ old('email',$LoggedUserInfo['email']) }}">
+                                    <input type="text" class="form-control w-100 add_service_form" id="email" name="email" placeholder="Email" value="{{ old('email',$LoggedUserInfo['email']) }}" required>
                                     <span class="text-danger">
                                         @error('email'){{ $message }} @enderror
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control w-100 add_service_form" id="contact_number" name="contact_number" placeholder="Contact Number" value="{{ old('contact_number',$LoggedUserInfo['contact_number']) }}">
+                                    <input type="text" class="form-control w-100 add_service_form" id="contact_number" name="contact_number" placeholder="Contact Number" value="{{ old('contact_number',$LoggedUserInfo['contact_number']) }}" required>
                                     <span class="text-danger">
                                         @error('contact_number'){{ $message }} @enderror
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address',$value->address) }}">
+                                    <input type="text" class="form-control w-100 add_service_form" id="address" name="address" placeholder="Address" value="{{ old('address',$value->address) }}" required>
                                     <span class="text-danger">
                                         @error('address'){{ $message }} @enderror
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control w-100 add_service_form" id="age" name="age" placeholder="Age" value="{{ old('age',$value->age) }}">
+                                    <input type="text" class="form-control w-100 add_service_form" id="age" name="age" placeholder="Age" value="{{ old('age',$value->age) }}" required>
                                     <span class="text-danger">
                                         @error('age'){{ $message }} @enderror
                                     </span>
