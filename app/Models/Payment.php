@@ -12,6 +12,6 @@ class Payment extends Model
     protected $primaryKey = 'payment_id';
 
     protected $fillable = [
-        'amount', 'booking_id'
+        'amount', 'booking_id', 'transaction_id'
     ];
 }

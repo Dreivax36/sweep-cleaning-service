@@ -106,7 +106,7 @@ use App\Models\Payment;
             <?php
                 $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * .30 as amount')
                 ->groupBy('month')
-                ->orderByRaw('min(created_at) desc')
+                ->orderByRaw('min(created_at) asc')
                 ->get();
             ?>
             <div class="row no-gutters">
@@ -224,9 +224,9 @@ use App\Models\Payment;
                 </div>
             </div>
         <?php
-            $customerCount = Booking::selectRaw('extract(month from created_at) as month, customer_id, count(customer_id) as customer')
-                ->groupBy('month', 'customer_id')
-                ->orderByRaw('min(created_at) desc')
+            $customerCount = Booking::selectRaw('extract(month from created_at) as month, count(customer_id) as customer')
+                ->groupBy('month')
+                ->orderByRaw('min(created_at) asc')
                 ->get();
         ?>
         <div class="card  mb-3" style="width: 40rem;">
@@ -381,10 +381,10 @@ use App\Models\Payment;
             <div class="row no-gutters">
                 <div class="card-body">
                     <div class="justify-content-center" style="height: 15rem; align-items:center; text-align: center;">
-                        <canvas id="avgWeeklyIncome"></canvas>
+                        <canvas id="avgRevenueperService"></canvas>
                         <script>
-                            const ctx = document.getElementById('avgWeeklyIncome').getContext('2d');
-                            const myChart = new Chart(ctx, {
+                            const ctx2 = document.getElementById('avgRevenueperService').getContext('2d');
+                            const myChart2 = new Chart(ctx2, {
                                 type: 'bar',
                                 data: {
                                     labels: [
@@ -404,6 +404,7 @@ use App\Models\Payment;
                                                         $price = Price::where('service_id', $id->service_id)->where('property_type', $booking->property_type)->value('price');
                                                         $serviceRevenue = $serviceRevenue + $price;
                                                     }  
+                                                    $serviceRevenue = $serviceRevenue * .30;    
                                             ?>
                                             '{{$serviceRevenue}}',
                                             @endforeach
@@ -453,7 +454,7 @@ use App\Models\Payment;
             </div>
         </div>
         <!-- Modal for details -->
-        <div class="modal fade" id="details-revenue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade" id="details-revenue" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content customer_trans_modal_content">
                         <div class="modal-header customer_trans_modal_header">
@@ -473,29 +474,28 @@ use App\Models\Payment;
                                     <tbody>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
-                                                Service
+                                                Services
                                             </th>
                                             <td scope="row" class="user_table_data">
                                                 Revenue
                                             </td>
                                         </tr>
-                                        @foreach($serviceName as $serviceName)
+                                        @foreach($serviceName as $name)
                                         <tr class="user_table_row">
                                             <th class="user_table_header">
-                                                {{$serviceName->service_name}}
+                                                {{$name->service_name}}
                                             </th>
                                             <td class="user_table_data">
-                                            @foreach($serviceName as $id)
                                             <?php
                                                 $serviceRevenue = 0;
-                                                $bookingID = Booking::where('service_id', $serviceName->service_id)->where('status', 'Completed')->get();
+                                                $bookingID = Booking::where('service_id', $name->service_id)->where('status', 'Completed')->get();
                                                     foreach($bookingID as $booking){
-                                                        $price = Price::where('service_id', $serviceName->service_id)->where('property_type', $booking->property_type)->value('price');
+                                                        $price = Price::where('service_id', $name->service_id)->where('property_type', $booking->property_type)->value('price');
                                                         $serviceRevenue = $serviceRevenue + $price;
                                                     }  
+                                                    $serviceRevenue = $serviceRevenue * .30;    
                                             ?>
-                                            {{$serviceRevenue}}
-                                            @endforeach
+                                            ₱ {{$serviceRevenue}}
                                             </td>
                                         </tr>    
                                         @endforeach
@@ -511,6 +511,7 @@ use App\Models\Payment;
                     </div>
                 </div>
             </div>
+
         
         <div class="card  mb-3" style="width: 30rem; height: 39rem;">
             <div class="card-header">
@@ -550,7 +551,7 @@ use App\Models\Payment;
                                                 @foreach($service as $id)
                                                     <?php
                                                         $requested = Booking::where('service_id', $id->service_id)->where('status', '!=', 'Cancelled')->count();
-                                                        $serviceRequested = ($requested / $totalRequested) * .100;
+                                                        $serviceRequested = ($requested / $totalRequested) * 100;
                                                     ?>
                                                     '{{$serviceRequested}}',
                                                 @endforeach
@@ -627,7 +628,7 @@ use App\Models\Payment;
                                             <td class="user_table_data">
                                             <?php
                                                 $requested = Booking::where('service_id', $serviceNames->service_id)->where('status', '!=', 'Cancelled')->count();
-                                                $serviceRequested = ($requested / $totalRequested) * .100;
+                                                $serviceRequested = ($requested / $totalRequested) * 100;
                                             ?>
                                                 '{{$serviceRequested}}',
                                             </td>
@@ -666,12 +667,14 @@ use App\Models\Payment;
                         $completed = Booking::where('status', 'Completed')->count();
                         $cancelled = Booking::where('status', 'Cancelled')->count();
                         $totalBook = $completed + $cancelled;
+                        $completed = ($completed / $totalBook) * 100;
+                        $cancelled = ($cancelled / $totalBook) * 100;
                     ?>
                     <div class="justify-content-center">
                         <canvas id="ratio"></canvas>
                         <script>
-                            var completed = <?php echo ($completed / $total) * .100; ?>;
-                            var cancelled = <?php echo ($cancelled / $total) * .100; ?>;
+                            var completed = <?php echo $completed; ?>;
+                            var cancelled = <?php echo $cancelled; ?>;
                             const ctx4 = document.getElementById('ratio').getContext('2d');
                             const myChart4 = new Chart(ctx4, {
                                 type: 'pie',

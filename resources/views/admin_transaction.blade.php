@@ -9,6 +9,7 @@
     use App\Models\Assigned_cleaner;
     use App\Models\Review;
     use App\Models\Notification;
+    use App\Models\Payment;
 ?>
 
 @extends('head_extention_admin') 
@@ -114,10 +115,9 @@
         @foreach($booking_data as $key => $value)
     <?php
         $service_data = Service::Where('service_id', $value->service_id )->get();
-        $customerid = $value->customer_id ;
-        $userId = Customer::Where('customer_id',$customerid )->value('user_id');
+        $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
         $user_data = User::Where('user_id', $userId )->get();
-        $address = Address::Where('customer_id', $customerid )->value('address');
+        $address = Address::Where('customer_id', $value->customer_id)->value('address');
     ?>
             <div class="column col_transaction" id="card-lists">
                 <div class="card card_transaction p-4">

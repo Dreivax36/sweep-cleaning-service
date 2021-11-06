@@ -185,7 +185,9 @@ Route::get('/faqs', function () {
 Route::get('/sanitation', function () {
     return view('sanitation');
 });
-
+Route::get('/cleaning', function () {
+    return view('cleaning');
+});
 
 Route::get('/index', function () {
     return view('index');
