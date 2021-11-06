@@ -224,7 +224,7 @@ use App\Models\Payment;
                 </div>
             </div>
         <?php
-            $customerCount = Booking::selectRaw('extract(month from created_at) as month, count(customer_id) as customer')
+            $customerCount = Booking::selectRaw('extract(month from created_at) as month')
                 ->groupBy('month')
                 ->orderByRaw('min(created_at) asc')
                 ->get();
@@ -263,7 +263,10 @@ use App\Models\Payment;
                                         label: 'Monthly Number of Customers',
                                         data: [0,
                                             @foreach($customerCount as $customer)
-                                                '{{$customer->customer}}',
+                                                <?php
+                                                    $countCustomer = Booking::whereraw('extract(month from created_at) =?', $customer->month)->count('customer_id');
+                                                ?>
+                                                '{{$countCustomer}}',
                                             @endforeach
                                         ],
                                         backgroundColor: [
