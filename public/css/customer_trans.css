@@ -4,12 +4,12 @@ body{
     
 }
 .customer_cards_title{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
 .body{
     min-height: 70vh;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .banner-container{
     align-items: center;
@@ -19,7 +19,7 @@ body{
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }

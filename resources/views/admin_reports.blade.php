@@ -14,7 +14,7 @@ use App\Models\Payment;
 
 @section('content')
 <title>
-    Admin Payroll Cleaner Page
+    Admin Reports Page
 </title>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_reports.css')}}">
@@ -104,7 +104,7 @@ use App\Models\Payment;
                 </div>
             </div>
             <?php
-                $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * .30 as amount')
+                $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * .05 as amount')
                 ->groupBy('month')
                 ->orderByRaw('min(created_at) asc')
                 ->get();
@@ -197,13 +197,13 @@ use App\Models\Payment;
                                             <th scope="row" class="user_table_header">
                                                 Month
                                             </th>
-                                            <td scope="row" class="user_table_data">
+                                            <td scope="row" class="user_table_header">
                                                 Income
                                             </td>
                                         </tr>
                                         @foreach($payments as $payment)
                                         <tr class="user_table_row">
-                                            <th class="user_table_header">
+                                            <th class="user_table_data">
                                                 {{date("F", mktime(0, 0, 0, $payment->month, 1))}}
                                             </th>
                                             <td class="user_table_data">
@@ -224,7 +224,7 @@ use App\Models\Payment;
                 </div>
             </div>
         <?php
-            $customerCount = Booking::selectRaw('extract(month from created_at) as month')
+            $customerCount = Booking::selectRaw('extract(month from created_at) as month, count(customer_id) as customer')
                 ->groupBy('month')
                 ->orderByRaw('min(created_at) asc')
                 ->get();
@@ -263,10 +263,7 @@ use App\Models\Payment;
                                         label: 'Monthly Number of Customers',
                                         data: [0,
                                             @foreach($customerCount as $customer)
-                                                <?php
-                                                    $countCustomer = Booking::whereraw('extract(month from created_at) =?', $customer->month)->count('customer_id');
-                                                ?>
-                                                '{{$countCustomer}}',
+                                                '{{$customer->customer}}',
                                             @endforeach
                                         ],
                                         backgroundColor: [
@@ -337,13 +334,13 @@ use App\Models\Payment;
                                             <th scope="row" class="user_table_header">
                                                 Month
                                             </th>
-                                            <td scope="row" class="user_table_data">
+                                            <td scope="row" class="user_table_header">
                                                 Customer
                                             </td>
                                         </tr>
                                         @foreach($customerCount as $customer)
                                         <tr class="user_table_row">
-                                            <th class="user_table_header">
+                                            <th class="user_table_data">
                                                 {{date("F", mktime(0, 0, 0, $customer->month, 1))}}
                                             </th>
                                             <td class="user_table_data">
@@ -407,7 +404,7 @@ use App\Models\Payment;
                                                         $price = Price::where('service_id', $id->service_id)->where('property_type', $booking->property_type)->value('price');
                                                         $serviceRevenue = $serviceRevenue + $price;
                                                     }  
-                                                    $serviceRevenue = $serviceRevenue * .30;    
+                                                    $serviceRevenue = $serviceRevenue * .05;    
                                             ?>
                                             '{{$serviceRevenue}}',
                                             @endforeach
@@ -479,13 +476,13 @@ use App\Models\Payment;
                                             <th scope="row" class="user_table_header">
                                                 Services
                                             </th>
-                                            <td scope="row" class="user_table_data">
+                                            <td scope="row" class="user_table_header">
                                                 Revenue
                                             </td>
                                         </tr>
                                         @foreach($serviceName as $name)
                                         <tr class="user_table_row">
-                                            <th class="user_table_header">
+                                            <th class="user_table_data">
                                                 {{$name->service_name}}
                                             </th>
                                             <td class="user_table_data">
@@ -496,9 +493,9 @@ use App\Models\Payment;
                                                         $price = Price::where('service_id', $name->service_id)->where('property_type', $booking->property_type)->value('price');
                                                         $serviceRevenue = $serviceRevenue + $price;
                                                     }  
-                                                    $serviceRevenue = $serviceRevenue * .30;    
+                                                    $serviceRevenue = $serviceRevenue * .05;    
                                             ?>
-                                            ₱ {{$serviceRevenue}}
+                                            ₱ {{ number_format((float)$serviceRevenue, 2, '.', '')}}
                                             </td>
                                         </tr>    
                                         @endforeach
@@ -619,13 +616,13 @@ use App\Models\Payment;
                                             <th scope="row" class="user_table_header">
                                                 Service
                                             </th>
-                                            <td scope="row" class="user_table_data">
+                                            <td scope="row" class="user_table_header">
                                                 Requested
                                             </td>
                                         </tr>
                                         @foreach($service as $serviceNames)
                                         <tr class="user_table_row">
-                                            <th class="user_table_header">
+                                            <th class="user_table_data">
                                                 {{$serviceNames->service_name}}
                                             </th>
                                             <td class="user_table_data">
@@ -633,7 +630,7 @@ use App\Models\Payment;
                                                 $requested = Booking::where('service_id', $serviceNames->service_id)->where('status', '!=', 'Cancelled')->count();
                                                 $serviceRequested = ($requested / $totalRequested) * 100;
                                             ?>
-                                                '{{$serviceRequested}}',
+                                                {{ number_format((float)$serviceRequested, 2, '.', '')}}
                                             </td>
                                         </tr>    
                                         @endforeach
@@ -681,7 +678,7 @@ use App\Models\Payment;
                             const ctx4 = document.getElementById('ratio').getContext('2d');
                             const myChart4 = new Chart(ctx4, {
                                 type: 'pie',
-                                data: {
+                                data: { 
                                     labels: ['Cancelled', 'Completed'],
                                     datasets: [{
                                         label: 'Cancellation Rate vs Completion Rate',
@@ -707,7 +704,7 @@ use App\Models\Payment;
             <div class="card-footer">
                 <div class="buttons">
                     <div class="byt float-right">
-                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employees">
+                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-ratio">
                             DETAILS
                         </button>
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
@@ -718,8 +715,54 @@ use App\Models\Payment;
             </div>
         </div>
     </div>
+    <!-- Modal for details -->
+    <div class="modal fade" id="details-ratio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content customer_trans_modal_content">
+                        <div class="modal-header customer_trans_modal_header">
+                            <div class="card_body">
+                                <h3 class="service_title_trans">
+                                Ratio of Completed Jobs and Cancelled Jobs
+                                </h3>
+                                <h6 class="booking_date">
+                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                </h6>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <div class="customer_trans_modal_body_1_con">
+                                <table class="table table-striped user_info_table">
+                                    <tbody>
+                                        <tr class="user_table_row">
+                                            <th scope="row" class="user_table_header">
+                                                Completed 
+                                            </th>
+                                            <td scope="row" class="user_table_header">
+                                                Cancelled
+                                            </td>
+                                        </tr>
+                                        <tr class="user_table_row">
+                                            <th class="user_table_data">
+                                            {{ number_format((float)$completed, 2, '.', '')}} %
+                                            </th>
+                                            <td class="user_table_data">
+                                            {{ number_format((float)$cancelled, 2, '.', '')}} %
+                                            </td>
+                                        </tr>    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer customer_trans_modal_footer">
+                            <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                                Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     <div class="row justify-content-center" id="status2">
-
 
         <!-- Count active transaction and completed, declined, and cancelled transaction -->
         <!-- Display when no transaction -->
@@ -892,9 +935,6 @@ use App\Models\Payment;
                 </div>
             </div>
         </div>
-        <?php
-
-        ?>
         <div class="card  mb-3" style="width: 40rem;">
             <div class="card-header">
                 <div class="card_body">
@@ -1269,4 +1309,3 @@ use App\Models\Payment;
         </div>
     </footer>
 </body>
-@endsection

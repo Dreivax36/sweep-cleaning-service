@@ -1,8 +1,9 @@
 <?php
-    use App\Models\Service;
-    use App\Models\Price;
-    use App\Models\Booking;
-    use App\Models\Service_review;
+
+use App\Models\Service;
+use App\Models\Price;
+use App\Models\Booking;
+use App\Models\Service_review;
 ?>
 
 @extends('customer/customer-nav/head_extention_customer-services')
@@ -20,8 +21,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
@@ -42,14 +43,14 @@
             <div class="service_title">
                 <h1 class="customer_cards_title">
                     SERVICES
-                </h1> 
+                </h1>
             </div>
         </div>
     </div>
-   <!-- Get all sweep services -->
+    <!-- Get all sweep services -->
     <div class="row justify-content-center">
         <?php
-            $service_data = Service::all();
+        $service_data = Service::all();
         ?>
         @foreach($service_data as $key => $value)
         <div class="card">
@@ -59,8 +60,8 @@
                 </div>
                 <div class="col-md-7 col-sm-7">
                     <?php
-                        $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $value->service_id)->value('price');
-                        $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $value->service_id)->value('price');
+                    $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $value->service_id)->value('price');
+                    $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $value->service_id)->value('price');
                     ?>
                     <div class="card-body">
                         <h3 class="card-title">
@@ -68,7 +69,10 @@
                         </h3>
                         <p class="description">
                             {{ \Illuminate\Support\Str::limit($value->service_description, 120, $end='...') }}
-                        </p>   
+                        </p>
+
+                    </div>
+                    <div class="card-footer">
                         <div class="row">
                             <div class="col">
                                 <div class="pricing">
@@ -111,16 +115,16 @@
                                         <div>
                                             <!-- Service Rating -->
                                             <?php
-                                                $total = Service_review::where('service_id', $value->service_id)->avg('rate');
-                                                $avg = (int)$total;
-                                                for ( $i = 1; $i <= 5; $i++ ) {
-                                                    if ( $avg >= $i ) {
-                                                        echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                                                    } else {
-                                                        echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
-                                                    }
+                                            $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                                            $avg = (int)$total;
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                if ($avg >= $i) {
+                                                    echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                } else {
+                                                    echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
                                                 }
-                                                echo '</span>';
+                                            }
+                                            echo '</span>';
                                             ?>
                                         </div>
                                     </div>
@@ -151,7 +155,7 @@
                                         <!-- Service Pricing  -->
                                         <div class="col-md-6">
                                             <?php
-                                                $price_data = Price::Where('service_id', $value->service_id)->get();
+                                            $price_data = Price::Where('service_id', $value->service_id)->get();
                                             ?>
                                             <div class="d-flex flex-column modal_body_2_con">
                                                 <ul class="customer_package_pricing">
@@ -163,7 +167,7 @@
                                                     <b>Cleaners:</b> {{ $data->number_of_cleaner }}
                                                     <br>
                                                     @endforeach
-                                                </ul>   
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +180,7 @@
                                     </button>
                                 </div>
                                 @endif
-                            </div> 
+                            </div>
                         </div>
                     </div>
 
@@ -217,7 +221,7 @@
                                         });
                                     </script>
                                     @endif
-                                                                    
+
                                     @csrf
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                     <input type="hidden" name="user_id" value="{{ $LoggedUserInfo['user_id'] }}">
@@ -251,105 +255,99 @@
                                                 <div class="place">
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                            <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="On-site" checked>
+                                                            <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="On-site">
                                                             On-site
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
                                                         <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="Paypal" >
-                                                            Paypal 
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <label class="form-check-label">
-                                                        <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="G-cash" >
-                                                            G-cash
+                                                            <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="Paypal">
+                                                            Paypal
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div> 
-                                            <div class="col-md-6">   
-                                                <h4 class="place-type"> Schedule: </h4>   
-                                                <div class="place"> 
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h4 class="place-type"> Schedule: </h4>
+                                                <div class="place">
                                                     <label for="appt">
                                                         Date:
                                                     </label>
-                                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control" required>
+                                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
                                                     <br>
                                                     <label for="appt">
                                                         Time:
                                                     </label>
-                                                    <input class="timepicker form-control" type="text" name="schedule_time" required>
+                                                    <input class="timepicker form-control" type="text" name="schedule_time">
                                                 </div>
                                             </div>
                                         </div>
-                                    <div class="modal-footer customer_services_modal_footer sticky-bottom">
-                                        <div class="byt float-right">
-                                            <button type="button" class="btn btn-danger cancel_btn" data-dismiss="modal">
-                                                Cancel
-                                            </button>
-                                            <button  type="submit" class="btn btn-primary confirm_btn"> 
-                                                Confirm 
-                                            </button>
-                                        </div>    
-                                    </div>
-                                </form> 
+                                        <div class="modal-footer customer_services_modal_footer sticky-bottom">
+                                            <div class="byt float-right">
+                                                <button type="button" class="btn btn-danger cancel_btn" data-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit" class="btn btn-primary confirm_btn">
+                                                    Confirm
+                                                </button>
+                                            </div>
+                                        </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>                       
+                </div>
             </div>
         </div>
     </div>
     @endforeach
-</div>
+    </div>
 
     <!-- Get all active booking   -->
     <?php
-        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
-        $items = array();
-        $count = 0;
+    $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
+    $items = array();
+    $count = 0;
     ?>
     @if ($scheduledate != null)
     @foreach($scheduledate as $schedule)
     <!-- Check Schedule date and time -->
     <?php
-        $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
-        if($scheduleCount == 2){
-            $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
-        }
+    $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
+    if ($scheduleCount == 2) {
+        $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
+    }
     ?>
     @endforeach
     <!-- Disable same schedule date and time have five bookings -->
-    <script >
+    <script>
         var fakeDisabledTimes = <?php echo json_encode($items); ?>;
-        $(document).ready(function(){
-            $( ".datepickerListAppointments" ).datepicker({
-                minDate:+1,
-                onSelect : function(dateText){
-                //should disable/enable timepicker times from here!
-                // parse selected date into moment object
-                var selDate = moment(dateText, 'MM/DD/YYYY');
-                // init array of disabled times
-                var disabledTimes = [];
-                // for each appoinment returned by the server
-                for(var i=0; i<fakeDisabledTimes.length; i++){
-                    // parse appoinment datetime into moment object
-                    var m = moment(fakeDisabledTimes[i]);
-                    // check if appointment is in the selected day
-                    if( selDate.isSame(m, 'day') ){
-                    // create a 30 minutes range of disabled time
-                    var entry = [
-                        m.format('h:mm a'),
-                        m.clone().add(90, 'm').format('h:mm a')
-                    ];
-                    // add the range to disabled times array
-                    disabledTimes.push(entry);
+        $(document).ready(function() {
+            $(".datepickerListAppointments").datepicker({
+                minDate: +1,
+                onSelect: function(dateText) {
+                    //should disable/enable timepicker times from here!
+                    // parse selected date into moment object
+                    var selDate = moment(dateText, 'MM/DD/YYYY');
+                    // init array of disabled times
+                    var disabledTimes = [];
+                    // for each appoinment returned by the server
+                    for (var i = 0; i < fakeDisabledTimes.length; i++) {
+                        // parse appoinment datetime into moment object
+                        var m = moment(fakeDisabledTimes[i]);
+                        // check if appointment is in the selected day
+                        if (selDate.isSame(m, 'day')) {
+                            // create a 30 minutes range of disabled time
+                            var entry = [
+                                m.format('h:mm a'),
+                                m.clone().add(90, 'm').format('h:mm a')
+                            ];
+                            // add the range to disabled times array
+                            disabledTimes.push(entry);
+                        }
                     }
-                }
-                // dinamically update disableTimeRanges option
-                $('input.timepicker').timepicker('option', 'disableTimeRanges', disabledTimes);
+                    // dinamically update disableTimeRanges option
+                    $('input.timepicker').timepicker('option', 'disableTimeRanges', disabledTimes);
                 }
             });
             $('input.timepicker').timepicker({
@@ -361,7 +359,7 @@
                 startTime: '9:00',
                 dynamic: false,
                 dropdown: true,
-                scrollbar: false                
+                scrollbar: false
             });
         });
     </script>

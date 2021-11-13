@@ -5,6 +5,7 @@
     use App\Models\Cleaner;
     use App\Models\Assigned_cleaner;
     use App\Models\Notification;
+    use App\Models\Employee;
 ?>
 @extends('head_extention_admin') 
 
@@ -73,9 +74,22 @@
     </div>
 
 <body >
+    <?php
+        $cleaner = Assigned_cleaner::groupby('cleaner_id')->count();
+        $employee = Employee::all()->count();
+    ?>
     <div class="row user_btn_con"> <!-- Sub Header --> 
-        <a class="user_type_btn_cleaner" style="font-size:25px; color: #FFB703; margin-top:50px; margin-left:85px;" href="admin_payroll">
-            PAYROLL
+        <a class="user_type_btn_cleaner" href="admin_payroll">
+            EMPLOYEE
+            <p class="total_value">
+                ({{ $employee}})
+            </p>
+        </a>
+        <a class="user_type_btn_cleaner active_sub" href="admin_payroll_cleaner">
+            CLEANER 
+            <p class="total_value">
+                ({{ $cleaner }})
+            </p>
         </a>
     </div>
 

@@ -1,10 +1,12 @@
-<?php 
-    use App\Models\User;
-    use App\Models\Event;
-    use App\Models\Notification;
+<?php
+
+use App\Models\User;
+use App\Models\Event;
+use App\Models\Notification;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +24,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -35,11 +39,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nav-customer.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toast.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 </head>
 
-<body> 
+<body>
     <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
@@ -48,28 +53,28 @@
             <!-- Notification -->
             <li class="nav-item dropdown bell" id="customer">
                 <?php
-                    $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
-                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
-                ?>      
-                <a id="navbarDropdown customer" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <i class="fa fa-bell"></i> 
+                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
+                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                ?>
+                <a id="navbarDropdown customer" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <i class="fa fa-bell"></i>
                     @if($notifCount != 0)
-                        <span class="badge alert-danger pending">{{$notifCount}}</span>
+                    <span class="badge alert-danger pending">{{$notifCount}}</span>
                     @endif
-                </a>     
+                </a>
                 <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                     @forelse ($notif as $notification)
-                        <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
-                            {{ $notification->message}}
-                        </a>                       
+                    <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
+                        {{ $notification->message}}
+                    </a>
                     @empty
-                        <a class="dropdown-item">
-                            No record found
-                        </a>
-                    @endforelse 
+                    <a class="dropdown-item">
+                        No record found
+                    </a>
+                    @endforelse
                 </div>
             </li>
-            <ul class= "navbar-nav ml-auto">    
+            <ul class="navbar-nav ml-auto">
                 <a href="{{ url('/customer/customer_dashboard') }}" class="nav-link">Home</a>
                 <a id="service" class="nav-link active" href="{{ url('/customer/customer_services') }}" role="button">Services</a>
                 <a id="transactions" class="nav-link" href="{{ url('/customer/customer_transaction') }}" role="button">Transactions</a>
@@ -77,25 +82,25 @@
                 <!-- Notification -->
                 <li class="nav-item dropdown" id="customer">
                     <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
-                        $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
-                    ?>          
-                    <a id="navbarDropdown customer" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <i class="fa fa-bell"></i> 
+                    $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
+                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                    ?>
+                    <a id="navbarDropdown customer" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class="fa fa-bell"></i>
                         @if($notifCount != 0)
-                            <span class="badge alert-danger pending">{{$notifCount}}</span>
+                        <span class="badge alert-danger pending">{{$notifCount}}</span>
                         @endif
-                    </a>    
+                    </a>
                     <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                         @forelse ($notif as $notification)
-                        <a class="dropdown-item read"  href="/{{$notification->location}}/{{$notification->id}}">
+                        <a class="dropdown-item read" href="/{{$notification->location}}/{{$notification->id}}">
                             {{ $notification->message}}
-                        </a>                        
+                        </a>
                         @empty
                         <a class="dropdown-item">
                             No record found
                         </a>
-                        @endforelse 
+                        @endforelse
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -134,6 +139,7 @@
                     <i class="fas fa-user-circle"></i>
                     <h6>Profile</h6>
                 </a>
+
             </ul>
         </div>
     </nav>
@@ -159,34 +165,118 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <main>
         @yield('content')
     </main>
 
     <script>
-    // Enable pusher logging 
-    Pusher.logToConsole = true;
+        // Enable pusher logging 
+        Pusher.logToConsole = true;
 
-    var pusher = new Pusher('21a2d0c6b21f78cd3195', {
-    cluster: 'ap1'
-    });
+        var pusher = new Pusher('21a2d0c6b21f78cd3195', {
+            cluster: 'ap1'
+        });
 
-    var channel = pusher.subscribe('my-channel');
+        var pos = "";
+        if (window.innerWidth > 801) {
+            pos = 'top-end';
+        } else {
+            pos = 'top';
+        }
+
+        Toast = Swal.mixin({
+            toast: true,
+            position: pos,
+            showConfirmButton: false,
+            timer: 8000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+        })
+
+
+
+        var channel = pusher.subscribe('my-channel');
         channel.bind('customer-notif', function(data) {
+            var result = data.messages;
             var id = "{{ $LoggedUserInfo['user_id'] }}";
-            if(data.id == id){
+            if (data.id == id) {
+
+
+                Toast.fire({
+                    animation: true,
+                    icon: 'success',
+                    title: JSON.stringify(result),
+                })
+
                 var pending = parseInt($('#customer').find('.pending').html());
                 //Trigger and add Notification badge
-                if(pending) {
+                if (pending) {
                     $('#customer').find('.pending').html(pending + 1);
-                }else{
+                } else {
                     $('#customer').find('.pending').html(pending + 1);
-                } 
+                }
+                console.log(window.location.href + "+testing reload");
                 //Reload Notification
                 $('#refresh').load(window.location.href + " #refresh");
             }
+        });
+    </script>
+    <script>
+        console.log("testing");
+        var toastMixin = Swal.mixin({
+            toast: true,
+            icon: 'success',
+            title: 'General Title',
+            animation: false,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 60000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        window.addEventListener("load", function() {
+            console.log("testing1");
+            Swal.fire({
+                toast: true,
+                icon: 'success',
+                title: 'Posted successfully',
+                animation: false,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        });
+
+        document.querySelector(".second").addEventListener('click', function() {
+            console.log("testing2");
+            toastMixin.fire({
+                animation: true,
+                position: 'top-end',
+                title: 'Status of Transaction 11 is On Progress'
+            });
+        });
+
+        document.querySelector(".third").addEventListener('click', function() {
+            console.log("testing3");
+            toastMixin.fire({
+                title: 'Transaction 12 was Cancelled',
+                icon: 'error',
+                position: 'bottom-end',
+            });
         });
     </script>
 </body>

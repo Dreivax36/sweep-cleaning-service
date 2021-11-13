@@ -1,3 +1,6 @@
+.body{
+    background: #fff;
+}
 
 .banner-container{
     align-items: center;
@@ -44,7 +47,7 @@
     text-align: left;
     margin: 7%;
     font-size: clamp(15px, 2vw, 30px);
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 @media (max-width:750px){
@@ -85,6 +88,7 @@
 
 .card-body{
     align-content: space-between;
+    flex: 1 1 auto;
 }
 
 .pricing{
@@ -115,6 +119,7 @@
     justify-content: space-between;
     margin-right: 0;
     margin-left: 0;
+    height: 100%;
 }
 
 .col{
@@ -122,7 +127,7 @@
 }
 
 .card-img{
-    height: 265px;
+    height: 100%;
     object-fit:fill;
     border-radius: 0.75rem;
     
@@ -142,13 +147,16 @@
 .head{
     align-items: center;
 }
-.card-title{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+.customer_cards_title {
     font-weight: bold;
+}
+.card-title{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
 }
 .service_title{
     padding: 20px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .customer_search_con{
@@ -183,18 +191,18 @@
 .place-type{
     font-size: 20px;
     font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .five_stars_img {
     width: 120px;
     height: 50px;
 }
 .modal_customer_services_title{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: bold;
 }
 .customer_services_sub_1,.customer_services_modal_body_1_con,.customer_services_modal_inside_con{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .modal-header{
     background-image: url(/images/home/header.jpg);
@@ -274,7 +282,7 @@
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }
@@ -318,6 +326,7 @@
 
 .card-body{
     align-content: space-between;
+    flex: 1 1 auto;
 }
 
 .customer_services_modal{
@@ -328,7 +337,7 @@
 
 .customer_services_modal_footer{
     padding: 16px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .modal-header {
@@ -379,7 +388,7 @@
 }
 
 .description, .float-right{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .modal{
     margin: 0;
@@ -392,7 +401,7 @@
 
 .customer_package_pricing{
     margin: 0%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .confirm_btn:hover{

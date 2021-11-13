@@ -1,0 +1,204 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #EDF1F8;
+    overflow-x: hidden;
+}
+
+#active {
+    color: #FFB703;
+}
+
+.head {
+    align-items: center;
+}
+
+/* Admin Search Bar */
+
+.search_con {
+    margin-top: 40px;
+    float: right;
+    margin-right: -300px;
+}
+
+.adjust_con {
+    float: right;
+    margin-top: 70px;
+    margin-right: 100px;
+}
+
+.adjust_con_dash {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.searchbar {
+    width: 300px;
+    height: 38px;
+    border-radius: 5px;
+    opacity: 1;
+    border: none;
+    padding-left: 10px;
+    font-size: 15px;
+    background-color: #DAE1EC;
+    border-radius: 20px;
+}
+
+.searchbar:focus {
+    outline: none;
+}
+
+.searchbar_dash {
+    width: 100%;
+    height: 38px;
+    opacity: 1;
+    border: none;
+    padding-left: 10px;
+    font-size: 15px;
+    background-color: #DAE1EC;
+    border-radius: 5px;
+}
+
+.searchbar_dash:focus {
+    outline: none;
+}
+
+/* Admin Transaction Page */
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+.user_type_btn_sub{
+    color: #04192E;
+    font-weight: bolder;
+    margin-left: 20px;
+    margin-top: 40px;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+}
+
+.user_type_btn_sub:hover{
+    text-decoration: none;
+}
+.header {
+    padding: 50px 50px 10px 50px;
+}
+
+.sub_menu {
+    padding: 10px 70px 20px 70px;
+}
+
+.user_btn_con1{
+    text-align: right;
+}
+
+.card_transaction {
+    margin: 10px;
+    padding: 20px;
+}
+
+.service_trans_status {
+    margin-top: 5px;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+    color: #178ac9;
+    text-align: right;
+}
+
+.check_icon_outside {
+    color: #FB8500;
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+.check_icon_inside {
+    font-size: 2em;
+    margin-right: 15px;
+    color: #FB8500;
+    margin-top: -5px;
+}
+
+
+
+.service_status {
+    float: right;
+    margin-top: 5px;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.booking_date {
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.modal_service_title_trans {
+    font-weight: bold;
+    font-size: 30px;
+    color: #FB8500;
+    font-family: 'Raleway', sans-serif;
+}
+
+.user_info_table {
+    font-size: 15px;
+}
+
+.customer_detail {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 15px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.list_booking_info {
+    text-indent: 50px;
+}
+
+.view_details_btn_trans {
+    width: 300px;
+    background-color: #FB8500;
+    border: #FB8500;
+    color: black;
+    font-weight: bold;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+.accept_btn {
+    background-color: #BEE7FD;
+    border: #BEE7FD;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 13px;
+    width: 100px;
+}
+
+.decline_btn {
+    background-color: #FF3838;
+    border: #FF3838;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 13px;
+    width: 100px;
+}
+
+.service_title_trans {
+    font-weight: bolder;
+    font-size: 22px;
+    margin-top: 5px;
+    color: #FB8500;
+    font-family: 'Raleway', sans-serif;
+}
+
+.user_type_btn{
+    color: #04192E;
+    font-weight: bolder;
+    margin-left: 60px;
+    margin-top: 40px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}

@@ -4,6 +4,7 @@
     use App\Models\Cleaner;
     use App\Models\Identification;
     use App\Models\Notification;
+    use App\Models\Employee;
 ?>
 @extends('head_extention_admin') 
 
@@ -81,6 +82,7 @@
         $user_count = User::all()->count();
         $customer_count = User::Where('user_type', '=', 'Customer')->count();
         $cleaner_count = User::Where('user_type', '=', 'Cleaner')->count();
+        $employee_count = Employee::all()->count();
     ?>
     <div class="row user_btn_con"> <!-- Sub Header --> 
         <a class="user_type_btn_cleaner " href="admin_user">
@@ -104,10 +106,11 @@
         <a class="user_type_btn_cleaner" href="admin_user_employees">
             EMPLOYEES
             <p class="total_value">
-            ({{ $cleaner_count }})
+            ({{ $employee_count }})
             </p>
         </a>
     </div>
+
 
     <div class="user_table_con"> <!-- Cleaner Tabler --> 
         <div class="table_detail_con">

@@ -1,4 +1,8 @@
-
+.table {
+    width: 100%;
+    margin-bottom: 0rem;
+    color: #212529;
+}
 
 .flex-box {
     display: flex;
@@ -14,6 +18,10 @@
     width: 230px;
 }
 
+body{
+    background-color: #e9e9e9;
+}
+
 
 .banner-container{
     align-items: center;
@@ -24,7 +32,7 @@
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }
@@ -130,6 +138,14 @@
     }
 }
 
+.card{
+    margin: 10px;
+    background-color: #FFEDDF;
+    background-clip: border-box;
+    border: 1px solid #FFEDDF;
+    border-radius: 0.75rem;
+    max-width: 540px;
+}
 
 .card-body{
     align-content: space-between;
@@ -251,8 +267,6 @@
     border-radius: 5px;
     align-items: center;
 }
-
-
 
 @media (max-width:800px){
     .card{

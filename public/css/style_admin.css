@@ -120,7 +120,7 @@ body {
     margin-top: 2px;
     margin-left: auto;
     margin-right: auto;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .upload_file {
     margin-top: 10px;
@@ -271,20 +271,11 @@ body {
 
 
 
-
-
-
-
-/* Admin Bar Graph */
-
-
-
 /* Admin User Page */
 
 .user_btn_con {
     margin-left: 10px;
-}
-.user_type_btn, 
+} 
 .user_type_btn_cleaner, 
 .user_type_btn_employee, 
 .user_type_btn_customer {
@@ -292,7 +283,7 @@ body {
     font-weight: bolder;
     margin-left: 60px;
     margin-top: 40px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .show_info {
     margin-top: 20px;
@@ -350,12 +341,12 @@ body {
 }
 .user_table_header {
     background-color: rgba(211, 211, 211, .8);
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .user_table_row, 
 .user_table_data {
     border: 1px solid rgba(211, 211, 211, .5);
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: lighter;
 }
 .active_sub {
@@ -417,7 +408,7 @@ body {
 .service_title {
     font-weight: bolder;
     font-size: 22px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .service-card{
@@ -446,7 +437,7 @@ body {
 .pricing_title {
     font-weight: bold;
     font-size: 18px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .services_title_con {
     margin-top: 4vw;
@@ -507,7 +498,6 @@ body {
 .card_services, 
 .card_transaction {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
     background-color: #FFFFFF;
     margin-bottom: 10px;
     border-radius: 15px; 
@@ -531,10 +521,10 @@ body {
     text-indent: 50px;
     font-size: 15px;
     margin-top: 5px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .modal_customer_services_title{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     color: #0069f5;
     font-size: 25px;
 }
@@ -550,7 +540,7 @@ body {
     list-style-type: none;
     padding-left: 0;
     font-size: 15px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .update_btn {
@@ -600,13 +590,7 @@ body {
     color: #FB8500;  
     margin-top: -5px;
 }
-.service_title_trans {
-    font-weight: bold;
-    font-size: 22px;
-    margin-top: 5px;
-    color: #FB8500;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
+
 .service_status {
     float: right;
     margin-top: 5px;
@@ -615,13 +599,13 @@ body {
 }
 .booking_date {
     font-size: 14px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .modal_service_title_trans {
     font-weight: bold;
     font-size: 30px;
     color: #FB8500;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .user_info_table{
     font-size: 15px;
@@ -630,13 +614,12 @@ body {
     list-style-type: none;
     padding-left: 0;
     font-size: 15px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .list_booking_info {
     text-indent: 50px;
 }
 .view_details_btn_trans {
-    width:300px;
     background-color: #FB8500;
     border: #FB8500;
     color: black;
@@ -872,7 +855,7 @@ body {
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }

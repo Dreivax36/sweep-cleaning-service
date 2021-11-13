@@ -35,7 +35,7 @@
     background-color: #fff;
     align-items: center;
     text-align: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .cleaner_profile_info_con {
@@ -53,10 +53,10 @@
     font-size: 15px;
     margin-top: 5px;
     background-color: #fff;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .modal-title{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .update_btn_con {
     width: 120px;
@@ -121,9 +121,9 @@
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 505px) {
     .cleaner_profile_name {
-        font-size: 30px;
+        font-size: 6vw;
     }
 }
 
@@ -155,13 +155,13 @@
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }
 
 .cleaner_cards_title {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Employee;
 use App\Models\Clearance;
 use App\Models\Cleaner;
 use App\Models\Identification;
@@ -82,34 +83,148 @@ use App\Models\Notification;
     $user_count = User::all()->count();
     $customer_count = User::Where('user_type', '=', 'Customer')->count();
     $cleaner_count = User::Where('user_type', '=', 'Cleaner')->count();
+    $employee_count = Employee::all()->count();
     ?>
-    <div class="row user_btn_con">
-        <!-- Sub Header -->
-        <a class="user_type_btn_cleaner " href="admin_user">
-            ALL
-            <p class="total_value">
-                ({{ $user_count }})
-            </p>
-        </a>
-        <a class="user_type_btn_cleaner" href="admin_user_customer">
-            CUSTOMER
-            <p class="total_value">
-                ({{ $customer_count }})
-            </p>
-        </a>
-        <a class="user_type_btn_cleaner" href="admin_user_cleaner">
-            CLEANER
-            <p class="total_value">
-                ({{ $cleaner_count }})
-            </p>
-        </a>
-        <a class="user_type_btn_cleaner active_sub" href="admin_user_employees">
-            EMPLOYEES
-            <p class="total_value">
-                ({{ $cleaner_count }})
-            </p>
-        </a>
+
+    <div class="row head">
+        <div class="col-md-8">
+            <div>
+                <!-- Sub Header -->
+                <a class="user_type_btn_cleaner " href="admin_user">
+                    ALL
+                    <p class="total_value">
+                        ({{ $user_count }})
+                    </p>
+                </a>
+                <a class="user_type_btn_cleaner" href="admin_user_customer">
+                    CUSTOMER
+                    <p class="total_value">
+                        ({{ $customer_count }})
+                    </p>
+                </a>
+                <a class="user_type_btn_cleaner" href="admin_user_cleaner">
+                    CLEANER
+                    <p class="total_value">
+                        ({{ $cleaner_count }})
+                    </p>
+                </a>
+                <a class="user_type_btn_cleaner active_sub" href="admin_user_employees">
+                    EMPLOYEES
+                    <p class="total_value">
+                        ({{ $employee_count }})
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-block btn-primary add_service_btn float-right" data-toggle="modal" data-target="#addEmployee">
+                + Add Employee
+            </button>
+        </div>
     </div>
+
+    <div class="modal fade" id="addEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 50%;">
+            <div class="modal-content service_modal_content">
+                <div class="modal-header customer_services_modal_header">
+                    <div>
+                        <h4 class="modal_customer_services_title modal-title">
+                            <b> Add New Employee</b>
+                        </h4>
+                    </div>
+                    <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding services -->
+                    <form action="{{ route('addEmployee') }}" method="post" id="myform">
+                        @if(Session::get('success-add'))
+                        <script>
+                            swal({
+                                title: "Employee added successfully!",
+                                icon: "success",
+                                button: "Close",
+                            });
+                        </script>
+                        @endif
+
+                        @if(Session::get('fail'))
+                        <script>
+                            swal({
+                                title: "Something went wrong, try again!",
+                                icon: "error",
+                                button: "Close",
+                            });
+                        </script>
+                        @endif
+
+                        @csrf
+                        <div class="form-group">
+                            <label class="upload_label">
+                                Employee Name:
+                            </label>
+                            <input type="text" required class="form-control w-100 add_service_form" id="full_name" name="full_name" value="{{ old('full_name') }}" required>
+                            <span class="text-danger">@error('full_name'){{ $message }} @enderror</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="upload_label">
+                                Email Address:
+                            </label>
+                            <input type="text" required class="form-control w-100 add_service_form" id="email" name="email" value="{{ old('email') }}" required>
+                            <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="upload_label">
+                                Contact Number:
+                            </label>
+                            <input type="text" required class="form-control w-100 add_service_form" id="contact_number" name="contact_number" value="{{ old('contact_number') }}" required>
+                            <span class="text-danger">@error('contact_number'){{ $message }} @enderror</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="upload_label">
+                                Birthday:
+                            </label>
+                            <input type="date" required class="form-control w-100 add_service_form" id="birthday" name="birthday" value="{{ old('birthday') }}" required>
+                            <span class="text-danger">@error('birthday'){{ $message }} @enderror</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="upload_label">
+                                Department:
+                            </label>
+                            <select name="department" class="form-control w-100 add_service_form" aria-label="Default select example">
+                                <option selected>Select Department</option>
+                                <option value="Human Resource Department">Human Resource Department</option>
+                                <option value="Operations Department">Operations Department</option>
+                                <option value="Marketing Department">Marketing Department</option>
+                                <option value="IT Department">IT Department</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="upload_label">
+                                Position:
+                            </label>
+                            <select name="position" class="form-control w-100 add_service_form" aria-label="Default select example">
+                                <option selected>Select Position</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Employee">Employee</option>
+                                <option value="Customer Representative">Customer Representative</option>
+                                <option value="Quality Assurance Head">Quality Assurance Head</option>
+                                <option value="DevOps Head">DevOps Head</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="modal-footer service_modal_header">
+                    <button form="myform" type="submit" class="btn btn-primary update_btn">
+                        ADD
+                    </button>
+                    <button type="button" class="btn btn-block btn-primary delete_btn" data-dismiss="modal">
+                        CANCEL
+                    </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of Add Service -->
 
     <div class="user_table_con">
         <!-- Cleaner Tabler -->
@@ -118,19 +233,10 @@ use App\Models\Notification;
                 <thead class="head_user">
                     <tr class="user_table_row">
                         <th class="text-center user_table_header">
-                            Employee_Code
-                        </th>
-                        <th class="text-center user_table_header">
-                            Branch
+                            Employee_ID
                         </th>
                         <th class="text-center user_table_header">
                             Full Name
-                        </th>
-                        <th class="text-center user_table_header">
-                            Age
-                        </th>
-                        <th class="text-center user_table_header">
-                            Address
                         </th>
                         <th class="text-center user_table_header">
                             Email Address
@@ -139,43 +245,31 @@ use App\Models\Notification;
                             Contact Number
                         </th>
                         <th class="text-center user_table_header">
-                            Days Present
+                            Birthday
                         </th>
                         <th class="text-center user_table_header">
-                            Number of Hours
+                            Password
                         </th>
                         <th class="text-center user_table_header">
-                            Details
+                            Department
                         </th>
                         <th class="text-center user_table_header">
-
+                            Position
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $user_data = User::Where('user_type', 'Cleaner')->where('email_verified_at', '!=', null)->orderBy('updated_at', 'DESC')->get();
+                        $employee = Employee::all();
                     ?>
-                    @foreach($user_data as $value)
-                    <?php
-                    $id = Cleaner::Where('user_id', $value->user_id)->value('cleaner_id');
-                    $cleaner_id = Cleaner::Where('user_id', $value->user_id)->get();
-                    $clearance_data = Clearance::Where('cleaner_id', $id)->get();
-                    $valid_id = Identification::Where('user_id', $value->user_id)->get();
-                    ?>
-
+                    @foreach($employee as $value)
                     <tr class="user_table_row">
+                        <td class="user_table_data">
+                            {{ $value->employee_id }}
+                        </td>
                         <td class="user_table_data">
                             {{ $value->full_name }}
                         </td>
-                        @foreach($cleaner_id as $key => $cleaner)
-                        <td class="user_table_data">
-                            {{ $cleaner->age }}
-                        </td>
-                        <td class="user_table_data">
-                            {{ $cleaner->address }}
-                        </td>
-                        @endforeach
                         <td class="user_table_data">
                             {{ $value->email }}
                         </td>
@@ -183,81 +277,18 @@ use App\Models\Notification;
                             {{ $value->contact_number }}
                         </td>
                         <td class="user_table_data">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#validID-{{ $value->user_id }}">
-                                view
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="validID-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Valid ID</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        @foreach($valid_id as $identity)
-                                        <div class="modal-body">
-                                            <div class="card admin_profile_avatar_con">
-                                                <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$identity->valid_id ) }}" alt="profile_picture" />
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        @foreach($clearance_data as $clearance)
-                        <td class="user_table_data">
-                            {{ $clearance->description }}
+                            {{ date('F d, Y', strtotime($value->birthday)) }}
                         </td>
                         <td class="user_table_data">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requirement-{{ $value->user_id }}">
-                                view
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="requirement-{{ $value->user_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Requirement</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="card admin_profile_avatar_con">
-                                                <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$clearance->requirement ) }}" alt="profile_picture" />
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {{ $value->password }}
                         </td>
-                        @endforeach
                         <td class="user_table_data">
-                            @if($value->account_status == "To_validate")
-                            <div class="verify_con">
-                                <button class="btn btn-success" onclick="document.location='{{ route('update_account', $value->user_id) }}'">
-                                    VALIDATE
-                                </button>
-                            </div>
-                            @else
-                            {{ $value->account_status }}
-                            @endif
+                            {{ $value->department }}
+                        </td>
+                        <td class="user_table_data">
+                            {{ $value->position }}
                         </td>
                     </tr>
-
                     @endforeach
                 </tbody>
             </table>

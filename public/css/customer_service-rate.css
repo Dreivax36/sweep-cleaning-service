@@ -7,7 +7,7 @@
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }
@@ -437,7 +437,7 @@
     margin-top: 5px;
 }
 .modal_customer_services_title, .customer_rating_title,.title2{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 @media (min-width:801px) {

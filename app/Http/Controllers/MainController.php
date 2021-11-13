@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin; 
+use App\Models\Employee; 
 use App\Models\Price;
 use App\Models\Service;
 use App\Models\User;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Notification;
 use App\Mail\SendMail;
+use Illuminate\Support\Str;
+use App\Models\Time_entry;
+
 class MainController extends Controller
 {
     //View Landing Page
@@ -111,10 +115,10 @@ class MainController extends Controller
         return view('admin_user_cleaner', $data);
     }
     //View Admin Payroll Page
-    function admin_payroll(){
+    /*function admin_payroll(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll', $data);
-    }
+    }*/
 
     //View Admin User Employee Page
     function admin_user_employees(){
@@ -126,14 +130,14 @@ class MainController extends Controller
         return view('admin_reports', $data);
     }
 
-    /*function admin_payroll_employee(){
+    function admin_payroll_employee(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll_employee', $data);
     }
     function admin_payroll_cleaner(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll_cleaner', $data);
-    }*/
+    }
     //Customer registration page
     function customer_register(){
         return view('customer.customer_register');
@@ -509,4 +513,81 @@ class MainController extends Controller
         return redirect('contact_us');
     }
 
+    function addEmployee(Request $request){
+        
+        //Validate Requests
+        $request->validate([
+            'full_name'=>'required',
+            'email'=>'required|email|unique:employees',
+            'contact_number'=>'required|numeric|digits:11',
+            'birthday'=>'required',
+            'department'=>'required',
+            'position'=>'required'
+
+        ]);
+
+            $password = Str::random(6);
+            $employees = new Employee;
+            $employees->full_name = $request->full_name; 
+            $employees->email = $request->email; 
+            $employees->contact_number = $request->contact_number; 
+            $employees->birthday = $request->birthday; 
+            $employees->department = $request->department; 
+            $employees->position = $request->position; 
+            $employees->password = $password; 
+            $employees = $employees->save();
+            
+            if($employees){
+                return back()->with('success', 'Successfully created an account. Please check your email to verify it.');
+            }
+            else {
+                return back()->with('fail','Something went wrong, try again later ');
+            }
+    }
+
+    function employee_login(){
+        return view('employee.login');
+    }
+
+    function employee_check(Request $request){
+
+        $userInfo = Employee::where('email','=', $request->email)->first();
+
+        if(!$userInfo){
+            return back()->with('fail', 'We do not recognize your email address');
+        }else{
+            //check password
+            if($request->password == $userInfo->password){
+                $request->session()->put('LoggedUser', $userInfo->employee_id);
+                return redirect('/employee/employee_dashboard');
+            }else{
+                return back()->with('fail', 'Incorrect password');
+            }
+        }
+    }
+
+    function employee_dashboard(){
+        $data = ['LoggedUserInfo'=>Employee::where('employee_id','=', session('LoggedUser'))->first()];
+        return view('employee.employee_dashboard', $data);
+    }
+
+    function timeIn(Request $request){
+        
+        if($request->timeIn != null){
+            $time_entries = new Time_entry;
+            $time_entries->employee_id = $request->employee_id;
+            $time_entries->time_start = $request->timeIn;
+            $time_entries = $time_entries->save();
+            return back()->with('success-timein', 'Successful');
+        }
+        elseif($request->timeOut != null){
+            $timeOut_entries = Time_entry::where('id', $request->id)->update(['time_end' => $request->timeOut]);
+            return back()->with('success-timeout', 'Successful');
+        }
+        else {
+            return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+
 }
+

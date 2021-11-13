@@ -14,6 +14,8 @@ use App\Models\Notification;
 </title>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_services.css')}}">
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <div id="app">
@@ -668,7 +670,7 @@ use App\Models\Notification;
 
                                 </div>
                             </div>
-                        
+                        </form>
 
 
                     </div>
@@ -680,7 +682,6 @@ use App\Models\Notification;
                             CANCEL
                         </button>
                     </div>
-                    </form>
                 </div>
                 @endforeach
             </div>
@@ -695,11 +696,32 @@ use App\Models\Notification;
             cluster: 'ap1'
         });
 
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 8000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
 
 
             var result = data.messages;
+
+            Toast.fire({
+                animation: true,
+                icon: 'success',
+                title: JSON.stringify(result),
+            })
+
+
             var pending = parseInt($('#admin').find('.pending').html());
             if (pending) {
                 $('#admin').find('.pending').html(pending + 1);

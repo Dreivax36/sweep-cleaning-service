@@ -26,6 +26,25 @@ class ServiceController extends Controller
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_transaction', $data);
     }
+    function pending(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('pending', $data);
+    }
+
+    function on_the_way(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('on_the_way', $data);
+    }
+
+    function on_progress(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('on_progress', $data);
+    }
+
+    function done(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('done', $data);
+    }
     //View Admin transaction history page
     function admin_transaction_history(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];

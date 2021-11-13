@@ -1,5 +1,6 @@
-<?php 
-    use App\Models\Notification;
+<?php
+
+use App\Models\Notification;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +23,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -48,25 +51,25 @@
             <li class="nav-item dropdown bell" id="cleaner">
                 <!-- Notification Data -->
                 <?php
-                    $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
-                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
-                ?>      
-                            
-                <a id="navbarDropdown cleaner" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <i class="fa fa-bell"></i> 
+                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
+                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                ?>
+
+                <a id="navbarDropdown cleaner" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <i class="fa fa-bell"></i>
                     @if($notifCount != 0)
-                        <span class="badge alert-danger pending">{{$notifCount}}</span>
+                    <span class="badge alert-danger pending">{{$notifCount}}</span>
                     @endif
                 </a>
-                <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">    
+                <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                     @forelse ($notif as $notification)
-                        <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
-                            {{ $notification->message}}
-                        </a>
+                    <a class="dropdown-item read" id="refresh" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                        {{ $notification->message}}
+                    </a>
                     @empty
-                        <a class="dropdown-item">
-                            No record found
-                        </a>
+                    <a class="dropdown-item">
+                        No record found
+                    </a>
                     @endforelse
                 </div>
             </li>
@@ -77,24 +80,24 @@
                 <li class="nav-item dropdown" id="cleaner">
                     <!-- Notification Data -->
                     <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->count();
-                        $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'] )->get();
-                    ?>        
-                    <a id="navbarDropdown cleaner" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <i class="fa fa-bell"></i> 
+                    $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
+                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                    ?>
+                    <a id="navbarDropdown cleaner" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class="fa fa-bell"></i>
                         @if($notifCount != 0)
-                            <span class="badge alert-danger pending">{{$notifCount}}</span>
+                        <span class="badge alert-danger pending">{{$notifCount}}</span>
                         @endif
-                    </a>   
-                    <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown"> 
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
                         @forelse ($notif as $notification)
-                            <a class="dropdown-item read" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
-                                {{ $notification->message}}
-                            </a>
+                        <a class="dropdown-item read" style="background-color:#f2f3f4; border:1px solid #dcdcdc" href="/{{$notification->location}}/{{$notification->id}}">
+                            {{ $notification->message}}
+                        </a>
                         @empty
-                            <a class="dropdown-item">
-                                No record found
-                            </a>
+                        <a class="dropdown-item">
+                            No record found
+                        </a>
                         @endforelse
                     </div>
                 </li>
@@ -154,35 +157,60 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 
     <main>
         @yield('content')
     </main>
 
     <script>
-    // Enable pusher logging 
-    Pusher.logToConsole = true;
+        // Enable pusher logging 
+        Pusher.logToConsole = true;
 
-    var pusher = new Pusher('21a2d0c6b21f78cd3195', {
-    cluster: 'ap1'
-    });
+        var pusher = new Pusher('21a2d0c6b21f78cd3195', {
+            cluster: 'ap1'
+        });
 
-    var channel = pusher.subscribe('my-channel');
-        channel.bind('cleaner-notif', function(data) {
-        
-        var id = "{{ $LoggedUserInfo['user_id'] }}";
-        if(data.id == id){
-            var pending = parseInt($('#cleaner').find('.pending').html());
-             //Trigger and add notification in badge
-            if(pending) {
-                $('#cleaner').find('.pending').html(pending + 1);
-            }else{
-                $('#cleaner').find('.pending').html(pending + 1);
-            } 
-            //Reload notification
-            $('#refresh').load(window.location.href + " #refresh");
+        var pos = "";
+        if (window.innerWidth > 801) {
+            pos = 'top-end';
+        } else {
+            pos = 'top';
         }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: pos,
+            showConfirmButton: false,
+            timer: 8000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('cleaner-notif', function(data) {
+
+            var id = "{{ $LoggedUserInfo['user_id'] }}";
+            if (data.id == id) {
+                var result = data.messages;
+                Toast.fire({
+                    animation: true,
+                    icon: 'success',
+                    title: JSON.stringify(result),
+                })
+                var pending = parseInt($('#cleaner').find('.pending').html());
+                //Trigger and add notification in badge
+                if (pending) {
+                    $('#cleaner').find('.pending').html(pending + 1);
+                } else {
+                    $('#cleaner').find('.pending').html(pending + 1);
+                }
+                //Reload notification
+                $('#refresh').load(window.location.href + " #refresh");
+            }
         });
     </script>
 

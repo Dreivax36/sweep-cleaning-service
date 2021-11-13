@@ -27,12 +27,8 @@ use App\Models\Service_review;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_dashboard.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-
 
 <div id="app">
   <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
@@ -66,7 +62,7 @@ use App\Models\Service_review;
             <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
               @forelse ($notif as $notification)
               <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
-                <i class="fas fa-info-circle"></i> {{ $notification->message}}
+                {{ $notification->message}}
               </a>
               @empty
               <a class="dropdown-item">
@@ -100,6 +96,16 @@ use App\Models\Service_review;
             Philippine Standard Time
           </div>
           <div id="pst-time" class="local_time"></div>
+        </div>
+
+        <div class="buttons">
+          <p>Time IN/Time OUT</p>
+          <button type="button" class="btn btn-block btn-primary timein_btn">
+            TIME IN
+          </button>
+          <button type="button" class="btn btn-block timeout_btn timein_btn disabled">
+            TIME OUT
+          </button>
         </div>
       </div>
 
@@ -332,7 +338,6 @@ use App\Models\Service_review;
     }
   </script>
 
-
   <script>
     // Enable pusher logging 
     Pusher.logToConsole = true;
@@ -341,30 +346,10 @@ use App\Models\Service_review;
       cluster: 'ap1'
     });
 
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 8000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    })
-
-
     var channel = pusher.subscribe('my-channel');
     channel.bind('admin-notif', function(data) {
 
       var result = data.messages;
-
-      Toast.fire({
-        animation: true,
-        icon: 'success',
-        title: JSON.stringify(result),
-      })
-
       var pending = parseInt($('#admin').find('.pending').html());
       //Trigger and add notification badge
       if (pending) {
@@ -372,18 +357,16 @@ use App\Models\Service_review;
       } else {
         $('#admin').find('.pending').html(pending + 1);
       }
-      console.log(window.location.href + "+testing");
       //Reload Notification
       $('#refresh').load(window.location.href + " #refresh");
     });
   </script>
+
   <!-- Footer -->
   <footer id="footer">
     <div class="sweep-title">
       SWEEP © 2021. All Rights Reserved.
     </div>
   </footer>
-
-
 </body>
 @endsection

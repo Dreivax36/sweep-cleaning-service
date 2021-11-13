@@ -57,11 +57,12 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/admin_user',[MainController::class, 'admin_user'])->name('admin_user'); 
     Route::get('/admin_user_customer',[MainController::class, 'admin_user_customer'])->name('admin_user_customer'); 
     Route::get('/admin_user_cleaner',[MainController::class, 'admin_user_cleaner'])->name('admin_user_cleaner'); 
-    Route::get('/admin_payroll',[MainController::class, 'admin_payroll'])->name('admin_payroll'); 
+    //Route::get('/admin_payroll',[MainController::class, 'admin_payroll'])->name('admin_payroll'); 
     Route::get('/admin_payroll_cleaner',[MainController::class, 'admin_payroll_cleaner'])->name('admin_payroll_cleaner'); 
-    Route::get('/admin_payroll_employee',[MainController::class, 'admin_payroll_employee'])->name('admin_payroll_employee'); 
+    Route::get('/admin_payroll',[MainController::class, 'admin_payroll_employee'])->name('admin_payroll_employee'); 
     Route::get('/admin_reports',[MainController::class, 'admin_reports'])->name('admin_reports'); 
     Route::get('/admin_user_employees',[MainController::class, 'admin_user_employees'])->name('admin_user_employees'); 
+    Route::post('/addEmployee',[MainController::class, 'addEmployee'])->name('addEmployee');
 
     //Route for Customer Pages
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');
@@ -152,6 +153,16 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     Route::get('/employee',[MainController::class, 'employee'])->name('employee');
 
+    Route::get('/on_the_way',[ServiceController::class, 'on_the_way'])->name('on_the_way'); 
+    Route::get('/pending',[ServiceController::class, 'pending'])->name('pending'); 
+    Route::get('/on_progress',[ServiceController::class, 'on_progress'])->name('on_progress'); 
+    Route::get('/done',[ServiceController::class, 'done'])->name('done'); 
+
+    //Route for Employee
+    Route::get('/employee/login',[MainController::class, 'employee_login'])->name('employee.login');
+    Route::post('/employee_check',[MainController::class, 'employee_check'])->name('employee_check');
+    Route::post('/timeIn',[MainController::class, 'timeIn'])->name('timeIn');
+    Route::get('/employee/employee_dashboard',[MainController::class, 'employee_dashboard'])->name('employee.employee_dashboard');
 });
 
 Route::get('/cleaner/cleaner_welcome', function () {
@@ -211,5 +222,3 @@ Route::get('test', function () {
     $pusher->trigger('my-channel', 'cleaner-refresh', $data);
     return "Event has been sent";
 });
-
-

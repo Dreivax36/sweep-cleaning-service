@@ -21,7 +21,7 @@
 <body class="reg_customer_body flex-row align-items-center">
     <div class="register_con">
         <h4 class="signin_label">
-            Sign In
+            Cleaners Login In
         </h4>
         <!-- Form for login -->
         <form action="{{ route('cleaner.cleaner_check') }}" method="post">

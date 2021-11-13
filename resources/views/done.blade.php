@@ -10,7 +10,6 @@ use App\Models\Cleaner;
 use App\Models\Assigned_cleaner;
 use App\Models\Review;
 use App\Models\Notification;
-use App\Models\Payment;
 ?>
 
 @extends('head_extention_admin')
@@ -49,7 +48,7 @@ use App\Models\Payment;
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
                             @if($notifCount != 0)
-                            <span class="badge alert-danger pending">{{$notifCount}}</span>
+                            <span class="badge alert-danger admin_transaction">{{$notifCount}}</span>
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
@@ -87,7 +86,7 @@ use App\Models\Payment;
 
 
     <?php
-    $booking_data = Booking::Where('status', 'Pending')->orderBy('updated_at', 'DESC')->get();
+    $booking_data = Booking::Where('status', 'Done')->orderBy('updated_at', 'DESC')->get();
     $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
     $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
@@ -119,7 +118,7 @@ use App\Models\Payment;
                 $onprogressSub = Booking::where('status', 'On-Progress')->count();
                 $doneSub = Booking::where('status', 'Done')->count();
             ?>
-            <a class="user_type_btn" id="active" href="admin_transaction">
+            <a class="user_type_btn" href="admin_transaction">
                 PENDING
                 <p class="total_value">
                     ({{$pendingSub}})
@@ -137,7 +136,7 @@ use App\Models\Payment;
                     ({{$onprogressSub}})
                 </p>
             </a>
-            <a class="user_type_btn" href="done">
+            <a class="user_type_btn" id="active" href="done">
                 DONE
                 <p class="total_value">
                     ({{$doneSub}})
@@ -145,6 +144,8 @@ use App\Models\Payment;
             </a>
         </div>
     </div>
+
+
     <div class="row row_transaction justify-content-center">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
@@ -159,13 +160,13 @@ use App\Models\Payment;
             <div class="card_body">
                 <?php
                 $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
-                $pending = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
+                $admin_transaction = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
                 $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                 ?>
                 <div class="status">
                     <h5 class="service_trans_status">
                         @if($value->status == 'Pending')
-                        @if ($pending == 0)
+                        @if ($admin_transaction == 0)
                         {{ $value->status }}
                         @else
                         Waiting for Cleaner Acceptance
@@ -363,7 +364,7 @@ use App\Models\Payment;
                         $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
                         $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                         $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->count();
-                        $pendingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
+                        $admin_transactioncount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
                         $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
 
                         ?>
@@ -374,12 +375,7 @@ use App\Models\Payment;
                         NO AVAILABLE CLEANER
                     </button>
                     @endif
-                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ( $value->mode_of_payment == 'G-cash' || $value->mode_of_payment == 'Paypal') && $pendingcount != $price_data->number_of_cleaner)
-                        <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#paid-{{ $value->booking_id }}">
-                            PAYMENT DETAILS
-                        </button>
-                    @endif
-                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
+                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $admin_transactioncount != $price_data->number_of_cleaner)
                     <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
                         ASSIGN CLEANER
                     </button>
@@ -655,57 +651,6 @@ use App\Models\Payment;
             </div>
         </div>
     </div>
-    <!-- Pay Modal -->
-    <div class="modal fade" id="paid-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">G-cash Payment</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('paid') }}" method="post" >
-                                @if(Session::get('success-cleaner'))
-                                    <div class="alert alert-success">
-                                        {{ Session::get('success') }}
-                                    </div>
-                                @endif
-
-                                @if(Session::get('fail'))
-                                    <div class="alert alert-danger">
-                                        {{ Session::get('fail') }}
-                                    </div>
-                                @endif
-                                @csrf
-                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                                <?php
-                                    $payment = Payment::where('booking_id', $value->booking_id )->get();
-                                ?>
-                                @foreach($payment as $payments)                                   
-                                <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="₱{{$payments->amount}}" readonly>
-                                    <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="transaction_id" name="transaction_id" placeholder="{{$payments->transaction_id}}" readonly>
-                                    <span class="text-danger">@error('transaction_id'){{ $message }} @enderror</span>
-                                </div>
-                                @endforeach
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
-                                CANCEL
-                            </button>
-                            <button type="submit" class="btn btn-block btn-primary yes_btn" > 
-                                PAID
-                            </button>
-                        </div>
-                            </form>
-                    </div>
-                </div>
-            </div>    
     <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -777,33 +722,16 @@ use App\Models\Payment;
             cluster: 'ap1'
         });
 
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 8000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
+
+
             var result = data.messages;
-
-            Toast.fire({
-                animation: true,
-                icon: 'success',
-                title: JSON.stringify(result),
-            })
-
-            var pending = parseInt($('#admin').find('.pending').html());
-            if (pending) {
-                $('#admin').find('.pending').html(pending + 1);
+            var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
+            if (admin_transaction) {
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
             } else {
-                $('#admin').find('.pending').html(pending + 1);
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
             $('#status').load(window.location.href + " #status");

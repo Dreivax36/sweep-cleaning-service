@@ -10,12 +10,12 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 15px;
     margin: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }
@@ -61,8 +61,7 @@
     font-weight: bold;
     font-size: 25px;
     color: #FB8500;
-    margin-left: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .fa-clipboard-list {
@@ -94,7 +93,7 @@
 
 .cleaner_cards_title {
     margin: 20px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .row {
@@ -167,7 +166,7 @@
     text-align: left;
     align-items: center;
     justify-content: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 .book_container {
@@ -304,5 +303,16 @@
     margin-right: 5px;
     background-color: #F6A06F;
     border-radius: 10px;
+}
+
+
+.cleaner_job_status {
+    margin-top: 5px;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+    color: #178ac9;
+    text-align: right;
+    font-family: 'Roboto', sans-serif;
 }
 

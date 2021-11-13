@@ -1,12 +1,13 @@
 <?php
-    use App\Models\Booking;
-    use App\Models\Customer;
-    use App\Models\Service;
-    use App\Models\Price;
-    use App\Models\Address;
-    use App\Models\User;
-    use App\Models\Cleaner;
-    use App\Models\Assigned_cleaner;
+
+use App\Models\Booking;
+use App\Models\Customer;
+use App\Models\Service;
+use App\Models\Price;
+use App\Models\Address;
+use App\Models\User;
+use App\Models\Cleaner;
+use App\Models\Assigned_cleaner;
 ?>
 
 @extends('cleaner/cleaner-nav/head_extention_cleaner-jobs')
@@ -28,9 +29,9 @@
         <div class="row justify-content-center" id="status">
             <!-- Get job data assigned to cleaner -->
             <?php
-                $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-                $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Completed')->Where('status', '!=', 'Cancelled')->count();
-                $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->orderBy('updated_at','DESC')->get();
+            $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+            $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Completed')->Where('status', '!=', 'Cancelled')->count();
+            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->orderBy('updated_at', 'DESC')->get();
             ?>
             @if($cleanerCount == 0)
             <div class="banner-container">
@@ -48,27 +49,28 @@
             <!-- Get booking with status Pending, Accepted, On-the-Way, On-Progress, and Done -->
             @foreach($bookingID as $key => $booking)
             <?php
-                $booking_data = Booking::Where('status', 'Pending' )->orWhere('status', 'Accepted' )->orWhere('status', 'Done' )->orWhere('status', 'On-Progress' )->orWhere('status', 'On-the-Way')->orderBy('updated_at','DESC')->get();
+            $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orderBy('updated_at', 'DESC')->get();
             ?>
             @foreach($booking_data as $key => $value)
             <!-- Check if job assigned to cleaner and booking is equal -->
             @if($booking->booking_id == $value->booking_id)
             <?php
-                $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
-                $service_name = Service::Where('service_id', $value->service_id)->value('service_name');
-                $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-                $user_data = User::Where('user_id', $userID)->get();
-                $address = Address::Where('customer_id', $value->customer_id)->value('address');
-                $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
+            $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
+            $service_name = Service::Where('service_id', $value->service_id)->value('service_name');
+            $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+            $user_data = User::Where('user_id', $userID)->get();
+            $address = Address::Where('customer_id', $value->customer_id)->value('address');
+            $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
             ?>
 
             <div class="card job" style="width: 25rem;">
                 <div class="card-body">
-                    <h5 class="cleaner_job_status float-right">
-                        {{ $value->status }}
-                    </h5>
+                    <div class="status">
+                        <h5 class="cleaner_job_status">
+                            {{ $value->status }}
+                        </h5>
+                    </div>
                     <div class="d-flex card_body">
-                        <i class="fas fa-clipboard-list"></i>
                         <h3 class="service_title_trans">
                             {{ $service_name }}
                         </h3>
@@ -127,15 +129,15 @@
                                     <button type="button" class="close-mobile" data-dismiss="modal">
                                         Back
                                     </button>
-                                        <h4 class="cleaner_job_modal_title">
-                                            {{ $service_name}}
-                                        </h4>
-                                        <h6 class="cleaner_job_modal_date_1_1">
-                                            {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
-                                        </h6>
-                                        <h6 class="cleaner_job_modal_amount_1">
-                                            Total Amount: ₱{{ $price_data->price }}
-                                        </h6>
+                                    <h4 class="cleaner_job_modal_title">
+                                        {{ $service_name}}
+                                    </h4>
+                                    <h6 class="cleaner_job_modal_date_1_1">
+                                        {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                                    </h6>
+                                    <h6 class="cleaner_job_modal_amount_1">
+                                        Total Amount: ₱{{ $price_data->price }}
+                                    </h6>
                                 </div>
                             </div>
                             <div class="cleaner_job_modal_body_1_con">
@@ -176,63 +178,63 @@
                             <!-- Form for cleaner update status -->
                             <form action="{{ route('cleaner') }}" method="post" id="cleaner">
                                 @if(Session::get('success'))
-                                    <div class="alert alert-success">
-                                        {{ Session::get('success') }}
-                                    </div>
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
                                 @endif
 
                                 @if(Session::get('fail'))
-                                    <div class="alert alert-danger">
-                                        {{ Session::get('fail') }}
-                                    </div>
+                                <div class="alert alert-danger">
+                                    {{ Session::get('fail') }}
+                                </div>
                                 @endif
                                 @csrf
                                 <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                 <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
                                 <!-- Cleaner button query -->
                                 <?php
-                                    $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();    
-                                    $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
-                                    $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-Progress")->count();       
-                                    $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();  
-                                    $idcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->orderBy('cleaner_id', 'ASC')->first();              
+                                $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();
+                                $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
+                                $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-Progress")->count();
+                                $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();
+                                $idcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->orderBy('cleaner_id', 'ASC')->first();
                                 ?>
                                 <div class="modal-footer cleaner_job_modal_footer">
                                     <!-- Check if transaction status is pending and status in assigned cleaner table is Pending -->
                                     @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner)
-                                        <button  class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted" >
-                                            CONFIRM BOOKING
-                                        </button> 
-                                        <button  class="btn btn-block btn-danger decline_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}"  data-dismiss="modal"> 
-                                            DECLINE
-                                        </button> 
-                                    @endif   
+                                    <button class="btn btn-block btn-primary accept_btn" type="submit" name="status" value="Accepted">
+                                        CONFIRM BOOKING
+                                    </button>
+                                    <button class="btn btn-block btn-danger decline_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}" data-dismiss="modal">
+                                        DECLINE
+                                    </button>
+                                    @endif
                                     <!-- Check if transaction status is Accepted and status in assigned cleaner table is Accepted -->
                                     @if($value->status == "Accepted" && $otwcount != $price_data->number_of_cleaner)
-                                        <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way" >
-                                            ON-THE-WAY
-                                        </button>    
-                                    @endif  
+                                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way">
+                                        ON-THE-WAY
+                                    </button>
+                                    @endif
                                     <!-- Check if transaction status is On-the-Way and status in assigned cleaner table is On-the-Way -->
                                     @if($value->status == "On-the-Way" && $onprogresscount != $price_data->number_of_cleaner)
-                                        <button  class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress" >
-                                            START CLEANING
-                                        </button>    
-                                    @endif   
+                                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress">
+                                        START CLEANING
+                                    </button>
+                                    @endif
                                     <!-- Check if transaction status is On-Progress and status in assigned cleaner table is On-Progres -->
                                     @if($value->status == "On-Progress" && $donecount != $price_data->number_of_cleaner)
-                                        <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done" >
-                                            CLEANING COMPLETE
-                                        </button> 
-                                    @endif 
+                                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done">
+                                        CLEANING COMPLETE
+                                    </button>
+                                    @endif
                                     <!-- Check if transaction status is Done, status in assigned cleaner table is Done, 
                                         mode of payment is On-site and check the cleaner id is the first cleaner assigned -->
                                     @if($value->status == "Done" && $value->mode_of_payment == "On-site" && $idcount['cleaner_id'] == $cleanerID)
                                     <button type="button" class="btn btn-block btn-primary on_progress_btn" data-toggle="modal" data-dismiss="modal" data-target="#pay-{{ $value->booking_id }}">
                                         PAY
                                     </button>
-                                    @endif   
-                                </div> 
+                                    @endif
+                                </div>
                             </form>
                         </div><!-- End of Modal Content -->
                     </div>
@@ -254,15 +256,15 @@
                             <!-- Form for Decline Job -->
                             <form action="{{ route('cleaner') }}" method="post">
                                 @if(Session::get('success'))
-                                    <div class="alert alert-success">
-                                        {{ Session::get('success') }}
-                                    </div>
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
                                 @endif
 
                                 @if(Session::get('fail'))
-                                    <div class="alert alert-danger">
-                                        {{ Session::get('fail') }}
-                                    </div>
+                                <div class="alert alert-danger">
+                                    {{ Session::get('fail') }}
+                                </div>
                                 @endif
                                 @csrf
 
@@ -274,7 +276,7 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
                             <button type="submit" class="btn btn-danger" name="status" value="Declined">YES</button>
                         </div>
-                            </form> 
+                        </form>
                     </div>
                 </div>
             </div>
@@ -290,37 +292,37 @@
                         </div>
                         <div class="modal-body">
                             <!-- Form for Onsite Payment -->
-                            <form action="{{ route('onsitePayment') }}" method="post" >
+                            <form action="{{ route('onsitePayment') }}" method="post">
                                 @if(Session::get('success-cleaner'))
-                                    <div class="alert alert-success">
-                                        {{ Session::get('success') }}
-                                    </div>
+                                <div class="alert alert-success">
+                                    {{ Session::get('success') }}
+                                </div>
                                 @endif
 
                                 @if(Session::get('fail'))
-                                    <div class="alert alert-danger">
-                                        {{ Session::get('fail') }}
-                                    </div>
+                                <div class="alert alert-danger">
+                                    {{ Session::get('fail') }}
+                                </div>
                                 @endif
                                 @csrf
-                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">                                   
+                                <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                 <div class="form-group">
                                     <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="₱{{$price_data->price}}" value="{{$price_data->price}}" readonly>
                                     <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 
+                            <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal">
                                 CANCEL
                             </button>
-                            <button type="submit" class="btn btn-block btn-primary yes_btn" > 
+                            <button type="submit" class="btn btn-block btn-primary yes_btn">
                                 PAY
                             </button>
                         </div>
-                            </form>
+                        </form>
                     </div>
                 </div>
-            </div>                             
+            </div>
             @endif
             @endforeach
             @endforeach

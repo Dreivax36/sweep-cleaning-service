@@ -1,5 +1,4 @@
 
-/* Cleaner Profile Page */
 .row{
     justify-content: space-between;
     margin-right: 0;
@@ -8,17 +7,18 @@
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
     padding: 5px;
     margin: 7px;
 }
 .main_profile_con {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 45%;
-    height: 680px;
+    height: 710px;
     padding: 20px;
     margin: 20px;
     background-color: #fff;
+    border:1px solid  #061835;
     border-radius: 20px;
 }
 .profile_avatar_con, .customer_profile_avatar_con {
@@ -55,7 +55,7 @@
     outline: none;
     border-bottom: 2px solid #FFEDDF;
     background-color: #fff;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
 .customer_profile_info {
     font-size: 15px;
@@ -104,18 +104,17 @@
 
 /* Responsiveness */
 
-@media (max-width: 450px){
-    .customer_profile_name{
-        font-size: 20px;
+@media (max-width: 505px) {
+    .customer_profile_name {
+        font-size: 6vw;
     }
-}   
-
+}
 
 @media (max-width: 950px){
     .main_profile_con {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         width: 85%;
-        height: 640px;
+        height: 710px;
         padding: 20px;
         margin-top: 20px;
         background-color: #fff;
@@ -130,7 +129,7 @@
 @media (max-width:800px){
     .mobile-spacer{
         display: block;
-        height: 80px;
+        height: 30px;
     }
 }
 
@@ -148,5 +147,5 @@
 }    
 
 .customer_cards_title{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
 }
