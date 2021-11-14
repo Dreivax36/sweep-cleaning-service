@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     <!-- Modal Service Details -->
-                    <div class="modal fade modal-cont" id="gcash" aria-hidden="true">
+                    <div class="modal fade modal-cont" id="gcash-{{ $value->booking_id }}" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                                     <div class="modal-content customer_services_modal_content">
                                         <div class="modal-header customer_services_modal_header">
