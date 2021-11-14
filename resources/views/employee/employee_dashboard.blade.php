@@ -42,36 +42,12 @@ use App\Models\Time_entry;
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <a href="admin_dashboard" class="nav-link" id="active">Home</a>
-          <a class="nav-link" href="admin_services" role="button">Services</a>
-          <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-          <a class="nav-link" href="admin_user" role="button">User</a>
-          <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-          <a class="nav-link" href="admin_reports" role="button">Reports</a>
-          <!-- Notification -->
-          <li class="nav-item dropdown" id="admin">
-            <?php
-            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
-            ?>
-            <a id="navbarDropdown admin" class="nav-link admin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-              <i class="fa fa-bell"></i>
-              @if($notifCount != 0)
-              <span class="badge alert-danger pending">{{$notifCount}}</span>
-              @endif
-            </a>
-            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-              @forelse ($notif as $notification)
-              <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
-                {{ $notification->message}}
-              </a>
-              @empty
-              <a class="dropdown-item">
-                No record found
-              </a>
-              @endforelse
-            </div>
-          </li>
+          <a href="admin_dashboard" class="nav-link" id="active"></a>
+          <a class="nav-link" href="admin_services" role="button"></a>
+          <a class="nav-link" href="admin_transaction" role="button"></a>
+          <a class="nav-link" href="admin_user" role="button"></a>
+          <a class="nav-link" href="admin_payroll" role="button"></a>
+          <a class="nav-link" href="admin_reports" role="button"></a>
           <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               {{ $LoggedUserInfo['email'] }}
@@ -157,164 +133,7 @@ use App\Models\Time_entry;
         </div>
         </form>
       </div>
-
-      <!-- Sidebar -->
-      <h2 class="dashboard_title">
-        Active Transactions
-      </h2>
-      <div class="adjust_con_dash">
-        <!-- Search Field -->
-        <input class="form-control searchbar_dash" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
-      </div>
-      <!-- Get active booking -->
-      <?php
-      $booking_data = Booking::Where('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->get();
-      ?>
-      @if($booking_data != null)
-      @foreach($booking_data as $key => $value)
-      <?php
-      $service_data = Service::Where('service_id', $value->service_id)->get();
-      $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-      $user_data = User::Where('user_id', $userID)->get();
-      ?>
-      @foreach($service_data as $key => $data)
-      @foreach($user_data as $key => $user)
-
-      <div class="row" id="card-lists">
-        <div class="card active_services_con">
-          <div class="d-flex card_body arrow_right_con">
-            <h3 class="card-title service_name">
-              {{ $data->service_name }}
-            </h3>
-            <div>
-              <a href="admin_transaction">
-                <span class="right"></span>
-              </a>
-            </div>
-          </div>
-          <p class="transaction_id">
-            Transaction ID: {{ $value->booking_id }}
-          </p>
-          <p class="customer_name">
-            <b>Customer:</b> {{ $user->full_name }}
-          </p>
-        </div>
-      </div>
-      @endforeach
-      @endforeach
-      @endforeach
-      @else
-      <div class="row justify-content-center">
-        <h1 class="center">
-          You currently have no Active Jobs.
-        </h1>
-      </div>
-      @endif
-    </div> <!-- End of Sidebar -->
-
     <div class="col-md-9">
-      <!-- Compute daily revenue, total revenue, sweep customer, sweep cleaner -->
-      <?php
-      $decline = Booking::where('status', 'Cancelled')->where('status', 'Declined')->count();
-      $complete = Booking::where('status', 'Completed')->count();
-      $services = Service::count();
-      $satisfaction = Service_review::avg('rate');
-      $total = 0;
-      $revenue = 0;
-      $totalToday = 0;
-      $revenueToday = 0;
-      $cleaner = User::where('user_type', 'Cleaner')->where('account_status', 'Validated')->count();
-      $customer = User::where('user_type', 'Customer')->where('account_status', 'Validated')->count();
-      $bookingRevenue = Booking::Where('status', 'Completed')->get();
-      foreach ($bookingRevenue as $bookingRevenue) {
-        $price = Price::where('service_id', $bookingRevenue->service_id)->where('property_type', $bookingRevenue->property_type)->value('price');
-        $total = $total + $price;
-      }
-      $revenue = $total * 0.70;
-
-      $bookingToday = Booking::where('status', 'Completed')->where('schedule_date', Carbon::today())->get();
-      foreach ($bookingToday as $bookingToday) {
-        $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
-        $totalToday = $totalToday + $priceToday;
-      }
-      $revenueToday = $totalToday * 0.70;
-      ?>
-      <!-- Reports -->
-      <div class="row justify-content-center" id="report">
-        <div class="daily_revenue spacing">
-          <p class="report_title">
-            Daily Revenue
-          </p>
-          <h3 class="value1">
-            ₱ {{ number_format((float)$revenueToday, 2, '.', '')}}
-          </h3>
-        </div>
-
-        <div class="weekly_revenue spacing">
-          <h3 class="value">
-            {{number_format((float)$satisfaction, 0, '.', '')}} / 5
-          </h3>
-          <p class="report_title">
-            Overall Service Rating
-          </p>
-        </div>
-
-        <div class="sweep_user spacing">
-          <h3 class="value">
-            {{ $complete }}
-          </h3>
-          <p class="report_title">
-            Transaction Completed
-          </p>
-        </div>
-
-        <div class="sweep_cleaner spacing">
-          <h3 class="value">
-            {{ $customer }}
-          </h3>
-          <p class="report_title">
-            Sweep Customers
-          </p>
-        </div>
-      </div> <!-- End of Reports -->
-
-      <div class="row justify-content-center" id="report">
-        <div class="daily_revenue spacing">
-          <p class="report_title">
-            Total Revenue
-          </p>
-          <h3 class="value1">
-            ₱ {{ number_format((float)$revenue, 2, '.', '')}}
-          </h3>
-        </div>
-
-        <div class="weekly_revenue spacing">
-          <h3 class="value">
-            {{$services}}
-          </h3>
-          <p class="report_title">
-            Total Services
-          </p>
-        </div>
-
-        <div class="sweep_user spacing">
-          <h3 class="value">
-            {{ $decline }}
-          </h3>
-          <p class="report_title">
-            Transaction Cancelled
-          </p>
-        </div>
-
-        <div class="sweep_cleaner spacing">
-          <h3 class="value">
-            {{$cleaner}}
-          </h3>
-          <p class="report_title">
-            Sweep Cleaners
-          </p>
-        </div>
-      </div>
       <!-- Booking Calendar -->
       <div class="container mt-5 calendar_con">
         <div id='calendar'></div>

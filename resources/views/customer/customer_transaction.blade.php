@@ -16,6 +16,7 @@
 
 <head>
     <link href="{{ asset('css/customer_trans.css') }}" rel="stylesheet">
+    <link href="http://127.0.0.1:9999/css/gcash.css" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

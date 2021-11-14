@@ -102,7 +102,6 @@ use App\Models\Service_review;
           <div id="pst-time" class="local_time"></div>
         </div>
       </div>
-
       <!-- Sidebar -->
       <h2 class="dashboard_title">
         Active Transactions
