@@ -204,7 +204,7 @@
                                             <div class="customer_services_modal_body_1_con">
                                                 <h5>Transaction ID:</h5>
                                                 <p>Please input the Transaction ID of the GCash Payment Below</p>
-                                                <input type="text" class="form-control input" name="full_name" placeholder="Transaction ID" value="">
+                                                <input type="text" class="form-control input" name="full_name" placeholder="Transaction ID" required>
                                                 
                                             </div>
                                         </div>
@@ -401,7 +401,7 @@
                                         <input type="hidden" name="booking_id" value="{{$value->booking_id}}">    
                                         @foreach($addressData as $key => $add)
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="address" value="{{$add->address_id}}" id="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" name="address" value="{{$add->address_id}}" id="flexCheckDefault" required>
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 <h5>{{$add->address}}</h5>
                                             </label>
@@ -510,12 +510,12 @@
                                     <label for="appt">
                                         Date:
                                     </label>
-                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control">
+                                    <input type="text" name="schedule_date" class="datepickerListAppointments form-control" required>
                                     <br>
                                     <label for="appt" class="place-type">
                                         Time:
                                     </label>
-                                    <input class="timepicker form-control" type="text" name="schedule_time" >
+                                    <input class="timepicker form-control" type="text" name="schedule_time" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-block btn-danger no_btn" data-dismiss="modal"> 

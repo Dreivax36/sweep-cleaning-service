@@ -134,7 +134,7 @@ use App\Models\Notification;
                                     <label class="upload_label">
                                         Service Name
                                     </label>
-                                    <input type="text" required class="form-control w-100 add_service_form" id="service_title" name="service_name" value="{{ old('service_name') }}">
+                                    <input type="text" required class="form-control w-100 add_service_form" id="service_title" name="service_name" value="{{ old('service_name') }}" required>
                                     <span class="text-danger">@error('service_name'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -142,7 +142,7 @@ use App\Models\Notification;
                                         Description
                                     </label>
 
-                                    <textarea required class="form-control w-100 add_service_form" id="description" name="description" value="{{ old('description') }}"></textarea>
+                                    <textarea required class="form-control w-100 add_service_form" id="description" name="description" value="{{ old('description') }}" required></textarea>
                                     <span class="text-danger">@error('description'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -154,7 +154,7 @@ use App\Models\Notification;
                                             These are the things used during a service that are not consumable. Eg. Vaccuum Cleaner.
                                         </i>
                                     </h6>
-                                    <textarea required class="form-control w-100 add_service_form" id="description" name="equipment" value="{{ old('equipment') }}"></textarea>
+                                    <textarea required class="form-control w-100 add_service_form" id="description" name="equipment" value="{{ old('equipment') }}" required></textarea>
                                     <span class="text-danger">@error('equipment'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -166,7 +166,7 @@ use App\Models\Notification;
                                             These are the things used during a service that are consumable. Eg. Soap.
                                         </i>
                                     </h6>
-                                    <textarea required class="form-control w-100 add_service_form" id="description" name="material" value="{{ old('material') }}"></textarea>
+                                    <textarea required class="form-control w-100 add_service_form" id="description" name="material" value="{{ old('material') }}" required></textarea>
                                     <span class="text-danger">@error('material'){{ $message }} @enderror</span>
                                 </div>
 
@@ -182,7 +182,7 @@ use App\Models\Notification;
                                             These are neccesary protection for the cleaners for chemicals and particles. Eg. Gloves, Masks.
                                         </i>
                                     </h6>
-                                    <textarea required class="form-control w-100 add_service_form" id="description" name="personal_protection" value="{{ old('personal_protection') }}"></textarea>
+                                    <textarea required class="form-control w-100 add_service_form" id="description" name="personal_protection" value="{{ old('personal_protection') }}" required></textarea>
                                     <span class="text-danger">@error('personal_protection'){{ $message }} @enderror</span>
                                 </div>
                                 <h5 class="pricing_title">
@@ -195,7 +195,7 @@ use App\Models\Notification;
                                                 No. of Cleaners:
                                             </h6>
                                             <div class="form-group">
-                                                <input type="number" required class="form-control w-100 add_service_form" id="service_cleaners" name="resident_number_of_cleaner" value="{{ old('resident_number_of_cleaner') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);">
+                                                <input type="number" required class="form-control w-100 add_service_form" id="service_cleaners" name="resident_number_of_cleaner" value="{{ old('resident_number_of_cleaner') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);" required>
                                                 <span class="text-danger">@error('resident_number_of_cleaner'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
@@ -206,7 +206,7 @@ use App\Models\Notification;
                                                 Price:
                                             </h6>
                                             <div class="form-group">
-                                                <input type="number" required class="form-control w-100 add_service_form" id="property_residential" name="resident_price" value="{{ old('resident_price') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);">
+                                                <input type="number" required class="form-control w-100 add_service_form" id="property_residential" name="resident_price" value="{{ old('resident_price') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);" required>
                                                 <span class="text-danger">@error('resident_price'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
@@ -222,7 +222,7 @@ use App\Models\Notification;
                                                 No. of Cleaners:
                                             </h6>
                                             <div class="form-group">
-                                                <input type="number" required class="form-control w-100 add_service_form" id="service_cleaners" name="apartment_number_of_cleaner" value="{{ old('apartment_number_of_cleaner') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);">
+                                                <input type="number" required class="form-control w-100 add_service_form" id="service_cleaners" name="apartment_number_of_cleaner" value="{{ old('apartment_number_of_cleaner') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);" required>
                                                 <span class="text-danger">@error('apartment_number_of_cleaner'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
@@ -233,7 +233,7 @@ use App\Models\Notification;
                                                 Price:
                                             </h6>
                                             <div class="form-group">
-                                                <input type="number" required class="form-control w-100 add_service_form" id="property_apartment" name="apartment_price" value="{{ old('apartment_price') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);">
+                                                <input type="number" required class="form-control w-100 add_service_form" id="property_apartment" name="apartment_price" value="{{ old('apartment_price') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);" required>
                                                 <span class="text-danger">@error('apartment_price'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
@@ -249,7 +249,7 @@ use App\Models\Notification;
                                                 No. of Cleaners:
                                             </h6>
                                             <div class="form-group">
-                                                <input type="number" required class="form-control w-100 add_service_form" id="service_cleaners" name="condo_number_of_cleaner" value="{{ old('condo_number_of_cleaner') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);">
+                                                <input type="number" required class="form-control w-100 add_service_form" id="service_cleaners" name="condo_number_of_cleaner" value="{{ old('condo_number_of_cleaner') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);" required>
                                                 <span class="text-danger">@error('condo_number_of_cleaner'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
@@ -260,7 +260,7 @@ use App\Models\Notification;
                                                 Price:
                                             </h6>
                                             <div class="form-group">
-                                                <input type="number" required class="form-control w-100 add_service_form" id="property_condo" name="condo_price" value="{{ old('condo_price') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);">
+                                                <input type="number" required class="form-control w-100 add_service_form" id="property_condo" name="condo_price" value="{{ old('condo_price') }}" onchange="this.value = Math.max(Math.ceil(Math.abs(this.value || 1)) || 1);" required>
                                                 <span class="text-danger">@error('condo_price'){{ $message }} @enderror</span>
                                             </div>
                                         </div>
