@@ -265,6 +265,12 @@ use App\Models\Service_review;
                                                             Paypal
                                                         </label>
                                                     </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="mode_of_payment" id="" value="G-cash">
+                                                            G-cash
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

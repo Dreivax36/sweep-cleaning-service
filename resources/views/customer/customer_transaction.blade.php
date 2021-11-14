@@ -134,6 +134,11 @@
                                         Pay
                                     </button>
                                     @endif
+                                    @if($value->status == "Pending" && ($value->mode_of_payment == 'G-cash' && $value->is_paid == false))
+                                    <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#gcash-{{ $value->booking_id }}">
+                                        Pay
+                                    </button>
+                                    @endif
                                     <!-- Show if the status is done and not yet submit rating -->
                                     @if($value->status == "Done" && $reviews == 0 )           
                                     <button type="button" class="btn btn-primary rate_btn" onclick="document.location='{{ route('customer_rating', $value->booking_id) }}'">
@@ -144,7 +149,74 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Modal Service Details -->
+                    <div class="modal fade modal-cont" id="gcash" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                                    <div class="modal-content customer_services_modal_content">
+                                        <div class="modal-header customer_services_modal_header">
+                                            <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
+                                            <div>
+                                                <button type="button" class="close-mobile" data-dismiss="modal">
+                                                    <i class="fas fa-arrow-to-left"></i>Back
+                                                </button>
+                                                <h4 class="modal_customer_services_title">
+                                                    {{ $data->service_name}}
+                                                </h4>
+                                                <h6 class="customer_services_sub_1">
+                                                    Gcash Payment
+                                                </h6>
 
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                        <form action="{{ route('gcash') }}" method="post" >
+                                    @if(Session::get('success'))
+                                    <script>
+                                        swal({
+                                            title: "Payment Successful!",
+                                            icon: "success",
+                                            button: "Close",
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                    <script>
+                                        swal({
+                                            title: "Something went wrong, try again!",
+                                            icon: "error",
+                                            button: "Close",
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @csrf
+                                    <input type="hidden" name="booking_id" value="{{$value->booking_id}}">
+                                            <div class="gcashqr">
+                                                <h6>Scan the QR Code below using your GCash App</h6>
+                                                <img src="/images/gcashqr.png" class="img-gcash">
+                                            </div>
+                                            <div class="customer_services_modal_body_1_con">
+                                                <h5>Amount:</h5>
+                                                <input type="text" class="form-control input" name="amount" placeholder="₱{{ $price_data->price }}" value="{{ $price_data->price }}" readonly>
+                                                
+                                            </div>
+                                            <div class="customer_services_modal_body_1_con">
+                                                <h5>Transaction ID:</h5>
+                                                <p>Please input the Transaction ID of the GCash Payment Below</p>
+                                                <input type="text" class="form-control input" name="full_name" placeholder="Transaction ID" value="">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer customer_services_modal_footer">
+                                            <button type="submit" class="btn btn-block btn-primary book_now_btn">
+                                                CONFIRM
+                                            </button>
+                                        </div>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
                     <!-- Modal for details -->
                     <div class="modal fade" id="details-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                         <div class="modal-dialog" role="document">
