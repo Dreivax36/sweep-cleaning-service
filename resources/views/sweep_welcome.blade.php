@@ -340,7 +340,7 @@
             </div>
             <div class="slider2">
                 <div class="d-flex slider-cont2">
-                    <a href="{{ url('/cleaning') }}" class="recom">
+                <a href="{{ url('/cleaning') }}" class="recom">
                         <div class="card other">
                             <div class="services">
                                 <h2 class="title3">Home Cleaning Services</h2>

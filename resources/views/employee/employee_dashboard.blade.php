@@ -133,6 +133,7 @@ use App\Models\Time_entry;
         </div>
         </form>
       </div>
+      </div>
     <div class="col-md-9">
       <!-- Booking Calendar -->
       <div class="container mt-5 calendar_con">
@@ -142,7 +143,7 @@ use App\Models\Time_entry;
         ?>
       </div>
     </div>
-  </div>
+    </div>
 
   <!-- Modal for logout -->
   <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

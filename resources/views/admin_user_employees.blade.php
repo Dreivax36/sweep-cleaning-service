@@ -160,6 +160,13 @@ use App\Models\Notification;
                         @csrf
                         <div class="form-group">
                             <label class="upload_label">
+                                Employee Code:
+                            </label>
+                            <input type="text" required class="form-control w-100 add_service_form" id="employee_code" name="employee_code" value="{{ old('employee_code') }}" required>
+                            <span class="text-danger">@error('employee_code'){{ $message }} @enderror</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="upload_label">
                                 Employee Name:
                             </label>
                             <input type="text" required class="form-control w-100 add_service_form" id="full_name" name="full_name" value="{{ old('full_name') }}" required>
@@ -178,13 +185,6 @@ use App\Models\Notification;
                             </label>
                             <input type="text" required class="form-control w-100 add_service_form" id="contact_number" name="contact_number" value="{{ old('contact_number') }}" required>
                             <span class="text-danger">@error('contact_number'){{ $message }} @enderror</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="upload_label">
-                                Birthday:
-                            </label>
-                            <input type="date" required class="form-control w-100 add_service_form" id="birthday" name="birthday" value="{{ old('birthday') }}" required>
-                            <span class="text-danger">@error('birthday'){{ $message }} @enderror</span>
                         </div>
                         <div class="form-group">
                             <label class="upload_label">
@@ -208,7 +208,7 @@ use App\Models\Notification;
                                 <option value="Employee">Employee</option>
                                 <option value="Customer Representative">Customer Representative</option>
                                 <option value="Quality Assurance Head">Quality Assurance Head</option>
-                                <option value="DevOps Head">DevOps Head</option>
+                                <option value="IT Project Head">IT Project Head</option>
                             </select>
                         </div>
                 </div>
@@ -233,7 +233,7 @@ use App\Models\Notification;
                 <thead class="head_user">
                     <tr class="user_table_row">
                         <th class="text-center user_table_header">
-                            Employee_ID
+                            Employee Code
                         </th>
                         <th class="text-center user_table_header">
                             Full Name
@@ -246,9 +246,6 @@ use App\Models\Notification;
                         </th>
                         <th class="text-center user_table_header">
                             Birthday
-                        </th>
-                        <th class="text-center user_table_header">
-                            Password
                         </th>
                         <th class="text-center user_table_header">
                             Department
@@ -265,7 +262,7 @@ use App\Models\Notification;
                     @foreach($employee as $value)
                     <tr class="user_table_row">
                         <td class="user_table_data">
-                            {{ $value->employee_id }}
+                            {{ $value->employee_code }}
                         </td>
                         <td class="user_table_data">
                             {{ $value->full_name }}
@@ -278,10 +275,7 @@ use App\Models\Notification;
                         </td>
                         <td class="user_table_data">
                             {{ date('F d, Y', strtotime($value->birthday)) }}
-                        </td>
-                        <td class="user_table_data">
-                            {{ $value->password }}
-                        </td>
+                        </td> 
                         <td class="user_table_data">
                             {{ $value->department }}
                         </td>

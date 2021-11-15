@@ -1,3 +1,17 @@
+<?php
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Event;
+    use App\Models\Notification;
+    use Carbon\Carbon;
+    use App\Models\Service_review;
+    use App\Models\Time_entry;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,44 +34,61 @@
 <body class="reg_customer_body flex-row align-items-center">
     <div class="register_con">
         <h4 class="signin_label">
-            Employee Sign In
+            Employee Time In / Time Out
         </h4>
-        <form action="{{ route('employee_check') }}" method="post">
-                @if(Session::get('fail'))
-                    <div class="alert alert-danger">
-                        {{ Session::get('fail') }}
-                    </div>
-                @endif
-                @csrf
+        <form action="{{ route('timeIn') }}" method="post" id="myform">
+          @if(Session::get('success-timein'))
+            <script>
+              swal({
+              title: "Time In Successful!",
+              icon: "success",
+              button: "Close",
+              });
+            </script> 
+          @endif
+          @if(Session::get('success-timeout'))
+            <script>
+              swal({
+              title: "Time Out Successful!",
+              icon: "success",
+              button: "Close",
+              });
+            </script>
+          @endif
+          @if(Session::get('fail'))
+            <script>
+              swal({
+                title: "Something went wrong, try again!",
+                icon: "error",
+                button: "Close",
+              });
+          </script>
+          @endif
+
+          @csrf
                 <div class="input-div">
                     <div class="icon">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div>
-                        <h5>Email</h5>
+                        <h5>Employee Code</h5>
                         <input type="text" class="input" name="email" value="{{ old('email') }}">
                         <span class="text-danger">
                         @error('email'){{ $message }} @enderror
                         </span>
                     </div>
                 </div>
-                <div class="input-div">
-                    <div class="icon">
-                    <i class="fas fa-lock"></i>
-                    </div>
-                    <div>
-                        <h5>Password</h5>
-                        <input type="password" class="input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                        <span class="text-danger">
-                        @error('password'){{ $message }} @enderror
-                        </span>
-                    </div>
-                </div> 
-                <button type="submit" class="login_customer_btn">
-                    Login
-                </button>
-                <br>
-            </form>
+
+        <div class="buttons">
+
+          <button type="submit" class="btn btn-block btn-primary timein_btn" name="timeIn" value="{{now()->toDateTimeString()}}">
+            TIME IN
+          </button>
+          <button type="submit" class="btn btn-block btn-danger timeout_btn timein_btn" name="timeOut" value="{{now()->toDateTimeString()}}">
+            TIME OUT
+          </button>
+        </div>
+        </form>
     </div>
     <script type="text/javascript" src="{{ asset('js/register.js')}}"></script>
 </body>

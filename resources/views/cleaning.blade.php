@@ -1,3 +1,6 @@
+<?php
+    use App\Models\Service;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -85,42 +88,18 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            <?php
+                $service = Service::all();
+            ?>
+            @foreach($service as $services)
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title">General Cleaning</h3>
-                    <p class="card-text">Comprises of sweeping, vacuuming, light dusting and a simple disinfection. This service will ensure that your home is clear of dust, filth, and debris.</p>
-                    <!-- <a class="btn btn-primary" href="/customer/customer_login">Learn More</a> -->
-
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Deep Cleaning</h3>
-                    <p class="card-text">A deeper dive into a clean environment, this service includes deep cleaning, bedroom organization, simple upholstery cleaning and simple disinfection.</p>
+                    <h3 class="card-title">{{$services->service_name}}</h3>
+                    <p class="card-text">{{ \Illuminate\Support\Str::limit($services->service_description, 200, $end='...') }}</p>
                     <!-- <a class="btn btn-primary" href="/customer/customer_login">Learn More</a> -->
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Deep Kitchen Cleaning</h3>
-                    <p class="card-text">Designed exclusively for the kitchen, deep cleaning of countertops, stovetops, and ovens and simple management and disinfection.</p>
-                    <!-- <a class="btn btn-primary" href="/customer/customer_login">Learn More</a> -->
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Upholstery Cleaning</h3>
-                    <p class="card-text">Concentrating on cleaning your sofas, pillows, and mattresses in order to eliminate accumulated dust and debris and restore their original appearance.</p>
-                    <!-- <a class="btn btn-primary" href="/customer/customer_login">Learn More</a> -->
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Maid for a Day</h3>
-                    <p class="card-text">Have a worry-free day in the house by having a maid take care of the essential household chores. </p>
-                    <!-- <a class="btn btn-primary" href="/customer/customer_login">Learn More</a> -->
-                </div>
-            </div>
+            @endforeach
         </div>
         <!-- Mobile -->
         <div class="mobile-spacer">

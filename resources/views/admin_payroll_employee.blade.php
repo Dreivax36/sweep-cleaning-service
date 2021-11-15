@@ -6,7 +6,7 @@
     use App\Models\Assigned_cleaner;
     use App\Models\Notification;
     use App\Models\Employee;
-    use App\Models\Time_entry;
+    use App\Models\Salary;
 ?>
 @extends('head_extention_admin') 
 
@@ -97,7 +97,7 @@
     </div>
 </div>
     <div class="col-md-4">
-            <button type="button" class="btn btn-block btn-primary add_service_btn float-right" data-toggle="modal" data-target="#addEmployee">
+            <button type="button" class="btn btn-block btn-primary add_service_btn float-right" onclick="document.location='{{ route('computeSalary') }}'">
                 Compute Salary
             </button>
     </div>
@@ -112,10 +112,13 @@
                             Full Name
                         </th>
                         <th class="text-center user_table_header">
-                           Month
+                            Total Hours Present
                         </th>
                         <th class="text-center user_table_header">
                             Total Days Present
+                        </th>
+                        <th class="text-center user_table_header">
+                           Month
                         </th>
                         <th class="text-center user_table_header">
                             Total Salary
@@ -137,24 +140,17 @@
                 ?>
                 @foreach($employee as $key => $value)
                     <?php
-                        $present = Time_entry::where('employee_id', $value->employee_id)->selectRaw('extract(month from created_at) as month, count(time_start) / 2 as present')
-                        ->groupBy('month')
-                        ->orderByRaw('min(created_at) asc')
-                        ->get();
+                        $salary = Salary::where('employee_code', $value->employee_code)->orderby('month', 'DESC')->get();
                     ?>
                     <tr class="user_table_row">
                         <td class="user_table_data">{{ $value->full_name }}</td>
-                        @foreach($present as $day)
-                        <?php
-                            $totalSalary = $day->present * 300;
-                            $totalTax = $totalSalary * 0.30;
-                            $netpay = $totalSalary - ($totalSalary * 0.30);
-                        ?>
-                        <td class="user_table_data">{{ $day->present }}</td>
-                        <td class="user_table_data">{{date("F", mktime(0, 0, 0, $day->month, 1))}}</td>
-                        <td class="user_table_data">₱{{ number_format((float) $totalSalary, 2, '.', '') }}</td>
-                        <td class="user_table_data">₱{{ number_format((float)$totalTax, 2, '.', '')}}</td>
-                        <td class="user_table_data">₱{{ number_format((float)$netpay, 2, '.', '')}}</td>
+                        @foreach($salary as $salary)
+                        <td class="user_table_data">{{ $salary->totalHour }}</td>
+                        <td class="user_table_data">{{ $salary->totalDay }}</td>
+                        <td class="user_table_data">{{date("F", mktime(0, 0, 0, $salary->month, 1))}}</td>
+                        <td class="user_table_data">₱{{ number_format((float) $salary->totalsalary, 2, '.', '') }}</td>
+                        <td class="user_table_data">₱{{ number_format((float)$salary->totaltax, 2, '.', '')}}</td>
+                        <td class="user_table_data">₱{{ number_format((float)$salary->netpay, 2, '.', '')}}</td>
                         <td class="user_table_data">
                         <button type="submit" class="btn btn-block btn-success">
                             Pay Slip

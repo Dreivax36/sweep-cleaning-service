@@ -17,7 +17,7 @@ class AuthCheck
     public function handle(Request $request, Closure $next)
     {
       
-        if(!session()->has('LoggedUser' ) && $request->path() !='/' ) {
+        if(!session()->has('LoggedUser') && $request->path() !='/' ) {
             if ( $request->path() =='cleaner/cleaner_dashboard' || $request->path() =='cleaner/cleaner_history' ||  $request->path() =='cleaner/cleaner_profile' || $request->path() =='cleaner/cleaner_job'){
                 return redirect('cleaner/cleaner_login')->with('fail', 'You must be logged in');
             }
@@ -31,13 +31,16 @@ class AuthCheck
         }
         
         elseif(session()->has('LoggedUser')){ 
-            if ($request->path() =='auth/login' || $request->path() =='auth/register' || $request->path() =='/' ){
+            if ($request->path() =='auth/login' || $request->path() =='auth/register'){
                 return back();
             }
-            elseif ($request->path() =='customer/customer_login' || $request->path() =='customer/customer_register' || $request->path() =='/'){
+            elseif ($request->path() =='customer/customer_login' || $request->path() =='customer/customer_register'){
                 return back();
             }
-            elseif ($request->path() =='cleaner/cleaner_login' || $request->path() =='cleaner/cleaner_register' || $request->path() =='/'){
+            elseif ($request->path() =='cleaner/cleaner_login' || $request->path() =='cleaner/cleaner_register'){
+                return back();
+            }
+            elseif($request->path() =='/'){
                 return back();
             }
         }

@@ -525,9 +525,8 @@ class MainController extends Controller
             'position'=>'required'
 
         ]);
-
-            $password = Str::random(6);
             $employees = new Employee;
+            $employees->employee_code = $request->employee_code; 
             $employees->full_name = $request->full_name; 
             $employees->email = $request->email; 
             $employees->contact_number = $request->contact_number; 
@@ -549,33 +548,11 @@ class MainController extends Controller
         return view('employee.login');
     }
 
-    function employee_check(Request $request){
-
-        $userInfo = Employee::where('email','=', $request->email)->first();
-
-        if(!$userInfo){
-            return back()->with('fail', 'We do not recognize your email address');
-        }else{
-            //check password
-            if($request->password == $userInfo->password){
-                $request->session()->put('LoggedUser', $userInfo->employee_id);
-                return redirect('/employee/employee_dashboard');
-            }else{
-                return back()->with('fail', 'Incorrect password');
-            }
-        }
-    }
-
-    function employee_dashboard(){
-        $data = ['LoggedUserInfo'=>Employee::where('employee_id','=', session('LoggedUser'))->first()];
-        return view('employee.employee_dashboard', $data);
-    }
-
     function timeIn(Request $request){
         
         if($request->timeIn != null){
             $time_entries = new Time_entry;
-            $time_entries->employee_id = $request->employee_id;
+            $time_entries->employee_code = $request->employee_code;
             $time_entries->time_start = $request->timeIn;
             $time_entries = $time_entries->save();
             return back()->with('success-timein', 'Successful');
@@ -591,3 +568,7 @@ class MainController extends Controller
 
 }
 
+
+            
+
+            

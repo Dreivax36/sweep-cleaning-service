@@ -21,6 +21,9 @@ use Carbon\Carbon;
 use App\Models\Notification;
 use App\Models\Payment;
 use Pusher\Pusher;
+use App\Models\Salary;
+use App\Models\Employee;
+use App\Models\Time_entry;
 
 class BookingController extends Controller
 {
@@ -642,6 +645,75 @@ class BookingController extends Controller
         );
         
         $webhook->setEventTypes($webhookEventTypes);
+    }
+
+    public function computeSalary(){
+        $employee = Employee::all();
+        foreach($employee as $key => $value){
+            $month = Carbon::now()->month;
+
+            $hourPresent = Time_entry::where('employee_code', $value->employee_code)->get();
+            $totalHours  = 0;
+            foreach($hourPresent as $hour){
+                $date1 = strtotime($hour->time_start);
+                $date2 = strtotime($hour->time_end);
+                $difference = abs($date1-$date2);
+                $totalHours = $totalHours + (floor($difference / 60 / 60)); 
+            }
+            $totalday = $totalHours / 8 ; 
+
+            if($value->department == "Human Resource Department"){
+                if($value->position == "Manager"){
+                    $totalsalary = $totalHours * 265;
+                }
+                elseif($value->position == "Employee"){
+                    $totalsalary = $totalHours * 75;
+                }
+            }
+            elseif($value->department == "Operations Department"){
+                if($value->position == "Manager"){
+                    $totalsalary = $totalHours * 265;
+                }
+                elseif($value->position == "Employee"){
+                    $totalsalary = $totalHours * 75;
+                }
+                elseif($value->position == "Customer Representative"){
+                    $totalsalary = $totalHours * 92;
+                }
+            }
+            elseif($value->department == "Marketing Department"){
+                if($value->position == "Manager"){
+                    $totalsalary = $totalHours * 310;
+                }
+                elseif($value->position == "Employee"){
+                    $totalsalary = $totalHours * 75;
+                }
+            }
+            elseif($value->department == "IT Department"){
+                if($value->position == "Quality Assurance Head"){
+                    $totalsalary = $totalHours * 202;
+                }
+                elseif($value->position == "Employee"){
+                    $totalsalary = $totalHours * 196;
+                }
+                elseif($value->position == "IT Project Head"){
+                    $totalsalary = $totalHours * 35;
+                }
+            }
+            $net = $totalsalary - ($totalsalary * 0.30);
+            $tax = $totalsalary * 0.30;
+
+            $salaries = new Salary;
+            $salaries->totalHour = floor($totalHours);
+            $salaries->totalDay = floor($totalday);
+            $salaries->month = $month;
+            $salaries->totalsalary = $totalsalary;
+            $salaries->netpay = $net;
+            $salaries->totaltax = $tax;
+            $salaries->employee_code = $value->employee_code;
+            $salaries = $salaries->save();
+        }
+        return back();
     }
 
 }

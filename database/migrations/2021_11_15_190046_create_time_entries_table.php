@@ -17,9 +17,7 @@ class CreateTimeEntriesTable extends Migration
             $table->id();
             $table->datetime('time_start');
             $table->datetime('time_end')->nullable();
-            $table->unsignedBigInteger('employee_id');
-            $table->foreign('employee_id')->references('employee_id')->on('employees')
-                ->onUpdate('cascade')->onDelete('cascade');
+            $table->string('employee_code');
             $table->timestamps();
         });
     }

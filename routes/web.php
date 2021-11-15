@@ -163,6 +163,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('/employee_check',[MainController::class, 'employee_check'])->name('employee_check');
     Route::post('/timeIn',[MainController::class, 'timeIn'])->name('timeIn');
     Route::get('/employee/employee_dashboard',[MainController::class, 'employee_dashboard'])->name('employee.employee_dashboard');
+    Route::get('/computeSalary',[BookingController::class, 'computeSalary'])->name('computeSalary');
 });
 
 Route::get('/cleaner/cleaner_welcome', function () {
