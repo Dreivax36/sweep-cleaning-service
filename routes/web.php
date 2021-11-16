@@ -170,6 +170,9 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::post('/timeIn',[MainController::class, 'timeIn'])->name('timeIn');
     Route::get('/employee/employee_dashboard',[MainController::class, 'employee_dashboard'])->name('employee.employee_dashboard');
     Route::get('/computeSalary',[BookingController::class, 'computeSalary'])->name('computeSalary');
+    Route::get('/payslip',[MainController::class, 'payslip'])->name('payslip');
+    Route::get('/cleaners_performance',[MainController::class, 'cleaners_performance'])->name('cleaners_performance'); 
+    Route::get('/employees_performance',[MainController::class, 'employees_performance'])->name('employees_performance');
 });
 
 Route::get('/cleaner/cleaner_welcome', function () {

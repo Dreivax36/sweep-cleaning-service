@@ -39,6 +39,31 @@
             @csrf
             <input type="hidden" name="user_id" value="{{$user_id}}">
             <div class="user-details">
+
+            <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h5>Age</h5>
+                        <input type="number" class="input" name="age" value="{{ old('age') }}">
+                        <span class="text-danger">
+                            @error('age'){{ $message }} @enderror
+                        </span>
+                    </div>
+                </div>                    
+                <div class="input-div">
+                    <div class="icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <div>
+                        <h5>Address</h5>
+                        <input type="text" class="input" name="address" value="{{ old('address') }}">
+                        <span class="text-danger">
+                            @error('address'){{ $message }} @enderror
+                        </span>
+                    </div>
+                </div>
                 <div class="id-cont">
                     <h5>Acceptable Valid ID's:</h5>
                     <p>UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, School ID, PhilSys ID</p>

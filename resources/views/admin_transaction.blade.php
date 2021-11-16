@@ -83,7 +83,7 @@ use App\Models\Payment;
     </nav>
 </div>
 
-<body>
+<body id="status">
 
 
     <?php
@@ -165,7 +165,7 @@ use App\Models\Payment;
     </div>
 
     <div class="body">
-    <div class="row row_transaction justify-content-center">
+    <div class="row row_transaction justify-content-center" >
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -839,7 +839,15 @@ use App\Models\Payment;
         });
     </script>
     @endif
-
+    @if(Session::has('success-paid'))
+    <script>
+        swal({
+            title: "Verify Payment Successfully!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
     @if(Session::has('success'))
     <script>
         swal({

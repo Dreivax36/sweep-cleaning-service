@@ -203,8 +203,8 @@
                                                 
                                             </div>
                                             <div class="customer_services_modal_body_1_con">
-                                                <h5>Transaction ID:</h5>
-                                                <p>Please input the Transaction ID of the GCash Payment Below</p>
+                                                <h5>Reference Number:</h5>
+                                                <p>Please input the Reference Number of the GCash Payment Below</p>
                                                 <input type="text" class="form-control input" name="transaction_id" placeholder="Transaction ID" required>
                                             </div>
                                         </div>

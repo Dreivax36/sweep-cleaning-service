@@ -9,7 +9,7 @@ use App\Models\Time_entry;
 
 <head>
     <title>
-        Employee Login
+        Employee Time In/Out
     </title>
     <meta charset="utf-8">
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,7 @@ use App\Models\Time_entry;
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/customer_login.css')}}">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 </head>

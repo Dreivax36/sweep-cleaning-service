@@ -82,7 +82,7 @@ use App\Models\Notification;
     </nav>
 </div>
 
-<body>
+<body id="status">
 
 
     <?php

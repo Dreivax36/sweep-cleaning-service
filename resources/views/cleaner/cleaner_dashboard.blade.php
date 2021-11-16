@@ -198,7 +198,7 @@ use App\Models\Cleaner_review;
 
         </div>
     </div>
-    <script>
+    <script>  
         $(document).ready(function() {
 
             $.ajaxSetup({

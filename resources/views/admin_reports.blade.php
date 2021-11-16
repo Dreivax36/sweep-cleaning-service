@@ -1039,66 +1039,40 @@ use App\Models\Payment;
                                     Name
                                 </td>
                                 <td class="user_table_data">
-                                    Ratings
+                                    Days Present
                                 </td>
                                 <td class="user_table_data">
-                                    Jobs Completed
-                                </td>
-                                <td class="user_table_data">
-                                    Jobs Cancelled
+                                    Hours Present
                                 </td>
                             </tr>
+                            <?php
+                                $countEmployee = 1;
+                                $salary = Salary::selectRaw('employee_code, totalHour, totalDay,  sum(totalDay * totalHour) as present')
+                                ->orderBy('present')
+                                ->get();
+                            ?>
+                            @foreach($salary as $employees)
+                            @if($countEmployee <= 3)
+                            <?php
+                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                            ?>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
-                                    Top 1
+                                    Top {{$countEmployee++}}
                                 </th>
                                 <td class="user_table_data">
-                                    Juan Pedro Dela Cruz
+                                    {{$employeeName}}
                                 </td>
                                 <td class="user_table_data">
-                                    4.3/5 Stars
+                                    {{$employees->totalDay }}
                                 </td>
                                 <td class="user_table_data">
-                                    14 Jobs
-                                </td>
-                                <td class="user_table_data">
-                                    2 Jobs
+                                    {{$employees->totalHour}}
                                 </td>
                             </tr>
-                            <tr class="user_table_row">
-                                <th scope="row" class="user_table_header">
-                                    Top 2
-                                </th>
-                                <td class="user_table_data">
-                                    Juan Pedro Dela Cruz
-                                </td>
-                                <td class="user_table_data">
-                                    4.2/5 Stars
-                                </td>
-                                <td class="user_table_data">
-                                    11 Jobs
-                                </td>
-                                <td class="user_table_data">
-                                    1 Jobs
-                                </td>
-                            </tr>
-                            <tr class="user_table_row">
-                                <th scope="row" class="user_table_header">
-                                    Top 3
-                                </th>
-                                <td class="user_table_data">
-                                    Juan Pedro Dela Cruz
-                                </td>
-                                <td class="user_table_data">
-                                    4.2/5 Stars
-                                </td>
-                                <td class="user_table_data">
-                                    14 Jobs
-                                </td>
-                                <td class="user_table_data">
-                                    4 Jobs
-                                </td>
-                            </tr>
+                            @endif
+                            @endforeach
+                            
                         </tbody>
                     </table>
                     <!-- Check if the customer already review booking -->
@@ -1137,173 +1111,35 @@ use App\Models\Payment;
                                 <table class="table table-striped user_info_table">
                                     <tbody>
                                         <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Rank
-                                            </th>
-                                            <td class="user_table_data">
-                                                Name
-                                            </td>
-                                            <td class="user_table_data">
-                                                Ratings
-                                            </td>
-                                            <td class="user_table_data">
-                                                Jobs Completed
-                                            </td>
-                                            <td class="user_table_data">
-                                                Jobs Cancelled
-                                            </td>
+                                        <th scope="row" class="user_table_header">
+                                            Rank
+                                        </th>
+                                        <td class="user_table_data">
+                                            Name
+                                        </td>
+                                        <td class="user_table_data">
+                                            Days Present
+                                        </td>
+                                        <td class="user_table_data">
+                                            Hours Present
+                                        </td>
                                         </tr>
+                                        @foreach($salary as $employees)
+                                        <?php
+                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                                        ?>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
-                                                Top 1
+                                                Top {{$counter}}
                                             </th>
                                             <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
+                                                {{$employeeName}}
                                             </td>
                                             <td class="user_table_data">
-                                                4.3/5 Stars
+                                                {{$employees->totalDay }}
                                             </td>
                                             <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                2 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 2
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                11 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                1 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 3
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                4 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 4
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                4 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 5
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                4 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 6
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                4 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 7
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                4 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 8
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                4 Jobs
-                                            </td>
-                                        </tr>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top 9
-                                            </th>
-                                            <td class="user_table_data">
-                                                Juan Pedro Dela Cruz
-                                            </td>
-                                            <td class="user_table_data">
-                                                4.2/5 Stars
-                                            </td>
-                                            <td class="user_table_data">
-                                                14 Jobs
-                                            </td>
-                                            <td class="user_table_data">
-                                                4 Jobs
+                                                {{$employees->totalHour}}
                                             </td>
                                         </tr>
                                     </tbody>

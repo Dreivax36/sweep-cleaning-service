@@ -158,7 +158,7 @@ class BookingController extends Controller
                 env('PUSHER_APP_ID'),
                 $options
             );
-            $messages = 'Status Updated';
+            $messages = 'New Job';
             $id = $cleaner;
             $data = ['messages' => $messages, 'id' => $id];
             $pusher->trigger('my-channel', 'cleaner-notif', $data);
@@ -203,7 +203,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'Status Updated';
+        $messages = "Status of Transaction $bookingID is $status.";
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
@@ -233,7 +233,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'Status Updated';
+        $messages = "Status of Transaction $bookingID is $status.";
         $id = $user;
         $data = ['messages' => $messages, 'id' => $id];    
         $pusher->trigger('my-channel', 'customer-notif', $data);
@@ -271,7 +271,7 @@ class BookingController extends Controller
                 env('PUSHER_APP_ID'),
                 $options
             );
-            $messages = 'Status Updated';
+            $messages = "Status of Transaction $bookingID is $status.";
             $id = $userCleaner;
             $data = ['messages' => $messages, 'id' => $id];
             $pusher->trigger('my-channel', 'cleaner-notif', $data);
@@ -334,7 +334,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'Cleaner Status Updated';
+        $messages = "Cleaner $name update the status of Transaction $request->booking_id.";
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
@@ -426,7 +426,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'New Booking';
+        $messages = 'Customer submit reviews';
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
@@ -459,7 +459,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'New Booking';
+        $messages = 'Customer paid';
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
@@ -499,7 +499,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'New Booking';
+        $messages = 'Customer pay to the cleaner';
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
@@ -515,7 +515,7 @@ class BookingController extends Controller
         $paid = Booking::Where('booking_id', $request->booking_id )->update(['is_paid' => true]);
 
         if($paid){
-            return back()->with('success', 'Paid');
+            return back()->with('success-paid', 'Paid');
          }
          else {
              return back()->with('fail','Something went wrong, try again later ');
@@ -532,7 +532,7 @@ class BookingController extends Controller
         $onsitePayment = $payments->save();
         //Add admin notification
         $notifications = new Notification();
-        $notifications->message = 'Customer pay to the cleaner';
+        $notifications->message = 'Customer paid';
         $notifications->booking_id = $booking;
         $notifications->isRead = false;
         $notifications->location = 'admin_transaction';
@@ -549,7 +549,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'New Booking';
+        $messages = 'Customer paid';
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
@@ -598,7 +598,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $messages = 'New Date';
+        $messages = 'Customer choose new schedule';
         $data = ['messages' => $messages];
         $pusher->trigger('my-channel', 'admin-notif', $data);
 

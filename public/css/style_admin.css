@@ -272,7 +272,14 @@ body {
 
 
 /* Admin User Page */
-
+.user_type_btn{
+    color: #04192E;
+    font-weight: bolder;
+    margin-left: 60px;
+    margin-top: 40px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+}
 .user_btn_con {
     margin-left: 10px;
 } 

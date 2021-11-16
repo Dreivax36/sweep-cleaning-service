@@ -360,12 +360,10 @@ class MainController extends Controller
         //Validate Requests
         $request->validate([
             'full_name'=>'required',
-            'address'=>'required',
             'email'=>'required|email|unique:users',
             'contact_number'=>'required|numeric|digits:11',
             'password'=>'required|confirmed|min:5|max:12',
             'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg', // Only allow .jpg, .gif, .svg and .png file types.
-            'age' => 'required|numeric',
         ]);
 
              // Save the file in the /public/ folder under a new folder named /images
@@ -410,6 +408,8 @@ class MainController extends Controller
         //Validate Requests
         $request->validate([
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'age' => 'required|numeric',
+            'address'=>'required',
         ]);
 
              // Save the file in the /public/ folder under a new folder named /images
@@ -446,7 +446,6 @@ class MainController extends Controller
              // Save the file in the /public/ folder under a new folder named /images
              $require = time().'.'.$request->requirement->extension();
              $request->requirement->move(public_path('requirement'),$require);
-             $id = $cleaners->cleaner_id;
              //Insert to clearance table
              $clearances = new Clearance;
              $clearances->cleaner_id = $request->cleaner_id;
@@ -604,14 +603,38 @@ class MainController extends Controller
             return back()->with('success-timein', 'Successful');
         }
         elseif($request->timeOut != null){
-            $timeOut_entries = Time_entry::where('id', $request->id)->update(['time_end' => $request->timeOut]);
+            $timeOut_entries = Time_entry::where('employee_code', $request->employee_code)->update(['time_end' => $request->timeOut]);
             return back()->with('success-timeout', 'Successful');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+    function payslip()
+    {
+        $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
+        if (session()->has('LoggedUser')) {
+            return view('payslip', $data);
+        }
+        return redirect('/');
+    }
+    function cleaners_performance()
+    {
+        $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
+        if (session()->has('LoggedUser')) {
+            return view('cleaners_performance', $data);
+        }
+        return redirect('/');
+    }
 
+    function employees_performance()
+    {
+        $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
+        if (session()->has('LoggedUser')) {
+            return view('employees_performance', $data);
+        }
+        return redirect('/');
+    }
 }
 
 
