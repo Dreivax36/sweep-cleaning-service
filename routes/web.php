@@ -69,7 +69,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     //Route for Customer Pages
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');
     Route::get('/customer/customer_register',[MainController::class, 'customer_register'])->name('customer.customer_register');
-    Route::get('/customer/customer_register_step2',[MainController::class, 'customer_register_step2'])->name('customer.customer_register_step2');
+    Route::get('/customer/customer_register_step2/{id}',[MainController::class, 'customer_register_step2'])->name('customer.customer_register_step2');
     Route::get('/customer/customer_dashboard',[MainController::class, 'customer_dashboard'])->name('customer.customer_dashboard');
     Route::get('/customer/customer_profile',[MainController::class, 'customer_profile'])->name('customer.customer_profile');
     Route::post('/updateProfile',[MainController::class, 'updateProfile'])->name('updateProfile');
@@ -95,8 +95,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
     Route::get('/cleaner/cleaner_register',[MainController::class, 'cleaner_register'])->name('cleaner.cleaner_register');
-    Route::get('/cleaner/cleaner_register_step2',[MainController::class, 'cleaner_register_step2'])->name('cleaner.cleaner_register_step2');
-    Route::get('/cleaner/cleaner_register_step3',[MainController::class, 'cleaner_register_step3'])->name('cleaner.cleaner_register_step3');
+    Route::get('/cleaner/cleaner_register_step2/{id}',[MainController::class, 'cleaner_register_step2'])->name('cleaner.cleaner_register_step2');
+    Route::get('/cleaner/cleaner_register_step3/{id}',[MainController::class, 'cleaner_register_step3'])->name('cleaner.cleaner_register_step3');
     Route::get('/cleaner/cleaner_dashboard',[MainController::class, 'cleaner_dashboard'])->name('cleaner.cleaner_dashboard');
     Route::get('/cleaner/cleaner_profile',[MainController::class, 'cleaner_profile'])->name('cleaner.cleaner_profile');
     Route::get('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');

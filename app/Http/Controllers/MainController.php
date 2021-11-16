@@ -142,8 +142,8 @@ class MainController extends Controller
     function customer_register(){
         return view('customer.customer_register');
     }
-    function customer_register_step2(){
-        return view('customer.customer_register_step2');
+    function customer_register_step2(Request $request){
+        return view('customer.customer_register_step2')->with('user_id', $request->route('id'));
     }
     //Register customer account
     function customer_save(Request $request){
@@ -202,7 +202,7 @@ class MainController extends Controller
             \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
         if($customer_save){
-            return redirect('customer/customer_save_step2')->with('user_id', $id);        
+            return redirect('customer/customer_register_step2/'.$id);        
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -348,11 +348,11 @@ class MainController extends Controller
     function cleaner_register(){
         return view('cleaner.cleaner_register');
     }
-    function cleaner_register_step2(){
-        return view('cleaner.cleaner_register_step2');
+    function cleaner_register_step2(Request $request){
+        return view('cleaner.cleaner_register_step2')->with('user_id', $request->route('id'));
     }
-    function cleaner_register_step3(){
-        return view('cleaner.cleaner_register_step3');
+    function cleaner_register_step3(Request $request){
+        return view('cleaner.cleaner_register_step3')->with('cleaner_id', $request->route('id'));
     }
     //Register cleaner account
     function cleaner_save(Request $request){
@@ -399,7 +399,7 @@ class MainController extends Controller
             \Mail::to($email)->send(new \App\Mail\SendMailCleaner($details));
 
             if($cleaner_save){
-                return redirect('cleaner/cleaner_register_step2')->with('user_id', $id);
+                return redirect('cleaner/cleaner_register_step2/'.$id);
             }
             else {
                 return back()->with('fail','Something went wrong, try again later ');
@@ -430,7 +430,7 @@ class MainController extends Controller
              $id = $cleaners->cleaner_id;
 
             if($cleaner_save){
-                return redirect('cleaner/cleaner_register_step3')->with('cleaner_id', $id);
+                return redirect('cleaner/cleaner_register_step3/'.$id);
             }
             else {
                 return back()->with('fail','Something went wrong, try again later ');
