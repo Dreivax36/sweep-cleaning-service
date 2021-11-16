@@ -35,7 +35,7 @@ Route::get('/logout_cleaner',[MainController::class, 'logout_cleaner'])->name('l
 
 //Customer
 Route::post('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
-Route::get('/customer/customer_save',[MainController::class, 'customer_save'])->name('customer.customer_save');
+Route::post('/customer/customer_save_step2',[MainController::class, 'customer_save_step2'])->name('customer.customer_save_step2');
 Route::post('/customer/customer_check',[MainController::class, 'customer_check'])->name('customer.customer_check');
 
 //Cleaner
@@ -67,6 +67,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     //Route for Customer Pages
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');
     Route::get('/customer/customer_register',[MainController::class, 'customer_register'])->name('customer.customer_register');
+    Route::get('/customer/customer_register_step2',[MainController::class, 'customer_register_step2'])->name('customer.customer_register_step2');
     Route::get('/customer/customer_dashboard',[MainController::class, 'customer_dashboard'])->name('customer.customer_dashboard');
     Route::get('/customer/customer_profile',[MainController::class, 'customer_profile'])->name('customer.customer_profile');
     Route::post('/updateProfile',[MainController::class, 'updateProfile'])->name('updateProfile');

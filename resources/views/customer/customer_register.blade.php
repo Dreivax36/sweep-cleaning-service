@@ -120,22 +120,10 @@
                         @error('profile_picture'){{ $message }} @enderror
                     </span>
                 </div>
-                <div class="id-cont">
-                    <h5>Acceptable Valid ID's:</h5>
-                    <p>UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, PhilSys ID</p>
-                </div>
-                <div class="form-group">
-                    <label class="upload_label">
-                        Valid ID
-                    </label>
-                    <input type="file" name="valid_id" class="form-control upload_file">
-                    <span class="text-danger">
-                        @error('valid_id'){{ $message }} @enderror
-                    </span>
-                </div> 
+                
             </div>
             <button type="submit" class="register_customer_btn">
-                Sign Up
+                Next
             </button>
         </form>
         <br>

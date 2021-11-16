@@ -142,6 +142,9 @@ class MainController extends Controller
     function customer_register(){
         return view('customer.customer_register');
     }
+    function customer_register_step2(){
+        return view('customer.customer_register_step2');
+    }
     //Register customer account
     function customer_save(Request $request){
         
@@ -153,7 +156,6 @@ class MainController extends Controller
             'contact_number'=>'required|numeric|digits:11',
             'password'=>'required|confirmed|min:5|max:12',
             'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg',// Only allow .jpg, .bmp and .png file types.
-            'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
            // Save the file in the /public/ folder under a new folder named /images
            $profile = time().'.'.$request->profile_picture->extension();
@@ -172,14 +174,6 @@ class MainController extends Controller
            $users->user_type = 'Customer';
            $usersave = $users->save();
            $id = $users->user_id;
-
-           $validID = time().'.'.$request->valid_id->extension();
-           $request->valid_id->move(public_path('images'),$validID);
-           //Insert to Identification table
-           $identifications = new Identification;
-           $identifications->user_id = $id;
-           $identifications->valid_id =  $validID;
-           $identificationsave = $identifications->save();
           
            //Insert to Customer table
            $customers = new Customer;
@@ -208,10 +202,32 @@ class MainController extends Controller
             \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
         if($customer_save){
-            return back()->with('success', 'Successfully created an account. Please check your email to verify it.');
-        }
+            return redirect('customer/customer_save_step2')->with('user_id', $id);        }
         else {
             return back()->with('fail','Something went wrong, try again later ');
+        }
+    }
+    function customer_save_step2(Request $request){
+        
+        //Validate Requests
+        $request->validate([
+            'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
+        ]);
+
+           $validID = time().'.'.$request->valid_id->extension();
+           $request->valid_id->move(public_path('images'),$validID);
+           //Insert to Identification table
+           $identifications = new Identification;
+           $identifications->user_id = $request->user_id;
+           $identifications->valid_id =  $validID;
+           $identificationsave = $identifications->save();
+          
+
+        if($identificationsave){
+            return redirect('customer/customer_register')->with('success', 'Successfully created an account. Please check your email to verify it.');
+        }
+        else {
+            return redirect('customer/customer_register')->with('fail','Something went wrong, try again later ');
         }
     }
     //Update Customer user table that email address is verified
