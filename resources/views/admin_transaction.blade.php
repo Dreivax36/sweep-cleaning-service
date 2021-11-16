@@ -442,7 +442,7 @@ use App\Models\Payment;
                         </div>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-
+                    <div class="modal-body">       
                     <form action="{{ route('assignCleaner') }}" method="post">
                         @if(Session::get('success-assign'))
                         <script>
@@ -512,15 +512,7 @@ use App\Models\Payment;
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)                                
                                                                             @foreach($cleanerID as $key => $assignCleaner)
-                                                                                <?php
-                                                                                    $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
-                                                                                ?> 
-                                                                                @if($cleaner->user_id == $assignUser)
-                                                                                    <?php $itemExist[$counter++] =  $cleaner->user_id; ?>
-                                                                                    @break
-                                                                                @else
-                                                                                    <?php $items[$count++] =  $cleaner->user_id; ?>
-                                                                                @endif   
+                                                                            <option  value="{{  $userID }}">{{ $assignCleaner->cleaner_id }}</option>
                                                                             @endforeach
                                                                         @endforeach 
                                                                     @else
@@ -529,21 +521,7 @@ use App\Models\Payment;
                                                                         @endforeach
                                                                     @endif 
                                                                 @endforeach
-                                                                <?php
-                                                                    $items = array_unique($items);
-                                                                    $itemExist = array_unique($itemExist);
-                                                                    $final = array_diff($items,$itemExist);
-                                                                ?>
-                                                                @if($final != null)
-                                                                @foreach($final as $userID)
-                                                                    <?php
-                                                                        $fullname = User::Where('user_id', $userID )->value('full_name');
-                                                                    ?>    
-                                                                    <option  value="{{  $userID }}">{{ $fullname }}</option>
-                                                                @endforeach 
-                                                                @else
-                                                                <option  value="">No 1 Cleaner</option>
-                                                                @endif
+                                                               
                                                             @endif
                                                         @endif
                                                     @else 
@@ -639,6 +617,7 @@ use App\Models\Payment;
                                                     </div>
                                                     @endwhile
                                                 <br>
+                        </div>
                         <div class="modal-footer trans_modal_footer">
                             <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal">
                                 Cancel
