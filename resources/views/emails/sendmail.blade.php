@@ -2,16 +2,10 @@
 
   # Hello {{$details['name']}},
 
-  Please click the button below to verify your email address.
-  @if ($details['user_type'] == 'Customer')                 
+  Please click the button below to verify your email address.               
     @component('mail::button', ['url' => url('verify', $details['user_id'])])
-    Verify Email Address
+      Verify Email Address
     @endcomponent
-  @else
-    @component('mail::button', ['url' => url('verify_cleaner', $details['user_id'])])
-    Verify Email Address
-    @endcomponent
-  @endif 
 
   Thank you.
   Regards,

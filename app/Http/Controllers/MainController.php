@@ -181,7 +181,7 @@ class MainController extends Controller
            $identifications = new Identification;
            $identifications->user_id = $id;
            $identifications->valid_id =  $validID;
-           $customer_save = $identifications->save();
+           $identifications = $identifications->save();
           
            //Insert to Customer table
            $customers = new Customer;
@@ -375,7 +375,7 @@ class MainController extends Controller
              $identifications = new Identification;
              $identifications->user_id = $id;
              $identifications->valid_id = $validId;
-             $customer_save = $identifications->save();
+             $identifications = $identifications->save();
             //Insert to cleaner table
              $cleaners = new Cleaner;
              $cleaners->user_id = $id;
@@ -403,7 +403,7 @@ class MainController extends Controller
              'user_type' => 'Cleaner',
              'name' => $name,
             ];
-            \Mail::to($email)->send(new \App\Mail\SendMail($details));
+            \Mail::to($email)->send(new \App\Mail\SendMailCleaner($details));
 
             if($cleaner_save){
                 return back()->with('success', 'Successfully created an account. Please check your email to verify it.');
