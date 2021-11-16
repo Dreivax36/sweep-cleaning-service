@@ -170,7 +170,7 @@ class MainController extends Controller
            $users->profile_picture = $profile;
            $users->account_status = 'To_validate';
            $users->user_type = 'Customer';
-           $users = $users->save();
+           $usersave = $users->save();
            $id = $users->user_id;
 
            $validID = time().'.'.$request->valid_id->extension();
@@ -179,7 +179,7 @@ class MainController extends Controller
            $identifications = new Identification;
            $identifications->user_id = $id;
            $identifications->valid_id =  $validID;
-           $identifications = $identifications->save();
+           $identificationsave = $identifications->save();
           
            //Insert to Customer table
            $customers = new Customer;
