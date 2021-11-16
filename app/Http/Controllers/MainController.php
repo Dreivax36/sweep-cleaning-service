@@ -156,9 +156,8 @@ class MainController extends Controller
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
            // Save the file in the /public/ folder under a new folder named /images
-           $profile = time().'.'.$request->profile_picture->extension();
-           $request->profile_picture->move(public_path('profile_picture'),$profile);
-           
+           $request->profile_picture->store('public');
+           $request->valid_id->store('public');
            //Insert data into database
            //Insert to user table
            $users = new User;
@@ -167,20 +166,16 @@ class MainController extends Controller
            $users->contact_number = $request->contact_number;
            $users->password = Hash::make($request->password);
            // Store the record, using the new file hashname which will be it's new filename identity.
-           $users->profile_picture = $profile;
+           $users->profile_picture = $request->profile_picture->hashName();
            $users->account_status = 'To_validate';
            $users->user_type = 'Customer';
            $customer_save = $users->save();
            $id = $users->user_id;
 
-           // Save the file in the /public/ folder under a new folder named /images
-           $validID = time().'.'.$request->valid_id->extension();
-           $request->valid_id->move(public_path('valid_id'),$validID);
-
            //Insert to Identification table
            $identifications = new Identification;
            $identifications->user_id = $id;
-           $identifications->valid_id =  $validID;
+           $identifications->valid_id =  $request->valid_id->hashName();
            $identifications = $identifications->save();
           
            //Insert to Customer table
