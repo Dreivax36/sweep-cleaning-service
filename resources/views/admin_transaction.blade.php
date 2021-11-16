@@ -480,7 +480,7 @@ use App\Models\Payment;
                                                     @endif
                                                     @while($total > 0)   
                                                     <div class="form-group">
-                                                    <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
+                                                    <input type= "text" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="upload_label">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner" class="form-control w-100 add_service_form" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
@@ -508,18 +508,43 @@ use App\Models\Payment;
                                                                 @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                                                                     <?php  
                                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
+                                                                        $countSameSched = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->count();
                                                                     ?>
-                                                                    @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
+                                                                    @if($countSameSched != 0) <!-- Check if booking already have a cleaner-->
+                                                                        @foreach($cleaner_data as $key => $cleaner)                                
                                                                             @foreach($cleanerID as $key => $assignCleaner)
-                                                                            <option  value="{{  $userID }}">{{ $assignCleaner->cleaner_id }}</option>
+                                                                                <?php
+                                                                                    $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id )->value('user_id');
+                                                                                ?> 
+                                                                                @if($cleaner->user_id == $assignUser)
+                                                                                    <?php $itemExist[$counter++] =  $cleaner->user_id; ?>
+                                                                                    @break
+                                                                                @else
+                                                                                    <?php $items[$count++] =  $cleaner->user_id; ?>
+                                                                                @endif   
                                                                             @endforeach
+                                                                        @endforeach 
                                                                     @else
                                                                         @foreach($cleaner_data as $key => $cleaner)
                                                                             <?php $items[$count++] =  $cleaner->user_id; ?>
                                                                         @endforeach
                                                                     @endif 
                                                                 @endforeach
-                                                               
+                                                                <?php
+                                                                    $items = array_unique($items);
+                                                                    $itemExist = array_unique($itemExist);
+                                                                    $final = array_diff($items,$itemExist);
+                                                                ?>
+                                                                @if($final != null)
+                                                                @foreach($final as $userID)
+                                                                    <?php
+                                                                        $fullname = User::Where('user_id', $userID )->value('full_name');
+                                                                    ?>    
+                                                                    <option  value="{{  $userID }}">{{ $fullname }}</option>
+                                                                @endforeach 
+                                                                @else
+                                                                <option  value="">No 1 Cleaner</option>
+                                                                @endif
                                                             @endif
                                                         @endif
                                                     @else 
