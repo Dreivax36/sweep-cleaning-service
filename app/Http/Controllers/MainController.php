@@ -284,7 +284,7 @@ class MainController extends Controller
             'full_name'=>'required',
             'email'=>'required',
             'contact_number'=>'required|numeric|digits:11',
-            'address[]'=>'required'
+
         ]);
         //Update User table
         $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
