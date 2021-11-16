@@ -633,11 +633,11 @@
                                 ?>
                                 @foreach($payment as $payments)                                   
                                 <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="₱{{$payments->amount}}" readonly>
+                                    <input type="number" class="form-control w-100 add_service_form" id="amount" name="amount" placeholder="₱{{$payments->amount}}" value="{{$payments->amount}}" readonly>
                                     <span class="text-danger">@error('amount'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control w-100 add_service_form" id="transaction_id" name="transaction_id" placeholder="{{$payments->transaction_id}}" readonly>
+                                    <input type="number" class="form-control w-100 add_service_form" id="transaction_id" name="transaction_id" placeholder="{{$payments->transaction_id}}" value="{{$payments->transaction_id}}" readonly>
                                     <span class="text-danger">@error('transaction_id'){{ $message }} @enderror</span>
                                 </div>
                                 @endforeach

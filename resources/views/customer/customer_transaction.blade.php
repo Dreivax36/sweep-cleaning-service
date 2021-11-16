@@ -205,8 +205,7 @@
                                             <div class="customer_services_modal_body_1_con">
                                                 <h5>Transaction ID:</h5>
                                                 <p>Please input the Transaction ID of the GCash Payment Below</p>
-                                                <input type="text" class="form-control input" name="full_name" placeholder="Transaction ID" required>
-                                                
+                                                <input type="text" class="form-control input" name="transaction_id" placeholder="Transaction ID" required>
                                             </div>
                                         </div>
                                         <div class="modal-footer customer_services_modal_footer">
