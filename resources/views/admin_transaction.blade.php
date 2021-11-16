@@ -119,7 +119,6 @@ use App\Models\Payment;
                 $onthewaySub = Booking::where('status', 'On-the-Way')->count();
                 $onprogressSub = Booking::where('status', 'On-Progress')->count();
                 $doneSub = Booking::where('status', 'Done')->count();
-                $completedSub = Booking::where('status', 'Completed')->count();
             ?>
             <a class="user_type_btn" id="active" href="admin_transaction">
                 PENDING
@@ -161,16 +160,10 @@ use App\Models\Payment;
                 </p>
                 @endif
             </a>
-            <a class="user_type_btn" id="active" href="done">
-                COMPLETED
-                @if($completedSub != 0)
-                <p class="total_value1">
-                    ({{$completedSub}})
-                </p>
-                @endif
-            </a>
+           
         </div>
     </div>
+
     <div class="body">
     <div class="row row_transaction justify-content-center">
         @if($booking_data != null )
@@ -405,7 +398,11 @@ use App\Models\Payment;
                             PAYMENT DETAILS
                         </button>
                     @endif
-                    
+                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
+                    <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
+                        ASSIGN CLEANER
+                    </button>
+                    @endif
                     @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner )
                     <!-- add is_paid -->
                     <button type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="Accepted">

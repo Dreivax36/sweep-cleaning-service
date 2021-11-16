@@ -45,10 +45,7 @@ class ServiceController extends Controller
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('accepted', $data);
     }
-    function completed(){
-        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
-        return view('completed', $data);
-    }
+   
     function done(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('done', $data);
@@ -63,7 +60,8 @@ class ServiceController extends Controller
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_services', $data);
     }
-
+    
+    
     /**
      * Show the form for creating a new resource.
      *

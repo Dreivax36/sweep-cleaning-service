@@ -327,7 +327,7 @@ use App\Models\Notification;
     @if(Session::has('success'))
     <script>
         swal({
-            title: "Cleaner account successfully approved!",
+            title: "Employee added successfully",
             icon: "success",
             button: "Close",
         });

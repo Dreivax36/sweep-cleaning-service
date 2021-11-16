@@ -118,7 +118,6 @@ use App\Models\Notification;
                 $onthewaySub = Booking::where('status', 'On-the-Way')->count();
                 $onprogressSub = Booking::where('status', 'On-Progress')->count();
                 $doneSub = Booking::where('status', 'Done')->count();
-                $completedSub = Booking::where('status', 'Completed')->count();
             ?>
             <a class="user_type_btn" href="admin_transaction">
                 PENDING
@@ -160,18 +159,11 @@ use App\Models\Notification;
                 </p>
                 @endif
             </a>
-            <a class="user_type_btn" id="active" href="done">
-                COMPLETED
-                @if($completedSub != 0)
-                <p class="total_value1">
-                    ({{$completedSub}})
-                </p>
-                @endif
-            </a>
+            
         </div>
     </div>
 
-    <div class="body">
+    
     <div class="row row_transaction justify-content-center">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
@@ -182,6 +174,7 @@ use App\Models\Notification;
         $user_data = User::Where('user_id', $userId)->get();
         $address = Address::Where('customer_id', $customerid)->value('address');
         ?>
+        <div class="body">
         <div class="card card_transaction mb-3" style="width: 25rem;">
             <div class="card_body">
                 <?php
@@ -403,9 +396,9 @@ use App\Models\Notification;
                     $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
                     $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
-                    @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way">
-                        ON-THE-WAY
+                    @if($value->status == "On-the-Way" && $statusOnProgress == $price_data->number_of_cleaner )
+                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress">
+                        ON-PROGRESS
                     </button>
                     @endif
                     
@@ -419,6 +412,7 @@ use App\Models\Notification;
 
     @endforeach
     @endforeach
+    </div>
     @else
     <div class="banner-container">
         <div class="banner">
@@ -433,7 +427,7 @@ use App\Models\Notification;
     </div>
     @endif
     </div>
-    </div>
+    
 
     <script>
         // Enable pusher logging - don't include this in production

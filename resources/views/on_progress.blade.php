@@ -118,7 +118,6 @@ use App\Models\Notification;
                 $onthewaySub = Booking::where('status', 'On-the-Way')->count();
                 $onprogressSub = Booking::where('status', 'On-Progress')->count();
                 $doneSub = Booking::where('status', 'Done')->count();
-                $completedSub = Booking::where('status', 'Completed')->count();
             ?>
             <a class="user_type_btn" href="admin_transaction">
                 PENDING
@@ -160,14 +159,7 @@ use App\Models\Notification;
                 </p>
                 @endif
             </a>
-            <a class="user_type_btn" id="active" href="done">
-                COMPLETED
-                @if($completedSub != 0)
-                <p class="total_value1">
-                    ({{$completedSub}})
-                </p>
-                @endif
-            </a>
+           
         </div>
     </div>
 
@@ -404,9 +396,9 @@ use App\Models\Notification;
                     $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
                     
-                    @if($value->status == "On-the-Way" && $statusOnProgress == $price_data->number_of_cleaner )
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress">
-                        ON-PROGRESS
+                    @if($value->status == "On-Progress" && $statusdone == $price_data->number_of_cleaner)
+                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done">
+                        CLEANING DONE
                     </button>
                     @endif
                     

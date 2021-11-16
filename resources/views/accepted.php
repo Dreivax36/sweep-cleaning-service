@@ -118,7 +118,6 @@ use App\Models\Notification;
                 $onthewaySub = Booking::where('status', 'On-the-Way')->count();
                 $onprogressSub = Booking::where('status', 'On-Progress')->count();
                 $doneSub = Booking::where('status', 'Done')->count();
-                $completedSub = Booking::where('status', 'Completed')->count();
             ?>
             <a class="user_type_btn" href="admin_transaction">
                 PENDING
@@ -160,20 +159,13 @@ use App\Models\Notification;
                 </p>
                 @endif
             </a>
-            <a class="user_type_btn" id="active" href="done">
-                COMPLETED
-                @if($completedSub != 0)
-                <p class="total_value1">
-                    ({{$completedSub}})
-                </p>
-                @endif
-            </a>
+           
         </div>
     </div>
 
     <div class="body">
     <div class="row row_transaction justify-content-center">
-        @if($booking_data != null )
+        @if($booking_data == null )
         @foreach($booking_data as $key => $value)
         <?php
         $service_data = Service::Where('service_id', $value->service_id)->get();
@@ -396,30 +388,18 @@ use App\Models\Notification;
                         ?>
                 </div>
                 <div class="modal-footer trans_modal_footer">
-                    @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner && $statuscount != $price_data->number_of_cleaner)
-                    <button type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="No-Available-Cleaner">
-                        NO AVAILABLE CLEANER
-                    </button>
-                    @endif
                     
-                    @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner )
-                    <!-- add is_paid -->
-                    <button type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="Accepted">
-                        ACCEPT TRANSACTION
-                    </button>
-                    @endif
-                    @if($value->status == "Pending" && $bookingcount != $price_data->number_of_cleaner )
-                    <button type="submit" class="btn btn-block btn-danger on_progress_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}" data-dismiss="modal">
-                        DECLINE TRANSACTION
-                    </button>
-                    @endif
                     <?php
                     $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
                     $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
                     $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
                     $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
-                   
+                   @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
+                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way">
+                        ON-THE-WAY
+                    </button>
+                    @endif
                 </div>
                 </form>
             </div>
