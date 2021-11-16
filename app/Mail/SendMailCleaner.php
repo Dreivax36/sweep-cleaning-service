@@ -30,6 +30,6 @@ class SendMailCleaner extends Mailable
     public function build()
     {
         return $this->markdown('emails.sendcleaner')->with('detail', $this->details)
-                ->subject('Verify Email Address')->from('cleaningservicesweep@gmail.com', 'Sweep Cleaning Service Team');
+                ->subject('Cleaner Verify Email Address')->from('cleaningservicesweep@gmail.com', 'Sweep Cleaning Service Team');
     }
 }

@@ -145,9 +145,7 @@
                     </span>
                 </div>
                 <div class="req-cont">
-                    <h5>Acceptable Documents:</h5>
-                    <p>NSO Birth Certificate, Barangay Clearance, NBI Clearance, Police Clearance, or Matriculation Form (If currently enrolled)</p>
-                    <p style="font-size: 14px;">Please indicate the type of document you uploaded down on the description box below.</p>
+                    <h5>NBI Clearance:</h5>
                 </div> 
                 <div class="form-group">
                     <label class="upload_label">
@@ -156,12 +154,6 @@
                     <input type="file" name="requirement" class="form-control upload_file">
                     <span class="text-danger">
                         @error('requirement'){{ $message }} @enderror
-                    </span>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control reg_fields" name="description" placeholder="Description" value="{{ old('description') }}">
-                    <span class="text-danger">
-                        @error('description'){{ $message }} @enderror
                     </span>
                 </div>
             </div>

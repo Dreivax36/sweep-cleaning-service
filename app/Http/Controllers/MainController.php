@@ -157,7 +157,7 @@ class MainController extends Controller
         ]);
            // Save the file in the /public/ folder under a new folder named /images
            $profile = time().'.'.$request->profile_picture->extension();
-           $request->profile_picture->move(public_path('images'),$profile);
+           $request->profile_picture->move(public_path('profile_picture'),$profile);
            
            //Insert data into database
            //Insert to user table
@@ -175,7 +175,7 @@ class MainController extends Controller
 
            // Save the file in the /public/ folder under a new folder named /images
            $validID = time().'.'.$request->valid_id->extension();
-           $request->valid_id->move(public_path('images'),$validID);
+           $request->valid_id->move(public_path('valid_id'),$validID);
 
            //Insert to Identification table
            $identifications = new Identification;
@@ -352,7 +352,7 @@ class MainController extends Controller
 
              // Save the file in the /public/ folder under a new folder named /images
              $profile = time().'.'.$request->profile_picture->extension();
-             $request->profile_picture->move(public_path('images'),$profile);
+             $request->profile_picture->move(public_path('profile_picture'),$profile);
              
  
              //Insert data into database
@@ -369,7 +369,7 @@ class MainController extends Controller
              $id = $users->user_id;
              // Save the file in the /public/ folder under a new folder named /images
              $validId = time().'.'.$request->valid_id->extension();
-             $request->valid_id->move(public_path('images'),$validId);
+             $request->valid_id->move(public_path('valid_id'),$validId);
 
              //Insert to identification table
              $identifications = new Identification;
@@ -384,13 +384,13 @@ class MainController extends Controller
              $cleaner_save = $cleaners->save();
              // Save the file in the /public/ folder under a new folder named /images
              $require = time().'.'.$request->requirement->extension();
-             $request->requirement->move(public_path('images'),$require);
+             $request->requirement->move(public_path('requirement'),$require);
              $id = $cleaners->cleaner_id;
              //Insert to clearance table
              $clearances = new Clearance;
              $clearances->cleaner_id = $id;
              $clearances->requirement = $require;
-             $clearances->description = $request->description;
+             $clearances->description = 'NBI Clearance';
              $cleaner_save = $clearances->save();
 
             //Send email to verify the email address
