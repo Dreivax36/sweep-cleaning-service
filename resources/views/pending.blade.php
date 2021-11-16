@@ -48,7 +48,7 @@ use App\Models\Notification;
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
                             @if($notifCount != 0)
-                            <span class="badge alert-danger pending">{{$notifCount}}</span>
+                            <span class="badge alert-danger admin_transaction">{{$notifCount}}</span>
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
@@ -86,8 +86,8 @@ use App\Models\Notification;
 
 
     <?php
-    $booking_data = Booking::Where('status', 'Pending')->orderBy('updated_at', 'DESC')->get();
-    $transaction_count = Booking::Where('status', 'Pending')->count();
+    $booking_data = Booking::Where('status', 'Accepted')->orderBy('updated_at', 'DESC')->get();
+    $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
     $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
     <div class="row">
@@ -112,36 +112,60 @@ use App\Models\Notification;
     <div class="sub_menu">
         <div class="user_btn_con1">
             <!-- Sub Menu -->
-            <a class="user_type_btn" id="active" href="admin_transaction">
+            <?php
+                $pendingSub = Booking::where('status', 'Pending')->count();
+                $acceptedSub = Booking::where('status', 'Accepted')->count();
+                $onthewaySub = Booking::where('status', 'On-the-Way')->count();
+                $onprogressSub = Booking::where('status', 'On-Progress')->count();
+                $doneSub = Booking::where('status', 'Done')->count();
+            ?>
+            <a class="user_type_btn" href="admin_transaction">
                 PENDING
-                <p class="total_value">
-                    (5)
+                @if($pendingSub != 0)
+                <p class="total_value1">
+                    ({{$pendingSub}})
                 </p>
+                @endif
+            </a>
+            <a class="user_type_btn" id="active" href="accepted">
+                ACCEPTED
+                @if($acceptedSub != 0)
+                <p class="total_value1">
+                    ({{$acceptedSub}})
+                </p>
+                @endif
             </a>
             <a class="user_type_btn" href="on_the_way">
                 ON-THE-WAY
-                <p class="total_value">
-                    (10)
+                @if($onthewaySub != 0)
+                <p class="total_value1">
+                    ({{$onthewaySub}})
                 </p>
+                @endif
             </a>
-            <a class="user_type_btn" href="on_progress">
+            <a class="user_type_btn"  href="on_progress">
                 ON-PROGRESS
-                <p class="total_value">
-                    (10)
+                @if($onprogressSub != 0)
+                <p class="total_value1">
+                    ({{$onprogressSub}})
                 </p>
+                @endif
             </a>
             <a class="user_type_btn" href="done">
                 DONE
-                <p class="total_value">
-                    (10)
+                @if($doneSub != 0)
+                <p class="total_value1">
+                    ({{$doneSub}})
                 </p>
+                @endif
             </a>
+           
         </div>
     </div>
 
-
+    <div class="body">
     <div class="row row_transaction justify-content-center">
-        @if($booking_data != null )
+        @if($booking_data == null )
         @foreach($booking_data as $key => $value)
         <?php
         $service_data = Service::Where('service_id', $value->service_id)->get();
@@ -154,13 +178,13 @@ use App\Models\Notification;
             <div class="card_body">
                 <?php
                 $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
-                $pending = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
+                $admin_transaction = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
                 $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                 ?>
                 <div class="status">
                     <h5 class="service_trans_status">
                         @if($value->status == 'Pending')
-                        @if ($pending == 0)
+                        @if ($admin_transaction == 0)
                         {{ $value->status }}
                         @else
                         Waiting for Cleaner Acceptance
@@ -358,57 +382,22 @@ use App\Models\Notification;
                         $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
                         $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
                         $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->count();
-                        $pendingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
+                        $admin_transactioncount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
                         $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
 
                         ?>
                 </div>
                 <div class="modal-footer trans_modal_footer">
-                    @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner && $statuscount != $price_data->number_of_cleaner)
-                    <button type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="No-Available-Cleaner">
-                        NO AVAILABLE CLEANER
-                    </button>
-                    @endif
-                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $pendingcount != $price_data->number_of_cleaner)
-                    <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
-                        ASSIGN CLEANER
-                    </button>
-                    @endif
-                    @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner )
-                    <!-- add is_paid -->
-                    <button type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="Accepted">
-                        ACCEPT TRANSACTION
-                    </button>
-                    @endif
-                    @if($value->status == "Pending" && $bookingcount != $price_data->number_of_cleaner )
-                    <button type="submit" class="btn btn-block btn-danger on_progress_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}" data-dismiss="modal">
-                        DECLINE TRANSACTION
-                    </button>
-                    @endif
+                    
                     <?php
                     $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
                     $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
                     $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
                     $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
-                    @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
+                   @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
                     <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way">
                         ON-THE-WAY
-                    </button>
-                    @endif
-                    @if($value->status == "On-the-Way" && $statusOnProgress == $price_data->number_of_cleaner )
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress">
-                        ON-PROGRESS
-                    </button>
-                    @endif
-                    @if($value->status == "On-Progress" && $statusdone == $price_data->number_of_cleaner)
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done">
-                        CLEANING DONE
-                    </button>
-                    @endif
-                    @if($value->status == "Done" && $value->is_paid == true && $reviews != 0)
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed">
-                        TRANSACTION COMPLETE
                     </button>
                     @endif
                 </div>
@@ -706,7 +695,7 @@ use App\Models\Notification;
     </div>
     @endif
     </div>
-
+    </div>
 
     <script>
         // Enable pusher logging - don't include this in production
@@ -721,11 +710,11 @@ use App\Models\Notification;
 
 
             var result = data.messages;
-            var pending = parseInt($('#admin').find('.pending').html());
-            if (pending) {
-                $('#admin').find('.pending').html(pending + 1);
+            var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
+            if (admin_transaction) {
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
             } else {
-                $('#admin').find('.pending').html(pending + 1);
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
             $('#status').load(window.location.href + " #status");

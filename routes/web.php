@@ -155,7 +155,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
 
     Route::get('/on_the_way',[ServiceController::class, 'on_the_way'])->name('on_the_way'); 
     Route::get('/pending',[ServiceController::class, 'pending'])->name('pending'); 
-    Route::get('/accepted',[ServiceController::class, 'accepted'])->name('accepted'); 
+    Route::get('/accepted',[ServiceController::class, 'pending'])->name('pending'); 
     Route::get('/on_progress',[ServiceController::class, 'on_progress'])->name('on_progress'); 
     Route::get('/done',[ServiceController::class, 'done'])->name('done'); 
 

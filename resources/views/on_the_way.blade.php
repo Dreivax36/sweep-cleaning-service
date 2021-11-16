@@ -163,7 +163,7 @@ use App\Models\Notification;
         </div>
     </div>
 
-    
+    <div class="body">
     <div class="row row_transaction justify-content-center">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
@@ -174,7 +174,7 @@ use App\Models\Notification;
         $user_data = User::Where('user_id', $userId)->get();
         $address = Address::Where('customer_id', $customerid)->value('address');
         ?>
-        <div class="body">
+        
         <div class="card card_transaction mb-3" style="width: 25rem;">
             <div class="card_body">
                 <?php
@@ -412,7 +412,7 @@ use App\Models\Notification;
 
     @endforeach
     @endforeach
-    </div>
+    
     @else
     <div class="banner-container">
         <div class="banner">
@@ -427,7 +427,7 @@ use App\Models\Notification;
     </div>
     @endif
     </div>
-    
+    </div>
 
     <script>
         // Enable pusher logging - don't include this in production

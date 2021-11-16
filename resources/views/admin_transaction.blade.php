@@ -480,7 +480,7 @@ use App\Models\Payment;
                                                     @endif
                                                     @while($total > 0)   
                                                     <div class="form-group">
-                                                    <input type= "text" name="booking_id" value="{{ $value->booking_id }}">
+                                                    <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="upload_label">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner" class="form-control w-100 add_service_form" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
