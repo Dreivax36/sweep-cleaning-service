@@ -12,6 +12,6 @@ class Employee extends Model
     protected $primaryKey = 'employee_id';
 
     protected $fillable = [
-        'full_name', 'email', 'contact_number', 'birthday', 'department', 'position', 'password'
+        'employee_code', 'full_name', 'email', 'contact_number', 'department', 'position'
     ];
 }

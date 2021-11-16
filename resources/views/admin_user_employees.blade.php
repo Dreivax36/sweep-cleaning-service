@@ -137,7 +137,7 @@ use App\Models\Notification;
                 <div class="modal-body">
                     <!-- Form for adding services -->
                     <form action="{{ route('addEmployee') }}" method="post" id="myform">
-                        @if(Session::get('success-add'))
+                        @if(Session::get('success'))
                         <script>
                             swal({
                                 title: "Employee added successfully!",
@@ -190,7 +190,7 @@ use App\Models\Notification;
                             <label class="upload_label">
                                 Department:
                             </label>
-                            <select name="department" class="form-control w-100 add_service_form" aria-label="Default select example">
+                            <select name="department" class="form-control w-100 add_service_form" aria-label="Default select example" required>
                                 <option selected>Select Department</option>
                                 <option value="Human Resource Department">Human Resource Department</option>
                                 <option value="Operations Department">Operations Department</option>
@@ -202,7 +202,7 @@ use App\Models\Notification;
                             <label class="upload_label">
                                 Position:
                             </label>
-                            <select name="position" class="form-control w-100 add_service_form" aria-label="Default select example">
+                            <select name="position" class="form-control w-100 add_service_form" aria-label="Default select example" required>
                                 <option selected>Select Position</option>
                                 <option value="Manager">Manager</option>
                                 <option value="Employee">Employee</option>
@@ -213,7 +213,7 @@ use App\Models\Notification;
                         </div>
                 </div>
                 <div class="modal-footer service_modal_header">
-                    <button form="myform" type="submit" class="btn btn-primary update_btn">
+                    <button type="submit" class="btn btn-primary update_btn">
                         ADD
                     </button>
                     <button type="button" class="btn btn-block btn-primary delete_btn" data-dismiss="modal">

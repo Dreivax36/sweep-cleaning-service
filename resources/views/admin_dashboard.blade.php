@@ -20,6 +20,7 @@ use App\Models\Service_review;
 </title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+<script type="text/javascript"  id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
 
 {{-- Scripts --}}
 <script type="text/javascript" id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>

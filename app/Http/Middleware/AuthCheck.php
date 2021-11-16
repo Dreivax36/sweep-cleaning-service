@@ -34,7 +34,7 @@ class AuthCheck
             if ($request->path() =='auth/login' || $request->path() =='auth/register'){
                 return back();
             }
-            elseif ($request->path() =='customer/customer_login' || $request->path() =='customer/customer_register'){
+            elseif ($request->path() =='customer/customer_login' || $request->path() =='customer/customer_register' || $request->path() == '/sanitation' || $request->path() == '/cleaning'){
                 return back();
             }
             elseif ($request->path() =='cleaner/cleaner_login' || $request->path() =='cleaner/cleaner_register'){

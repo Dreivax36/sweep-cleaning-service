@@ -520,20 +520,16 @@ class MainController extends Controller
             'full_name'=>'required',
             'email'=>'required|email|unique:employees',
             'contact_number'=>'required|numeric|digits:11',
-            'birthday'=>'required',
             'department'=>'required',
             'position'=>'required'
-
         ]);
             $employees = new Employee;
             $employees->employee_code = $request->employee_code; 
             $employees->full_name = $request->full_name; 
             $employees->email = $request->email; 
             $employees->contact_number = $request->contact_number; 
-            $employees->birthday = $request->birthday; 
             $employees->department = $request->department; 
             $employees->position = $request->position; 
-            $employees->password = $password; 
             $employees = $employees->save();
             
             if($employees){

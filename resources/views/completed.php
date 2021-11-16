@@ -86,7 +86,7 @@ use App\Models\Notification;
 
 
     <?php
-    $booking_data = Booking::Where('status', 'On-the-Way')->orderBy('updated_at', 'DESC')->get();
+    $booking_data = Booking::Where('status', 'Completed')->orderBy('updated_at', 'DESC')->get();
     $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
     $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
@@ -136,7 +136,7 @@ use App\Models\Notification;
                 </p>
                 @endif
             </a>
-            <a class="user_type_btn" id="active" href="on_the_way">
+            <a class="user_type_btn" href="on_the_way">
                 ON-THE-WAY
                 @if($onthewaySub != 0)
                 <p class="total_value1">
@@ -144,7 +144,7 @@ use App\Models\Notification;
                 </p>
                 @endif
             </a>
-            <a class="user_type_btn"  href="on_progress">
+            <a class="user_type_btn" href="on_progress">
                 ON-PROGRESS
                 @if($onprogressSub != 0)
                 <p class="total_value1">
@@ -403,12 +403,11 @@ use App\Models\Notification;
                     $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
                     $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
-                    @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way">
-                        ON-THE-WAY
+                    @if($value->status == "Done" && $value->is_paid == true && $reviews != 0)
+                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed">
+                        TRANSACTION COMPLETE
                     </button>
                     @endif
-                    
                 </div>
                 </form>
             </div>

@@ -154,12 +154,13 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/employee',[MainController::class, 'employee'])->name('employee');
 
     Route::get('/on_the_way',[ServiceController::class, 'on_the_way'])->name('on_the_way'); 
-    Route::get('/pending',[ServiceController::class, 'pending'])->name('pending'); 
+    Route::get('/completed',[ServiceController::class, 'completed'])->name('completed'); 
+    Route::get('/accepted',[ServiceController::class, 'accepted'])->name('accepted'); 
     Route::get('/on_progress',[ServiceController::class, 'on_progress'])->name('on_progress'); 
     Route::get('/done',[ServiceController::class, 'done'])->name('done'); 
 
     //Route for Employee
-    Route::get('/employee/login',[MainController::class, 'employee_login'])->name('employee.login');
+    Route::get('/employee',[MainController::class, 'employee_login'])->name('employee.login');
     Route::post('/employee_check',[MainController::class, 'employee_check'])->name('employee_check');
     Route::post('/timeIn',[MainController::class, 'timeIn'])->name('timeIn');
     Route::get('/employee/employee_dashboard',[MainController::class, 'employee_dashboard'])->name('employee.employee_dashboard');

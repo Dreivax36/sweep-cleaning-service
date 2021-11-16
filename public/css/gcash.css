@@ -209,6 +209,11 @@ body{
     .customer_cards_title{
         margin: 15px;
     }
+    .modal-body{
+        padding: 40px;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
     
 }
 

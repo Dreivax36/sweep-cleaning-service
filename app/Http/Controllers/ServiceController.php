@@ -41,6 +41,14 @@ class ServiceController extends Controller
         return view('on_progress', $data);
     }
 
+    function accepted(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('accepted', $data);
+    }
+    function completed(){
+        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
+        return view('completed', $data);
+    }
     function done(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('done', $data);

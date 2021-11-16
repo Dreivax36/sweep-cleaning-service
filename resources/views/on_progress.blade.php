@@ -114,38 +114,64 @@ use App\Models\Notification;
             <!-- Sub Menu -->
             <?php
                 $pendingSub = Booking::where('status', 'Pending')->count();
+                $acceptedSub = Booking::where('status', 'Accepted')->count();
                 $onthewaySub = Booking::where('status', 'On-the-Way')->count();
                 $onprogressSub = Booking::where('status', 'On-Progress')->count();
                 $doneSub = Booking::where('status', 'Done')->count();
+                $completedSub = Booking::where('status', 'Completed')->count();
             ?>
             <a class="user_type_btn" href="admin_transaction">
                 PENDING
-                <p class="total_value">
+                @if($pendingSub != 0)
+                <p class="total_value1">
                     ({{$pendingSub}})
                 </p>
+                @endif
+            </a>
+            <a class="user_type_btn" href="accepted">
+                ACCEPTED
+                @if($acceptedSub != 0)
+                <p class="total_value1">
+                    ({{$acceptedSub}})
+                </p>
+                @endif
             </a>
             <a class="user_type_btn" href="on_the_way">
                 ON-THE-WAY
-                <p class="total_value">
+                @if($onthewaySub != 0)
+                <p class="total_value1">
                     ({{$onthewaySub}})
                 </p>
+                @endif
             </a>
             <a class="user_type_btn" id="active" href="on_progress">
                 ON-PROGRESS
-                <p class="total_value">
+                @if($onprogressSub != 0)
+                <p class="total_value1">
                     ({{$onprogressSub}})
                 </p>
+                @endif
             </a>
             <a class="user_type_btn" href="done">
                 DONE
-                <p class="total_value">
+                @if($doneSub != 0)
+                <p class="total_value1">
                     ({{$doneSub}})
                 </p>
+                @endif
+            </a>
+            <a class="user_type_btn" id="active" href="done">
+                COMPLETED
+                @if($completedSub != 0)
+                <p class="total_value1">
+                    ({{$completedSub}})
+                </p>
+                @endif
             </a>
         </div>
     </div>
 
-
+    <div class="body">
     <div class="row row_transaction justify-content-center">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
@@ -370,53 +396,20 @@ use App\Models\Notification;
                         ?>
                 </div>
                 <div class="modal-footer trans_modal_footer">
-                    @if($value->status == "Pending" && $declinecount == $price_data->number_of_cleaner && $statuscount != $price_data->number_of_cleaner)
-                    <button type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="No-Available-Cleaner">
-                        NO AVAILABLE CLEANER
-                    </button>
-                    @endif
-                    @if($value->status == "Pending" && $statuscount != $price_data->number_of_cleaner && ($value->mode_of_payment == 'On-site' || $value->is_paid == true) && ( $declinecount != $price_data->number_of_cleaner || $declinecount == $price_data->number_of_cleaner || $timeLimit == $price_data->number_of_cleaner) && $admin_transactioncount != $price_data->number_of_cleaner)
-                    <button type="button" class="btn btn-block btn-primary on_progress_btn" data-dismiss="modal" data-toggle="modal" data-target="#assign-{{ $value->booking_id }}">
-                        ASSIGN CLEANER
-                    </button>
-                    @endif
-                    @if($value->status == "Pending" && $statuscount == $price_data->number_of_cleaner )
-                    <!-- add is_paid -->
-                    <button type="submit" class="btn btn-block btn-primary on_progress_btn" name="status" value="Accepted">
-                        ACCEPT TRANSACTION
-                    </button>
-                    @endif
-                    @if($value->status == "Pending" && $bookingcount != $price_data->number_of_cleaner )
-                    <button type="submit" class="btn btn-block btn-danger on_progress_btn" data-toggle="modal" data-target="#decline-{{ $value->booking_id }}" data-dismiss="modal">
-                        DECLINE TRANSACTION
-                    </button>
-                    @endif
+                   
                     <?php
                     $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
                     $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
                     $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
                     $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
-                    @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way">
-                        ON-THE-WAY
-                    </button>
-                    @endif
+                    
                     @if($value->status == "On-the-Way" && $statusOnProgress == $price_data->number_of_cleaner )
                     <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress">
                         ON-PROGRESS
                     </button>
                     @endif
-                    @if($value->status == "On-Progress" && $statusdone == $price_data->number_of_cleaner)
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done">
-                        CLEANING DONE
-                    </button>
-                    @endif
-                    @if($value->status == "Done" && $value->is_paid == true && $reviews != 0)
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Completed">
-                        TRANSACTION COMPLETE
-                    </button>
-                    @endif
+                    
                 </div>
                 </form>
             </div>
@@ -424,277 +417,6 @@ use App\Models\Notification;
             @endforeach
         </div>
     </div>
-    <div class="modal-footer customer_services_modal_footer">
-        <div class="modal fade" id="assign-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-            <!-- Modal -->
-            <div class="modal-dialog" role="document">
-                <div class="modal-content trans_modal_content">
-                    <!-- Modal content-->
-                    <div class="modal-header trans_modal_header">
-                        <div class="d-flex pt-5">
-                            <h4 class="modal_service_title_trans">
-                                Assign Cleaner
-                            </h4>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <form action="{{ route('assignCleaner') }}" method="post">
-                        @if(Session::get('success-assign'))
-                        <script>
-                            swal({
-                                title: "Cleaner assigned successfully!",
-                                icon: "success",
-                                button: "Close",
-                            });
-                        </script>
-                        @endif
-
-                        @if(Session::get('fail'))
-                        <script>
-                            swal({
-                                title: "Something went wrong, try again!",
-                                icon: "error",
-                                button: "Close",
-                            });
-                        </script>
-                        @endif
-                        @csrf
-
-                        <?php
-                        $total = $price_data->number_of_cleaner;
-                        $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->count();
-                        $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->get();
-                        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->get();
-                        $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
-                        $acceptedCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
-                        ?>
-                        @if($acceptedCount == 0)
-                        <?php $total = $total; ?>
-                        @else
-                        <?php $total = $total - $acceptedCount; ?>
-                        @endif
-                        @while($total > 0)
-                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                        <input type="hidden" name="status" value="Pending">
-                        <label for="cleaner">Cleaner: </label>
-                        <select name="cleaner_id[]" id="cleaner" class="form-control" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
-                            @if( $cleaner_data == null)
-                            <option value="">No Validated Cleaner</option>
-                            @endif
-                            @if($cleanerCount == 0)
-                            <!-- Booking does not exist in Assign Table -->
-                            @if($cleanerSchedule == 0)
-                            <!-- Check if the booking have the no same Schedule -->
-                            @if($cleaner_data != null)
-                            <!-- Check if Validated Cleaner exist-->
-                            @foreach($cleaner_data as $key => $cleaner)
-                            <?php
-                            $fullname = User::Where('user_id', $cleaner->user_id)->value('full_name');
-                            ?>
-                            <option value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
-                            @endforeach
-                            @endif
-                            @else
-                            <!-- Booking has the same Schedule -->
-                            <?php
-                            $items = array();
-                            $count = 0;
-                            $itemExist = array();
-                            $counter = 0;
-                            ?>
-                            @if($cleaner_data != null)
-                            <!-- Check if Validated Cleaner exist-->
-                            @foreach($bookingSchedule as $key => $cleanerWithSchedule)
-                            <?php
-                            $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
-                            ?>
-                            @if($cleanerID != null)
-                            <!-- Check if booking already have a cleaner-->
-                            @foreach($cleaner_data as $key => $cleaner)
-                            @foreach($cleanerID as $key => $assignCleaner)
-                            <?php
-                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
-                            ?>
-                            @if($cleaner->user_id == $assignUser)
-                            <?php $itemExist[$counter++] =  $cleaner->user_id; ?>
-                            @break
-                            @else
-                            <?php $items[$count++] =  $cleaner->user_id; ?>
-                            @endif
-                            @endforeach
-                            @endforeach
-                            @endif
-                            @endforeach
-                            <?php
-                            $items = array_unique($items);
-                            $itemExist = array_unique($itemExist);
-                            $final = array_diff($items, $itemExist);
-                            ?>
-                            @if($final != null)
-                            @foreach($final as $userID)
-                            <?php
-                            $fullname = User::Where('user_id', $userID)->value('full_name');
-                            ?>
-                            <option value="{{  $userID }}">{{ $fullname }}</option>
-                            @endforeach
-                            @else
-                            <option value="">No Cleaner</option>
-                            @endif
-                            @endif
-                            @endif
-                            @else
-                            <?php
-                            $items = array();
-                            $count = 0;
-
-                            ?>
-                            @if($cleanerSchedule == 0)
-                            <!-- Check if the booking have the no same Schedule -->
-                            @if($cleaner_data != null)
-                            <!-- Check if Validated Cleaner exist-->
-                            <?php
-                            $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();
-
-                            ?>
-
-                            @foreach($cleaner_data as $key => $cleaner)
-                            @foreach($cleanerID as $key => $assignCleaner)
-                            <?php
-                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
-                            ?>
-                            @if($cleaner->user_id != $assignUser)
-                            <?php $items[$count++] =  $cleaner->user_id; ?>
-                            @else
-                            @break
-                            @endif
-                            @endforeach
-                            @endforeach
-                            \ <?php
-                                $items = array_unique($items);
-                                ?>
-                            @if($items != null)
-                            @foreach($items as $userID)
-                            <?php
-                            $fullname = User::Where('user_id', $userID)->value('full_name');
-                            ?>
-                            <option value="{{  $userID }}">{{ $fullname }}</option>
-                            @endforeach
-                            @else
-                            <option value="">No Cleaner</option>
-                            @endif
-
-                            @endif
-                            @else
-                            <?php
-                            $items = array();
-                            $count = 0;
-                            $itemExist = array();
-                            $counter = 0;
-                            ?>
-                            @if($cleaner_data != null)
-                            @foreach($bookingSchedule as $key => $cleanerWithSchedule)
-                            <?php
-                            $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->orWhere('booking_id', $value->booking_id)->get();
-                            ?>
-                            @if($cleanerID != null)
-                            <!-- Check if booking already have a cleaner-->
-                            @foreach($cleaner_data as $key => $cleaner)
-                            @foreach($cleanerID as $key => $assignCleaner)
-                            <?php
-                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
-                            ?>
-                            @if($cleaner->user_id != $assignUser)
-                            <?php $items[$count++] =  $cleaner->user_id; ?>
-                            @else
-                            <?php $itemExist[$counter++] =  $cleaner->user_id; ?>
-                            @break
-                            @endif
-                            @endforeach
-                            @endforeach
-                            @endif
-                            @endforeach
-                            <?php
-                            $items = array_unique($items);
-                            $itemExist = array_unique($itemExist);
-                            $final = array_diff($items, $itemExist);
-                            ?>
-                            @if($final != null)
-                            @foreach($final as $userID)
-                            <?php
-                            $fullname = User::Where('user_id', $userID)->value('full_name');
-                            ?>
-                            <option value="{{  $userID }}">{{ $fullname }}</option>
-                            @endforeach
-                            @else
-                            <option value="">No Cleaner</option>
-                            @endif
-                            @endif
-                            @endif
-                            @endif
-                        </select> <br>
-                        <?php
-                        $total--;
-                        ?>
-                        @endwhile
-                        <br>
-                        <div class="modal-footer trans_modal_footer">
-                            <button type="button" class="btn btn-block btn-primary decline_btn" data-dismiss="modal">
-                                Cancel
-                            </button>
-                            <button type="submit" class="btn btn-block btn-primary accept_btn">
-                                Confirm
-                            </button>
-                        </div>
-                    </form>
-                </div> <!-- End of Modal Content -->
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Decline</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('updateStatus') }}" method="post">
-                        @if(Session::get('success-decline'))
-                        <script>
-                            swal({
-                                title: "Successfully Declined Transaction!",
-                                icon: "success",
-                                button: "Close",
-                            });
-                        </script>
-                        @endif
-
-                        @if(Session::get('fail'))
-                        <script>
-                            swal({
-                                title: "Something went wrong, try again!",
-                                icon: "error",
-                                button: "Close",
-                            });
-                        </script>
-                        @endif
-                        @csrf
-                        Are you sure you want to decline this booking?
-                        <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
-                        <input type="hidden" name="status" value="Declined">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                    <button type="submit" class="btn btn-danger">YES</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div><!-- End of Modal -->
 
     @endforeach
     @endforeach
@@ -712,7 +434,7 @@ use App\Models\Notification;
     </div>
     @endif
     </div>
-
+    </div>
 
     <script>
         // Enable pusher logging - don't include this in production

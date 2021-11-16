@@ -5,7 +5,10 @@ body {
     background-color: #EDF1F8;
     overflow-x: hidden;
 }
-
+.body{
+    min-height:70vh; 
+    display:flex;
+}
 #active {
     color: #FFB703;
 }
