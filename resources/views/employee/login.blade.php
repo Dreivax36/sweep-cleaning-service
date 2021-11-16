@@ -41,7 +41,7 @@ use App\Models\Time_entry;
                     </div>
                     <div id="pst-time" class="local_time"></div>
                 </div>
-
+            </div>
                 <form action="{{ route('timeIn') }}" method="post" id="myform">
                     @if(Session::get('success-timein'))
                     <script>
@@ -73,9 +73,6 @@ use App\Models\Time_entry;
 
                     @csrf
 
-
-                </form>
-            </div>
             <div class="input-div">
                 <div class="icon">
                     <i class="fas fa-envelope"></i>

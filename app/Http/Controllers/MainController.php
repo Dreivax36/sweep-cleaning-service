@@ -202,7 +202,8 @@ class MainController extends Controller
             \Mail::to($email)->send(new \App\Mail\SendMail($details));
 
         if($customer_save){
-            return redirect('customer/customer_save_step2')->with('user_id', $id);        }
+            return redirect('customer/customer_save_step2')->with('user_id', $id);        
+        }
         else {
             return back()->with('fail','Something went wrong, try again later ');
         }
@@ -347,6 +348,12 @@ class MainController extends Controller
     function cleaner_register(){
         return view('cleaner.cleaner_register');
     }
+    function cleaner_register_step2(){
+        return view('cleaner.cleaner_register_step2');
+    }
+    function cleaner_register_step3(){
+        return view('cleaner.cleaner_register_step3');
+    }
     //Register cleaner account
     function cleaner_save(Request $request){
         
@@ -358,9 +365,6 @@ class MainController extends Controller
             'contact_number'=>'required|numeric|digits:11',
             'password'=>'required|confirmed|min:5|max:12',
             'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg', // Only allow .jpg, .gif, .svg and .png file types.
-            'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-            'description'=>'required',
-            'requirement' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
             'age' => 'required|numeric',
         ]);
 
@@ -381,31 +385,6 @@ class MainController extends Controller
              $cleaner_save = $users->save();
  
              $id = $users->user_id;
-             // Save the file in the /public/ folder under a new folder named /images
-             $validId = time().'.'.$request->valid_id->extension();
-             $request->valid_id->move(public_path('valid_id'),$validId);
-
-             //Insert to identification table
-             $identifications = new Identification;
-             $identifications->user_id = $id;
-             $identifications->valid_id = $validId;
-             $identifications = $identifications->save();
-            //Insert to cleaner table
-             $cleaners = new Cleaner;
-             $cleaners->user_id = $id;
-             $cleaners->age = $request->age;
-             $cleaners->address = $request->address;
-             $cleaner_save = $cleaners->save();
-             // Save the file in the /public/ folder under a new folder named /images
-             $require = time().'.'.$request->requirement->extension();
-             $request->requirement->move(public_path('requirement'),$require);
-             $id = $cleaners->cleaner_id;
-             //Insert to clearance table
-             $clearances = new Clearance;
-             $clearances->cleaner_id = $id;
-             $clearances->requirement = $require;
-             $clearances->description = 'NBI Clearance';
-             $cleaner_save = $clearances->save();
 
             //Send email to verify the email address
             $id = $users->user_id;
@@ -420,7 +399,64 @@ class MainController extends Controller
             \Mail::to($email)->send(new \App\Mail\SendMailCleaner($details));
 
             if($cleaner_save){
-                return back()->with('success', 'Successfully created an account. Please check your email to verify it.');
+                return redirect('cleaner/cleaner_register_step2')->with('user_id', $id);
+            }
+            else {
+                return back()->with('fail','Something went wrong, try again later ');
+            }
+    }
+    function cleaner_save_step2(Request $request){
+        
+        //Validate Requests
+        $request->validate([
+            'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+        ]);
+
+             // Save the file in the /public/ folder under a new folder named /images
+             $validId = time().'.'.$request->valid_id->extension();
+             $request->valid_id->move(public_path('valid_id'),$validId);
+
+             //Insert to identification table
+             $identifications = new Identification;
+             $identifications->user_id = $request->user_id;
+             $identifications->valid_id = $validId;
+             $identifications = $identifications->save();
+            //Insert to cleaner table
+             $cleaners = new Cleaner;
+             $cleaners->user_id = $request->user_id;
+             $cleaners->age = $request->age;
+             $cleaners->address = $request->address;
+             $cleaner_save = $cleaners->save();
+             $id = $cleaners->cleaner_id;
+
+            if($cleaner_save){
+                return redirect('cleaner/cleaner_register_step3')->with('cleaner_id', $id);
+            }
+            else {
+                return back()->with('fail','Something went wrong, try again later ');
+            }
+    }
+    function cleaner_save_step3(Request $request){
+        
+        //Validate Requests
+        $request->validate([
+            'requirement' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+        ]);
+
+             // Save the file in the /public/ folder under a new folder named /images
+             $require = time().'.'.$request->requirement->extension();
+             $request->requirement->move(public_path('requirement'),$require);
+             $id = $cleaners->cleaner_id;
+             //Insert to clearance table
+             $clearances = new Clearance;
+             $clearances->cleaner_id = $request->cleaner_id;
+             $clearances->requirement = $require;
+             $clearances->description = 'NBI Clearance';
+             $cleaner_save = $clearances->save();
+
+
+            if($cleaner_save){
+                return redirect('cleaner/cleaner_register')->with('success', 'Successfully created an account. Please check your email to verify it.');
             }
             else {
                 return back()->with('fail','Something went wrong, try again later ');

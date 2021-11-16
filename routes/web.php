@@ -40,6 +40,8 @@ Route::post('/customer/customer_check',[MainController::class, 'customer_check']
 
 //Cleaner
 Route::post('/cleaner/cleaner_save',[MainController::class, 'cleaner_save'])->name('cleaner.cleaner_save');
+Route::post('/cleaner/cleaner_save_step2',[MainController::class, 'cleaner_save_step2'])->name('cleaner.cleaner_save_step2');
+Route::post('/cleaner/cleaner_save_step3',[MainController::class, 'cleaner_save_step3'])->name('cleaner.cleaner_save_step3');
 Route::post('/cleaner/cleaner_check',[MainController::class, 'cleaner_check'])->name('cleaner.cleaner_check');
 
   //Calendar
@@ -93,6 +95,8 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     //Route for Cleaner App
     Route::get('/cleaner/cleaner_login',[MainController::class, 'cleaner_login'])->name('cleaner.cleaner_login');
     Route::get('/cleaner/cleaner_register',[MainController::class, 'cleaner_register'])->name('cleaner.cleaner_register');
+    Route::get('/cleaner/cleaner_register_step2',[MainController::class, 'cleaner_register_step2'])->name('cleaner.cleaner_register_step2');
+    Route::get('/cleaner/cleaner_register_step3',[MainController::class, 'cleaner_register_step3'])->name('cleaner.cleaner_register_step3');
     Route::get('/cleaner/cleaner_dashboard',[MainController::class, 'cleaner_dashboard'])->name('cleaner.cleaner_dashboard');
     Route::get('/cleaner/cleaner_profile',[MainController::class, 'cleaner_profile'])->name('cleaner.cleaner_profile');
     Route::get('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');

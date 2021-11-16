@@ -131,34 +131,9 @@
                         @error('profile_picture'){{ $message }} @enderror
                     </span>
                 </div>
-                <div class="id-cont">
-                    <h5>Acceptable Valid ID's:</h5>
-                    <p>UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, School ID, PhilSys ID</p>
-                </div> 
-                <div class="form-group">
-                    <label class="upload_label">
-                        Valid ID
-                    </label>
-                    <input type="file" name="valid_id" class="form-control upload_file">
-                    <span class="text-danger">
-                        @error('valid_id'){{ $message }} @enderror
-                    </span>
-                </div>
-                <div class="req-cont">
-                    <h5>NBI Clearance:</h5>
-                </div> 
-                <div class="form-group">
-                    <label class="upload_label">
-                        Requirement
-                    </label>
-                    <input type="file" name="requirement" class="form-control upload_file">
-                    <span class="text-danger">
-                        @error('requirement'){{ $message }} @enderror
-                    </span>
-                </div>
             </div>
             <button type="submit" class="register_cleaner_btn">
-                Sign Up
+                Next
             </button>
         </form>
         <br>
