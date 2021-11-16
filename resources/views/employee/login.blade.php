@@ -34,13 +34,6 @@ use App\Models\Time_entry;
             Employee Time In/Out
         </h4>
 
-        <form action="{{ route('employee_check') }}" method="post">
-            @if(Session::get('fail'))
-            <div class="alert alert-danger">
-                {{ Session::get('fail') }}
-            </div>
-            @endif
-            @csrf
             <div class="local_time_con">
                 <div id="pst-container">
                     <div class="local_time_title">
@@ -89,7 +82,7 @@ use App\Models\Time_entry;
                 </div>
                 <div>
                     <h5>Employee Code</h5>
-                    <input type="text" class="input" name="email" value="{{ old('email') }}">
+                    <input type="text" class="input" name="employee_code" value="{{ old('employee_code') }}">
                     <span class="text-danger">
                         @error('email'){{ $message }} @enderror
                     </span>

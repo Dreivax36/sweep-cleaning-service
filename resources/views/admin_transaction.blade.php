@@ -480,7 +480,7 @@ use App\Models\Payment;
                                                     @endif
                                                     @while($total > 0)   
                                                     <div class="form-group">
-                                                    <input type= "text" name="booking_id" value="{{ $value->booking_id }}">
+                                                    <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="upload_label">Cleaner: </label>
                                                     <select name="cleaner_id[]" id="cleaner" class="form-control w-100 add_service_form" style="width: 100% !important; max-height: 30px; overflow-y: auto; z-index:999999 !important;">
@@ -510,11 +510,9 @@ use App\Models\Payment;
                                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
                                                                     ?>
                                                                     @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
-                                                                        @foreach($cleaner_data as $key => $cleaner)                                
                                                                             @foreach($cleanerID as $key => $assignCleaner)
                                                                             <option  value="{{  $userID }}">{{ $assignCleaner->cleaner_id }}</option>
                                                                             @endforeach
-                                                                        @endforeach 
                                                                     @else
                                                                         @foreach($cleaner_data as $key => $cleaner)
                                                                             <?php $items[$count++] =  $cleaner->user_id; ?>
