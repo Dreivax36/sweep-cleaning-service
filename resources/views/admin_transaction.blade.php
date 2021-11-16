@@ -525,10 +525,7 @@ use App\Models\Payment;
                                                                         @endforeach 
                                                                     @else
                                                                         @foreach($cleaner_data as $key => $cleaner)
-                                                                            <?php
-                                                                                $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
-                                                                            ?>    
-                                                                            <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
+                                                                            <?php $items[$count++] =  $cleaner->user_id; ?>
                                                                         @endforeach
                                                                     @endif 
                                                                 @endforeach
