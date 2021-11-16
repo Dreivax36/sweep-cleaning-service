@@ -524,7 +524,7 @@ use App\Models\Payment;
                                                                             @endforeach
                                                                         @endforeach 
                                                                     @else
-                                                                        @foreach($cleaner_data as $key => $cleaner)
+                                                                        @foreach($cleanerID as $key => $cleaner)
                                                                             <?php $items[$count++] =  $cleaner->user_id; ?>
                                                                         @endforeach
                                                                     @endif 
