@@ -156,8 +156,8 @@ class MainController extends Controller
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
            // Save the file in the /public/ folder under a new folder named /images
-           $request->profile_picture->store('public');
-           $request->valid_id->store('public');
+           $request->profile_picture->store('images', 'public');
+           $request->valid_id->store('images', 'public');
            //Insert data into database
            //Insert to user table
            $users = new User;
