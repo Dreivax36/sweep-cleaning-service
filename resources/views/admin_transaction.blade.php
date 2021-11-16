@@ -509,7 +509,7 @@ use App\Models\Payment;
                                                                     <?php  
                                                                         $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
                                                                     ?>
-                                                                    @if($cleanerID != null) <!-- Check if booking already have a cleaner-->
+                                                                    @if($cleanerID == null) <!-- Check if booking already have a cleaner-->
                                                                         @foreach($cleaner_data as $key => $cleaner)                                
                                                                             @foreach($cleanerID as $key => $assignCleaner)
                                                                                 <?php
