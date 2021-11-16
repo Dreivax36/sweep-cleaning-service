@@ -479,6 +479,7 @@ use App\Models\Payment;
                                                     <?php $total = $total - $acceptedCount; ?>
                                                     @endif
                                                     @while($total > 0)   
+                                                    <div class="form-group">
                                                     <input type= "hidden" name="booking_id" value="{{ $value->booking_id }}">
                                                     <input type="hidden" name="status" value="Pending">
                                                     <label for="upload_label">Cleaner: </label>
@@ -522,6 +523,13 @@ use App\Models\Payment;
                                                                                 @endif   
                                                                             @endforeach
                                                                         @endforeach 
+                                                                    @else
+                                                                        @foreach($cleaner_data as $key => $cleaner)
+                                                                            <?php
+                                                                                $fullname = User::Where('user_id', $cleaner->user_id )->value('full_name');
+                                                                            ?>    
+                                                                            <option  value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
+                                                                        @endforeach
                                                                     @endif 
                                                                 @endforeach
                                                                 <?php
@@ -631,6 +639,7 @@ use App\Models\Payment;
                                                     <?php
                                                         $total --;
                                                     ?>
+                                                    </div>
                                                     @endwhile
                                                 <br>
                         <div class="modal-footer trans_modal_footer">
