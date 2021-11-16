@@ -165,7 +165,7 @@ use App\Models\Notification;
 
     <div class="body">
     <div class="row row_transaction justify-content-center">
-        @if($booking_data == null )
+        @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
         $service_data = Service::Where('service_id', $value->service_id)->get();
