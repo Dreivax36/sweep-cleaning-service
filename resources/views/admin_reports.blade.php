@@ -216,7 +216,7 @@ use App\Models\Salary;
                     </div>
                     <div class="modal-body p-4">
                         <div class="customer_trans_modal_body_1_con">
-                            <table class="table table-striped user_info_table">
+                            <table class="table table-striped user_info_table" id="user_table">
                                 <tbody>
                                     <tr class="user_table_row">
                                         <th scope="row" class="user_table_header">
@@ -363,7 +363,7 @@ use App\Models\Salary;
                         </div>
                         <div class="modal-body p-4">
                             <div class="customer_trans_modal_body_1_con">
-                                <table class="table table-striped user_info_table">
+                                <table class="table table-striped user_info_table" id="user_table">
                                     <tbody>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
@@ -516,7 +516,7 @@ use App\Models\Salary;
                         </div>
                         <div class="modal-body p-4">
                             <div class="customer_trans_modal_body_1_con">
-                                <table class="table table-striped user_info_table">
+                                <table class="table table-striped user_info_table" id="user_table">
                                     <tbody>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
@@ -676,7 +676,7 @@ use App\Models\Salary;
                     </div>
                     <div class="modal-body p-4">
                         <div class="customer_trans_modal_body_1_con">
-                            <table class="table table-striped user_info_table">
+                            <table class="table table-striped user_info_table" id="user_table">
                                 <tbody>
                                     <tr class="user_table_row">
                                         <th scope="row" class="user_table_header">
@@ -812,7 +812,7 @@ use App\Models\Salary;
                 </div>
                 <div class="modal-body p-4">
                     <div class="customer_trans_modal_body_1_con">
-                        <table class="table table-striped user_info_table">
+                        <table class="table table-striped user_info_table" id="user_table">
                             <tbody>
                                 <tr class="user_table_row">
                                     <th scope="row" class="user_table_header">
@@ -969,7 +969,7 @@ use App\Models\Salary;
                         </div>
                         <div class="modal-body p-4">
                             <div class="customer_trans_modal_body_1_con">
-                                <table class="table table-striped user_info_table">
+                                <table class="table table-striped user_info_table" id="user_table">
                                     <tbody>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
@@ -1122,7 +1122,7 @@ use App\Models\Salary;
                         </div>
                         <div class="modal-body p-4">
                             <div class="customer_trans_modal_body_1_con">
-                                <table class="table table-striped user_info_table">
+                                <table class="table table-striped user_info_table" id="user_table">
                                     <tbody>
                                         <tr class="user_table_row">
                                         <th scope="row" class="user_table_header">
