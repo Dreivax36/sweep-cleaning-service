@@ -1,5 +1,7 @@
 <?php
-
+use App\Models\Salary;
+use App\Models\Employee;
+use Carbon\Carbon;
 // Include the main TCPDF library (search for installation path).
 require_once('library/tcpdf.php');
 
@@ -86,7 +88,8 @@ if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-
+$month = Carbon::now()->month;
+$year = Carbon::now()->year;
 // add a page
 $pdf->AddPage();
 $pdf->SetFont('times', 'B', 12);
@@ -95,33 +98,34 @@ $pdf->Cell(189,5,'SWEEP EMPLOYEES PERFORMANCE',0,1,'C');
 
 $pdf->SetFont('times', '', 12);
 
-$pdf->Cell(189,5,'For November 2021',0,1,'C');
+$pdf->Cell(189,5,"For ".date("F", mktime(0, 0, 0, $month, 1))." ".$year,0,1,'C');
 
 $pdf->Ln(18);
 
 
 
 $pdf->SetFont('times','B', 12);
-$pdf->Cell(25,5,'RANK',1,0);
-$pdf->Cell(85,5,'NAME',1,0);
-$pdf->Cell(35,5,'TOTAL HOURS',1,0,);
-$pdf->Cell(35,5,'TOTAL DAYS',1,0,);
+$pdf->Cell(25,5,'RANK',1,0, 'C');
+$pdf->Cell(85,5,'NAME',1,0, 'C');
+$pdf->Cell(35,5,'TOTAL HOURS',1,0,'C');
+$pdf->Cell(35,5,'TOTAL DAYS',1,0,'C');
+
+$countEmployee = 1;
+$salary = Salary::where('month', $month)->orderBy('totalHour', 'ASC')->get();
+foreach($salary as $employees){
+$employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
 
 $pdf->Ln(5.5);
 $pdf->SetFont('times', '', 12);
-$pdf->Cell(25,5,'1',1,0);
-$pdf->Cell(85,5,'Duane Xavier Bondad',1,0);
-$pdf->Cell(35,5,'16',1,0,);
-$pdf->Cell(35,5,'2',1,0,);
-
-$pdf->Ln(5.5);
-$pdf->SetFont('times', '', 12);
-$pdf->Cell(25,5,'2',1,0);
-$pdf->Cell(85,5,'Lyka Casilao',1,0);
-$pdf->Cell(35,5,'8',1,0,);
-$pdf->Cell(35,5,'1',1,0,);
-
-
+$pdf->Cell(25,5,"$countEmployee",1,0, 'C');
+$pdf->Cell(85,5,"$employeeName",1,0);
+$pdf->Cell(35,5,"$employees->totalHour",1,0, 'C');
+$pdf->Cell(35,5,"$employees->totalDay",1,0, 'C');
+$countEmployee++;
+}
+$pdf->Ln(14);
+$pdf->SetFont('times','I', 10);
+$pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon::now())),0,0);
 //Close and output PDF document
 $pdf->Output('Employee_Performances.pdf', 'D');
 

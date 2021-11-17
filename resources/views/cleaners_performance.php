@@ -1,5 +1,9 @@
 <?php
-
+use App\Models\Cleaner_review;
+use App\Models\Cleaner;
+use App\Models\User;
+use App\Models\Assigned_cleaner;
+use Carbon\Carbon;
 // Include the main TCPDF library (search for installation path).
 require_once('library/tcpdf.php');
 
@@ -95,41 +99,52 @@ $pdf->Cell(189,5,'SWEEP CLEANERS PERFORMANCE',0,1,'C');
 
 $pdf->SetFont('times', '', 12);
 
-$pdf->Cell(189,5,'For November 2021',0,1,'C');
+$month = Carbon::now()->month;
+$year = Carbon::now()->year;
+$pdf->Cell(189,5,"For " .date("F", mktime(0, 0, 0, $month, 1))." " .$year,0,1,'C');
+
+
 
 $pdf->Ln(18);
 
 $pdf->SetFont('times','B', 12);
-$pdf->Cell(20,5,'RANK',1,0);
-$pdf->Cell(80,5,'NAME',1,0);
-$pdf->Cell(25,5,'RATINGS',1,0,);
-$pdf->Cell(30,5,'COMPLETED',1,0,);
-$pdf->Cell(30,5,'CANCELLED',1,0,);
+$pdf->Cell(20,5,'RANK',1,0,'C');
+$pdf->Cell(80,5,'NAME',1,0,'C');
+$pdf->Cell(25,5,'RATINGS',1,0,'C');
+$pdf->Cell(30,5,'COMPLETED',1,0,'C');
+$pdf->Cell(30,5,'CANCELLED',1,0,'C');
+
+$cleaner = Cleaner_review::selectRaw('cleaner_id as cleaner, avg(rate) as rate')
+	->Raw('Assigned_cleaner::where(status, Completed)->groupBy(cleaner_id)->count() as completed')
+    ->groupBy('cleaner_id')
+    ->orderBy('rate','ASC')->orderBy('completed', 'ASC')
+    ->get();
+
+$counter = 1;
+foreach($cleaner as $cleaners){
+	$cleaner_id = $cleaners->cleaner_id;
+	$cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
+	$users = User::where('user_id', $cleanerID)->value('full_name');
+	$cancel = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Cancelled')->count();
+	$complete = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Completed')->count();
+
 
 $pdf->Ln(5.5);
 $pdf->SetFont('times', '', 12);
-$pdf->Cell(20,5,'1',1,0);
-$pdf->Cell(80,5,'Duane Xavier Bondad',1,0);
-$pdf->Cell(25,5,'4.5/5',1,0,);
-$pdf->Cell(30,5,'2',1,0,);
-$pdf->Cell(30,5,'1',1,0,);
+$pdf->Cell(20,5,"$counter",1,0,'C');
+$pdf->Cell(80,5,"$users",1,0);
+$pdf->Cell(25,5, number_format((float)$cleaners->rate, 0, '.', '').'/5',1,0,'C');
+$pdf->Cell(30,5,"$complete",1,0,'C');
+$pdf->Cell(30,5,"$cancel",1,0,'C');
+$counter++;
+} 
 
-$pdf->Ln(5.5);
-$pdf->SetFont('times', '', 12);
-$pdf->Cell(20,5,'2',1,0);
-$pdf->Cell(80,5,'Lyka Casilao',1,0);
-$pdf->Cell(25,5,'4.3/5',1,0,);
-$pdf->Cell(30,5,'1',1,0,);
-$pdf->Cell(30,5,'0',1,0,);
-
-
-
-
-
-
+$pdf->Ln(14);
+$pdf->SetFont('times','I', 10);
+$pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon::now())),0,0);
 
 //Close and output PDF document
-$pdf->Output('Cleaner_Performance.pdf', 'D');
+$pdf->Output('Cleaner_Performance.pdf', 'I');
 
 
 

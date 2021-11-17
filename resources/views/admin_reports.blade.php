@@ -931,7 +931,7 @@ use App\Models\Salary;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-topCleaner">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance'}}'">
                             Generate Report
                         </button>
                     </div>
@@ -1007,7 +1007,7 @@ use App\Models\Salary;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance'}}'">
                                 Generate Report
                             </button>
                         </div>
@@ -1043,6 +1043,9 @@ use App\Models\Salary;
                                 <td class="user_table_data">
                                     Hours Present
                                 </td>
+                                <td class="user_table_data">
+                                    Days Present
+                                </td>
                             </tr>
                             <?php
                                 $countEmployee = 1;
@@ -1064,6 +1067,9 @@ use App\Models\Salary;
                                 <td class="user_table_data">
                                     {{$employees->totalHour}}
                                 </td>
+                                <td class="user_table_data">
+                                    {{$employees->totalDay}}
+                                </td>
                             </tr>
                             @endif
                             @endforeach
@@ -1079,7 +1085,7 @@ use App\Models\Salary;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employees">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance'}}'">
                             Generate Report
                         </button>
                     </div>
@@ -1113,10 +1119,10 @@ use App\Models\Salary;
                                             Name
                                         </td>
                                         <td class="user_table_data">
-                                            Days Present
+                                            Hours Present
                                         </td>
                                         <td class="user_table_data">
-                                            Hours Present
+                                            Days Present
                                         </td>
                                         </tr>
                                         @foreach($salary as $employees)
@@ -1133,6 +1139,9 @@ use App\Models\Salary;
                                             <td class="user_table_data">
                                                 {{$employees->totalHour}}
                                             </td>
+                                            <td class="user_table_data">
+                                                {{$employees->totalDay}}
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -1140,7 +1149,7 @@ use App\Models\Salary;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance'}}'">
                                 Generate Report
                             </button>
                         </div>

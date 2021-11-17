@@ -1,7 +1,8 @@
 <?php
 use App\Models\Salary;
+use App\Models\Employee;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+
 // Include the main TCPDF library (search for installation path).
 require_once('library/tcpdf.php');
 
@@ -89,8 +90,8 @@ if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
- $request = new Request;
-$salary = Salary::where('id', 3)->get();
+
+$salary = Salary::where('id', $id)->get();
 foreach($salary as $salaries){
 // add a page
 $pdf->AddPage();
@@ -102,30 +103,32 @@ $pdf->SetFont('times', '', 12);
 
 $month = Carbon::now()->month;
 $year = Carbon::now()->year;
-$pdf->Cell(189,5,"For $salaries->month $year",0,1,'C');
+$pdf->Cell(189,5,"For " .date("F", mktime(0, 0, 0, $salaries->month, 1))." " .$year,0,1,'C');
 
 $pdf->Ln(18);
 
 $pdf->SetFont('times','B', 12);
 $pdf->Cell(149,5,'Employee Code:',0,0);
-$pdf->Cell(30,5,'HR0001',0,0,'R');
+$pdf->Cell(30,5,"$salaries->employee_code",0,0,'R');
 
-
+$fullname = Employee::where('employee_code',$salaries->employee_code)->value('full_name');
+$department = Employee::where('employee_code',$salaries->employee_code)->value('department');
+$position = Employee::where('employee_code',$salaries->employee_code)->value('position');
 $pdf->Ln(7);
 
 $pdf->SetFont('times','', 12);
-$pdf->Cell(40,5,'          Full Name:',0,0);
-$pdf->Cell(139,5,'Edwin Vinas',0,0);
+$pdf->Cell(40,5,'          Full Name: ',0,0);
+$pdf->Cell(139,5,"$fullname",0,0);
 
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
-$pdf->Cell(40,5,'          Department:',0,0);
-$pdf->Cell(139,5,'Human Resource Department',0,0);
+$pdf->Cell(40,5,'          Department: ',0,0);
+$pdf->Cell(139,5,"$department",0,0);
 
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
-$pdf->Cell(40,5,'          Position:',0,0);
-$pdf->Cell(139,5,'Manager',0,0);
+$pdf->Cell(40,5,'          Position: ',0,0);
+$pdf->Cell(139,5,"$position",0,0);
 
 $pdf->Ln(14);
 
@@ -135,12 +138,12 @@ $pdf->Cell(189,3,'Details:',0,0);
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Total Days Present:',0,0);
-$pdf->Cell(30,5,'20 Days',0,0,'R');
+$pdf->Cell(30,5,"$salaries->totalDay Days",0,0,'R');
 
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Total Hours Present:',0,0);
-$pdf->Cell(30,5,'160 Hours',0,0,'R');
+$pdf->Cell(30,5,"$salaries->totalHour Hours",0,0,'R');
 
 
 
@@ -153,7 +156,7 @@ $pdf->Cell(189,3,'Earnings:',0,0);
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Total Salary:',0,0);
-$pdf->Cell(30,5,'42,700 Php',0,0,'R');
+$pdf->Cell(30,5,"$salaries->totalsalary Php",0,0,'R');
 
 
 
@@ -166,18 +169,21 @@ $pdf->Cell(179,5,'Deductions:',0,0);
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Income Tax:',0,0);
-$pdf->Cell(30,5,'2,700 Php',0,0,'R');
+$pdf->Cell(30,5,"$salaries->totaltax Php",0,0,'R');
 
 
 $pdf->Ln(14);
 
 $pdf->SetFont('times','B', 12);
 $pdf->Cell(149,5,'NET SALARY:',0,0);
-$pdf->Cell(30,5,'40,000 Php',0,0,'R');
+$pdf->Cell(30,5,"$salaries->netpay Php" ,0,0,'R');
 }
+$pdf->Ln(14);
+$pdf->SetFont('times','I', 10);
+$pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon::now())),0,0);
 
 //Close and output PDF document
-$pdf->Output('Payslip.pdf', 'I');
+$pdf->Output('Payslip.pdf', 'D');
 
 
 

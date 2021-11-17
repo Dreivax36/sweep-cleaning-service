@@ -670,9 +670,6 @@ use App\Models\Notification;
 
                                 </div>
                             </div>
-                        </form>
-
-
                     </div>
                     <div class="modal-footer service_modal_header">
                         <button type="submit" class="btn btn-primary update_btn" class="close-modal">
@@ -682,6 +679,7 @@ use App\Models\Notification;
                             CANCEL
                         </button>
                     </div>
+                    </form>
                 </div>
                 @endforeach
             </div>

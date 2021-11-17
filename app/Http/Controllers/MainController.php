@@ -368,7 +368,7 @@ class MainController extends Controller
 
              // Save the file in the /public/ folder under a new folder named /images
              $profile = time().'.'.$request->profile_picture->extension();
-             $request->profile_picture->move(public_path('profile_picture'),$profile);
+             $request->profile_picture->move(public_path('images'),$profile);
              
  
              //Insert data into database
@@ -414,7 +414,7 @@ class MainController extends Controller
 
              // Save the file in the /public/ folder under a new folder named /images
              $validId = time().'.'.$request->valid_id->extension();
-             $request->valid_id->move(public_path('valid_id'),$validId);
+             $request->valid_id->move(public_path('images'),$validId);
 
              //Insert to identification table
              $identifications = new Identification;
@@ -445,7 +445,7 @@ class MainController extends Controller
 
              // Save the file in the /public/ folder under a new folder named /images
              $require = time().'.'.$request->requirement->extension();
-             $request->requirement->move(public_path('requirement'),$require);
+             $request->requirement->move(public_path('images'),$require);
              //Insert to clearance table
              $clearances = new Clearance;
              $clearances->cleaner_id = $request->cleaner_id;
@@ -614,7 +614,7 @@ class MainController extends Controller
     function payslip(Request $request)
     {
         $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
-        return view('payslip', $data);
+        return view('payslip', $data)->with('id', $request->route('id'));
     }
     function cleaners_performance()
     {
