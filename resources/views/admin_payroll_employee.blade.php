@@ -152,7 +152,7 @@
                         <td class="user_table_data">₱{{ number_format((float)$salary->totaltax, 2, '.', '')}}</td>
                         <td class="user_table_data">₱{{ number_format((float)$salary->netpay, 2, '.', '')}}</td>
                         <td class="user_table_data">
-                        <button type="submit" class="btn btn-block btn-success">
+                        <button type="submit" class="btn btn-block btn-success" onclick="document.location='{{ route('payslip', $salary->id) }}'">
                             Pay Slip
                         </button>
                         </td>

@@ -603,20 +603,18 @@ class MainController extends Controller
             return back()->with('success-timein', 'Successful');
         }
         elseif($request->timeOut != null){
-            $timeOut_entries = Time_entry::where('employee_code', $request->employee_code)->update(['time_end' => $request->timeOut]);
+            $id = Time_entry::where('employee_code', $request->employee_code)->where('time_end', null)->value('id');
+            $timeOut_entries = Time_entry::where('id', $id)->update(['time_end' => $request->timeOut]);
             return back()->with('success-timeout', 'Successful');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
-    function payslip()
+    function payslip(Request $request)
     {
         $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
-        if (session()->has('LoggedUser')) {
-            return view('payslip', $data);
-        }
-        return redirect('/');
+        return view('payslip', $data);
     }
     function cleaners_performance()
     {

@@ -9,6 +9,8 @@ use App\Models\Cleaner_review;
 use App\Models\Assigned_cleaner;
 use App\Models\Notification;
 use App\Models\Payment;
+use App\Models\Salary;
+
 ?>
 @extends('head_extention_admin')
 
@@ -1039,17 +1041,13 @@ use App\Models\Payment;
                                     Name
                                 </td>
                                 <td class="user_table_data">
-                                    Days Present
-                                </td>
-                                <td class="user_table_data">
                                     Hours Present
                                 </td>
                             </tr>
                             <?php
                                 $countEmployee = 1;
-                                $salary = Salary::selectRaw('employee_code, totalHour, totalDay,  sum(totalDay * totalHour) as present')
-                                ->orderBy('present')
-                                ->get();
+                                $monthToday = $mytime->month;
+                                $salary = Salary::where('month', $monthToday)->orderBy('totalHour', 'ASC')->get();
                             ?>
                             @foreach($salary as $employees)
                             @if($countEmployee <= 3)
@@ -1062,9 +1060,6 @@ use App\Models\Payment;
                                 </th>
                                 <td class="user_table_data">
                                     {{$employeeName}}
-                                </td>
-                                <td class="user_table_data">
-                                    {{$employees->totalDay }}
                                 </td>
                                 <td class="user_table_data">
                                     {{$employees->totalHour}}
@@ -1136,12 +1131,10 @@ use App\Models\Payment;
                                                 {{$employeeName}}
                                             </td>
                                             <td class="user_table_data">
-                                                {{$employees->totalDay }}
-                                            </td>
-                                            <td class="user_table_data">
                                                 {{$employees->totalHour}}
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

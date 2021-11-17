@@ -27,6 +27,8 @@ use App\Models\Notification;
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -62,6 +64,7 @@ use App\Models\Notification;
                     @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
+                    <h4 class="notif">Notifications</h4>
                     @forelse ($notif as $notification)
                     <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                         {{ $notification->message}}
@@ -91,6 +94,7 @@ use App\Models\Notification;
                         @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
+                        <h4 class="notif">Notifications</h4>
                         @forelse ($notif as $notification)
                         <a class="dropdown-item read" href="/{{$notification->location}}/{{$notification->id}}">
                             {{ $notification->message}}

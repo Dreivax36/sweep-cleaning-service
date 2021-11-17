@@ -1,5 +1,7 @@
 <?php
-
+use App\Models\Salary;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 // Include the main TCPDF library (search for installation path).
 require_once('library/tcpdf.php');
 
@@ -13,6 +15,7 @@ class MYPDF extends TCPDF
 		// Read file lines
 		$lines = file($file);
 		$data = array();
+		$data = Salary::where('id', $id);
 		foreach ($lines as $line) {
 			$data[] = explode(';', chop($line));
 		}
@@ -86,7 +89,9 @@ if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-
+ $request = new Request;
+$salary = Salary::where('id', 3)->get();
+foreach($salary as $salaries){
 // add a page
 $pdf->AddPage();
 $pdf->SetFont('times', 'B', 12);
@@ -95,7 +100,9 @@ $pdf->Cell(189,5,'SWEEP EMPLOYEE PAY SLIP',0,1,'C');
 
 $pdf->SetFont('times', '', 12);
 
-$pdf->Cell(189,5,'For November 2021',0,1,'C');
+$month = Carbon::now()->month;
+$year = Carbon::now()->year;
+$pdf->Cell(189,5,"For $salaries->month $year",0,1,'C');
 
 $pdf->Ln(18);
 
@@ -167,7 +174,7 @@ $pdf->Ln(14);
 $pdf->SetFont('times','B', 12);
 $pdf->Cell(149,5,'NET SALARY:',0,0);
 $pdf->Cell(30,5,'40,000 Php',0,0,'R');
-
+}
 
 //Close and output PDF document
 $pdf->Output('Payslip.pdf', 'I');

@@ -27,6 +27,8 @@ use App\Models\Notification;
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -63,6 +65,7 @@ use App\Models\Notification;
                     @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
+                    <h4 class="notif">Notifications</h4>
                     @forelse ($notif as $notification)
                     <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                         {{ $notification->message}}
@@ -92,6 +95,7 @@ use App\Models\Notification;
                         @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
+                        <h4 class="notif">Notifications</h4>
                         @forelse ($notif as $notification)
                         <a class="dropdown-item read" href="/{{$notification->location}}/{{$notification->id}}">
                             {{ $notification->message}}
@@ -226,5 +230,57 @@ use App\Models\Notification;
             }
         });
     </script>
-    
+    <script>
+        console.log("testing");
+        var toastMixin = Swal.mixin({
+            toast: true,
+            icon: 'success',
+            title: 'General Title',
+            animation: false,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 60000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        window.addEventListener("load", function() {
+            console.log("testing1");
+            Swal.fire({
+                toast: true,
+                icon: 'success',
+                title: 'Posted successfully',
+                animation: false,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        });
+
+        document.querySelector(".second").addEventListener('click', function() {
+            console.log("testing2");
+            toastMixin.fire({
+                animation: true,
+                position: 'top-end',
+                title: 'Status of Transaction 11 is On Progress'
+            });
+        });
+
+        document.querySelector(".third").addEventListener('click', function() {
+            console.log("testing3");
+            toastMixin.fire({
+                title: 'Transaction 12 was Cancelled',
+                icon: 'error',
+                position: 'bottom-end',
+            });
+        });
+    </script>
 </body>
