@@ -713,7 +713,7 @@ class BookingController extends Controller
             $salaries->employee_code = $value->employee_code;
             $salaries = $salaries->save();
         }
-        return back();
+        return back()->with('success', 'Salary Computed Successfully!');
     }
 
 }

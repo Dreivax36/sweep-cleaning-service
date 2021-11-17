@@ -54,7 +54,7 @@ use App\Models\Notification;
                 <!-- Notification Data -->
                 <?php
                 $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
                 ?>
                 <a id="navbarDropdown cleaner" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <i class="fa fa-bell"></i>
@@ -83,7 +83,7 @@ use App\Models\Notification;
                     <!-- Notification Data -->
                     <?php
                     $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
                     ?>
                     <a id="navbarDropdown cleaner" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         <i class="fa fa-bell"></i>

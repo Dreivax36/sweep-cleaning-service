@@ -114,28 +114,39 @@ $pdf->Cell(25,5,'RATINGS',1,0,'C');
 $pdf->Cell(30,5,'COMPLETED',1,0,'C');
 $pdf->Cell(30,5,'CANCELLED',1,0,'C');
 
-$cleaner = Cleaner_review::selectRaw('cleaner_id as cleaner, avg(rate) as rate')
-	->Raw('Assigned_cleaner::where(status, Completed)->groupBy(cleaner_id)->count() as completed')
+$cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
+	->whereMonth('created_at', $month)
     ->groupBy('cleaner_id')
-    ->orderBy('rate','ASC')->orderBy('completed', 'ASC')
+    ->orderBy('rate','ASC')
     ->get();
 
-$counter = 1;
+	$cleanerArray = array();
+	$counter = 0;
 foreach($cleaner as $cleaners){
-	$cleaner_id = $cleaners->cleaner_id;
+	$cleanerArray[$counter++] = array(
+	"cleaner_id" => $cleaners->cleaner_id,
+	"rate" => $cleaners->rate,
+	"completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
+	"cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
+);
+}
+array_multisort(array_column($cleanerArray, 'completed'),      SORT_DESC,
+				array_column($cleanerArray, 'rate'), SORT_DESC,
+                $cleanerArray);
+
+$counter = 1;
+foreach($cleanerArray as $key=>$value) {
+	$cleaner_id = $value['cleaner_id'];
 	$cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
 	$users = User::where('user_id', $cleanerID)->value('full_name');
-	$cancel = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Cancelled')->count();
-	$complete = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Completed')->count();
-
 
 $pdf->Ln(5.5);
 $pdf->SetFont('times', '', 12);
 $pdf->Cell(20,5,"$counter",1,0,'C');
 $pdf->Cell(80,5,"$users",1,0);
-$pdf->Cell(25,5, number_format((float)$cleaners->rate, 0, '.', '').'/5',1,0,'C');
-$pdf->Cell(30,5,"$complete",1,0,'C');
-$pdf->Cell(30,5,"$cancel",1,0,'C');
+$pdf->Cell(25,5, number_format((float)$value['rate'], 0, '.', '').'/5',1,0,'C');
+$pdf->Cell(30,5,$value['completed'],1,0,'C');
+$pdf->Cell(30,5,$value['cancelled'],1,0,'C');
 $counter++;
 } 
 
@@ -144,7 +155,7 @@ $pdf->SetFont('times','I', 10);
 $pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon::now())),0,0);
 
 //Close and output PDF document
-$pdf->Output('Cleaner_Performance.pdf', 'I');
+$pdf->Output('Cleaner_Performance.pdf', 'D');
 
 
 

@@ -463,9 +463,9 @@ class MainController extends Controller
     }
     //Update Cleaner user table that email address is verified
     function verify_cleaner(Request $request){
-        $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
+        $verify_cleaner = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
-        if($verify){
+        if($verify_cleaner){
             return redirect('cleaner/cleaner_welcome')->with('success', 'Email Verified');
         }
         else {

@@ -19,11 +19,11 @@ use App\Models\Service_review;
   Admin Dashboard Page
 </title>
 
+<script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
-<script type="text/javascript"  id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
 
 {{-- Scripts --}}
-<script type="text/javascript" id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
@@ -32,7 +32,8 @@ use App\Models\Service_review;
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_dashboard.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
 
 
 <div id="app">
@@ -157,7 +158,7 @@ use App\Models\Service_review;
       @endif
     </div> <!-- End of Sidebar -->
 
-    <div class="col-md-9">
+    <div class="col-sm-9">
       <!-- Compute daily revenue, total revenue, sweep customer, sweep cleaner -->
       <?php
       $decline = Booking::where('status', 'Cancelled')->where('status', 'Declined')->count();

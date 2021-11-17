@@ -17,6 +17,8 @@ use App\Models\Notification;
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
 
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">

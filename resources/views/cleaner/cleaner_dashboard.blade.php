@@ -21,8 +21,8 @@ use App\Models\Cleaner_review;
         Cleaner Dashboard
     </title>
 
-    <script type="text/javascript" id="gwt-pst" src="{{ asset('js/sweep.js')}}"></script>
-
+    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
     {{-- Scripts --}}

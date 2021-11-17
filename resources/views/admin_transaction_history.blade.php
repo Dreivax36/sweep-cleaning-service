@@ -25,6 +25,10 @@ use App\Models\Service_review;
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
 <script src="{{ asset('js/app.js') }}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">

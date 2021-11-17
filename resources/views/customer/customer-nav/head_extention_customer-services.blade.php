@@ -56,7 +56,7 @@ use App\Models\Notification;
             <li class="nav-item dropdown bell" id="customer">
                 <?php
                 $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
                 ?>
                 <a id="navbarDropdown customer" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <i class="fa fa-bell"></i>
@@ -86,7 +86,7 @@ use App\Models\Notification;
                 <li class="nav-item dropdown" id="customer">
                     <?php
                     $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->get();
+                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
                     ?>
                     <a id="navbarDropdown customer" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         <i class="fa fa-bell"></i>
@@ -230,57 +230,5 @@ use App\Models\Notification;
             }
         });
     </script>
-    <script>
-        console.log("testing");
-        var toastMixin = Swal.mixin({
-            toast: true,
-            icon: 'success',
-            title: 'General Title',
-            animation: false,
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 60000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
-        window.addEventListener("load", function() {
-            console.log("testing1");
-            Swal.fire({
-                toast: true,
-                icon: 'success',
-                title: 'Posted successfully',
-                animation: false,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-        });
-
-        document.querySelector(".second").addEventListener('click', function() {
-            console.log("testing2");
-            toastMixin.fire({
-                animation: true,
-                position: 'top-end',
-                title: 'Status of Transaction 11 is On Progress'
-            });
-        });
-
-        document.querySelector(".third").addEventListener('click', function() {
-            console.log("testing3");
-            toastMixin.fire({
-                title: 'Transaction 12 was Cancelled',
-                icon: 'error',
-                position: 'bottom-end',
-            });
-        });
-    </script>
+    
 </body>

@@ -4,7 +4,6 @@
     use App\Models\Cleaner;
     use App\Models\Identification;
     use App\Models\Notification;
-    use App\Models\Employee;
 ?>
 @extends('head_extention_admin') 
 
@@ -15,6 +14,11 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+    
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -32,7 +36,6 @@
                         <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button" id="active">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                        <a class="nav-link" href="admin_reports" role="button">Reports</a>
                         <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
@@ -82,7 +85,6 @@
         $user_count = User::all()->count();
         $customer_count = User::Where('user_type', '=', 'Customer')->count();
         $cleaner_count = User::Where('user_type', '=', 'Cleaner')->count();
-        $employee_count = Employee::all()->count();
     ?>
     <div class="row user_btn_con"> <!-- Sub Header --> 
         <a class="user_type_btn_cleaner " href="admin_user">
@@ -103,14 +105,7 @@
             ({{ $cleaner_count }})
             </p>
         </a>
-        <a class="user_type_btn_cleaner" href="admin_user_employees">
-            EMPLOYEES
-            <p class="total_value">
-            ({{ $employee_count }})
-            </p>
-        </a>
     </div>
-
 
     <div class="user_table_con"> <!-- Cleaner Tabler --> 
         <div class="table_detail_con">
@@ -271,29 +266,50 @@
             $('#user_table').DataTable();
         } );
     </script>
-       <script>
+     <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
 
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('21a2d0c6b21f78cd3195', {
-    cluster: 'ap1'
-    });
-
-    var channel = pusher.subscribe('my-channel');
-        channel.bind('admin-notif', function(data) {
-        
-        var result = data.messages;
-            var pending = parseInt($('#admin').find('.pending').html());
-            if(pending) {
-                $('#admin').find('.pending').html(pending + 1);
-            }else{
-                $('#admin').find('.pending').html(pending + 1);
-            } 
-            $('#refresh').load(window.location.href + " #refresh");
+        var pusher = new Pusher('21a2d0c6b21f78cd3195', {
+            cluster: 'ap1'
         });
+        var pos = "";
+        if (window.innerWidth > 801) {
+            pos = 'top-end';
+        } else {
+            pos = 'top';
+        }
 
-    </script>  
+        const Toast = Swal.mixin({
+            toast: true,
+            position: pos,
+            showConfirmButton: false,
+            timer: 8000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('admin-notif', function(data) {
+            var result = data.messages;
+            Toast.fire({
+                    animation: true,
+                    icon: 'success',
+                    title: JSON.stringify(result),
+                })
+            var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
+            if (admin_transaction) {
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+            } else {
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+            }
+            $('#refresh').load(window.location.href + " #refresh");
+            $('#status').load(window.location.href + " #status");
+        });
+    </script>
     <!-- Scripts -->
     @if(Session::has('success'))
     <script>

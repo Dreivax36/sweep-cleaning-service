@@ -54,7 +54,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/auth/login',[MainController::class, 'login'])->name('auth.login');
     Route::get('/auth/register',[MainController::class, 'register'])->name('auth.register');
     Route::get('/verify/{id}',[MainController::class, 'verify'])->name('verify');
-    Route::get('/verify_cleaner/{id}',[MainController::class, 'verify'])->name('verify');
+    Route::get('/verify_cleaner/{id}',[MainController::class, 'verify_cleaner'])->name('verify_cleaner');
     Route::get('/admin_dashboard',[MainController::class, 'admin_dashboard'])->name('admin_dashboard'); 
     Route::get('/admin_user',[MainController::class, 'admin_user'])->name('admin_user'); 
     Route::get('/admin_user_customer',[MainController::class, 'admin_user_customer'])->name('admin_user_customer'); 

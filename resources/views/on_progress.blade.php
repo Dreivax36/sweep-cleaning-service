@@ -22,6 +22,11 @@ use App\Models\Notification;
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_transactions.css')}}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+    
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -82,7 +87,7 @@ use App\Models\Notification;
     </nav>
 </div>
 
-<body id="status">
+<body>
 
 
     <?php
@@ -163,8 +168,7 @@ use App\Models\Notification;
         </div>
     </div>
 
-    <div class="body">
-    <div class="row row_transaction justify-content-center">
+    <div class="row row_transaction justify-content-center" id="status">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -426,7 +430,6 @@ use App\Models\Notification;
     </div>
     @endif
     </div>
-    </div>
 
     <script>
         // Enable pusher logging - don't include this in production
@@ -435,12 +438,33 @@ use App\Models\Notification;
         var pusher = new Pusher('21a2d0c6b21f78cd3195', {
             cluster: 'ap1'
         });
+        var pos = "";
+        if (window.innerWidth > 801) {
+            pos = 'top-end';
+        } else {
+            pos = 'top';
+        }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: pos,
+            showConfirmButton: false,
+            timer: 8000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
-
-
             var result = data.messages;
+            Toast.fire({
+                    animation: true,
+                    icon: 'success',
+                    title: JSON.stringify(result),
+                })
             var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
             if (admin_transaction) {
                 $('#admin').find('.admin_transaction').html(admin_transaction + 1);

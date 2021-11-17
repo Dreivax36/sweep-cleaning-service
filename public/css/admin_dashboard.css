@@ -169,7 +169,7 @@ body {
     font-weight: bold;
     float: right;
     text-align: center;
-    padding: 15px;
+    padding: 10px;
 }
 
 .value1 {
@@ -180,7 +180,7 @@ body {
 }
 
 .report_title {
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Raleway','sans-serif';
     font-weight:500;
 }
@@ -275,7 +275,7 @@ body {
 }
 
 .local_time_con {
-    height: 230px;
+    height: 105px;
     width: 100%;
     background-color: #2B81B0;
     padding-top: 20px;

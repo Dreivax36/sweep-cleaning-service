@@ -23,6 +23,10 @@ use App\Models\Payment;
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_transactions.css')}}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -83,7 +87,7 @@ use App\Models\Payment;
     </nav>
 </div>
 
-<body id="status">
+<body class="body">
 
 
     <?php
@@ -164,8 +168,7 @@ use App\Models\Payment;
         </div>
     </div>
 
-    <div class="body">
-    <div class="row row_transaction justify-content-center" >
+    <div class="row row_transaction justify-content-center" id="status">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -342,9 +345,12 @@ use App\Models\Payment;
                             <li class="list_booking_info">
                                 <b>Mode of Payment:</b> {{ $value->mode_of_payment }}
                             </li>
-                            @if ( $value->mode_of_payment == 'Paypal')
+                            <?php
+                                $payment_id = Payment::where('booking_id', $value->booking_id)->value('transaction_id');
+                            ?>
+                            @if ( $value->mode_of_payment == 'Paypal' || $value->mode_of_payment == 'G-cash')
                             <li class="list_booking_info">
-                                <b>Paypal ID:</b> {{ $value->paypal_id }}
+                                <b>Transaction Number:</b> {{ $payment_id }}
                             </li>
                             @endif
                             @if ( $value->is_paid == true)
@@ -765,7 +771,6 @@ use App\Models\Payment;
         </div>
     </div>
     @endif
-    </div>
     </div>
 
     <script>

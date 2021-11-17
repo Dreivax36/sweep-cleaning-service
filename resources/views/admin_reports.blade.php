@@ -241,7 +241,7 @@ use App\Models\Salary;
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome()">
                             Generate Report
                         </button>
                     </div>
@@ -388,7 +388,7 @@ use App\Models\Salary;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking()">
                                 Generate Report
                             </button>
                         </div>
@@ -550,7 +550,7 @@ use App\Models\Salary;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue()">
                                 Generate Report
                             </button>
                         </div>
@@ -705,7 +705,7 @@ use App\Models\Salary;
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService()">
                             Generate Report
                         </button>
                     </div>
@@ -835,7 +835,7 @@ use App\Models\Salary;
                     </div>
                 </div>
                 <div class="modal-footer customer_trans_modal_footer">
-                    <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-9">
+                    <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio()">
                         Generate Report
                     </button>
                 </div>
@@ -863,10 +863,27 @@ use App\Models\Salary;
             <div>
                 <div class="card-body">
                     <?php
-                    $cleaner = Cleaner_review::selectRaw('cleaner_id, avg(rate) as rate')
-                        ->groupBy('cleaner_id')
-                        ->orderBy('rate')
-                        ->get();
+                    $month = $mytime->month;
+
+                    $cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
+                            ->whereMonth('created_at', $month)
+                            ->groupBy('cleaner_id')
+                            ->orderBy('rate','ASC')
+                            ->get();
+
+                            $cleanerArray = array();
+                            $counter = 0;
+                        foreach($cleaner as $cleaners){
+                            $cleanerArray[$counter++] = array(
+                            "cleaner_id" => $cleaners->cleaner_id,
+                            "rate" => $cleaners->rate,
+                            "completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
+                            "cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
+                        );
+                        }
+                        array_multisort(array_column($cleanerArray, 'completed'),      SORT_DESC,
+                                        array_column($cleanerArray, 'rate'), SORT_DESC,
+                                        $cleanerArray);
 
                     $counter = 1;
                     ?>
@@ -889,13 +906,11 @@ use App\Models\Salary;
                                     Jobs Cancelled
                                 </td>
                             </tr>
-                            @foreach($cleaner as $cleaners)
+                            @foreach($cleanerArray as $cleaners)
                             <?php
-                            $cleaner_id = $cleaners->cleaner_id;
-                            $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
-                            $users = User::where('user_id', $cleanerID)->value('full_name');
-                            $cancel = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Cancelled')->count();
-                            $complete = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Completed')->count();
+                                $cleaner_id = $cleaners['cleaner_id'];
+                                $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
+                                $users = User::where('user_id', $cleanerID)->value('full_name');
                             ?>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
@@ -905,13 +920,13 @@ use App\Models\Salary;
                                     {{$users}}
                                 </td>
                                 <td class="user_table_data">
-                                    {{number_format((float)$cleaners->rate, 0, '.', '')}}/5 Stars
+                                    {{number_format((float)$cleaners['rate'], 0, '.', '')}}/5 Stars
                                 </td>
                                 <td class="user_table_data">
-                                    {{$complete}} Jobs
+                                    {{$cleaners['completed']}} Jobs
                                 </td>
                                 <td class="user_table_data">
-                                    {{$cancel}} Jobs
+                                    {{$cleaners['cancelled']}} Jobs
                                 </td>
                             </tr>
                             @if($counter == 3)
@@ -931,7 +946,7 @@ use App\Models\Salary;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-topCleaner">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance'}}'">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
                             Generate Report
                         </button>
                     </div>
@@ -976,13 +991,11 @@ use App\Models\Salary;
                                         <?php
                                         $count = 1;
                                         ?>
-                                        @foreach($cleaner as $cleaners)
+                                        @foreach($cleanerArray as $cleaners)
                                         <?php
-                                        $cleaner_id = $cleaners->cleaner_id;
-                                        $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
-                                        $users = User::where('user_id', $cleanerID)->value('full_name');
-                                        $cancel = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Cancelled')->count();
-                                        $complete = Assigned_cleaner::where('cleaner_id', $cleaner_id)->where('status', 'Completed')->count();
+                                            $cleaner_id = $cleaners['cleaner_id'];
+                                            $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
+                                            $users = User::where('user_id', $cleanerID)->value('full_name');
                                         ?>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
@@ -992,13 +1005,13 @@ use App\Models\Salary;
                                                 {{$users}}
                                             </td>
                                             <td class="user_table_data">
-                                                {{number_format((float)$cleaners->rate, 0, '.', '')}}/5 Stars
+                                            {{number_format((float)$cleaners['rate'], 0, '.', '')}}/5 Stars
                                             </td>
                                             <td class="user_table_data">
-                                                {{$complete}} Jobs
+                                            {{$cleaners['completed']}} Jobs
                                             </td>
                                             <td class="user_table_data">
-                                                {{$cancel}} Jobs
+                                            {{$cleaners['cancelled']}} Jobs
                                             </td>
                                         </tr>
                                         @endforeach
@@ -1007,7 +1020,7 @@ use App\Models\Salary;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance'}}'">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
                                 Generate Report
                             </button>
                         </div>
@@ -1085,7 +1098,7 @@ use App\Models\Salary;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employees">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance'}}'">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
                             Generate Report
                         </button>
                     </div>
@@ -1149,7 +1162,7 @@ use App\Models\Salary;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance'}}'">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
                                 Generate Report
                             </button>
                         </div>
@@ -1250,7 +1263,7 @@ use App\Models\Salary;
                 'FitWindow': true
             }, true);
             pdf.addImage(canvasImg, 'JPEG', 20, 20, 180, 100);
-
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf.save('SWEEP-Average-Income.pdf')
         }
 
@@ -1264,7 +1277,7 @@ use App\Models\Salary;
                 'FitWindow': true
             }, true);
             pdf1.addImage(usersReportImg, 'JPEG', 20, 20, 180, 100);
-
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf1.save('SWEEP-Average-Booking.pdf')
         }
 
@@ -1279,7 +1292,7 @@ use App\Models\Salary;
                 'FitWindow': true
             }, true);
             pdf2.addImage(servicerevenueReportImg, 'JPEG', 20, 20, 180, 180);
-
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf2.save('Sweep-Service-Revenue.pdf')
         }
 
@@ -1292,8 +1305,7 @@ use App\Models\Salary;
             pdf3.setFontSize(20);
             pdf3.text(15, 15, "Most Popular Booked Service");
             pdf3.addImage(mostRequestedServiceImg, 'JPEG', 20, 20, 180, 180);
-
-
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf3.save('Sweep-Requested-Service.pdf')
         }
 
@@ -1306,7 +1318,7 @@ use App\Models\Salary;
             pdf4.setFontSize(20);
             pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
             pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
-
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf4.save('Service-Completion-Ratio.pdf')
         }
     </script>
