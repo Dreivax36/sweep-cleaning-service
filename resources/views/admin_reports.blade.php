@@ -1037,7 +1037,7 @@
             <div class="card-header">
                 <div class="card_body">
                     <h3 class="service_title_trans">
-                        Top Performing Cleaners
+                    Top Performing Employees
                     </h3>
                 </div>
                 <div>
@@ -1050,26 +1050,7 @@
                 <div class="card-body">
                     <?php
                     $month = $mytime->month;
-
-                    $cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
-                            ->whereMonth('created_at', $month)
-                            ->groupBy('cleaner_id')
-                            ->orderBy('rate','ASC')
-                            ->get();
-
-                            $cleanerArray = array();
-                            $counter = 0;
-                        foreach($cleaner as $cleaners){
-                            $cleanerArray[$counter++] = array(
-                            "cleaner_id" => $cleaners->cleaner_id,
-                            "rate" => $cleaners->rate,
-                            "completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
-                            "cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
-                        );
-                        }
-                        array_multisort(array_column($cleanerArray, 'completed'),      SORT_DESC,
-                                        array_column($cleanerArray, 'rate'), SORT_DESC,
-                                        $cleanerArray);
+                    $salary = Salary::where('month', $month)->orderBy('totalHour', 'desc')->get();
 
                     $counter = 1;
                     ?>
@@ -1092,28 +1073,24 @@
                                     Jobs Cancelled
                                 </td>
                             </tr>
-                            @foreach($cleanerArray as $cleaners)
+                            @foreach($salary as $employees)
                             <?php
-                                $cleaner_id = $cleaners['cleaner_id'];
-                                $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
-                                $users = User::where('user_id', $cleanerID)->value('full_name');
+                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
                             ?>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
                                     Top {{$counter++}}
                                 </th>
                                 <td class="user_table_data">
-                                    {{$users}}
+                                {{$employeeName}}
                                 </td>
                                 <td class="user_table_data">
-                                    {{number_format((float)$cleaners['rate'], 0, '.', '')}}/5 Stars
+                                {{$employees->totalHour}}
                                 </td>
                                 <td class="user_table_data">
-                                    {{$cleaners['completed']}} Jobs
+                                {{$employees->totalDay}}
                                 </td>
-                                <td class="user_table_data">
-                                    {{$cleaners['cancelled']}} Jobs
-                                </td>
+                                
                             </tr>
                             @if($counter > 3)
                             @break
@@ -1129,23 +1106,23 @@
             <div class="card-footer">
                 <div class="buttons">
                     <div class="byt float-right">
-                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-topCleaner">
+                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employee">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
                             Generate Report
                         </button>
                     </div>
                 </div>
             </div>
             <!-- Modal for details -->
-            <div class="modal fade" id="details-topCleaner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal fade" id="details-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content customer_trans_modal_content">
                         <div class="modal-header customer_trans_modal_header">
                             <div class="card_body">
                                 <h3 class="service_title_trans">
-                                    Top Performing Cleaners
+                                Top Performing Employees
                                 </h3>
                                 <h6 class="booking_date">
                                     <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
@@ -1165,23 +1142,19 @@
                                                 Name
                                             </td>
                                             <td class="user_table_data">
-                                                Ratings
+                                            Hours Present
                                             </td>
                                             <td class="user_table_data">
-                                                Jobs Completed
+                                            Days Present
                                             </td>
-                                            <td class="user_table_data">
-                                                Jobs Cancelled
-                                            </td>
+                                           
                                         </tr>
                                         <?php
                                         $count = 1;
                                         ?>
-                                        @foreach($cleanerArray as $cleaners)
+                                        @foreach($salary as $employees)
                                         <?php
-                                            $cleaner_id = $cleaners['cleaner_id'];
-                                            $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
-                                            $users = User::where('user_id', $cleanerID)->value('full_name');
+                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
                                         ?>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
@@ -1191,13 +1164,13 @@
                                                 {{$users}}
                                             </td>
                                             <td class="user_table_data">
-                                            {{number_format((float)$cleaners['rate'], 0, '.', '')}}/5 Stars
+                                            {{$employeeName}}
                                             </td>
                                             <td class="user_table_data">
-                                            {{$cleaners['completed']}} Jobs
+                                            {{$employees->totalHour}}
                                             </td>
                                             <td class="user_table_data">
-                                            {{$cleaners['cancelled']}} Jobs
+                                            {{$employees->totalDay}}
                                             </td>
                                         </tr>
                                         @endforeach
@@ -1206,7 +1179,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
                                 Generate Report
                             </button>
                         </div>
@@ -1294,7 +1267,7 @@
             }, true);
             pdf.addImage(canvasImg, 'JPEG', 20, 20, 180, 100);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf.save('SWEEP-Average-Income.pdf')
+            pdf.save('SWEEP-Average-Income.pdf');
         }
 
         function avgBooking() {
@@ -1308,7 +1281,7 @@
             }, true);
             pdf1.addImage(usersReportImg, 'JPEG', 20, 20, 180, 100);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf1.save('SWEEP-Average-Booking.pdf')
+            pdf1.save('SWEEP-Average-Booking.pdf');
         }
 
         function sweepRevenue() {
@@ -1323,7 +1296,7 @@
             }, true);
             pdf2.addImage(servicerevenueReportImg, 'JPEG', 20, 20, 180, 180);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf2.save('Sweep-Service-Revenue.pdf')
+            pdf2.save('Sweep-Service-Revenue.pdf');
         }
 
         function requestedService() {
@@ -1336,7 +1309,7 @@
             pdf3.text(15, 15, "Most Popular Booked Service");
             pdf3.addImage(mostRequestedServiceImg, 'JPEG', 20, 20, 180, 180);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf3.save('Sweep-Requested-Service.pdf')
+            pdf3.save('Sweep-Requested-Service.pdf');
         }
 
         function completionRatio() {
@@ -1349,7 +1322,7 @@
             pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
             pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf4.save('Service-Completion-Ratio.pdf')
+            pdf4.save('Service-Completion-Ratio.pdf');
         }
     </script>
 
