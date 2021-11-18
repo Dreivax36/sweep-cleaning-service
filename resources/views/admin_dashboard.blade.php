@@ -33,7 +33,6 @@ use App\Models\Service_review;
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_dashboard.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
-    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
 
   <script>
       function refreshTime(){
@@ -111,9 +110,10 @@ use App\Models\Service_review;
         <div id="pst-container">
           <div class="local_time_title">
             Philippine Standard Time
-          </div>
-          <h1 id="time"></h1>
+          
+          <h3 id="time"></h3>
           <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
+          </div>
         </div>
       </div>
       <!-- Sidebar -->
@@ -195,7 +195,7 @@ use App\Models\Service_review;
         $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
         $totalToday = $totalToday + $priceToday;
       }
-      $revenueToday = $totalToday * 0.70;
+      $revenueToday = $totalToday - ($totalToday * 0.50);
       ?>
       <!-- Reports -->
       <div class="row justify-content-center" id="report">

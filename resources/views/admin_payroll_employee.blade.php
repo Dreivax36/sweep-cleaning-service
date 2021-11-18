@@ -80,7 +80,8 @@
 
 <body >
     <?php
-        $cleaner = Assigned_cleaner::groupby('cleaner_id')->count();
+        $cleaner = Assigned_cleaner::selectraw('cleaner_id')
+            ->groupby('cleaner_id')->count();
         $employee = Employee::all()->count();
     ?>
     <div class="row head">

@@ -30,7 +30,6 @@ use App\Models\Cleaner_review;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
-    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
     <script>
       function refreshTime(){
         var refresh = 1000;
@@ -54,9 +53,10 @@ use App\Models\Cleaner_review;
                 <div id="pst-container">
                     <div class="local_time_title">
                         Philippine Standard Time
-                    </div>
-                    <h1 id="time"></h1>
+                    
+                    <h3 id="time"></h3>
                     <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
+                    </div>
                 </div>
             </div>
             <h2 class="side_con_title">

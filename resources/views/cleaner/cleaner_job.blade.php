@@ -350,7 +350,7 @@ use App\Models\Assigned_cleaner;
     </script>
     @endif
     <!-- Success cleaner Popup -->
-    @if($success-cleaner != null)
+    @if(!empty(Session::get('success-cleaner')))
     <script>
         swal({
             title: "On-site Payment Successful!",

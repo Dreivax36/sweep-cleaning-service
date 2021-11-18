@@ -949,7 +949,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-topCleaner">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
                             Generate Report
                         </button>
                     </div>
@@ -1023,7 +1023,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" >
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
                                 Generate Report
                             </button>
                         </div>
@@ -1101,7 +1101,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employees">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
                             Generate Report
                         </button>
                     </div>
@@ -1165,7 +1165,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" >
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
                                 Generate Report
                             </button>
                         </div>
@@ -1251,9 +1251,7 @@
             //Reload Notification
             $('#refresh').load(window.location.href + " #refresh");
         });
-    </script>
-
-    <script>
+    
         function avgIncome() {
             console.log("TESTING1");
             const canvas = document.getElementById('avgWeeklyIncome');
@@ -1266,7 +1264,6 @@
                 'FitWindow': true
             }, true);
             pdf.addImage(canvasImg, 'JPEG', 20, 20, 180, 100);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf.save('SWEEP-Average-Income.pdf')
         }
 
@@ -1280,7 +1277,6 @@
                 'FitWindow': true
             }, true);
             pdf1.addImage(usersReportImg, 'JPEG', 20, 20, 180, 100);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf1.save('SWEEP-Average-Booking.pdf')
         }
 
@@ -1295,7 +1291,6 @@
                 'FitWindow': true
             }, true);
             pdf2.addImage(servicerevenueReportImg, 'JPEG', 20, 20, 180, 180);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf2.save('Sweep-Service-Revenue.pdf')
         }
 
@@ -1308,7 +1303,6 @@
             pdf3.setFontSize(20);
             pdf3.text(15, 15, "Most Popular Booked Service");
             pdf3.addImage(mostRequestedServiceImg, 'JPEG', 20, 20, 180, 180);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf3.save('Sweep-Requested-Service.pdf')
         }
 
@@ -1321,7 +1315,6 @@
             pdf4.setFontSize(20);
             pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
             pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
             pdf4.save('Service-Completion-Ratio.pdf')
         }
     </script>
