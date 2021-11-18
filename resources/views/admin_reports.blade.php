@@ -1042,13 +1042,16 @@
                 </div>
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                        <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                     </h6>
                 </div>
             </div>
             <div>
                 <div class="card-body">
-
+                    <?php 
+                        $counter = 1;
+                        $salary_data = Salary::all();
+                    ?>
                     <table class="table table-striped user_info_table">
                         <tbody>
                             <tr class="user_table_row">
@@ -1065,22 +1068,25 @@
                                     Days Present
                                 </td>
                             </tr>
-                            
+                            @foreach($salary_data as $salaryData)
+                            <?php 
+                                $name = Employee::where('employee_code', $salaryData->employee_code)->value('full_name');
+                            ?>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
-                                    Top 
+                                    Top {{$counter++}}
                                 </th>
                                 <td class="user_table_data">
-                                   
+                                   {{$name}}
                                 </td>
                                 <td class="user_table_data">
-                                    
+                                    {{$salaryData->totalHour}}
                                 </td>
                                 <td class="user_table_data">
-                                   
+                                   {{$salaryData->totalDay}}
                                 </td>
                             </tr>
-                            
+                            @endforeach
                             
                         </tbody>
                     </table>
@@ -1110,7 +1116,7 @@
                                     Top Performing Employees
                                 </h3>
                                 <h6 class="booking_date">
-                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                    <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                                 </h6>
                             </div>
                             <button type="button" class="close" data-dismiss="modal">×</button>
@@ -1161,7 +1167,8 @@
                     </div>
                 </div>
             </div>
-     
+        </div>
+    </div>
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

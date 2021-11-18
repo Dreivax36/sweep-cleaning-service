@@ -149,8 +149,8 @@ $pdf->Ln(5.5);
 $pdf->SetFont('times', '', 12);
 $pdf->Cell(75,5,"$fullname",1,0);
 $pdf->Cell(30,5, "$totalJob",1,0,'C');
-$pdf->Cell(40,5,'₱'.number_format((float)$total, 2, '.', ''),1,0,'C');
-$pdf->Cell(40,5,'₱'.number_format((float)$totalSalary, 2, '.', ''),1,0,'C');
+$pdf->Cell(40,5,number_format((float)$total, 2, '.', '').'php',1,0,'C');
+$pdf->Cell(40,5,number_format((float)$totalSalary, 2, '.', '').'php',1,0,'C');
 
 } 
 
