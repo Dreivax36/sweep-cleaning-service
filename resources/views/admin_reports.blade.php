@@ -1048,7 +1048,10 @@
             </div>
             <div>
                 <div class="card-body">
-
+                <?php
+                    $countEmployee = 1;
+                    $salary = Salary::whereMonth('created_at', $month)->orderBy('totalHour', 'desc')->get();
+                ?>
                     <table class="table table-striped user_info_table">
                         <tbody>
                             <tr class="user_table_row">
@@ -1065,15 +1068,9 @@
                                     Days Present
                                 </td>
                             </tr>
+                            @foreach($salary as $salaries)
                             <?php
-                                $countEmployee = 1;
-                                //$salary = Salary::whereMonth('created_at', $month)->orderBy('totalHour', 'desc')->get();
-                                $salary = Salary::all();
-                            ?>
-                            @foreach($salary as $employees)
-                            
-                            <?php
-                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                                $employeeName = Employee::where('employee_code', $salaries->employee_code)->value('full_name');
                             ?>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
@@ -1083,15 +1080,15 @@
                                     {{$employeeName}}
                                 </td>
                                 <td class="user_table_data">
-                                    {{$employees->totalHour}}
+                                    {{$salaries->totalHour}}
                                 </td>
                                 <td class="user_table_data">
-                                    {{$employees->totalDay}}
+                                    {{$salaries->totalDay}}
                                 </td>
                             </tr>
-                            @if($countEmployee > 3)
-                            @break
-                            @endif
+                                @if($countEmployee > 3)
+                                @break
+                                @endif
                             @endforeach
                             
                         </tbody>
@@ -1112,73 +1109,6 @@
                 </div>
             </div>
 
-            <!-- Modal for details -->
-            <div class="modal fade" id="details-employees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content customer_trans_modal_content">
-                        <div class="modal-header customer_trans_modal_header">
-                            <div class="card_body">
-                                <h3 class="service_title_trans">
-                                    Top Performing Employees
-                                </h3>
-                                <h6 class="booking_date">
-                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
-                                </h6>
-                            </div>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-                        <div class="modal-body p-4">
-                            <div class="customer_trans_modal_body_1_con">
-                                <table class="table table-striped user_info_table">
-                                    <tbody>
-                                        <tr class="user_table_row">
-                                        <th scope="row" class="user_table_header">
-                                            Rank
-                                        </th>
-                                        <td class="user_table_data">
-                                            Name
-                                        </td>
-                                        <td class="user_table_data">
-                                            Hours Present
-                                        </td>
-                                        <td class="user_table_data">
-                                            Days Present
-                                        </td>
-                                        </tr>
-                                        <?php
-                                        $counter = 1;
-                                        ?>
-                                        @foreach($salary as $employees)
-                                        <?php
-                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
-                                        ?>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top {{$counter++}}
-                                            </th>
-                                            <td class="user_table_data">
-                                                {{$employeeName}}
-                                            </td>
-                                            <td class="user_table_data">
-                                                {{$employees->totalHour}}
-                                            </td>
-                                            <td class="user_table_data">
-                                                {{$employees->totalDay}}
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
-                                Generate Report
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
