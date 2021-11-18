@@ -1113,7 +1113,7 @@
                 'FitWindow': true
             }, true);
             pdf.addImage(canvasImg, 'JPEG', 20, 20, 180, 100);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf.text(15, 15, "This file was generated on ". \Carbon\Carbon::now()->format('l, F d, Y'));
             pdf.save('SWEEP-Average-Income.pdf');
         }
 
@@ -1127,7 +1127,7 @@
                 'FitWindow': true
             }, true);
             pdf1.addImage(usersReportImg, 'JPEG', 20, 20, 180, 100);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf.text(15, 15, "This file was generated on ". \Carbon\Carbon::now()->format('l, F d, Y'));
             pdf1.save('SWEEP-Average-Booking.pdf');
         }
 
@@ -1142,7 +1142,7 @@
                 'FitWindow': true
             }, true);
             pdf2.addImage(servicerevenueReportImg, 'JPEG', 20, 20, 180, 180);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf.text(15, 15, "This file was generated on ". \Carbon\Carbon::now()->format('l, F d, Y'));
             pdf2.save('Sweep-Service-Revenue.pdf');
         }
 
@@ -1155,7 +1155,7 @@
             pdf3.setFontSize(20);
             pdf3.text(15, 15, "Most Popular Booked Service");
             pdf3.addImage(mostRequestedServiceImg, 'JPEG', 20, 20, 180, 180);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf.text(15, 15, "This file was generated on ". \Carbon\Carbon::now()->format('l, F d, Y'));
             pdf3.save('Sweep-Requested-Service.pdf');
         }
 
@@ -1168,7 +1168,7 @@
             pdf4.setFontSize(20);
             pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
             pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
-            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf.text(15, 15, "This file was generated on ". \Carbon\Carbon::now()->format('l, F d, Y'));
             pdf4.save('Service-Completion-Ratio.pdf');
         }
     </script>

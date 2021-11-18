@@ -139,16 +139,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-                    $employee = Employee::all();
-                ?>
-                @foreach($employee as $key => $value)
+        
                     <?php
-                        $salary = Salary::where('employee_code', $value->employee_code)->orderby('month', 'DESC')->get();
+                        $salary = Salary::orderby('month', 'DESC')->get();
+                    ?>
+                    @foreach($salary as $salary)
+                    <?php
+                    $name = Employee::where('employee_code', $salary->employee_code)->value('full_name');
                     ?>
                     <tr class="user_table_row">
-                        <td class="user_table_data">{{ $value->full_name }}</td>
-                        @foreach($salary as $salary)
+                        <td class="user_table_data">{{ $name }}</td>
                         <td class="user_table_data">{{ $salary->totalHour }}</td>
                         <td class="user_table_data">{{ $salary->totalDay }}</td>
                         <td class="user_table_data">{{date("F", mktime(0, 0, 0, $salary->month, 1))}}</td>
@@ -160,7 +160,6 @@
                             Pay Slip
                         </button>
                         </td>
-                        @endforeach
                     </tr>
                 @endforeach
                 </tbody>
