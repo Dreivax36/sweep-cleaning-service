@@ -672,7 +672,17 @@
     </script>
     @endif
     <!-- Popup when payment successful -->
-    @if(session('success-pay'))
+    @if($success-pay != null))
+    <script>
+        swal({
+            title: "Payment Successful!",
+            icon: "success",
+            button: "Close",
+        });
+    </script>
+    @endif
+
+    @if(session('success-gcash'))
     <script>
         swal({
             title: "Payment Successful!",

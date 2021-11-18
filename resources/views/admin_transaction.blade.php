@@ -806,7 +806,7 @@ use App\Models\Payment;
             $('#status').load(window.location.href + " #status");
 
             Toast.fire({
-                animation: true,
+                animation: true, 
                 icon: 'success',
                 title: JSON.stringify(result),
             })
@@ -835,7 +835,7 @@ use App\Models\Payment;
             </div>
         </div>
     </div>
-    @if(Session::has('success-decline'))
+    @if(session('success-decline'))
     <script>
         swal({
             title: "Successfully Declined Transaction!",
@@ -844,7 +844,7 @@ use App\Models\Payment;
         });
     </script>
     @endif
-    @if(Session::has('success-paid'))
+    @if(session('success-paid'))
     <script>
         swal({
             title: "Verify Payment Successfully!",
@@ -853,7 +853,7 @@ use App\Models\Payment;
         });
     </script>
     @endif
-    @if(Session::has('success'))
+    @if(session('success'))
     <script>
         swal({
             title: "Transaction Status Updated Successfully!",

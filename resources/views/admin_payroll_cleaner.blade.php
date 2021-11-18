@@ -79,7 +79,7 @@
 
 <body >
     <?php
-        $cleaner = Assigned_cleaner::groupby('cleaner_id')->count();
+        $cleaner = User::where('user_type', 'Cleaner')->count();
         $employee = Employee::all()->count();
     ?>
     <div class="row user_btn_con"> <!-- Sub Header --> 
@@ -144,7 +144,7 @@
                         $price = Price::Where('service_id', $book->service_id)->Where('property_type', $book->property_type)->get();
                             foreach($price as $key => $price){
                             $salary = $price->price / $price->number_of_cleaner;   
-                            $totalSalary = $totalSalary + $salary * 0.30;
+                            $totalSalary = $totalSalary + ($salary - ($salary * 0.18));
                             $total = $total + $salary; 
                             }
                             $totalJob++;

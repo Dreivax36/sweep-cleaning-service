@@ -31,7 +31,18 @@ use App\Models\Cleaner_review;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
     <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
+    <script>
+      function refreshTime(){
+        var refresh = 1000;
+        mytime = setTimeout('display_dateTime()', refresh);
+      }
 
+      function display_dateTime(){
+        var date = new Date();
+        document.getElementById("time").innerHTML = date.toLocaleTimeString();
+        refreshTime();
+      }
+  </script> 
 </head>
 
 <body>
@@ -44,7 +55,8 @@ use App\Models\Cleaner_review;
                     <div class="local_time_title">
                         Philippine Standard Time
                     </div>
-                    <div id="pst-time" class="local_time"></div>
+                    <h1 id="time"></h1>
+                    <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
                 </div>
             </div>
             <h2 class="side_con_title">

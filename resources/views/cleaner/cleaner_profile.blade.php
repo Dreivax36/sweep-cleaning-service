@@ -58,6 +58,7 @@ use App\Models\Address;
                         {{$value->age}}
                     </h5>
                 </div>
+                @endforeach
             </div>
             <div class="modal-footer cleaner_services_modal_footer">
                 <button type="button" class="btn btn-block btn-primary book_now_btn" data-dismiss="modal" data-toggle="modal" data-target="#updateProfile">
@@ -93,7 +94,7 @@ use App\Models\Address;
                                 </div>
                                 @endif
                                 @csrf
-
+                                @foreach($cleaner_data as $key => $value)
                                 <input type="hidden" class="form-control w-100 add_service_form" id="user_id" name="user_id" value="{{$LoggedUserInfo['user_id']}}">
                                 <div class="form-group">
                                     <input type="text" class="form-control w-100 add_service_form" id="full_name" name="full_name" placeholder="Full Name" value="{{ old('full_name',$LoggedUserInfo['full_name']) }}" required>

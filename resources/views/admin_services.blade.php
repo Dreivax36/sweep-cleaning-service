@@ -288,7 +288,7 @@ use App\Models\Notification;
 
 
     <?php
-    $service_data = Service::all();
+    $service_data = Service::orderby('updated_at', 'desc')->get();
     ?>
 
     <div class="row justify-content-center">

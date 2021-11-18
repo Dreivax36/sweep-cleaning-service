@@ -35,6 +35,18 @@ use App\Models\Service_review;
     <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
     <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
 
+  <script>
+      function refreshTime(){
+        var refresh = 1000;
+        mytime = setTimeout('display_dateTime()', refresh);
+      }
+
+      function display_dateTime(){
+        var date = new Date();
+        document.getElementById("time").innerHTML = date.toLocaleTimeString();
+        refreshTime();
+      }
+  </script>  
 <div id="app">
   <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
     <div class="container-fluid">
@@ -92,7 +104,7 @@ use App\Models\Service_review;
   </nav>
 </div>
 
-<body>
+<body onload="display_dateTime();">
   <div class="row row_dashboard">
     <div class="col-md-3 col_dashboard_main">
       <div class="local_time_con">
@@ -100,7 +112,8 @@ use App\Models\Service_review;
           <div class="local_time_title">
             Philippine Standard Time
           </div>
-          <div id="pst-time" class="local_time"></div>
+          <h1 id="time"></h1>
+          <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
         </div>
       </div>
       <!-- Sidebar -->
@@ -177,7 +190,7 @@ use App\Models\Service_review;
       }
       $revenue = $total * 0.70;
 
-      $bookingToday = Booking::where('status', 'Completed')->where('schedule_date', Carbon::today())->get();
+      $bookingToday = Booking::where('status', 'Completed')->where('updated_at', Carbon::today())->get();
       foreach ($bookingToday as $bookingToday) {
         $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
         $totalToday = $totalToday + $priceToday;

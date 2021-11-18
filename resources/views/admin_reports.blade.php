@@ -949,7 +949,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-topCleaner">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
+                        <button type="button" class="btn btn-primary pay_btn" >
                             Generate Report
                         </button>
                     </div>
@@ -1023,7 +1023,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
+                            <button type="button" class="btn btn-primary pay_btn" >
                                 Generate Report
                             </button>
                         </div>
@@ -1101,7 +1101,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employees">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
+                        <button type="button" class="btn btn-primary pay_btn" >
                             Generate Report
                         </button>
                     </div>
@@ -1165,7 +1165,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
+                            <button type="button" class="btn btn-primary pay_btn" >
                                 Generate Report
                             </button>
                         </div>

@@ -554,7 +554,7 @@ class BookingController extends Controller
         $pusher->trigger('my-channel', 'admin-notif', $data);
 
         if($onsitePayment){
-           return back()->with('success-cleaner', 'Payment Successful');
+           return back()->with('success-gcash', 'Payment Successful');
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
@@ -700,8 +700,8 @@ class BookingController extends Controller
                     $totalsalary = $totalHours * 35;
                 }
             }
-            $net = $totalsalary - ($totalsalary * 0.30);
-            $tax = $totalsalary * 0.30;
+            $net = $totalsalary - ($totalsalary * 0.18);
+            $tax = $totalsalary * 0.18;
 
             $salaries = new Salary;
             $salaries->totalHour = floor($totalHours);

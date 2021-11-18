@@ -31,9 +31,22 @@ use App\Models\Time_entry;
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
 
+    <script>
+      function refreshTime(){
+        var refresh = 1000;
+        mytime = setTimeout('display_dateTime()', refresh);
+      }
+
+      function display_dateTime(){
+        var date = new Date();
+        document.getElementById("time").innerHTML = date.toLocaleTimeString();
+        refreshTime();
+      }
+  </script> 
+
 </head>
 
-<body class="reg_customer_body flex-row align-items-center">
+<body class="reg_customer_body flex-row align-items-center" onload="display_dateTime();">
     <div class="register_con">
         <h4 class="signin_label">
             Employee Time In/Out
@@ -44,7 +57,8 @@ use App\Models\Time_entry;
                     <div class="local_time_title">
                         Philippine Standard Time
                     </div>
-                    <div id="pst-time" class="local_time"></div>
+                    <h1 id="time"></h1>
+                    <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
                 </div>
             </div>
                 <form action="{{ route('timeIn') }}" method="post" id="myform">
