@@ -37,6 +37,7 @@
                         <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
                         <a class="nav-link" href="admin_user" role="button" id="active">User</a>
                         <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
+                        <a class="nav-link" href="admin_reports" role="button">Reports</a>
                         <li class="nav-item dropdown" id="admin">
                             <?php
                                   $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
@@ -158,7 +159,8 @@
                     $id = Cleaner::Where('user_id', $value->user_id)->value('cleaner_id');
                     $age = Cleaner::Where('user_id', $value->user_id)->value('age');
                     $address = Cleaner::Where('user_id', $value->user_id)->value('address');
-                    $clearance_data = Clearance::Where('cleaner_id', $id)->get();
+                    $description = Clearance::Where('cleaner_id', $id)->value('description');
+                    $requirement = Clearance::Where('cleaner_id', $id)->value('requirement');
                     $valid_id = Identification::Where('user_id', $value->user_id )->value('valid_id');
                 ?>
                
@@ -210,7 +212,7 @@
                         </td>
                         @foreach($clearance_data as $clearance)
                         <td class="user_table_data">
-                            {{ $clearance->description }}
+                            {{ $description }}
                         </td>
                         <td class="user_table_data">
                              <!-- Button trigger modal -->
@@ -230,7 +232,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="card admin_profile_avatar_con">
-                                            <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$clearance->requirement ) }}" alt="profile_picture" />
+                                            <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$requirement ) }}" alt="profile_picture" />
                                         </div>
                                     </div>
                                     <div class="modal-footer">
