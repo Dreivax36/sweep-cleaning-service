@@ -932,7 +932,7 @@
                                     {{$cleaners['cancelled']}} Jobs
                                 </td>
                             </tr>
-                            @if($counter == 3)
+                            @if($counter > 3)
                             @break
                             @endif
                             @endforeach
@@ -1031,6 +1031,151 @@
                 </div>
             </div>
         </div>
+        <div class="card  mb-3" style="width: 40rem;">
+            <div class="card-header">
+                <div class="card_body">
+                    <h3 class="service_title_trans">
+                        Top Performing Employees
+                    </h3>
+                </div>
+                <div>
+                    <h6 class="booking_date">
+                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                    </h6>
+                </div>
+            </div>
+            <div>
+                <div class="card-body">
+
+                    <table class="table table-striped user_info_table">
+                        <tbody>
+                            <tr class="user_table_row">
+                                <th scope="row" class="user_table_header">
+                                    Rank
+                                </th>
+                                <td class="user_table_data">
+                                    Name
+                                </td>
+                                <td class="user_table_data">
+                                    Hours Present
+                                </td>
+                                <td class="user_table_data">
+                                    Days Present
+                                </td>
+                            </tr>
+                            <?php
+                                $countEmployee = 1;
+                                $monthToday = $mytime->month;
+                                $salary = Salary::whereMonth('created_at', $monthToday)->orderBy('totalHour', 'ASC')->get();
+                            ?>
+                            @foreach($salary as $employees)
+                            
+                            <?php
+                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                            ?>
+                            <tr class="user_table_row">
+                                <th scope="row" class="user_table_header">
+                                    Top {{$countEmployee++}}
+                                </th>
+                                <td class="user_table_data">
+                                    {{$employeeName}}
+                                </td>
+                                <td class="user_table_data">
+                                    {{$employees->totalHour}}
+                                </td>
+                                <td class="user_table_data">
+                                    {{$employees->totalDay}}
+                                </td>
+                            </tr>
+                            @if($countEmployee > 3)
+                            @break
+                            @endif
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                    <!-- Check if the customer already review booking -->
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="buttons">
+                    <div class="byt float-right">
+                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employees">
+                            DETAILS
+                        </button>
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for details -->
+            <div class="modal fade" id="details-employees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content customer_trans_modal_content">
+                        <div class="modal-header customer_trans_modal_header">
+                            <div class="card_body">
+                                <h3 class="service_title_trans">
+                                    Top Performing Employees
+                                </h3>
+                                <h6 class="booking_date">
+                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                </h6>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <div class="customer_trans_modal_body_1_con">
+                                <table class="table table-striped user_info_table" id="user_table">
+                                    <tbody>
+                                        <tr class="user_table_row">
+                                        <th scope="row" class="user_table_header">
+                                            Rank
+                                        </th>
+                                        <td class="user_table_data">
+                                            Name
+                                        </td>
+                                        <td class="user_table_data">
+                                            Hours Present
+                                        </td>
+                                        <td class="user_table_data">
+                                            Days Present
+                                        </td>
+                                        </tr>
+                                        @foreach($salary as $employees)
+                                        <?php
+                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                                        ?>
+                                        <tr class="user_table_row">
+                                            <th scope="row" class="user_table_header">
+                                                Top {{$counter}}
+                                            </th>
+                                            <td class="user_table_data">
+                                                {{$employeeName}}
+                                            </td>
+                                            <td class="user_table_data">
+                                                {{$employees->totalHour}}
+                                            </td>
+                                            <td class="user_table_data">
+                                                {{$employees->totalDay}}
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer customer_trans_modal_footer">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
+                                Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -1124,7 +1269,7 @@
             }, true);
             pdf.addImage(canvasImg, 'JPEG', 20, 20, 180, 100);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf.save('SWEEP-Average-Income.pdf');
+            pdf.save('SWEEP-Average-Income.pdf')
         }
 
         function avgBooking() {
@@ -1138,7 +1283,7 @@
             }, true);
             pdf1.addImage(usersReportImg, 'JPEG', 20, 20, 180, 100);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf1.save('SWEEP-Average-Booking.pdf');
+            pdf1.save('SWEEP-Average-Booking.pdf')
         }
 
         function sweepRevenue() {
@@ -1153,7 +1298,7 @@
             }, true);
             pdf2.addImage(servicerevenueReportImg, 'JPEG', 20, 20, 180, 180);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf2.save('Sweep-Service-Revenue.pdf');
+            pdf2.save('Sweep-Service-Revenue.pdf')
         }
 
         function requestedService() {
@@ -1166,7 +1311,7 @@
             pdf3.text(15, 15, "Most Popular Booked Service");
             pdf3.addImage(mostRequestedServiceImg, 'JPEG', 20, 20, 180, 180);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf3.save('Sweep-Requested-Service.pdf');
+            pdf3.save('Sweep-Requested-Service.pdf')
         }
 
         function completionRatio() {
@@ -1179,7 +1324,7 @@
             pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
             pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
             pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
-            pdf4.save('Service-Completion-Ratio.pdf');
+            pdf4.save('Service-Completion-Ratio.pdf')
         }
     </script>
 
