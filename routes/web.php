@@ -172,6 +172,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/computeSalary',[BookingController::class, 'computeSalary'])->name('computeSalary');
     Route::get('/payslip/{id}',[MainController::class, 'payslip'])->name('payslip');
     Route::get('/cleaners_performance',[MainController::class, 'cleaners_performance'])->name('cleaners_performance'); 
+    Route::get('/cleaner_salary',[MainController::class, 'cleaner_salary'])->name('cleaner_salary'); 
     Route::get('/employees_performance',[MainController::class, 'employees_performance'])->name('employees_performance');
 });
 

@@ -633,6 +633,14 @@ class MainController extends Controller
         }
         return redirect('/');
     }
+    function cleaner_salary()
+    {
+        $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
+        if (session()->has('LoggedUser')) {
+            return view('cleaner_salary', $data);
+        }
+        return redirect('/');
+    }
 }
 
 

@@ -98,9 +98,10 @@
             </p>
         </a>
 </div>
+</div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-block btn-primary add_service_btn float-right" onclick="document.location='{{ route('computeSalary') }}'">
-                Generate Cleaner Salary
+            <button type="button" class="btn btn-block btn-primary add_service_btn float-right" onclick="document.location='{{ route('cleaner_salary') }}'">
+                Generate Report
             </button>
     </div>
     </div>
