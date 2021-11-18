@@ -115,7 +115,7 @@
 
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                        <b>As of:</b> <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
                     </h6>
                 </div>
             </div>
@@ -1033,7 +1033,187 @@
                 </div>
             </div>
         </div>
+        <div class="card  mb-3" style="width: 40rem;">
+            <div class="card-header">
+                <div class="card_body">
+                    <h3 class="service_title_trans">
+                        Top Performing Cleaners
+                    </h3>
+                </div>
+                <div>
+                    <h6 class="booking_date">
+                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                    </h6>
+                </div>
+            </div>
+            <div>
+                <div class="card-body">
+                    <?php
+                    $month = $mytime->month;
 
+                    $cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
+                            ->whereMonth('created_at', $month)
+                            ->groupBy('cleaner_id')
+                            ->orderBy('rate','ASC')
+                            ->get();
+
+                            $cleanerArray = array();
+                            $counter = 0;
+                        foreach($cleaner as $cleaners){
+                            $cleanerArray[$counter++] = array(
+                            "cleaner_id" => $cleaners->cleaner_id,
+                            "rate" => $cleaners->rate,
+                            "completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
+                            "cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
+                        );
+                        }
+                        array_multisort(array_column($cleanerArray, 'completed'),      SORT_DESC,
+                                        array_column($cleanerArray, 'rate'), SORT_DESC,
+                                        $cleanerArray);
+
+                    $counter = 1;
+                    ?>
+                    <table class="table table-striped user_info_table">
+                        <tbody>
+                            <tr class="user_table_row">
+                                <th scope="row" class="user_table_header">
+                                    Rank
+                                </th>
+                                <td class="user_table_data">
+                                    Name
+                                </td>
+                                <td class="user_table_data">
+                                    Ratings
+                                </td>
+                                <td class="user_table_data">
+                                    Jobs Completed
+                                </td>
+                                <td class="user_table_data">
+                                    Jobs Cancelled
+                                </td>
+                            </tr>
+                            @foreach($cleanerArray as $cleaners)
+                            <?php
+                                $cleaner_id = $cleaners['cleaner_id'];
+                                $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
+                                $users = User::where('user_id', $cleanerID)->value('full_name');
+                            ?>
+                            <tr class="user_table_row">
+                                <th scope="row" class="user_table_header">
+                                    Top {{$counter++}}
+                                </th>
+                                <td class="user_table_data">
+                                    {{$users}}
+                                </td>
+                                <td class="user_table_data">
+                                    {{number_format((float)$cleaners['rate'], 0, '.', '')}}/5 Stars
+                                </td>
+                                <td class="user_table_data">
+                                    {{$cleaners['completed']}} Jobs
+                                </td>
+                                <td class="user_table_data">
+                                    {{$cleaners['cancelled']}} Jobs
+                                </td>
+                            </tr>
+                            @if($counter > 3)
+                            @break
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <!-- Check if the customer already review booking -->
+
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <div class="buttons">
+                    <div class="byt float-right">
+                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-topCleaner">
+                            DETAILS
+                        </button>
+                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
+                            Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal for details -->
+            <div class="modal fade" id="details-topCleaner" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content customer_trans_modal_content">
+                        <div class="modal-header customer_trans_modal_header">
+                            <div class="card_body">
+                                <h3 class="service_title_trans">
+                                    Top Performing Cleaners
+                                </h3>
+                                <h6 class="booking_date">
+                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                </h6>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <div class="customer_trans_modal_body_1_con">
+                                <table class="table table-striped user_info_table">
+                                    <tbody>
+                                        <tr class="user_table_row">
+                                            <th scope="row" class="user_table_header">
+                                                Rank
+                                            </th>
+                                            <td class="user_table_data">
+                                                Name
+                                            </td>
+                                            <td class="user_table_data">
+                                                Ratings
+                                            </td>
+                                            <td class="user_table_data">
+                                                Jobs Completed
+                                            </td>
+                                            <td class="user_table_data">
+                                                Jobs Cancelled
+                                            </td>
+                                        </tr>
+                                        <?php
+                                        $count = 1;
+                                        ?>
+                                        @foreach($cleanerArray as $cleaners)
+                                        <?php
+                                            $cleaner_id = $cleaners['cleaner_id'];
+                                            $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
+                                            $users = User::where('user_id', $cleanerID)->value('full_name');
+                                        ?>
+                                        <tr class="user_table_row">
+                                            <th scope="row" class="user_table_header">
+                                                Top {{$count++}}
+                                            </th>
+                                            <td class="user_table_data">
+                                                {{$users}}
+                                            </td>
+                                            <td class="user_table_data">
+                                            {{number_format((float)$cleaners['rate'], 0, '.', '')}}/5 Stars
+                                            </td>
+                                            <td class="user_table_data">
+                                            {{$cleaners['completed']}} Jobs
+                                            </td>
+                                            <td class="user_table_data">
+                                            {{$cleaners['cancelled']}} Jobs
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer customer_trans_modal_footer">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('cleaners_performance')}}'">
+                                Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

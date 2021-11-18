@@ -95,8 +95,13 @@
                 ({{ $cleaner }})
             </p>
         </a>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-block btn-primary add_service_btn float-right" onclick="document.location='{{ route('computeSalary') }}'">
+                Compute Salary
+            </button>
     </div>
-
+    </div>
+    
     <div class="user_table_con" > <!-- Payroll Cleaner Table -->
         <div class="table_detail_con">
             <table class="table user_table" id="user_table">
