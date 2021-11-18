@@ -3,6 +3,8 @@ use App\Models\Cleaner_review;
 use App\Models\Cleaner;
 use App\Models\User;
 use App\Models\Assigned_cleaner;
+use App\Models\Booking;
+use App\Models\Price;
 use Carbon\Carbon;
 // Include the main TCPDF library (search for installation path).
 require_once('library/tcpdf.php');
@@ -157,7 +159,7 @@ $pdf->SetFont('times','I', 10);
 $pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon::now())),0,0);
 
 //Close and output PDF document
-$pdf->Output('Cleaner_Performance.pdf', 'I');
+$pdf->Output('Cleaner_Salary_Report.pdf', 'D');
 
 
 
