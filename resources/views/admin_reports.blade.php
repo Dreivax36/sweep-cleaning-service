@@ -28,7 +28,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" integrity="sha512-t2JWqzirxOmR9MZKu+BMz0TNHe55G5BZ/tfTmXMlxpUY8tsTo3QMD27QGoYKZKFAraIPDhFv56HLdN11ctmiTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -88,8 +89,7 @@
 </div>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
+   
     <div class="row user_btn_con1">
         <!-- Sub Header -->
         <a class="user_type_btn_cleaner" style="font-size:25px; color: #FFB703; margin-top:50px; margin-left:85px;">
@@ -195,7 +195,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-income">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome()">
                             Generate Report
                         </button>
                     </div>
@@ -244,7 +244,7 @@
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome()">
                             Generate Report
                         </button>
                     </div>
@@ -344,7 +344,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-customer">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking()">
                             Generate Report
                         </button>
                     </div>
@@ -391,7 +391,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" >
+                            <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking()">
                                 Generate Report
                             </button>
                         </div>
@@ -496,7 +496,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-revenue">
                             DETAILS
                         </button>
-                        <a type="button" class="btn btn-primary pay_btn" >
+                        <a type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue()">
                             Generate Report
                         </a>
                     </div>
@@ -553,7 +553,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" >
+                            <button type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue()">
                                 Generate Report
                             </button>
                         </div>
@@ -655,7 +655,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-requested">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService()">
                             Generate Report
                         </button>
                     </div>
@@ -708,7 +708,7 @@
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService()">
                             Generate Report
                         </button>
                     </div>
@@ -790,7 +790,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-ratio">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio()">
                             Generate Report
                         </button>
                     </div>
@@ -838,7 +838,7 @@
                     </div>
                 </div>
                 <div class="modal-footer customer_trans_modal_footer">
-                    <button type="button" class="btn btn-primary pay_btn" >
+                    <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio()">
                         Generate Report
                     </button>
                 </div>
@@ -1251,8 +1251,79 @@
             //Reload Notification
             $('#refresh').load(window.location.href + " #refresh");
         });
-    
-        
+    </script>
+
+    <script>
+        function avgIncome() {
+            console.log("TESTING1");
+            const canvas = document.getElementById('avgWeeklyIncome');
+            const canvasImg = canvas.toDataURL('image/jpeg', 1.0);
+
+            let pdf = new jsPDF();
+            pdf.setFontSize(20);
+            pdf.text(15, 15, "SWEEP Monthly Income");
+            pdf.viewerPreferences({
+                'FitWindow': true
+            }, true);
+            pdf.addImage(canvasImg, 'JPEG', 20, 20, 180, 100);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf.save('SWEEP-Average-Income.pdf');
+        }
+
+        function avgBooking() {
+            const usersReport1 = document.getElementById('avgWeeklyCust');
+            const usersReportImg = usersReport1.toDataURL('image/jpeg', 1.0);
+
+            let pdf1 = new jsPDF();
+            pdf1.text(15, 15, "SWEEP Average Monthly Users");
+            pdf1.viewerPreferences({
+                'FitWindow': true
+            }, true);
+            pdf1.addImage(usersReportImg, 'JPEG', 20, 20, 180, 100);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf1.save('SWEEP-Average-Booking.pdf');
+        }
+
+        function sweepRevenue() {
+            const servicerevenueReport = document.getElementById('avgRevenueperService');
+            const servicerevenueReportImg = servicerevenueReport.toDataURL('image/jpeg', 1.0);
+
+            let pdf2 = new jsPDF();
+            pdf2.setFontSize(20);
+            pdf2.text(15, 15, "Revenues Per Service");
+            pdf2.viewerPreferences({
+                'FitWindow': true
+            }, true);
+            pdf2.addImage(servicerevenueReportImg, 'JPEG', 20, 20, 180, 180);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf2.save('Sweep-Service-Revenue.pdf');
+        }
+
+        function requestedService() {
+
+            const mostRequestedService = document.getElementById('mostRequestedService');
+            const mostRequestedServiceImg = mostRequestedService.toDataURL('image/jpeg', 1.0);
+
+            let pdf3 = new jsPDF();
+            pdf3.setFontSize(20);
+            pdf3.text(15, 15, "Most Popular Booked Service");
+            pdf3.addImage(mostRequestedServiceImg, 'JPEG', 20, 20, 180, 180);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf3.save('Sweep-Requested-Service.pdf');
+        }
+
+        function completionRatio() {
+            const ratioReport = document.getElementById('ratio');
+            const ratioReportImg = ratioReport.toDataURL('image/jpeg', 1.0);
+
+
+            let pdf4 = new jsPDF();
+            pdf4.setFontSize(20);
+            pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
+            pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf4.save('Service-Completion-Ratio.pdf');
+        }
     </script>
 
     <!-- Footer -->

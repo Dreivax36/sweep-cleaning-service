@@ -210,7 +210,7 @@
                         </div>
                         </div>
                         </td>
-                        @foreach($clearance_data as $clearance)
+                        
                         <td class="user_table_data">
                             {{ $description }}
                         </td>
@@ -242,7 +242,7 @@
                             </div>
                         </div>
                         </td>
-                        @endforeach
+                        
                         <td class="user_table_data">
                             @if($value->account_status == "To_validate")
                             <div class="verify_con">
