@@ -1074,15 +1074,13 @@
                                 </td>
                             </tr>
                             @foreach($salary as $employees)
-                            <?php
-                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
-                            ?>
+                            
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
                                     Top {{$counter++}}
                                 </th>
                                 <td class="user_table_data">
-                                {{$employeeName}}
+                                
                                 </td>
                                 <td class="user_table_data">
                                 {{$employees->totalHour}}
@@ -1153,9 +1151,7 @@
                                         $count = 1;
                                         ?>
                                         @foreach($salary as $employees)
-                                        <?php
-                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
-                                        ?>
+                                        
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
                                                 Top {{$count++}}
@@ -1164,7 +1160,7 @@
                                                 {{$users}}
                                             </td>
                                             <td class="user_table_data">
-                                            {{$employeeName}}
+                                            
                                             </td>
                                             <td class="user_table_data">
                                             {{$employees->totalHour}}
