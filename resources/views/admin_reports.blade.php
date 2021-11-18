@@ -1065,8 +1065,7 @@
                             </tr>
                             <?php
                                 $countEmployee = 1;
-                                $monthToday = $mytime->month;
-                                $salary = Salary::whereMonth('created_at', $monthToday)->orderBy('totalHour', 'ASC')->get();
+                                $salary = Salary::whereMonth('created_at', $month)->orderBy('totalHour', 'desc')->get();
                             ?>
                             @foreach($salary as $employees)
                             
@@ -1143,13 +1142,16 @@
                                             Days Present
                                         </td>
                                         </tr>
+                                        <?php
+                                        $counter = 1;
+                                        ?>
                                         @foreach($salary as $employees)
                                         <?php
                                             $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
                                         ?>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
-                                                Top {{$counter}}
+                                                Top {{$counter++}}
                                             </th>
                                             <td class="user_table_data">
                                                 {{$employeeName}}
