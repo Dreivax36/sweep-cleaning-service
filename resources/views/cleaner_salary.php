@@ -148,9 +148,9 @@ foreach($cleaner as $key => $cleaner){
 $pdf->Ln(5.5);
 $pdf->SetFont('times', '', 12);
 $pdf->Cell(80,5,"$fullname",1,0);
-$pdf->Cell(25,5, "$totalJob",1,0,'C');
-$pdf->Cell(30,5,"₱".number_format((float)$total, 2, '.', ''),1,0,'C');
-$pdf->Cell(30,5,"₱".number_format((float)$totalSalary, 2, '.', ''),1,0,'C');
+$pdf->Cell(40,5, "$totalJob",1,0,'C');
+$pdf->Cell(50,5,number_format((float)$total, 2, '.', ''). "pesos",1,0,'C');
+$pdf->Cell(50,5,number_format((float)$totalSalary, 2, '.', ''). "pesos",1,0,'C');
 
 } 
 

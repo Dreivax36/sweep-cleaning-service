@@ -1065,32 +1065,22 @@
                                     Days Present
                                 </td>
                             </tr>
-                            <?php
-                                $countEmployee = 1;
-                                $monthToday = $mytime->month;
-                                $salary = Salary::where('month', $monthToday)->orderBy('totalHour', 'ASC')->get();
-                            ?>
-                            @foreach($salary as $employees)
-                            @if($countEmployee <= 3)
-                            <?php
-                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
-                            ?>
+                            
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
-                                    Top {{$countEmployee++}}
+                                    Top 
                                 </th>
                                 <td class="user_table_data">
-                                    {{$employeeName}}
+                                   
                                 </td>
                                 <td class="user_table_data">
-                                    {{$employees->totalHour}}
+                                    
                                 </td>
                                 <td class="user_table_data">
-                                    {{$employees->totalDay}}
+                                   
                                 </td>
                             </tr>
-                            @endif
-                            @endforeach
+                            
                             
                         </tbody>
                     </table>
@@ -1143,25 +1133,22 @@
                                             Days Present
                                         </td>
                                         </tr>
-                                        @foreach($salary as $employees)
-                                        <?php
-                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
-                                        ?>
+                                        
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
-                                                Top {{$counter}}
+                                                Top 
                                             </th>
                                             <td class="user_table_data">
-                                                {{$employeeName}}
+                                                
                                             </td>
                                             <td class="user_table_data">
-                                                {{$employees->totalHour}}
+                                                
                                             </td>
                                             <td class="user_table_data">
-                                                {{$employees->totalDay}}
+                                                
                                             </td>
                                         </tr>
-                                        @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>
