@@ -1,15 +1,15 @@
 <?php
 
-use App\Models\Booking;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Cleaner_review;
-use App\Models\Assigned_cleaner;
-use App\Models\Notification;
-use App\Models\Payment;
-use App\Models\Salary;
+    use App\Models\Booking;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Cleaner_review;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Notification;
+    use App\Models\Payment;
+    use App\Models\Salary;
 
 ?>
 @extends('head_extention_admin')
@@ -19,6 +19,9 @@ use App\Models\Salary;
     Admin Reports Page
 </title>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_reports.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">

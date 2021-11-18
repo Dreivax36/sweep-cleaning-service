@@ -21,7 +21,6 @@ use App\Models\Cleaner_review;
         Cleaner Dashboard
     </title>
 
-    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
@@ -31,6 +30,8 @@ use App\Models\Cleaner_review;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
+    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
+
 </head>
 
 <body>

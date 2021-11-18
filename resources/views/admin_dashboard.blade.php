@@ -19,7 +19,6 @@ use App\Models\Service_review;
   Admin Dashboard Page
 </title>
 
-<script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
 {{-- Scripts --}}
@@ -34,7 +33,7 @@ use App\Models\Service_review;
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_dashboard.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
-
+    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
 
 <div id="app">
   <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">

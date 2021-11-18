@@ -261,7 +261,7 @@ use App\Models\Notification;
                 </button>
             </div>
         </div>
-    </div>
+
     <div class="modal fade" id="details-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <!-- Modal -->
         <div class="modal-dialog" role="document">
@@ -729,11 +729,6 @@ use App\Models\Notification;
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
             var result = data.messages;
-            Toast.fire({
-                    animation: true,
-                    icon: 'success',
-                    title: JSON.stringify(result),
-                })
             var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
             if (admin_transaction) {
                 $('#admin').find('.admin_transaction').html(admin_transaction + 1);
@@ -742,6 +737,13 @@ use App\Models\Notification;
             }
             $('#refresh').load(window.location.href + " #refresh");
             $('#status').load(window.location.href + " #status");
+            
+            Toast.fire({
+                    animation: true,
+                    icon: 'success',
+                    title: JSON.stringify(result),
+                })
+            
         });
     </script>
 

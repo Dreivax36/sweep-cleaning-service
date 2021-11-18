@@ -796,13 +796,6 @@ use App\Models\Payment;
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
             var result = data.messages;
-
-            Toast.fire({
-                animation: true,
-                icon: 'success',
-                title: JSON.stringify(result),
-            })
-
             var pending = parseInt($('#admin').find('.pending').html());
             if (pending) {
                 $('#admin').find('.pending').html(pending + 1);
@@ -811,6 +804,13 @@ use App\Models\Payment;
             }
             $('#refresh').load(window.location.href + " #refresh");
             $('#status').load(window.location.href + " #status");
+
+            Toast.fire({
+                animation: true,
+                icon: 'success',
+                title: JSON.stringify(result),
+            })
+            
         });
     </script>
 

@@ -17,7 +17,7 @@ use App\Models\Time_entry;
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <!-- Scripts -->
-    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
+    
 
     {{-- Scripts --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -29,7 +29,7 @@ use App\Models\Time_entry;
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/customer_login.css')}}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <script type="text/javascript"  id="gwt-pst" src="{{ asset('js/time.js')}}"></script>
 
 </head>
 
