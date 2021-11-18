@@ -110,10 +110,10 @@ $pdf->Cell(189,5,"For " .date("F", mktime(0, 0, 0, $month, 1))." " .$year,0,1,'C
 $pdf->Ln(18);
 
 $pdf->SetFont('times','B', 12);
-$pdf->Cell(80,5,'NAME',1,0,'C');
-$pdf->Cell(25,5,'TOTAL JOB',1,0,'C');
-$pdf->Cell(30,5,'TOTAL JOB FEE',1,0,'C');
-$pdf->Cell(30,5,'TOTAL SALARY',1,0,'C');
+$pdf->Cell(75,5,'NAME',1,0,'C');
+$pdf->Cell(30,5,'TOTAL JOB',1,0,'C');
+$pdf->Cell(40,5,'TOTAL JOB FEE',1,0,'C');
+$pdf->Cell(40,5,'TOTAL SALARY',1,0,'C');
 
 $cleaner = array();
 $counter = 0;
@@ -147,10 +147,10 @@ foreach($cleaner as $key => $cleaner){
                 
 $pdf->Ln(5.5);
 $pdf->SetFont('times', '', 12);
-$pdf->Cell(80,5,"$fullname",1,0);
-$pdf->Cell(40,5, "$totalJob",1,0,'C');
-$pdf->Cell(50,5,number_format((float)$total, 2, '.', ''). "pesos",1,0,'C');
-$pdf->Cell(50,5,number_format((float)$totalSalary, 2, '.', ''). "pesos",1,0,'C');
+$pdf->Cell(75,5,"$fullname",1,0);
+$pdf->Cell(30,5, "$totalJob",1,0,'C');
+$pdf->Cell(40,5,'₱'.number_format((float)$total, 2, '.', ''),1,0,'C');
+$pdf->Cell(40,5,'₱'.number_format((float)$totalSalary, 2, '.', ''),1,0,'C');
 
 } 
 
