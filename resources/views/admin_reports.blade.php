@@ -1,14 +1,16 @@
 <?php
 
-use App\Models\Booking;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Cleaner_review;
-use App\Models\Assigned_cleaner;
-use App\Models\Notification;
-use App\Models\Payment;
+    use App\Models\Booking;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Cleaner_review;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Notification;
+    use App\Models\Payment;
+    use App\Models\Salary;
+
 ?>
 @extends('head_extention_admin')
 
@@ -17,12 +19,17 @@ use App\Models\Payment;
     Admin Reports Page
 </title>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ asset('css/admin_reports.css')}}">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
-
+<link rel="stylesheet" type="text/css" href="{{ asset('css/admin_reports.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" integrity="sha512-t2JWqzirxOmR9MZKu+BMz0TNHe55G5BZ/tfTmXMlxpUY8tsTo3QMD27QGoYKZKFAraIPDhFv56HLdN11ctmiTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -53,6 +60,7 @@ use App\Models\Payment;
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
+                            <h4 class="notif">Notifications</h4>
                             @forelse ($notif as $notification)
                             <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
@@ -187,7 +195,7 @@ use App\Models\Payment;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-income">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome()">
                             Generate Report
                         </button>
                     </div>
@@ -236,7 +244,7 @@ use App\Models\Payment;
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome()">
                             Generate Report
                         </button>
                     </div>
@@ -336,7 +344,7 @@ use App\Models\Payment;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-customer">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking()">
                             Generate Report
                         </button>
                     </div>
@@ -383,7 +391,7 @@ use App\Models\Payment;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking()">
                                 Generate Report
                             </button>
                         </div>
@@ -488,7 +496,7 @@ use App\Models\Payment;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-revenue">
                             DETAILS
                         </button>
-                        <a type="button" class="btn btn-primary pay_btn" >
+                        <a type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue()">
                             Generate Report
                         </a>
                     </div>
@@ -545,7 +553,7 @@ use App\Models\Payment;
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" >
+                            <button type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue()">
                                 Generate Report
                             </button>
                         </div>
@@ -647,7 +655,7 @@ use App\Models\Payment;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-requested">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService()">
                             Generate Report
                         </button>
                     </div>
@@ -700,7 +708,7 @@ use App\Models\Payment;
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService()">
                             Generate Report
                         </button>
                     </div>
@@ -782,7 +790,7 @@ use App\Models\Payment;
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-ratio">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" >
+                        <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio()">
                             Generate Report
                         </button>
                     </div>
@@ -830,7 +838,7 @@ use App\Models\Payment;
                     </div>
                 </div>
                 <div class="modal-footer customer_trans_modal_footer">
-                    <button type="button" class="btn btn-primary pay_btn" >
+                    <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio()">
                         Generate Report
                     </button>
                 </div>
@@ -1023,149 +1031,6 @@ use App\Models\Payment;
                 </div>
             </div>
         </div>
-        <div class="card  mb-3" style="width: 40rem;">
-            <div class="card-header">
-                <div class="card_body">
-                    <h3 class="service_title_trans">
-                        Top Performing Employees
-                    </h3>
-                </div>
-                <div>
-                    <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
-                    </h6>
-                </div>
-            </div>
-            <div>
-                <div class="card-body">
-
-                    <table class="table table-striped user_info_table">
-                        <tbody>
-                            <tr class="user_table_row">
-                                <th scope="row" class="user_table_header">
-                                    Rank
-                                </th>
-                                <td class="user_table_data">
-                                    Name
-                                </td>
-                                <td class="user_table_data">
-                                    Hours Present
-                                </td>
-                                <td class="user_table_data">
-                                    Days Present
-                                </td>
-                            </tr>
-                            <?php
-                                $countEmployee = 1;
-                                $monthToday = $mytime->month;
-                                $salary = Salary::where('month', $monthToday)->orderBy('totalHour', 'ASC')->get();
-                            ?>
-                            @foreach($salary as $employees)
-                            @if($countEmployee <= 3)
-                            <?php
-                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
-                            ?>
-                            <tr class="user_table_row">
-                                <th scope="row" class="user_table_header">
-                                    Top {{$countEmployee++}}
-                                </th>
-                                <td class="user_table_data">
-                                    {{$employeeName}}
-                                </td>
-                                <td class="user_table_data">
-                                    {{$employees->totalHour}}
-                                </td>
-                                <td class="user_table_data">
-                                    {{$employees->totalDay}}
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                            
-                        </tbody>
-                    </table>
-                    <!-- Check if the customer already review booking -->
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="buttons">
-                    <div class="byt float-right">
-                        <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-employees">
-                            DETAILS
-                        </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
-                            Generate Report
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal for details -->
-            <div class="modal fade" id="details-employees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content customer_trans_modal_content">
-                        <div class="modal-header customer_trans_modal_header">
-                            <div class="card_body">
-                                <h3 class="service_title_trans">
-                                    Top Performing Employees
-                                </h3>
-                                <h6 class="booking_date">
-                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
-                                </h6>
-                            </div>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-                        <div class="modal-body p-4">
-                            <div class="customer_trans_modal_body_1_con">
-                                <table class="table table-striped user_info_table" id="user_table">
-                                    <tbody>
-                                        <tr class="user_table_row">
-                                        <th scope="row" class="user_table_header">
-                                            Rank
-                                        </th>
-                                        <td class="user_table_data">
-                                            Name
-                                        </td>
-                                        <td class="user_table_data">
-                                            Hours Present
-                                        </td>
-                                        <td class="user_table_data">
-                                            Days Present
-                                        </td>
-                                        </tr>
-                                        @foreach($salary as $employees)
-                                        <?php
-                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
-                                        ?>
-                                        <tr class="user_table_row">
-                                            <th scope="row" class="user_table_header">
-                                                Top {{$counter}}
-                                            </th>
-                                            <td class="user_table_data">
-                                                {{$employeeName}}
-                                            </td>
-                                            <td class="user_table_data">
-                                                {{$employees->totalHour}}
-                                            </td>
-                                            <td class="user_table_data">
-                                                {{$employees->totalDay}}
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="document.location='{{ route('employees_performance')}}'">
-                                Generate Report
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -1245,7 +1110,78 @@ use App\Models\Payment;
         });
     </script>
 
-    
+    <script>
+        function avgIncome() {
+            console.log("TESTING1");
+            const canvas = document.getElementById('avgWeeklyIncome');
+            const canvasImg = canvas.toDataURL('image/jpeg', 1.0);
+
+            let pdf = new jsPDF();
+            pdf.setFontSize(20);
+            pdf.text(15, 15, "SWEEP Monthly Income");
+            pdf.viewerPreferences({
+                'FitWindow': true
+            }, true);
+            pdf.addImage(canvasImg, 'JPEG', 20, 20, 180, 100);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf.save('SWEEP-Average-Income.pdf');
+        }
+
+        function avgBooking() {
+            const usersReport1 = document.getElementById('avgWeeklyCust');
+            const usersReportImg = usersReport1.toDataURL('image/jpeg', 1.0);
+
+            let pdf1 = new jsPDF();
+            pdf1.text(15, 15, "SWEEP Average Monthly Users");
+            pdf1.viewerPreferences({
+                'FitWindow': true
+            }, true);
+            pdf1.addImage(usersReportImg, 'JPEG', 20, 20, 180, 100);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf1.save('SWEEP-Average-Booking.pdf');
+        }
+
+        function sweepRevenue() {
+            const servicerevenueReport = document.getElementById('avgRevenueperService');
+            const servicerevenueReportImg = servicerevenueReport.toDataURL('image/jpeg', 1.0);
+
+            let pdf2 = new jsPDF();
+            pdf2.setFontSize(20);
+            pdf2.text(15, 15, "Revenues Per Service");
+            pdf2.viewerPreferences({
+                'FitWindow': true
+            }, true);
+            pdf2.addImage(servicerevenueReportImg, 'JPEG', 20, 20, 180, 180);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf2.save('Sweep-Service-Revenue.pdf');
+        }
+
+        function requestedService() {
+
+            const mostRequestedService = document.getElementById('mostRequestedService');
+            const mostRequestedServiceImg = mostRequestedService.toDataURL('image/jpeg', 1.0);
+
+            let pdf3 = new jsPDF();
+            pdf3.setFontSize(20);
+            pdf3.text(15, 15, "Most Popular Booked Service");
+            pdf3.addImage(mostRequestedServiceImg, 'JPEG', 20, 20, 180, 180);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf3.save('Sweep-Requested-Service.pdf');
+        }
+
+        function completionRatio() {
+            const ratioReport = document.getElementById('ratio');
+            const ratioReportImg = ratioReport.toDataURL('image/jpeg', 1.0);
+
+
+            let pdf4 = new jsPDF();
+            pdf4.setFontSize(20);
+            pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
+            pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
+            pdf.text(15, 15, "This file was generated on ". date('F d, Y', strtotime($mytime)));
+            pdf4.save('Service-Completion-Ratio.pdf');
+        }
+    </script>
 
     <!-- Footer -->
     <footer id="footer">
