@@ -214,7 +214,7 @@
                                 Average Monthly Income
                             </h3>
                             <h6 class="booking_date">
-                                <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                             </h6>
                         </div>
                         <button type="button" class="close" data-dismiss="modal">×</button>
@@ -269,7 +269,7 @@
 
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                        <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                     </h6>
                 </div>
             </div>
@@ -361,7 +361,7 @@
                                     Average Booking Per Month
                                 </h3>
                                 <h6 class="booking_date">
-                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                    <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                                 </h6>
                             </div>
                             <button type="button" class="close" data-dismiss="modal">×</button>
@@ -412,7 +412,7 @@
 
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                        <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                     </h6>
                 </div>
             </div>
@@ -514,7 +514,7 @@
                                     Revenue per Service
                                 </h3>
                                 <h6 class="booking_date">
-                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                    <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                                 </h6>
                             </div>
                             <button type="button" class="close" data-dismiss="modal">×</button>
@@ -580,7 +580,7 @@
 
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                        <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                     </h6>
                 </div>
             </div>
@@ -674,7 +674,7 @@
                                 Most Requested Service
                             </h3>
                             <h6 class="booking_date">
-                                <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                             </h6>
                         </div>
                         <button type="button" class="close" data-dismiss="modal">×</button>
@@ -728,7 +728,7 @@
 
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                        <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                     </h6>
                 </div>
             </div>
@@ -810,7 +810,7 @@
                             Ratio of Completed Jobs and Cancelled Jobs
                         </h3>
                         <h6 class="booking_date">
-                            <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                            <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                         </h6>
                     </div>
                     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -861,7 +861,7 @@
                 </div>
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                        <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                     </h6>
                 </div>
             </div>
@@ -967,7 +967,7 @@
                                     Top Performing Cleaners
                                 </h3>
                                 <h6 class="booking_date">
-                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
+                                    <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
                                 </h6>
                             </div>
                             <button type="button" class="close" data-dismiss="modal">×</button>

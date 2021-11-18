@@ -82,6 +82,8 @@
         $cleaner = Assigned_cleaner::distinct()->count('cleaner_id');
         $employee = Employee::all()->count();
     ?>
+    <div class="row head">
+    <div class="col-md-8">
     <div class="row user_btn_con"> <!-- Sub Header --> 
         <a class="user_type_btn_cleaner" href="admin_payroll">
             EMPLOYEE
@@ -95,9 +97,10 @@
                 ({{ $cleaner }})
             </p>
         </a>
+</div>
         <div class="col-md-4">
             <button type="button" class="btn btn-block btn-primary add_service_btn float-right" onclick="document.location='{{ route('computeSalary') }}'">
-                Compute Salary
+                Generate Cleaner Salary
             </button>
     </div>
     </div>
