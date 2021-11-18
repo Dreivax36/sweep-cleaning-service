@@ -195,7 +195,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-income">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome()">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome();">
                             Generate Report
                         </button>
                     </div>
@@ -244,7 +244,7 @@
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome()">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgIncome();">
                             Generate Report
                         </button>
                     </div>
@@ -344,7 +344,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-customer">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking()">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking();">
                             Generate Report
                         </button>
                     </div>
@@ -391,7 +391,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking()">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="avgBooking();">
                                 Generate Report
                             </button>
                         </div>
@@ -496,7 +496,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-revenue">
                             DETAILS
                         </button>
-                        <a type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue()">
+                        <a type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue();">
                             Generate Report
                         </a>
                     </div>
@@ -553,7 +553,7 @@
                             </div>
                         </div>
                         <div class="modal-footer customer_trans_modal_footer">
-                            <button type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue()">
+                            <button type="button" class="btn btn-primary pay_btn" onclick="sweepRevenue();">
                                 Generate Report
                             </button>
                         </div>
@@ -655,7 +655,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-requested">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService()">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService();">
                             Generate Report
                         </button>
                     </div>
@@ -708,7 +708,7 @@
                         </div>
                     </div>
                     <div class="modal-footer customer_trans_modal_footer">
-                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService()">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="requestedService();">
                             Generate Report
                         </button>
                     </div>
@@ -790,7 +790,7 @@
                         <button type="button" class="btn btn-primary pay_btn" data-toggle="modal" data-target="#details-ratio">
                             DETAILS
                         </button>
-                        <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio()">
+                        <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio();">
                             Generate Report
                         </button>
                     </div>
@@ -838,7 +838,7 @@
                     </div>
                 </div>
                 <div class="modal-footer customer_trans_modal_footer">
-                    <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio()">
+                    <button type="button" class="btn btn-primary pay_btn" onclick="completionRatio();">
                         Generate Report
                     </button>
                 </div>

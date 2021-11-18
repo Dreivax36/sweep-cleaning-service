@@ -79,8 +79,7 @@
 
 <body >
     <?php
-        $cleaner = $cleaner = Assigned_cleaner::selectraw('cleaner_id')
-        ->groupby('cleaner_id')->count();
+        $cleaner = Assigned_cleaner::distinct()->count('cleaner_id');
         $employee = Employee::all()->count();
     ?>
     <div class="row user_btn_con"> <!-- Sub Header --> 

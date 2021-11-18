@@ -44,7 +44,7 @@ use App\Models\Cleaner_review;
   </script> 
 </head>
 
-<body>
+<body onload="display_dateTime();">
 
     <div class="row cleaner_row_dashboard">
         <!-- Sidebar -->

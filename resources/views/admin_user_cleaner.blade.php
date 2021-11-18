@@ -156,23 +156,22 @@
                 @foreach($user_data as $value)
                 <?php
                     $id = Cleaner::Where('user_id', $value->user_id)->value('cleaner_id');
-                    $cleaner_id = Cleaner::Where('user_id', $value->user_id)->get();
+                    $age = Cleaner::Where('user_id', $value->user_id)->value('age');
+                    $address = Cleaner::Where('user_id', $value->user_id)->value('address');
                     $clearance_data = Clearance::Where('cleaner_id', $id)->get();
-                    $valid_id = Identification::Where('user_id', $value->user_id )->get();
+                    $valid_id = Identification::Where('user_id', $value->user_id )->value('valid_id');
                 ?>
                
                     <tr class="user_table_row">
                         <td class="user_table_data">
                             {{ $value->full_name }}
                         </td>
-                        @foreach($cleaner_id as $key => $cleaner)
                         <td class="user_table_data">
-                            {{ $cleaner->age }}
+                            {{ $age }}
                         </td>
                         <td class="user_table_data">
-                            {{ $cleaner->address }}
+                            {{ $address }}
                         </td>
-                        @endforeach
                         <td class="user_table_data">
                             {{ $value->email }}
                         </td>
@@ -195,13 +194,13 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            @foreach($valid_id as $identity)
+                            
                             <div class="modal-body">
                                 <div class="card admin_profile_avatar_con">
-                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$identity->valid_id ) }}" alt="profile_picture" />
+                                    <img class="card-img-top profile_avatar_img" src="{{asset('/images/'.$valid_id ) }}" alt="profile_picture" />
                                 </div>
                             </div>
-                            @endforeach
+                            
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
@@ -254,7 +253,6 @@
                             @endif
                         </td>
                     </tr>
-                
                 @endforeach 
                 </tbody>
             </table>
@@ -273,7 +271,7 @@
         $(document).ready( function () {
             $('#user_table').DataTable();
         } );
-        
+
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
