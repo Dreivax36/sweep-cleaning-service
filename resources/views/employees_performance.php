@@ -111,7 +111,7 @@ $pdf->Cell(35,5,'TOTAL HOURS',1,0,'C');
 $pdf->Cell(35,5,'TOTAL DAYS',1,0,'C');
 
 $countEmployee = 1;
-$salary = Salary::where('month', $month)->orderBy('totalHour', 'ASC')->get();
+$salary = Salary::where('month', $month)->groupby('employee_code')->orderBy('totalHour', 'ASC')->get();
 $employeeArray = array();
 $counter = 0;
 foreach($salary as $salary){
