@@ -142,7 +142,7 @@
         
                     <?php
                         $month = Carbon\Carbon::now()->month;
-                        $salary = Salary::selectRaw(' sum(totalHour) as totalHour, sum(totalDay) as totalDay, sum(totalsalary) as totalsalary, sum(totaltax) as totaltax, sum(netpay) as netpay')
+                        $salary = Salary::selectRaw('employee_code, created_at, sum(totalHour) as totalHour, sum(totalDay) as totalDay, sum(totalsalary) as totalsalary, sum(totaltax) as totaltax, sum(netpay) as netpay')
                         ->whereMonth('created_at', $month)
                             ->groupby('employee_code')
                             ->orderby('month', 'DESC')->get();
