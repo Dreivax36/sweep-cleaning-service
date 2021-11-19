@@ -141,8 +141,10 @@
                 <tbody>
         
                     <?php
+                        $month = Carbon::now()->month;
                         $salary = Salary::selectRaw('employee_code, created_at, sum(totalHour) as totalHour, sum(totalDay) as totalDay, sum(totalsalary) as totalsalary, sum(totaltax) as totaltax, sum(netpay) as netpay')
-                            ->groupby('month', 'employee_code')
+                            ->where('month', $month)
+                            ->groupby('employee_code')
                             ->orderby('month', 'DESC')->get();
                     ?>
                     @foreach($salary as $salary)
