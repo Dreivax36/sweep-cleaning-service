@@ -1067,14 +1067,15 @@
                             </tr>
                             <?php
                                 $countEmployee = 1;
-                                $salary = Employee::get();
+                                $monthToday = $mytime->month;
+                                $salary = Employee::all();
                                 $employeeArray = array();
                                 $counter = 0;
                                 foreach($salary as $salary){
                                 $employeeArray[$counter++] = array(
                                 "employee_code" => $salary->employee_code,
-                                "hours" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalHour'),
-                                "days" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalDay')
+                                "hours" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $monthToday)->sum('totalHour'),
+                                "days" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $monthToday)->sum('totalDay')
                                 );
                                 }
                                 array_multisort(array_column($employeeArray, 'hours'),      SORT_DESC,
@@ -1094,10 +1095,10 @@
                                     {{$employeeName}}
                                 </td>
                                 <td class="user_table_data">
-                                    {{$employees['totalHour']}}
+                                    {{$employees['hours']}}
                                 </td>
                                 <td class="user_table_data">
-                                    {{$employees['totalDay']}}
+                                    {{$employees['days']}}
                                 </td>
                             </tr>
                             @if($countEmployee > 3)
@@ -1158,7 +1159,7 @@
                                         </tr>
                                         @foreach($employeeArray as $employees)
                                         <?php
-                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                                            $employeeName = Employee::where('employee_code', $employees['employee_code'])->value('full_name');
                                         ?>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
@@ -1168,10 +1169,10 @@
                                                 {{$employeeName}}
                                             </td>
                                             <td class="user_table_data">
-                                                {{$employees['totalHour']}}
+                                                {{$employees['hours']}}
                                             </td>
                                             <td class="user_table_data">
-                                                {{$employees['totalDay']}}
+                                                {{$employees['days']}}
                                             </td>
                                         </tr>
                                         @endforeach

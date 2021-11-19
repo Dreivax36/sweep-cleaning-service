@@ -140,7 +140,7 @@ $pdf->Ln(14);
 $pdf->SetFont('times','I', 10);
 $pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon::now())),0,0);
 //Close and output PDF document
-$pdf->Output('Employee_Performances.pdf', 'I');
+$pdf->Output('Employee_Performances.pdf', 'D');
 
 
 ob_flush();
