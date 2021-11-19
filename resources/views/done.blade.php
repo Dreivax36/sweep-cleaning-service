@@ -168,7 +168,7 @@ use App\Models\Notification;
         </div>
     </div>
 
-    <div class="row row_transaction justify-content-center" id="status">
+    <div class="row row_transaction justify-content-center" >
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -179,7 +179,7 @@ use App\Models\Notification;
         $address = Address::Where('customer_id', $customerid)->value('address');
         ?>
         
-        <div class="card card_transaction mb-3" style="width: 25rem;">
+        <div class="card card_transaction mb-3" style="width: 25rem;" id="status">
             <div class="card_body">
                 <?php
                 $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
@@ -392,7 +392,7 @@ use App\Models\Notification;
 
                         ?>
                 </div>
-                <div class="modal-footer trans_modal_footer" id="status">
+                <div class="modal-footer trans_modal_footer" >
                     
                     <?php
                     $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
