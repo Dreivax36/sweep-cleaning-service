@@ -1067,7 +1067,7 @@
                             </tr>
                             <?php
                                 $countEmployee = 1;
-                                $salary = Salary::where('month', $month)->orderBy('totalHour', 'ASC')->get();
+                                $salary = Employee::get();
                                 $employeeArray = array();
                                 $counter = 0;
                                 foreach($salary as $salary){

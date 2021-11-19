@@ -111,14 +111,14 @@ $pdf->Cell(35,5,'TOTAL HOURS',1,0,'C');
 $pdf->Cell(35,5,'TOTAL DAYS',1,0,'C');
 
 $countEmployee = 1;
-$salary = Salary::where('month', $month)->groupby('employee_code')->orderBy('totalHour', 'ASC')->get();
+$Employee = Employee::get();
 $employeeArray = array();
 $counter = 0;
-foreach($salary as $salary){
+foreach($Employee as $Employee){
 $employeeArray[$counter++] = array(
-"employee_code" => $salary->employee_code,
-"hours" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalHour'),
-"days" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalDay')
+"employee_code" => $Employee->employee_code,
+"hours" => Salary::where('employee_code', $Employee->employee_code)->whereMonth('created_at', $month)->sum('totalHour'),
+"days" => Salary::where('employee_code', $Employee->employee_code)->whereMonth('created_at', $month)->sum('totalDay')
 );
 }
 array_multisort(array_column($employeeArray, 'hours'),      SORT_DESC,
