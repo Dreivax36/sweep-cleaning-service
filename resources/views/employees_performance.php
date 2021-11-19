@@ -112,7 +112,7 @@ $pdf->Cell(35,5,'TOTAL DAYS',1,0,'C');
 
 $countEmployee = 1;
 $salary = Salary::selectRaw('employee_code, sum(totalHour) as totalHour, sum(totalDay) as totalDay')
-	->where('month', $month)
+->whereMonth('created_at', $month)
 	->groupby('employee_code')
 	->orderBy('totalHour', 'ASC')->get();
 foreach($salary as $employees){
