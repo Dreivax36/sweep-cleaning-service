@@ -1050,7 +1050,10 @@
                 <div class="card-body">
                     <?php 
                         $counter = 1;
-                        $salary_data = Salary::all();
+                        $salary = Salary::selectraw('employee_code, sum(totalHour) as totalHour, sum(totalDay) as totalDay')
+                        ->whereMonth('month', $month)
+                        ->groupby('employee_code')
+                        ->orderBy('totalHour', 'DESC')->get();
                     ?>
                     <table class="table table-striped user_info_table">
                         <tbody>
@@ -1069,13 +1072,15 @@
                                 </td>
                             </tr>
                             @foreach($salary_data as $salaryData)
-                           
+                            <?php 
+                                $name = Employee::where('employee_code', "$salaryData->employee_code")->value('full_name');
+                            ?>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
                                     Top {{$counter++}}
                                 </th>
                                 <td class="user_table_data">
-                                
+                                   {{$name}}
                                 </td>
                                 <td class="user_table_data">
                                     {{$salaryData->totalHour}}
