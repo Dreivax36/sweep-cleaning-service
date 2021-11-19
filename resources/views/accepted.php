@@ -250,7 +250,7 @@ use App\Models\Notification;
                     </table>
                 </div>
             </div>
-
+        
 
             <div class="card-footer">
                 <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
@@ -258,7 +258,7 @@ use App\Models\Notification;
                 </button>
             </div>
         </div>
-
+  
     <div class="modal fade" id="details-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <!-- Modal -->
         <div class="modal-dialog" role="document">
@@ -726,6 +726,11 @@ use App\Models\Notification;
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
             var result = data.messages;
+            Toast.fire({
+                    animation: true,
+                    icon: 'success',
+                    title: JSON.stringify(result),
+                })
             var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
             if (admin_transaction) {
                 $('#admin').find('.admin_transaction').html(admin_transaction + 1);
@@ -733,18 +738,7 @@ use App\Models\Notification;
                 $('#admin').find('.admin_transaction').html(admin_transaction + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
-            
-            Toast.fire({
-                    animation: true,
-                    icon: 'success',
-                    title: JSON.stringify(result),
-                })
-            
-        });
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('admin-accept', function(data) {
             $('#status').load(window.location.href + " #status");
-            
         });
     </script>
 

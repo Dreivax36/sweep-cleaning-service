@@ -456,23 +456,18 @@ use App\Models\Notification;
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('admin-done', function(data) {
-            $('#status').load(window.location.href + " #status");
-            
-        });
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
             var result = data.messages;
-            var admin_transaction = parseInt($('#admin').find('.done').html());
+            var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
             if (admin_transaction) {
-                $('#admin').find('.done').html(admin_transaction + 1);
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
             } else {
-                $('#admin').find('.done').html(admin_transaction + 1);
+                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
+            $('#status').load(window.location.href + " #status");
             
             Toast.fire({
                     animation: true,
@@ -481,7 +476,6 @@ use App\Models\Notification;
                 })
             
         });
-        
     </script>
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
