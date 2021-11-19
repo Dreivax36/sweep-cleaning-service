@@ -1050,7 +1050,8 @@
                 <div class="card-body">
                     <?php 
                         $counter = 1;
-                        $salary = Salary::where('month', $month)->orderBy('totalHour', 'DESC')->get();
+                        $monthToday = $mytime->month;
+                        $salary = Salary::orderBy('totalHour', 'DESC')->get();
                     ?>
                     <table class="table table-striped user_info_table">
                         <tbody>
