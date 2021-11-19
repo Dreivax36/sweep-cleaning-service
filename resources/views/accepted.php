@@ -111,7 +111,7 @@ use App\Models\Notification;
             </div>
         </div>
     </div>
-    <div class="transaction_con" id="status">
+
     <div class="sub_menu">
         <div class="user_btn_con1">
             <!-- Sub Menu -->
@@ -166,7 +166,7 @@ use App\Models\Notification;
         </div>
     </div>
 
-    <div class="row row_transaction justify-content-center">
+    <div class="row row_transaction justify-content-center" id="status">
         @if($booking_data == null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -697,7 +697,7 @@ use App\Models\Notification;
     </div>
     @endif
     </div>
-</div>
+
     <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -732,11 +732,11 @@ use App\Models\Notification;
                     icon: 'success',
                     title: JSON.stringify(result),
                 })
-            var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
+            var admin_transaction = parseInt($('#admin').find('.accepted').html());
             if (admin_transaction) {
-                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+                $('#admin').find('.accepted').html(admin_transaction + 1);
             } else {
-                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+                $('#admin').find('.accepted').html(admin_transaction + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
             $('#status').load(window.location.href + " #status");

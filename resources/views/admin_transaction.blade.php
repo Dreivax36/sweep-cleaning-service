@@ -114,7 +114,7 @@ use App\Models\Payment;
             </div>
         </div>
     </div>
-    <div class="transaction_con" id="status">
+ 
     <div class="sub_menu">
         <div class="user_btn_con1">
             <!-- Sub Menu -->
@@ -169,7 +169,7 @@ use App\Models\Payment;
         </div>
     </div>
 
-    <div class="row row_transaction justify-content-center" >
+    <div class="row row_transaction justify-content-center" id="status">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -773,7 +773,7 @@ use App\Models\Payment;
     </div>
     @endif
     </div>
-    </div>
+    
     <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
