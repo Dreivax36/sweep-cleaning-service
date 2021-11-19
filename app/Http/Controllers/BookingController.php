@@ -188,7 +188,21 @@ class BookingController extends Controller
         if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
             $notifications->location = 'admin_transaction_history';
         }else{
+            if($status == 'Pending'){
             $notifications->location = 'admin_transaction';
+            }
+            elseif($status == 'Accepted'){
+                $notifications->location = 'accepted';
+            }
+            elseif($status == 'On-the-Way'){
+            $notifications->location = 'on_the_way';
+            }
+            elseif($status == 'On-Progress'){
+                $notifications->location = 'on_progress';
+            }
+            elseif($status == 'Done'){
+                $notifications->location = 'done';
+            }
         }
         $updateStatus = $notifications->save();
 

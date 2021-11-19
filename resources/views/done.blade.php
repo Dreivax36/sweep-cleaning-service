@@ -87,7 +87,7 @@ use App\Models\Notification;
     </nav>
 </div>
 
-<body>
+<body id="status">
 
 
     <?php
@@ -168,7 +168,7 @@ use App\Models\Notification;
         </div>
     </div>
 
-    <div class="row row_transaction justify-content-center" id="status">
+    <div class="row row_transaction justify-content-center" >
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
