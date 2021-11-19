@@ -1077,7 +1077,7 @@
                                     Top {{$countEmployee++}}
                                 </th>
                                 <td class="user_table_data">
-                                    
+                                {{$employees->employee_code}}
                                 </td>
                                 <td class="user_table_data">
                                     {{$employees->totalHour}}
