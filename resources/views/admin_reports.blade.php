@@ -10,7 +10,7 @@
     use App\Models\Notification;
     use App\Models\Payment;
     use App\Models\Salary;
-
+    use App\Models\Employee;
 ?>
 @extends('head_extention_admin')
 
@@ -1072,12 +1072,15 @@
                             ?>
                             @foreach($salary as $employees)
                             
+                            <?php
+                                $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                            ?>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
                                     Top {{$countEmployee++}}
                                 </th>
                                 <td class="user_table_data">
-                                {{$employees->employee_code}}
+                                    {{$employeeName}}
                                 </td>
                                 <td class="user_table_data">
                                     {{$employees->totalHour}}
@@ -1143,13 +1146,15 @@
                                         </td>
                                         </tr>
                                         @foreach($salary as $employees)
-                                        
+                                        <?php
+                                            $employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+                                        ?>
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
                                                 Top {{$counter}}
                                             </th>
                                             <td class="user_table_data">
-                                                
+                                                {{$employeeName}}
                                             </td>
                                             <td class="user_table_data">
                                                 {{$employees->totalHour}}
