@@ -90,14 +90,8 @@ if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-$month = Carbon::now()->month;
-$year = Carbon::now()->year;
+
 $salary = Salary::where('id', $id)->get();
-$hours = Salary::where('id', $id)->whereMonth('created_at', $month)->sum('totalHour');
-$days = Salary::where('id', $id)->whereMonth('created_at', $month)->sum('totalDay');
-$totalsalary = Salary::where('id', $id)->whereMonth('created_at', $month)->sum('totalsalary');
-$totaltax = Salary::where('id', $id)->whereMonth('created_at', $month)->sum('totaltax');
-$netpay = Salary::where('id', $id)->whereMonth('created_at', $month)->sum('netpay');
 foreach($salary as $salaries){
 // add a page
 $pdf->AddPage();
@@ -107,8 +101,9 @@ $pdf->Cell(189,5,'SWEEP EMPLOYEE PAY SLIP',0,1,'C');
 
 $pdf->SetFont('times', '', 12);
 
-
-$pdf->Cell(189,5,"For " .date("F", mktime(0, 0, 0, $month, 1))." " .$year,0,1,'C');
+$month = Carbon::now()->month;
+$year = Carbon::now()->year;
+$pdf->Cell(189,5,"For " .date("F", mktime(0, 0, 0, $salaries->month, 1))." " .$year,0,1,'C');
 
 $pdf->Ln(18);
 
@@ -143,12 +138,12 @@ $pdf->Cell(189,3,'Details:',0,0);
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Total Days Present:',0,0);
-$pdf->Cell(30,5,"$days Days",0,0,'R');
+$pdf->Cell(30,5,"$salaries->totalDay Days",0,0,'R');
 
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Total Hours Present:',0,0);
-$pdf->Cell(30,5,"$hours Hours",0,0,'R');
+$pdf->Cell(30,5,"$salaries->totalHour Hours",0,0,'R');
 
 
 
@@ -161,7 +156,7 @@ $pdf->Cell(189,3,'Earnings:',0,0);
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Total Salary:',0,0);
-$pdf->Cell(30,5,"$totalsalary Php",0,0,'R');
+$pdf->Cell(30,5,"$salaries->totalsalary Php",0,0,'R');
 
 
 
@@ -174,14 +169,14 @@ $pdf->Cell(179,5,'Deductions:',0,0);
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Income Tax:',0,0);
-$pdf->Cell(30,5,"$totaltax Php",0,0,'R');
+$pdf->Cell(30,5,"$salaries->totaltax Php",0,0,'R');
 
 
 $pdf->Ln(14);
 
 $pdf->SetFont('times','B', 12);
 $pdf->Cell(149,5,'NET SALARY:',0,0);
-$pdf->Cell(30,5,"$netpay Php" ,0,0,'R');
+$pdf->Cell(30,5,"$salaries->netpay Php" ,0,0,'R');
 }
 $pdf->Ln(14);
 $pdf->SetFont('times','I', 10);
