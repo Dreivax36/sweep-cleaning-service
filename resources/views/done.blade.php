@@ -456,6 +456,12 @@ use App\Models\Notification;
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
+        
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('admin-done', function(data) {
+            $('#status').load(window.location.href + " #status");
+            
+        });
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
@@ -475,11 +481,7 @@ use App\Models\Notification;
                 })
             
         });
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('admin-accepted', function(data) {
-            $('#status').load(window.location.href + " #status");
-            
-        });
+        
     </script>
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
