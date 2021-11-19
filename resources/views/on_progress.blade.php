@@ -168,7 +168,7 @@ use App\Models\Notification;
         </div>
     </div>
 
-    <div class="row row_transaction justify-content-center" >
+    <div class="row row_transaction justify-content-center" id="status">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -178,7 +178,7 @@ use App\Models\Notification;
         $user_data = User::Where('user_id', $userId)->get();
         $address = Address::Where('customer_id', $customerid)->value('address');
         ?>
-        <div class="card card_transaction mb-3" style="width: 25rem;" id="status">
+        <div class="card card_transaction mb-3" style="width: 25rem;">
             <div class="card_body">
                 <?php
                 $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
@@ -459,20 +459,24 @@ use App\Models\Notification;
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
             var result = data.messages;
-            var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
+            var admin_transaction = parseInt($('#admin').find('.on_progress').html());
             if (admin_transaction) {
-                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+                $('#admin').find('.on_progress').html(admin_transaction + 1);
             } else {
-                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+                $('#admin').find('.on_progress').html(admin_transaction + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
-            $('#status').load(window.location.href + " #status");
             
             Toast.fire({
                     animation: true,
                     icon: 'success',
                     title: JSON.stringify(result),
                 })
+            
+        });
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('admin-progress', function(data) {
+            $('#status').load(window.location.href + " #status");
             
         });
     </script>

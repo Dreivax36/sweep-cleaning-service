@@ -187,39 +187,105 @@ class BookingController extends Controller
         $notifications->isRead = false; 
         if($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled'){
             $notifications->location = 'admin_transaction_history';
+            
         }else{
             if($status == 'Pending'){
             $notifications->location = 'admin_transaction';
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+                );
+                $pusher = new Pusher(
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    $options
+                );
+                $messages = "Status of Transaction $bookingID is $status.";
+                $data = ['messages' => $messages];
+                $pusher->trigger('my-channel', 'admin-pending', $data);
             }
             elseif($status == 'Accepted'){
                 $notifications->location = 'accepted';
+                $options = array(
+                    'cluster' => 'ap1',
+                    'useTLS' => true
+                    );
+                    $pusher = new Pusher(
+                        env('PUSHER_APP_KEY'),
+                        env('PUSHER_APP_SECRET'),
+                        env('PUSHER_APP_ID'),
+                        $options
+                    );
+                    $messages = "Status of Transaction $bookingID is $status.";
+                    $data = ['messages' => $messages];
+                    $pusher->trigger('my-channel', 'admin-accept', $data);
             }
             elseif($status == 'On-the-Way'){
             $notifications->location = 'on_the_way';
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+                );
+                $pusher = new Pusher(
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    $options
+                );
+                $messages = "Status of Transaction $bookingID is $status.";
+                $data = ['messages' => $messages];
+                $pusher->trigger('my-channel', 'admin-way', $data);
             }
             elseif($status == 'On-Progress'){
                 $notifications->location = 'on_progress';
+                $options = array(
+                    'cluster' => 'ap1',
+                    'useTLS' => true
+                    );
+                    $pusher = new Pusher(
+                        env('PUSHER_APP_KEY'),
+                        env('PUSHER_APP_SECRET'),
+                        env('PUSHER_APP_ID'),
+                        $options
+                    );
+                    $messages = "Status of Transaction $bookingID is $status.";
+                    $data = ['messages' => $messages];
+                    $pusher->trigger('my-channel', 'admin-progress', $data);
             }
             elseif($status == 'Done'){
                 $notifications->location = 'done';
+                $options = array(
+                    'cluster' => 'ap1',
+                    'useTLS' => true
+                    );
+                    $pusher = new Pusher(
+                        env('PUSHER_APP_KEY'),
+                        env('PUSHER_APP_SECRET'),
+                        env('PUSHER_APP_ID'),
+                        $options
+                    );
+                    $messages = "Status of Transaction $bookingID is $status.";
+                    $data = ['messages' => $messages];
+                    $pusher->trigger('my-channel', 'admin-done', $data);
             }
         }
         $updateStatus = $notifications->save();
 
         //Trigger pusher channel to notify the admin
-       $options = array(
-        'cluster' => 'ap1',
-        'useTLS' => true
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
-        $messages = "Status of Transaction $bookingID is $status.";
-        $data = ['messages' => $messages];
-        $pusher->trigger('my-channel', 'admin-notif', $data);
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+            );
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+            $messages = "Status of Transaction $bookingID is $status.";
+            $data = ['messages' => $messages];
+            $pusher->trigger('my-channel', 'admin-notif', $data);
 
         //Add Customer notification
         $customerid= Booking::Where('booking_id', $bookingID )->value('customer_id');

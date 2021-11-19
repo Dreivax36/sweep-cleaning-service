@@ -803,13 +803,18 @@ use App\Models\Payment;
                 $('#admin').find('.pending').html(pending + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
-            $('#status').load(window.location.href + " #status");
+            
 
             Toast.fire({
                 animation: true, 
                 icon: 'success',
                 title: JSON.stringify(result),
             })
+            
+        });
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('admin-pending', function(data) {
+            $('#status').load(window.location.href + " #status");
             
         });
     </script>

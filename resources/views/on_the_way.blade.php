@@ -461,20 +461,24 @@ use App\Models\Notification;
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
             var result = data.messages;
-            var admin_transaction = parseInt($('#admin').find('.admin_transaction').html());
+            var admin_transaction = parseInt($('#admin').find('.on_the_way').html());
             if (admin_transaction) {
-                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+                $('#admin').find('.on_the_way').html(admin_transaction + 1);
             } else {
-                $('#admin').find('.admin_transaction').html(admin_transaction + 1);
+                $('#admin').find('.on_the_way').html(admin_transaction + 1);
             }
             $('#refresh').load(window.location.href + " #refresh");
-            $('#status').load(window.location.href + " #status");
             
             Toast.fire({
                     animation: true,
                     icon: 'success',
                     title: JSON.stringify(result),
                 })
+            
+        });
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('admin-way', function(data) {
+            $('#status').load(window.location.href + " #status");
             
         });
     </script>
