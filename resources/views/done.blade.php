@@ -87,7 +87,7 @@ use App\Models\Notification;
     </nav>
 </div>
 
-<body id="status">
+<body>
 
 
     <?php
@@ -168,7 +168,7 @@ use App\Models\Notification;
         </div>
     </div>
 
-    <div class="row row_transaction justify-content-center" >
+    <div class="row row_transaction justify-content-center" id="status">
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
@@ -392,7 +392,7 @@ use App\Models\Notification;
 
                         ?>
                 </div>
-                <div class="modal-footer trans_modal_footer">
+                <div class="modal-footer trans_modal_footer" id="status">
                     
                     <?php
                     $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
