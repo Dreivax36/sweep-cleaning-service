@@ -1042,17 +1042,13 @@
                 </div>
                 <div>
                     <h6 class="booking_date">
-                        <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
+                        <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
                     </h6>
                 </div>
             </div>
             <div>
                 <div class="card-body">
-                    <?php 
-                        $counter = 1;
-                        $monthToday = $mytime->month;
-                        $salary = Salary::all();
-                    ?>
+
                     <table class="table table-striped user_info_table">
                         <tbody>
                             <tr class="user_table_row">
@@ -1069,22 +1065,30 @@
                                     Days Present
                                 </td>
                             </tr>
-                            @foreach($salary_data as $salaryData)
+                            <?php
+                                $countEmployee = 1;
+                                $monthToday = $mytime->month;
+                                $salary = Salary::where('month', $monthToday)->orderBy('totalHour', 'ASC')->get();
+                            ?>
+                            @foreach($salary as $employees)
                             
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
-                                    Top {{$counter++}}
+                                    Top {{$countEmployee++}}
                                 </th>
                                 <td class="user_table_data">
-                                  
+                                    
                                 </td>
                                 <td class="user_table_data">
-                                    {{$salaryData->totalHour}}
+                                    {{$employees->totalHour}}
                                 </td>
                                 <td class="user_table_data">
-                                   {{$salaryData->totalDay}}
+                                    {{$employees->totalDay}}
                                 </td>
                             </tr>
+                            @if($countEmployee > 3)
+                            @break
+                            @endif
                             @endforeach
                             
                         </tbody>
@@ -1115,7 +1119,7 @@
                                     Top Performing Employees
                                 </h3>
                                 <h6 class="booking_date">
-                                    <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
+                                    <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
                                 </h6>
                             </div>
                             <button type="button" class="close" data-dismiss="modal">×</button>
@@ -1138,22 +1142,23 @@
                                             Days Present
                                         </td>
                                         </tr>
+                                        @foreach($salary as $employees)
                                         
                                         <tr class="user_table_row">
                                             <th scope="row" class="user_table_header">
-                                                Top 
+                                                Top {{$counter}}
                                             </th>
                                             <td class="user_table_data">
                                                 
                                             </td>
                                             <td class="user_table_data">
-                                                
+                                                {{$employees->totalHour}}
                                             </td>
                                             <td class="user_table_data">
-                                                
+                                                {{$employees->totalDay}}
                                             </td>
                                         </tr>
-                                        
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
