@@ -1052,7 +1052,6 @@
                         $counter = 1;
                         $salary = Salary::selectraw('employee_code, sum(totalHour) as totalHour, sum(totalDay) as totalDay')
                         ->whereMonth('month', $month)
-                        ->groupby('employee_code')
                         ->orderBy('totalHour', 'DESC')->get();
                     ?>
                     <table class="table table-striped user_info_table">
