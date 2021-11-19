@@ -122,7 +122,7 @@
                             Total Days Present
                         </th>
                         <th class="text-center user_table_header">
-                           Month
+                           Date Generated
                         </th>
                         <th class="text-center user_table_header">
                             Total Salary
@@ -141,7 +141,9 @@
                 <tbody>
         
                     <?php
-                        $salary = Salary::orderby('month', 'DESC')->get();
+                        $salary = Salary::selectRaw('employee_code, created_at, sum(totalHour) as totalHour, sum(totalDay) as totalDay, sum(totalsalary) as totalsalary, sum(totaltax) as totaltax, sum(netpay) as netpay')
+                            ->groupby('month', 'employee_code')
+                            ->orderby('month', 'DESC')->get();
                     ?>
                     @foreach($salary as $salary)
                     <?php
@@ -151,7 +153,7 @@
                         <td class="user_table_data">{{ $name }}</td>
                         <td class="user_table_data">{{ $salary->totalHour }}</td>
                         <td class="user_table_data">{{ $salary->totalDay }}</td>
-                        <td class="user_table_data">{{date("F", mktime(0, 0, 0, $salary->month, 1))}}</td>
+                        <td class="user_table_data">{{date('F d, Y', strtotime($salary->created_at))}}</td>
                         <td class="user_table_data">₱{{ number_format((float) $salary->totalsalary, 2, '.', '') }}</td>
                         <td class="user_table_data">₱{{ number_format((float)$salary->totaltax, 2, '.', '')}}</td>
                         <td class="user_table_data">₱{{ number_format((float)$salary->netpay, 2, '.', '')}}</td>
