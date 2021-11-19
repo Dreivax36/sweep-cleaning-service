@@ -1068,7 +1068,10 @@
                             <?php
                                 $countEmployee = 1;
                                 $monthToday = $mytime->month;
-                                $salary = Salary::where('month', $monthToday)->orderBy('totalHour', 'ASC')->get();
+                                $salary = Salary::selectRaw('employee_code, sum(totalHour) as totalHour, sum(totalDay) as totalDay')
+                                    ->where('month', $month)
+                                    ->groupby('employee_code')
+                                    ->orderBy('totalHour', 'ASC')->get();
                             ?>
                             @foreach($salary as $employees)
                             
