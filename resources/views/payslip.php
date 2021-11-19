@@ -101,9 +101,7 @@ $pdf->Cell(189,5,'SWEEP EMPLOYEE PAY SLIP',0,1,'C');
 
 $pdf->SetFont('times', '', 12);
 
-$month = Carbon::now()->month;
-$year = Carbon::now()->year;
-$pdf->Cell(189,5,"For " .date("F", mktime(0, 0, 0, $salaries->month, 1))." " .$year,0,1,'C');
+$pdf->Cell(189,5,"For " .date('F d, Y', strtotime($salaries->created_at)),0,1,'C');
 
 $pdf->Ln(18);
 
