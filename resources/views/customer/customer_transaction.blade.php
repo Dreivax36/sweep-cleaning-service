@@ -672,7 +672,7 @@
     </script>
     @endif
     <!-- Popup when payment successful -->
-    @if($success-pay != null))
+    @if(session('success-pay'))
     <script>
         swal({
             title: "Payment Successful!",

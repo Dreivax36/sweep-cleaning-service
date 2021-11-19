@@ -140,7 +140,7 @@ use App\Models\Assigned_cleaner;
                                     </h6>
                                 </div>
                             </div>
-                            <div class="cleaner_job_modal_body_1_con">
+                            <div class="modal-body cleaner_job_modal_body_1_con">
                                 <ul class="cleaner_detail">
                                     @foreach($user_data as $key => $user)
                                     <li>
