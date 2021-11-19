@@ -142,23 +142,40 @@
         
                     <?php
                         $month = Carbon\Carbon::now()->month;
-                        $salary = Salary::selectRaw('employee_code, created_at, sum(totalHour) as totalHour, sum(totalDay) as totalDay, sum(totalsalary) as totalsalary, sum(totaltax) as totaltax, sum(netpay) as netpay')
-                        ->whereMonth('created_at', $month)
-                            ->groupby('employee_code')
-                            ->orderby('month', 'DESC')->get();
+                        $salary = Salary::all();
+
+                        $countEmployee = 1;
+                        $employeeArray = array();
+                        $counter = 0;
+                        foreach($salary as $salary){
+                        $employeeArray[$counter++] = array(
+                        "employee_code" => $salary->employee_code,
+                        "created_at" => $salary->created_at,
+                        "month" => $salary->month,
+                        "hours" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalHour'),
+                        "days" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalDay'),
+                        "totalsalary" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalsalary'),
+                        "totaltax" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totaltax'),
+                        "netpay" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('netpay')
+                        );
+                        }
+                        array_multisort(array_column($employeeArray, 'month'),      SORT_DESC,
+                                    array_column($employeeArray, 'hours'), SORT_DESC,
+                                    $employeeArray);
                     ?>
+                    
                     @foreach($salary as $salary)
                     <?php
                     $name = Employee::where('employee_code', $salary->employee_code)->value('full_name');
                     ?>
                     <tr class="user_table_row">
                         <td class="user_table_data">{{ $name }}</td>
-                        <td class="user_table_data">{{ $salary->totalHour }}</td>
-                        <td class="user_table_data">{{ $salary->totalDay }}</td>
-                        <td class="user_table_data">{{date('F d, Y', strtotime($salary->created_at))}}</td>
-                        <td class="user_table_data">₱{{ number_format((float) $salary->totalsalary, 2, '.', '') }}</td>
-                        <td class="user_table_data">₱{{ number_format((float)$salary->totaltax, 2, '.', '')}}</td>
-                        <td class="user_table_data">₱{{ number_format((float)$salary->netpay, 2, '.', '')}}</td>
+                        <td class="user_table_data">{{ $salary['totalHour']}}</td>
+                        <td class="user_table_data">{{ $salary['totalDay'] }}</td>
+                        <td class="user_table_data">{{date('F d, Y', strtotime($salary['created_at']))}}</td>
+                        <td class="user_table_data">₱{{ number_format((float) $salary['totalsalary'], 2, '.', '') }}</td>
+                        <td class="user_table_data">₱{{ number_format((float)$salary['totaltax'], 2, '.', '')}}</td>
+                        <td class="user_table_data">₱{{ number_format((float)$salary['netpay'], 2, '.', '')}}</td>
                         <td class="user_table_data">
                         <button type="submit" class="btn btn-block btn-success" onclick="document.location='{{ route('payslip', $salary->id) }}'">
                             Pay Slip

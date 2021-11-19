@@ -111,27 +111,36 @@ $pdf->Cell(35,5,'TOTAL HOURS',1,0,'C');
 $pdf->Cell(35,5,'TOTAL DAYS',1,0,'C');
 
 $countEmployee = 1;
-$salary = Salary::selectRaw('employee_code, sum(totalHour) as totalHour, sum(totalDay) as totalDay')
-->whereMonth('created_at', $month)
-	->groupby('employee_code')
-	->orderBy('totalHour', 'ASC')->get();
-foreach($salary as $employees){
-$employeeName = Employee::where('employee_code', $employees->employee_code)->value('full_name');
+$salary = Salary::where('month', $month)->orderBy('totalHour', 'ASC')->get();
+$employeeArray = array();
+$counter = 0;
+foreach($salary as $salary){
+$employeeArray[$counter++] = array(
+"employee_code" => $salary->employee_code,
+"hours" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalHour'),
+"days" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $month)->sum('totalDay')
+);
+}
+array_multisort(array_column($employeeArray, 'hours'),      SORT_DESC,
+			array_column($employeeArray, 'days'), SORT_DESC,
+			$employeeArray);
+
+foreach($employeeArray as $employeeArray){
+$employeeName = Employee::where('employee_code', $employeeArray['employee_code'])->value('full_name');
 
 $pdf->Ln(5.5);
 $pdf->SetFont('times', '', 12);
 $pdf->Cell(25,5,"$countEmployee",1,0, 'C');
 $pdf->Cell(85,5,"$employeeName",1,0);
-$pdf->Cell(35,5,"$employees->totalHour",1,0, 'C');
-$pdf->Cell(35,5,"$employees->totalDay",1,0, 'C');
+$pdf->Cell(35,5,"$employeeArray[hours]",1,0, 'C');
+$pdf->Cell(35,5,"$employeeArray[days]",1,0, 'C');
 $countEmployee++;
 }
 $pdf->Ln(14);
 $pdf->SetFont('times','I', 10);
 $pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon::now())),0,0);
 //Close and output PDF document
-$pdf->Output('Employee_Performances.pdf', 'D');
-
+$pdf->Output('Employee_Performances.pdf', 'I');
 
 
 ob_flush();
