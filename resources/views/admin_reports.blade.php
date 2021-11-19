@@ -1051,7 +1051,7 @@
                     <?php 
                         $counter = 1;
                         $monthToday = $mytime->month;
-                        $salary = Salary::orderBy('totalHour', 'DESC')->get();
+                        $salary = Salary::all();
                     ?>
                     <table class="table table-striped user_info_table">
                         <tbody>
