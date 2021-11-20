@@ -89,7 +89,15 @@ use App\Models\Time_entry;
                         });
                     </script>
                     @endif
-
+                    @if(Session::get('fail-timeout'))
+                    <script>
+                        swal({
+                            title: "Please Time in first!",
+                            icon: "error",
+                            button: "Close",
+                        });
+                    </script>
+                    @endif
                     @csrf
 
             <div class="input-div">
@@ -98,7 +106,7 @@ use App\Models\Time_entry;
                 </div>
                 <div>
                     <h5>Employee Code</h5>
-                    <input type="text" class="input" name="employee_code" value="{{ old('employee_code') }}">
+                    <input type="text" class="input" name="employee_code" value="{{ old('employee_code') }}" required>
                     <span class="text-danger">
                         @error('email'){{ $message }} @enderror
                     </span>

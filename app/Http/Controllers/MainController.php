@@ -594,7 +594,10 @@ class MainController extends Controller
     }
 
     function timeIn(Request $request){
-        
+        $request->validate([
+            'employee_code'=>'required'
+        ]);
+
         if($request->timeIn != null){
             $time_entries = new Time_entry;
             $time_entries->employee_code = $request->employee_code;
@@ -604,8 +607,13 @@ class MainController extends Controller
         }
         elseif($request->timeOut != null){
             $id = Time_entry::where('employee_code', $request->employee_code)->where('time_end', null)->value('id');
-            $timeOut_entries = Time_entry::where('id', $id)->update(['time_end' => $request->timeOut]);
-            return back()->with('success-timeout', 'Successful');
+            if($id == null){
+                return back()->with('fail-timeout', 'Time in first');
+            }
+            else{
+                $timeOut_entries = Time_entry::where('id', $id)->update(['time_end' => $request->timeOut]);
+                return back()->with('success-timeout', 'Successful');
+            }
         }
         else {
             return back()->with('fail','Something went wrong, try again later ');
