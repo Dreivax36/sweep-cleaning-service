@@ -151,7 +151,7 @@
                         <h5>
                             Address: 
                         </h5>
-                        <select class="form-control" name="address_id"  id="address">
+                        <select class="form-control" name="address_id[]"  id="address_id[]">
                             @foreach($address_data as $key => $value)
                                 <option value="{{$value->address_id}}">{{$value->address}}</option>
                             @endforeach
@@ -195,7 +195,7 @@
                             @csrf
 
                             Are you sure you want to delete an address?
-                            <input type="hidden" name="address_id" id="address_id" value="">
+                            <input type="text" name="address_id" id="address_id" value="">
                         </form> 
                     </div>
                     <div class="modal-footer">
@@ -211,7 +211,7 @@
     <!-- Store the address temporary and pass it to delete confirmation modal-->
     <script type="text/javascript">
         $("#submit").click(function () {
-            var id = document.getElementById('address').value;
+            const id = document.getElementById('address_id[]').value;
             document.getElementById("address_id").value = id;
         });
     </script>

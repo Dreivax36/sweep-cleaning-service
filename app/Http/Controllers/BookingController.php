@@ -313,7 +313,10 @@ class BookingController extends Controller
     function updateAddress(Request $request)
     {
         //Update data into database
-        $updateAddress = Booking::Where('booking_id', $request->booking_id)->update(['address_id' => $request->address_id]);
+        $count = 0;  
+        foreach($request->input('address_id') AS $address_id){
+            $updateAddress = Booking::Where('booking_id', $request->booking_id)->update(['address_id' => $address_id ]);
+        }
 
         if ($updateAddress) {
             return back()->with('success-address', 'Address Updated');

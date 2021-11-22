@@ -398,8 +398,12 @@
                                         @endif
                                                                                 
                                         @csrf
+                                        <?php
+                                            $addressname = Address::where('address_id', $value->address_id)->value('address');
+                                        ?>
+                                        <h3> Current Address :  <b> {{$addressname}} </b></h3>
                                         <input type="hidden" name="booking_id" value="{{$value->booking_id}}">    
-                                        <select class="form-control form-control-lg" name="address_id">
+                                        <select class="form-control form-control-lg" name="address_id[]">
                                         @foreach($addressData as $key => $add)
                                         <option value="{{$add->address_id}}"> {{$add->address}} </option>
                                         @endforeach

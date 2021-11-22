@@ -323,8 +323,8 @@ class MainController extends Controller
      }
      //Customer delete address
      function deleteAddress(Request $request){
-            $deleteAddress = Address::Where('address_id', $request->address_id)->delete();
-        
+            $deleteAddress= Address::Where('address_id', $request->address_id )->delete();
+         
         if($deleteAddress){
             return back()->with('success-delete', 'Address successfully deleted');
          }
