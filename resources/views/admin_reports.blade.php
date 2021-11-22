@@ -121,7 +121,7 @@ use App\Models\Employee;
                     </div>
                 </div>
                 <?php
-                $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * .05 as amount')
+                $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * 0.12 as amount')
                     ->groupBy('month')
                     ->orderByRaw('min(created_at) asc')
                     ->get();

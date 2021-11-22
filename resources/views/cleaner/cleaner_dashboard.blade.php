@@ -21,7 +21,7 @@ use App\Models\Cleaner_review;
         Cleaner Dashboard
     </title>
 
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
     {{-- Scripts --}}
@@ -31,17 +31,17 @@ use App\Models\Cleaner_review;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
     <script>
-      function refreshTime(){
-        var refresh = 1000;
-        mytime = setTimeout('display_dateTime()', refresh);
-      }
+        function refreshTime() {
+            var refresh = 1000;
+            mytime = setTimeout('display_dateTime()', refresh);
+        }
 
-      function display_dateTime(){
-        var date = new Date();
-        document.getElementById("time").innerHTML = date.toLocaleTimeString();
-        refreshTime();
-      }
-  </script> 
+        function display_dateTime() {
+            var date = new Date();
+            document.getElementById("time").innerHTML = date.toLocaleTimeString();
+            refreshTime();
+        }
+    </script>
 </head>
 
 <body onload="display_dateTime();">
@@ -53,9 +53,9 @@ use App\Models\Cleaner_review;
                 <div id="pst-container">
                     <div class="local_time_title">
                         Philippine Standard Time
-                    
-                    <h3 id="time"></h3>
-                    <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
+
+                        <h3 id="time"></h3>
+                        <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
                     </div>
                 </div>
             </div>
@@ -150,7 +150,7 @@ use App\Models\Cleaner_review;
                     $price = Price::Where('service_id', $book->service_id)->Where('property_type', $book->property_type)->get();
                     foreach ($price as $key => $price) {
                         $salary = $price->price / $price->number_of_cleaner;
-                        $totalSalary = $totalSalary + $salary * 0.30;
+                        $totalSalary = $totalSalary + $salary * 0.50;
                     }
                 }
             }
@@ -207,7 +207,7 @@ use App\Models\Cleaner_review;
 
         </div>
     </div>
-    <script>  
+    <script>
         $(document).ready(function() {
 
             $.ajaxSetup({
