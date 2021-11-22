@@ -165,7 +165,6 @@ a:hover {
 }
 
 view_details_btn_trans {
-    width: 300px; <--- Halion mo ni
    background-color: #FB8500;
    border: #FB8500;
    color: black;

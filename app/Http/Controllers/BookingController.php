@@ -530,6 +530,16 @@ class BookingController extends Controller
     function paid(Request $request)
     {
         $paid = Booking::Where('booking_id', $request->booking_id)->update(['is_paid' => true]);
+        $customer = Booking::Where('booking_id', $request->booking_id)->value('customer_id');
+        $id = Customer::Where('customer_id', $customer)->value('user_id');
+
+        $notifications = new Notification();
+        $notifications->message = "Your payment was verified by the administrator.";
+        $notifications->booking_id = $request->booking_id;
+        $notifications->isRead = false;
+        $notifications->user_id = $id;
+        $notifications->location = 'customer/customer_transaction';
+        $paid = $notifications->save();
 
         $options = array(
             'cluster' => 'ap1',
@@ -541,8 +551,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        $customer = Booking::Where('booking_id', $request->booking_id)->value('customer_id');
-        $id = Customer::Where('customer_id', $customer)->value('user_id');
+        
         $messages = "Your payment was verified by the administrator.";
         $id = $id;
         $data = ['messages' => $messages, 'id' => $id];
