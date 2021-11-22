@@ -313,9 +313,9 @@ class BookingController extends Controller
     function updateAddress(Request $request)
     {
         //Update data into database
-        $count = 0;  
-        foreach($request->input('address_id') AS $address_id){
-            $updateAddress = Booking::Where('booking_id', $request->booking_id)->update(['address_id' => $address_id ]);
+        $count = 0;
+        foreach ($request->input('address_id') as $address_id) {
+            $updateAddress = Booking::Where('booking_id', $request->booking_id)->update(['address_id' => $address_id]);
         }
 
         if ($updateAddress) {
@@ -554,7 +554,7 @@ class BookingController extends Controller
             env('PUSHER_APP_ID'),
             $options
         );
-        
+
         $messages = "Your payment was verified by the administrator.";
         $id = $id;
         $data = ['messages' => $messages, 'id' => $id];
@@ -702,8 +702,7 @@ class BookingController extends Controller
             if ($salaryDate != null) {
                 $lastSalary = date_add($salaryDate['created_at'], date_interval_create_from_date_string('1 day'));
                 $hourPresent = Time_entry::where('employee_code', $value->employee_code)->whereBetween('created_at', [$lastSalary, $today])->get();
-            }
-            else {
+            } else {
                 $hourPresent = Time_entry::where('employee_code', $value->employee_code)->get();
             }
             if ($hourPresent != null) {
@@ -712,55 +711,53 @@ class BookingController extends Controller
                     $date1 = strtotime($hour->time_start);
                     $date2 = strtotime($hour->time_end);
                     $difference = abs($date1 - $date2);
-                    if($difference > 1){
-                        $totalHours = $totalHours + (floor($difference / 60 / 60));
-                    }
+                    $totalHours = $totalHours + (floor($difference / 60 / 60));
                 }
                 $totalday = $totalHours / 8;
+                if ($difference > 1) {
+                    if ($value->department == "Human Resource Department") {
+                        if ($value->position == "Manager") {
+                            $totalsalary = $totalHours * 265;
+                        } elseif ($value->position == "Employee") {
+                            $totalsalary = $totalHours * 75;
+                        }
+                    } elseif ($value->department == "Operations Department") {
+                        if ($value->position == "Manager") {
+                            $totalsalary = $totalHours * 265;
+                        } elseif ($value->position == "Employee") {
+                            $totalsalary = $totalHours * 75;
+                        } elseif ($value->position == "Customer Representative") {
+                            $totalsalary = $totalHours * 92;
+                        }
+                    } elseif ($value->department == "Marketing Department") {
+                        if ($value->position == "Manager") {
+                            $totalsalary = $totalHours * 310;
+                        } elseif ($value->position == "Employee") {
+                            $totalsalary = $totalHours * 75;
+                        }
+                    } elseif ($value->department == "IT Department") {
+                        if ($value->position == "Quality Assurance Head") {
+                            $totalsalary = $totalHours * 202;
+                        } elseif ($value->position == "Employee") {
+                            $totalsalary = $totalHours * 196;
+                        } elseif ($value->position == "IT Project Head") {
+                            $totalsalary = $totalHours * 35;
+                        }
+                    }
+                    $net = $totalsalary - ($totalsalary * 0.18);
+                    $tax = $totalsalary * 0.18;
 
-                if ($value->department == "Human Resource Department") {
-                    if ($value->position == "Manager") {
-                        $totalsalary = $totalHours * 265;
-                    } elseif ($value->position == "Employee") {
-                        $totalsalary = $totalHours * 75;
-                    }
-                } elseif ($value->department == "Operations Department") {
-                    if ($value->position == "Manager") {
-                        $totalsalary = $totalHours * 265;
-                    } elseif ($value->position == "Employee") {
-                        $totalsalary = $totalHours * 75;
-                    } elseif ($value->position == "Customer Representative") {
-                        $totalsalary = $totalHours * 92;
-                    }
-                } elseif ($value->department == "Marketing Department") {
-                    if ($value->position == "Manager") {
-                        $totalsalary = $totalHours * 310;
-                    } elseif ($value->position == "Employee") {
-                        $totalsalary = $totalHours * 75;
-                    }
-                } elseif ($value->department == "IT Department") {
-                    if ($value->position == "Quality Assurance Head") {
-                        $totalsalary = $totalHours * 202;
-                    } elseif ($value->position == "Employee") {
-                        $totalsalary = $totalHours * 196;
-                    } elseif ($value->position == "IT Project Head") {
-                        $totalsalary = $totalHours * 35;
-                    }
+                    $salaries = new Salary;
+                    $salaries->totalHour = floor($totalHours);
+                    $salaries->totalDay = floor($totalday);
+                    $salaries->month = $month;
+                    $salaries->totalsalary = $totalsalary;
+                    $salaries->netpay = $net;
+                    $salaries->totaltax = $tax;
+                    $salaries->employee_code = $value->employee_code;
+                    $salaries = $salaries->save();
                 }
-                $net = $totalsalary - ($totalsalary * 0.18);
-                $tax = $totalsalary * 0.18;
-
-                $salaries = new Salary;
-                $salaries->totalHour = floor($totalHours);
-                $salaries->totalDay = floor($totalday);
-                $salaries->month = $month;
-                $salaries->totalsalary = $totalsalary;
-                $salaries->netpay = $net;
-                $salaries->totaltax = $tax;
-                $salaries->employee_code = $value->employee_code;
-                $salaries = $salaries->save();
             }
-            
         }
         return back()->with('success', 'Salary Computed Successfully!');
     }
