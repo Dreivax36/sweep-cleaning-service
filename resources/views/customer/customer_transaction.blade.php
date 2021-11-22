@@ -399,7 +399,7 @@
                                                                                 
                                         @csrf
                                         <input type="hidden" name="booking_id" value="{{$value->booking_id}}">    
-                                        <select class="form-control form-control-lg" name="address_id[]">
+                                        <select class="form-control form-control-lg" name="address_id">
                                         @foreach($addressData as $key => $add)
                                         <option value="{{$add->address_id}}"> {{$add->address}} </option>
                                         @endforeach
