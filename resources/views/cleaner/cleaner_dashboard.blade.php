@@ -62,10 +62,6 @@ use App\Models\Cleaner_review;
             <h2 class="side_con_title">
                 On-Progress Jobs
             </h2>
-            <div class="adjust_con_dash">
-                <!-- Search Field -->
-                <input class="form-control searchbar_dash" type="text" id="filter" placeholder="Search.." onkeyup="searchTrans()">
-            </div>
 
             <?php
             $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
