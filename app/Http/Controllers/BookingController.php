@@ -712,7 +712,9 @@ class BookingController extends Controller
                     $date1 = strtotime($hour->time_start);
                     $date2 = strtotime($hour->time_end);
                     $difference = abs($date1 - $date2);
-                    $totalHours = $totalHours + (floor($difference / 60 / 60));
+                    if($difference > 1){
+                        $totalHours = $totalHours + (floor($difference / 60 / 60));
+                    }
                 }
                 $totalday = $totalHours / 8;
 
