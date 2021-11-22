@@ -700,7 +700,7 @@ class BookingController extends Controller
             $today = Carbon::now();
             $salaryDate = Salary::where('employee_code', $value->employee_code)->orderBy('created_at', 'desc')->first();
             if ($salaryDate != null) {
-            $lastSalary = $salaryDate['created_at'];
+                $lastSalary = strtotime("+1 day", $salaryDate['created_at']);
                 $hourPresent = Time_entry::where('employee_code', $value->employee_code)->whereBetween('created_at', [$lastSalary, $today])->get();
             }
             else {
@@ -758,6 +758,7 @@ class BookingController extends Controller
                 $salaries->employee_code = $value->employee_code;
                 $salaries = $salaries->save();
             }
+            
         }
         return back()->with('success', 'Salary Computed Successfully!');
     }
