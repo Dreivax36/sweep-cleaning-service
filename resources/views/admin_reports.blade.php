@@ -92,7 +92,7 @@ use App\Models\Employee;
 </div>
 
 <body>
-    <div class="body-container">
+    
         <div class="row user_btn_con1">
             <!-- Sub Header -->
             <a class="user_type_btn_cleaner" style="font-size:25px; color: #FFB703; margin-top:50px; margin-left:85px;">
@@ -1321,5 +1321,5 @@ use App\Models\Employee;
                 pdf4.save('Service-Completion-Ratio.pdf');
             }
         </script>
-    </div>
+    
 </body>

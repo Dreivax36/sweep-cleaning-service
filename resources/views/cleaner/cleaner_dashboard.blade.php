@@ -123,7 +123,7 @@ use App\Models\Cleaner_review;
 
             @endif
         </div>
-        <div class="col-sm-9">
+        <div class="col-md-9">
             <?php
             $rating = Cleaner_review::where('cleaner_id', $cleaner)->avg('rate');
             $canceljobs = 0;
