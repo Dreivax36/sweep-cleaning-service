@@ -151,7 +151,7 @@
                         <h5>
                             Address: 
                         </h5>
-                        <select class="form-control" name="address_id"  id="address">
+                        <select class="form-control" name="address_id[]"  id="address">
                             @foreach($address_data as $key => $value)
                                 <option value="{{$value->address_id}}">{{$value->address}}</option>
                             @endforeach

@@ -399,14 +399,11 @@
                                                                                 
                                         @csrf
                                         <input type="hidden" name="booking_id" value="{{$value->booking_id}}">    
+                                        <select class="form-control form-control-lg" name="address_id[]">
                                         @foreach($addressData as $key => $add)
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="address" value="{{$add->address_id}}" id="flexCheckDefault" required>
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                <h5>{{$add->address}}</h5>
-                                            </label>
-                                        </div>
+                                        <option value="{{$add->address_id}}"> {{$add->address}} </option>
                                         @endforeach
+                                        </select>
                                 </div>
                                 <div class="modal-footer customer_services_modal_footer">
                                     <button class="btn btn-block btn-primary confirm_btn" data-toggle="modal" data-target="#addAddress-{{$value->booking_id}}" data-dismiss="modal">
