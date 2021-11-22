@@ -195,7 +195,7 @@
                             @csrf
 
                             Are you sure you want to delete an address?
-                            <input type="text" name="address_id" id="address_id" value="">
+                            <input type="hidden" name="address_id" id="address_id" value="">
                         </form> 
                     </div>
                     <div class="modal-footer">
@@ -282,3 +282,5 @@
     </div>
 </body>
 @endsection
+
+
