@@ -81,8 +81,7 @@ use App\Models\Notification;
     </nav>
 </div>
 
-<body>
-    <div class="body-container">
+<body class="body">
         <?php
         $user_data = User::all();
         $user_count = User::all()->count();
@@ -392,7 +391,7 @@ use App\Models\Notification;
                 </div>
             </div>
         </div>
-    </div>
+
     <footer id="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.
