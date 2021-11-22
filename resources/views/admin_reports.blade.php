@@ -723,7 +723,7 @@ use App\Models\Employee;
                 <div class="card-header">
                     <div class="card_body">
                         <h3 class="service_title_trans">
-                            Ratio of Completed Jobs and Cancelled Jobs
+                            Ratio of Completed and Cancelled Bookings
                         </h3>
                     </div>
 
@@ -808,7 +808,7 @@ use App\Models\Employee;
                     <div class="modal-header customer_trans_modal_header">
                         <div class="card_body">
                             <h3 class="service_title_trans">
-                                Ratio of Completed Jobs and Cancelled Jobs
+                                Ratio of Completed and Cancelled Bookings
                             </h3>
                             <h6 class="booking_date">
                                 <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
@@ -1316,7 +1316,7 @@ use App\Models\Employee;
 
                 let pdf4 = new jsPDF();
                 pdf4.setFontSize(20);
-                pdf4.text(15, 15, "Ratio of Completed Jobs to Cancelled Jobs");
+                pdf4.text(15, 15, "Ratio of Completed and Cancelled Bookings");
                 pdf4.addImage(ratioReportImg, 'JPEG', 20, 20, 180, 180);
                 pdf4.save('Service-Completion-Ratio.pdf');
             }
