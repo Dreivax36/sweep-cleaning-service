@@ -714,7 +714,7 @@ class BookingController extends Controller
                     $totalHours = $totalHours + (floor($difference / 60 / 60));
                 }
                 $totalday = $totalHours / 8;
-                if ($difference > 1) {
+                if (floor($totalHours) > 1) {
                     if ($value->department == "Human Resource Department") {
                         if ($value->position == "Manager") {
                             $totalsalary = $totalHours * 265;
