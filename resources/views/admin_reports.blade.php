@@ -101,6 +101,7 @@ use App\Models\Employee;
         </div>
         <?php
         $mytime = Carbon\Carbon::now();
+        $month = $mytime->month;
         ?>
         <?php
         $serviceName = Service::orderBy('service_id', 'DESC')->get();
@@ -452,7 +453,7 @@ use App\Models\Employee;
                                                 @foreach($serviceName as $id)
                                                 <?php
                                                 $serviceRevenue = 0;
-                                                $bookingID = Booking::where('service_id', $id->service_id)->where('status', 'Completed')->get();
+                                                $bookingID = Booking::where('service_id', $id->service_id)->where('status', 'Completed')->whereMonth('created_at', $month)->get();
                                                 foreach ($bookingID as $booking) {
                                                     $price = Price::where('service_id', $id->service_id)->where('property_type', $booking->property_type)->value('price');
                                                     $serviceRevenue = $serviceRevenue + $price;
@@ -540,7 +541,7 @@ use App\Models\Employee;
                                                 <td class="user_table_data">
                                                     <?php
                                                     $serviceRevenue = 0;
-                                                    $bookingID = Booking::where('service_id', $name->service_id)->where('status', 'Completed')->get();
+                                                    $bookingID = Booking::where('service_id', $name->service_id)->where('status', 'Completed')->whereMonth('created_at', $month)->get();
                                                     foreach ($bookingID as $booking) {
                                                         $price = Price::where('service_id', $name->service_id)->where('property_type', $booking->property_type)->value('price');
                                                         $serviceRevenue = $serviceRevenue + $price;
@@ -586,8 +587,9 @@ use App\Models\Employee;
                     </div>
                 </div>
                 <?php
+                $month = $mytime->month;
                 $service = Service::orderBy('service_id', 'DESC')->get();
-                $totalRequested = Booking::where('status', '!=', 'Cancelled')->count();
+                $totalRequested = Booking::where('status', '!=', 'Cancelled')->whereMonth('created_at', $month)->count();
                 ?>
                 <div>
                     <div class="card-body">
@@ -699,7 +701,7 @@ use App\Models\Employee;
                                             </th>
                                             <td class="user_table_data">
                                                 <?php
-                                                $requested = Booking::where('service_id', $serviceNames->service_id)->where('status', '!=', 'Cancelled')->count();
+                                                $requested = Booking::where('service_id', $serviceNames->service_id)->whereMonth('created_at', $month)->where('status', '!=', 'Cancelled')->count();
                                                 $serviceRequested = ($requested / $totalRequested) * 100;
                                                 ?>
                                                 {{ number_format((float)$serviceRequested, 2, '.', '')}}
@@ -736,8 +738,9 @@ use App\Models\Employee;
                 <div>
                     <div class="card-body">
                         <?php
-                        $completed = Booking::where('status', 'Completed')->count();
-                        $cancelled = Booking::where('status', 'Cancelled')->count();
+                        $month = $mytime->month;
+                        $completed = Booking::where('status', 'Completed')->whereMonth('created_at', $month)->count();
+                        $cancelled = Booking::where('status', 'Cancelled')->whereMonth('created_at', $month)->count();
                         $totalBook = $completed + $cancelled;
                         $completed = ($completed / $totalBook) * 100;
                         $cancelled = ($cancelled / $totalBook) * 100;
