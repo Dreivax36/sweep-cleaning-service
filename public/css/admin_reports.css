@@ -3,6 +3,10 @@ body{
     position: relative !important;
     
 }
+.body-container{
+    flex: 1 1 auto;
+}
+
 .customer_cards_title{
     font-family: Georgia, 'Times New Roman', Times, serif !important;
     font-weight: bold !important;
