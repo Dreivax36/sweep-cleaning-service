@@ -164,14 +164,14 @@ a:hover {
     text-indent: 50px;
 }
 
-.view_details_btn_trans {
-    width: 300px;
-    background-color: #FB8500;
-    border: #FB8500;
-    color: black;
-    font-weight: bold;
-    border-radius: 15px;
-    font-size: 13px;
+view_details_btn_trans {
+    width: 300px; <--- Halion mo ni
+   background-color: #FB8500;
+   border: #FB8500;
+   color: black;
+   font-weight: bold;
+   border-radius: 15px;
+   font-size: 13px;
 }
 
 .accept_btn {
