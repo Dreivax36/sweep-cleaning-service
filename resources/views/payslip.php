@@ -135,11 +135,6 @@ $pdf->Cell(189,3,'Details:',0,0);
 
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
-$pdf->Cell(149,5,'          Total Days Present:',0,0);
-$pdf->Cell(30,5,"$salaries->totalDay Days",0,0,'R');
-
-$pdf->Ln(7);
-$pdf->SetFont('times','', 12);
 $pdf->Cell(149,5,'          Total Hours Present:',0,0);
 $pdf->Cell(30,5,"$salaries->totalHour Hours",0,0,'R');
 
