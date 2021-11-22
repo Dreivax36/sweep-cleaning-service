@@ -161,7 +161,7 @@ $pdf->Cell(179,5,'Deductions:',0,0);
 
 $pdf->Ln(7);
 $pdf->SetFont('times','', 12);
-$pdf->Cell(149,5,'          Income Tax:',0,0);
+$pdf->Cell(149,5,'          Benefits and Contributions:',0,0);
 $pdf->Cell(30,5,"$salaries->totaltax Php",0,0,'R');
 
 
