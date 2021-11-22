@@ -5,9 +5,8 @@ body {
     background-color: #EDF1F8;
     overflow-x: hidden;
 }
-.body{
-    min-height:130vh; 
-    display:flex;
+.body-container{
+    flex: 1 1 auto;
 }
 #active {
     color: #FFB703;
