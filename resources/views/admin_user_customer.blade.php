@@ -82,7 +82,6 @@ use App\Models\Employee;
 </div>
 
 <body>
-    <div class="body-container">
         <?php
         $user_data = User::all();
         $user_count = User::all()->count();
@@ -318,6 +317,6 @@ use App\Models\Employee;
                 </div>
             </div>
         </div>
-    </div>
+  
 </body>
 @endsection

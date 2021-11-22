@@ -78,7 +78,7 @@ use App\Models\Notification;
 </div>
 
 <body>
-    <div class="body-container">
+
         <?php
         $user_data = User::orderBy('user_id', 'DESC')->get();
         $user_count = User::all()->count();
@@ -239,6 +239,6 @@ use App\Models\Notification;
                 </div>
             </div>
         </div>
-    </div>
+
 </body>
 @endsection
