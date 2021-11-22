@@ -119,9 +119,6 @@
                             Total Hours Present
                         </th>
                         <th class="text-center user_table_header">
-                            Total Days Present
-                        </th>
-                        <th class="text-center user_table_header">
                            Date Generated
                         </th>
                         <th class="text-center user_table_header">
@@ -150,7 +147,6 @@
                     <tr class="user_table_row">
                         <td class="user_table_data">{{ $name }}</td>
                         <td class="user_table_data">{{ $salary->totalHour }}</td>
-                        <td class="user_table_data">{{ $salary->totalDay }}</td>
                         <td class="user_table_data">{{ date('F d, Y', strtotime($salary->created_at)) }}</td>
                         <td class="user_table_data">₱{{ number_format((float) $salary->totalsalary, 2, '.', '') }}</td>
                         <td class="user_table_data">₱{{ number_format((float)$salary->totaltax, 2, '.', '')}}</td>

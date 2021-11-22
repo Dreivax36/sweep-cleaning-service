@@ -108,7 +108,6 @@ $pdf->SetFont('times','B', 12);
 $pdf->Cell(25,5,'RANK',1,0, 'C');
 $pdf->Cell(85,5,'NAME',1,0, 'C');
 $pdf->Cell(35,5,'TOTAL HOURS',1,0,'C');
-$pdf->Cell(35,5,'TOTAL DAYS',1,0,'C');
 
 $countEmployee = 1;
 $Employee = Employee::get();
@@ -133,7 +132,6 @@ $pdf->SetFont('times', '', 12);
 $pdf->Cell(25,5,"$countEmployee",1,0, 'C');
 $pdf->Cell(85,5,"$employeeName",1,0);
 $pdf->Cell(35,5,"$employeeArray[hours]",1,0, 'C');
-$pdf->Cell(35,5,"$employeeArray[days]",1,0, 'C');
 $countEmployee++;
 }
 $pdf->Ln(14);
