@@ -872,11 +872,5 @@ use App\Models\Payment;
         });
     </script>
     @endif
-
-    <footer id="footer">
-        <div class="sweep-title">
-            SWEEP © 2021. All Rights Reserved.
-        </div>
-    </footer>
 </body>
 @endsection

@@ -390,13 +390,6 @@ use App\Models\Service_review;
       $('#refresh').load(window.location.href + " #refresh");
     });
   </script>
-  <!-- Footer -->
-  <footer id="footer">
-    <div class="sweep-title">
-      SWEEP © 2021. All Rights Reserved.
-    </div>
-  </footer>
-
-
+ 
 </body>
 @endsection

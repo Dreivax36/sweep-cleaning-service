@@ -1322,10 +1322,4 @@ use App\Models\Employee;
             }
         </script>
     </div>
-    <!-- Footer -->
-    <footer id="footer">
-        <div class="sweep-title">
-            SWEEP © 2021. All Rights Reserved.
-        </div>
-    </footer>
 </body>

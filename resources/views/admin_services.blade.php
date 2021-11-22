@@ -753,10 +753,5 @@ use App\Models\Notification;
             </div>
         </div>
     </div>
-    <footer id="footer">
-        <div class="sweep-title">
-            SWEEP © 2021. All Rights Reserved.
-        </div>
-    </footer>
 </body>
 @endsection
