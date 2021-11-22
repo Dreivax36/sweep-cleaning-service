@@ -12,7 +12,13 @@ body {
 #active {
     color: #FFB703;
 }
-
+.card_transaction{
+    padding: 0;
+    height: fit-content;
+    }
+    .card_body{
+    padding:20px;
+    }
 .head {
     align-items: center;
 }
