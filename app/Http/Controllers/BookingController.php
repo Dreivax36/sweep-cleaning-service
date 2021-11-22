@@ -531,6 +531,23 @@ class BookingController extends Controller
     {
         $paid = Booking::Where('booking_id', $request->booking_id)->update(['is_paid' => true]);
 
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $customer = Booking::Where('booking_id', $request->booking_id)->value('customer_id');
+        $id = Customer::Where('customer_id', $customer)->value('user_id');
+        $messages = "Your payment was verified by the administrator.";
+        $id = $id;
+        $data = ['messages' => $messages, 'id' => $id];
+        $pusher->trigger('my-channel', 'customer-notif', $data);
+
         if ($paid) {
             return back()->with('success-paid', 'Paid');
         } else {
