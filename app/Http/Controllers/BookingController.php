@@ -665,8 +665,10 @@ class BookingController extends Controller
         $employee = Employee::all();
         foreach($employee as $key => $value){
             $month = Carbon::now()->month;
-
-            $hourPresent = Time_entry::where('employee_code', $value->employee_code)->get();
+            $today = Carbon::now();
+            $salaryDate = Salary::where('employee_code', $value->employee_code)->orderBy('created_at', 'desc')->first();
+            $lastSalary = $salaryDate['created_at'];
+            $hourPresent = Time_entry::where('employee_code', $value->employee_code)->whereBetween('created_at', [$lastSalary, $today])->get();
             $totalHours  = 0;
             foreach($hourPresent as $hour){
                 $date1 = strtotime($hour->time_start);
