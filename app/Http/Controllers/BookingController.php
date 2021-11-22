@@ -701,7 +701,7 @@ class BookingController extends Controller
             $salaryDate = Salary::where('employee_code', $value->employee_code)->orderBy('created_at', 'desc')->first();
             $lastSalary = $salaryDate['created_at'];
             $hourPresent = Time_entry::where('employee_code', $value->employee_code)->whereBetween('created_at', [$lastSalary, $today])->get();
-            if ($hourPresent != null) {
+            if ($hourPresent != null && ($salaryDate == null ||  $salaryDate != null)) {
                 $totalHours  = 0;
                 foreach ($hourPresent as $hour) {
                     $date1 = strtotime($hour->time_start);
