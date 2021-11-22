@@ -1051,7 +1051,6 @@ use App\Models\Employee;
                         </h6>
                     </div>
                 </div>
-                <div>
                     <div class="card-body">
 
                         <table class="table table-striped user_info_table">
@@ -1065,9 +1064,6 @@ use App\Models\Employee;
                                     </td>
                                     <td class="user_table_data">
                                         Hours Present
-                                    </td>
-                                    <td class="user_table_data">
-                                        Days Present
                                     </td>
                                 </tr>
                                 <?php
@@ -1106,9 +1102,7 @@ use App\Models\Employee;
                                     <td class="user_table_data">
                                         {{$employees['hours']}}
                                     </td>
-                                    <td class="user_table_data">
-                                        {{$employees['days']}}
-                                    </td>
+                                   
                                 </tr>
                                 @if($countEmployee > 3)
                                 @break
@@ -1119,7 +1113,6 @@ use App\Models\Employee;
                         </table>
                         <!-- Check if the customer already review booking -->
                     </div>
-                </div>
                 <div class="card-footer">
                     <div class="buttons">
                         <div class="byt float-right">
