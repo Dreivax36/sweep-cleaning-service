@@ -138,7 +138,7 @@
                 <tbody>
         
                     <?php
-                        $salary = Salary::orderby('month', 'DESC')->get();
+                        $salary = Salary::orderby('created_', 'DESC')->get();
                     ?>
                     @foreach($salary as $salary)
                     <?php
