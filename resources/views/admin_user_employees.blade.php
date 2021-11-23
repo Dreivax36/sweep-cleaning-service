@@ -261,7 +261,7 @@ use App\Models\Notification;
                     </thead>
                     <tbody>
                         <?php
-                        $employee = Employee::all();
+                        $employee = Employee::orderBy('created_at', 'DESC')->get();
                         ?>
                         @foreach($employee as $value)
                         <tr class="user_table_row">
