@@ -224,7 +224,7 @@ use App\Models\Service_review;
                                     </div>
                                 </div>
                                 <!-- Form for booking -->
-                                <form action="{{ route('customer.customer_login') }}" method="post" id="book">
+                                <form action="{{ route('customer.customer_login') }}" method="get" id="book">
                                     @if(Session::get('success'))
                                     <script>
                                         swal({
