@@ -73,10 +73,6 @@
                     <i class="fas fa-hand-sparkles"></i>
                     <h6>Services</h6>
                 </a>
-                <a class="nav-button" href="#">
-                    <i class="fas fa-user-circle"></i>
-                    <h6>Profile</h6>
-                </a>
             </ul>
         </div>
     </nav>
