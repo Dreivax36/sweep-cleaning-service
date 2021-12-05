@@ -39,6 +39,13 @@ use App\Models\Service_review;
     <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet" />
     <link href="{{ asset('css/customer_services.css') }}" rel="stylesheet">
     <link href="{{ asset('css/popup.css') }}" rel="stylesheet">
 </head>
@@ -217,7 +224,29 @@ use App\Models\Service_review;
                                     </div>
                                 </div>
                                 <!-- Form for booking -->
-                                
+                                <form action="{{ route('customer.customer_login') }}" method="post" id="book">
+                                    @if(Session::get('success'))
+                                    <script>
+                                        swal({
+                                            title: "Booking Success!",
+                                            text: "Thank You For Booking. We will notify you for updates regarding the details of your transaction.",
+                                            icon: "success",
+                                            button: "Close",
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @if(Session::get('fail'))
+                                    <script>
+                                        swal({
+                                            title: "Something went wrong, try again!",
+                                            icon: "error",
+                                            button: "Close",
+                                        });
+                                    </script>
+                                    @endif
+
+                                    @csrf
                                     <input type="hidden" name="service_id" value="{{ $value->service_id }}">
                                     <div class="modal-body p-4 customer_services_modal_inside_con">
                                         <div class="row">
@@ -287,12 +316,12 @@ use App\Models\Service_review;
                                                 <button type="button" class="btn btn-danger cancel_btn" data-dismiss="modal">
                                                     Cancel
                                                 </button>
-                                                <button class="btn btn-primary confirm_btn" onclick="document.location='{{ route('customer.customer_login') }}'">
+                                                <button type="submit" class="btn btn-primary confirm_btn" >
                                                     Confirm
                                                 </button>
                                             </div>
                                         </div>
-                             
+                                </form>
                             </div>
                         </div>
                     </div>
