@@ -34,6 +34,7 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
 
+
     <title>
         Welcome Page
     </title>
@@ -64,26 +65,18 @@
             </ul>
             <!-- Mobile -->
             <ul class="mobile-nav sticky-bottom">
-                <p class="login-text">Cheers to a cleaner lifestyle!</p>
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <ul class="navbar-nav d-flex">
-                            <!-- Authentication Links -->
-                            @if (Route::has('customer.customer_login'))
-                            <a class="btn login_btn" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
-                            @endif
-                        </ul>
-
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="navbar-nav d-flex">
-                            <!-- Authentication Links -->
-                            @if (Route::has('customer.customer_login'))
-                            <a class="btn reg_btn" href="{{ route('customer.customer_register') }}">{{ __('Register') }}</a>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
+                <a class="nav-button active" href="{{ url('/') }}">
+                    <i class="fas fa-home fas-active"></i>
+                    <h6>Home</h6>
+                </a>
+                <a class="nav-button" href="{{ url('/cleaning') }}">
+                    <i class="fas fa-hand-sparkles"></i>
+                    <h6>Services</h6>
+                </a>
+                <a class="nav-button" href="#">
+                    <i class="fas fa-user-circle"></i>
+                    <h6>Profile</h6>
+                </a>
             </ul>
         </div>
     </nav>
@@ -339,28 +332,16 @@
                 <h3 class="title1 text">Other Services</h3>
             </div>
             <div class="slider2">
-                <div class="d-flex slider-cont2">
-                <a href="{{ url('/cleaning') }}" class="recom">
+                    <a href="{{ url('/cleaning') }}" class="recom">
                         <div class="card other">
                             <div class="services">
                                 <h2 class="title3">Home Cleaning Services</h2>
                                 <p class="for-you-text">
-                                    Various Cleaning Services tailored for you Needs.
+                                    Various Cleaning Services tailored for your needs. Your place will be clean and tidy and you Stress-Free.
                                 </p>
                             </div>
                         </div>
                     </a>
-                    <a href="{{ url('/sanitation') }}" class="recom">
-                        <div class="card other">
-                            <div class="services">
-                                <h2 class="title3">Sanitation Services</h2>
-                                <p class="for-you-text">
-                                    Keeping you Safe and Protected from Viruses and Bacteria.
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
 
