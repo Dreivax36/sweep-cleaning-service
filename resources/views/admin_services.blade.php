@@ -301,6 +301,7 @@ use App\Models\Notification;
                         {{ $value->service_name }}
                     </h3>
                     <?php
+                    $reviewscount = Service_review::where('service_id', $value->service_id)->count();
                     $total = Service_review::where('service_id', $value->service_id)->avg('rate');
                     $avg = (int)$total;
 
@@ -313,6 +314,7 @@ use App\Models\Notification;
                     }
                     echo '</span>';
                     ?>
+                    <a href="reviews/{{$value->service_id}}" role="button">( {{$reviewscount}} Reviews )</a>
                 </div>
             </div>
             <div class="card-body">
@@ -351,6 +353,7 @@ use App\Models\Notification;
                                             }
                                             echo '</span>';
                                             ?>
+                                            <a href="reviews/{{$value->service_id}}" role="button">( {{$reviewscount}} Reviews )</a>
                                         </div>
                                     </div>
                                     <button type="button" class="close close-web" data-dismiss="modal">&times;</button>

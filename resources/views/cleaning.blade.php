@@ -140,6 +140,7 @@ use App\Models\Service_review;
                                             <!-- Service Rating -->
                                             <?php
                                             $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                                            $reviewscount = Service_review::where('service_id', $value->service_id)->count();
                                             $avg = (int)$total;
                                             for ($i = 1; $i <= 5; $i++) {
                                                 if ($avg >= $i) {
@@ -150,6 +151,7 @@ use App\Models\Service_review;
                                             }
                                             echo '</span>';
                                             ?>
+                                            <a href="reviews/{{$value->service_id}}" role="button">( {{$reviewscount}} Reviews )</a>
                                         </div>
                                     </div>
                                 </div>

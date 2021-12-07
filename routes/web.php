@@ -14,6 +14,7 @@ use App\Http\Controllers\MailSend;
 use App\Models\User;
 use App\Notifications\NotifyUser;
 use Pusher\Pusher;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -215,21 +216,6 @@ Route::get('/index', function () {
     return view('index');
 });
 
-Route::get('test', function () {
-    $options = array(
-        'cluster' => 'ap1',
-        'useTLS' => true
-    );
-
-    $pusher = new Pusher(
-        env('PUSHER_APP_KEY'),
-        env('PUSHER_APP_SECRET'),
-        env('PUSHER_APP_ID'),
-        $options
-    );
-    $messages = 'Okay';
-    $id = 4;
-    $data = ['messages' => $messages, 'id' => $id];
-    $pusher->trigger('my-channel', 'cleaner-refresh', $data);
-    return "Event has been sent";
+Route::get('/reviews/{id}', function (Request $request) {
+    return view('reviews')->with('service_id', $request->route('id'));
 });
