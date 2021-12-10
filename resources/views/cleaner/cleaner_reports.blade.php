@@ -132,61 +132,6 @@ use App\Models\Cleaner_review;
                 </div>
             </div> <!-- End of Reports -->
 
-            <div id='calendar'></div>
-            <?php
-            $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
-            ?>
-
-        </div>
-    </div>
-    <script>
-        $(document).ready(function() {
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var calendar = $('#calendar').fullCalendar({
-                editable: false,
-                header: {
-                    left: 'prev,next',
-                    center: 'title',
-                    right: 'month, agendaWeek, agendaDay'
-                },
-
-                events: [
-                    @foreach($bookingEvent as $bookings)
-                    <?php
-                    $booking = Assigned_cleaner::Where('booking_id', $bookings->booking_id)->Where('cleaner_id', $cleaner)->Where('status', '!=', 'Declined')->get();
-                    ?>
-                    @foreach($booking as $id)
-                    <?php
-                    $data = Event::Where('booking_id', $id->booking_id)->get();
-                    ?>
-                    @foreach($data as $event) {
-
-                        title: '{{$event->title}}',
-                        start: '{{$event->start}}',
-                        end: '{{$event->end}}'
-
-                    },
-                    @endforeach
-                    @endforeach
-                    @endforeach
-                ],
-                eventColor: '#FFB703'
-            });
-
-        });
-
-        function displayMessage(message) {
-            toastr.success(message, 'Event');
-        }
-    </script>
-
-
     <div class="mobile-spacer">
         <br>
     </div>

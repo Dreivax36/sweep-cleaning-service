@@ -60,7 +60,7 @@ use App\Models\Cleaner_review;
                 </div>
             </div>
             <h2 class="side_con_title">
-                On-Progress Jobs
+                Available Jobs
             </h2>
 
             <?php
@@ -119,87 +119,6 @@ use App\Models\Cleaner_review;
 
             @endif
         </div>
-        <div class="col-md-9">
-            <?php
-            $rating = Cleaner_review::where('cleaner_id', $cleaner)->avg('rate');
-            $canceljobs = 0;
-            $totaljobs = 0;
-            $pendingjobs = 0;
-            $booking = Booking::Where('status', '!=', 'Cancelled')->get();
-            foreach ($booking as $booking) {
-                $id = $booking->booking_id;
-                $cancel = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Declined')->count();
-                $done = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Completed')->count();
-                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
-                if ($cancel == 1) {
-                    $canceljobs++;
-                }
-                if ($done == 1) {
-                    $totaljobs++;
-                }
-                if ($pending == 1) {
-                    $pendingjobs++;
-                }
-            }
-
-            $totalSalary = 0;
-            $booking = Assigned_cleaner::Where('cleaner_id', $cleaner)->get();
-            foreach ($booking as $key => $booking) {
-                $book = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->get();
-                foreach ($book as $key => $book) {
-                    $price = Price::Where('service_id', $book->service_id)->Where('property_type', $book->property_type)->get();
-                    foreach ($price as $key => $price) {
-                        $salary = $price->price / $price->number_of_cleaner;
-                        $totalSalary = $totalSalary + $salary * 0.50;
-                    }
-                }
-            }
-            ?>
-
-            <div class="row justify-content-center" id="report">
-                <!-- Reports -->
-                <div class="weekly_revenue">
-                    <h3 class="value1">
-                        {{$pendingjobs}}
-                    </h3>
-                    <p class="report_title">
-                        Pending Jobs
-                    </p>
-                </div>
-                <div class="weekly_revenue">
-                    <h3 class="value1">
-                        {{$canceljobs}}
-                    </h3>
-                    <p class="report_title">
-                        Cancelled Jobs
-                    </p>
-                </div>
-                <div class="weekly_revenue">
-                    <h3 class="value1">
-                        {{$totaljobs}}
-                    </h3>
-                    <p class="report_title">
-                        Commissioned
-                    </p>
-                </div>
-                <div class="weekly_revenue">
-                    <h3 class="value1">
-                        {{number_format((float)$rating, 0, '.', '')}} / 5
-                    </h3>
-                    <p class="report_title">
-                        Performance
-                    </p>
-                </div>
-                <div class="weekly_revenue">
-                    <h3 class="value1">
-                        ₱ {{ number_format((float)$totalSalary, 2, '.', '')}}
-                    </h3>
-                    <p class="report_title">
-                        Total Salary
-                    </p>
-                </div>
-            </div> <!-- End of Reports -->
-
             <div id='calendar'></div>
             <?php
             $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
