@@ -129,7 +129,7 @@ use App\Models\Notification;
                     <i class="fas fa-hand-sparkles"></i>
                     <h6>Jobs</h6>
                 </a>
-                <a class="nav-button" href="{{ url('/cleaner/cleaner_reports') }}">
+                <a class="nav-button active" href="{{ url('/cleaner/cleaner_reports') }}">
                     <i class="fas fa-file-alt"></i>
                     <h6>Reports</h6>
                 </a>
@@ -137,7 +137,7 @@ use App\Models\Notification;
                     <i class="fas fa-history"></i>
                     <h6>History</h6>
                 </a>
-                <a class="nav-button active" href="cleaner_profile">
+                <a class="nav-button" href="cleaner_profile">
                     <i class="fas fa-user-circle fas-active"></i>
                     <h6>Profile</h6>
                 </a>
