@@ -81,7 +81,6 @@ use App\Models\Notification;
                 <a href="{{ url('/cleaner/cleaner_dashboard') }}" class="nav-link">Home</a>
                 <a id="service" class="nav-link active" href="{{ url('/cleaner/cleaner_job') }}" role="button">Jobs</a>
                 <a id="history" class="nav-link" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
-                <a id="report" class="nav-link active" href="{{ url('/cleaner/cleaner_reports') }}" role="button">Report</a>
                 <!-- Notification Data -->
                 <li class="nav-item dropdown" id="cleaner">
                     <?php
