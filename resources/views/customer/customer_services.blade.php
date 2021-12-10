@@ -127,7 +127,7 @@ use App\Models\Service_review;
                                             }
                                             echo '</span>';
                                             ?>
-                                            <a href="reviews/{{$value->service_id}}" role="button">( {{$reviewscount}} Reviews )</a>
+                                            <a href="reviews/{{$value->service_id}}" role="button" style="font-weight:bold;">( {{$reviewscount}} Reviews )</a>
                                         </div>
                                     </div>
                                 </div>

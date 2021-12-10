@@ -108,7 +108,7 @@ use App\Models\Notification;
                 </div>
                 <div class="modal-body">
                     <!-- Form for adding services -->
-                    <form action="{{ route('store') }}" method="post" id="myform">
+                    <form action="{{ route('store') }}" method="post" id="myform" autocomplete="on">
                         @if(Session::get('success-add'))
                         <script>
                             swal({
@@ -314,7 +314,7 @@ use App\Models\Notification;
                     }
                     echo '</span>';
                     ?>
-                    <a href="reviews/{{$value->service_id}}" role="button">( {{$reviewscount}} Reviews )</a>
+                    <a href="reviews/{{$value->service_id}}" role="button" style="font-weight:bold;">( {{$reviewscount}} Reviews )</a>
                 </div>
             </div>
             <div class="card-body">
@@ -353,7 +353,7 @@ use App\Models\Notification;
                                             }
                                             echo '</span>';
                                             ?>
-                                            <a href="reviews/{{$value->service_id}}" role="button">( {{$reviewscount}} Reviews )</a>
+                                            <a href="reviews/{{$value->service_id}}" role="button" style="font-weight:bold;">( {{$reviewscount}} Reviews )</a>
                                         </div>
                                     </div>
                                     <button type="button" class="close close-web" data-dismiss="modal">&times;</button>

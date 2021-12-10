@@ -93,7 +93,7 @@
                 $reviews = Service_review::where('service_id', $service_id)->get();
             ?>
             @foreach($reviews as $review)
-            <div class="card">
+            <div class="card" style="width: 25rem;">
                 <?php 
                     $bookingid = Review::where('review_id', $review->review_id)->value('booking_id');
                     $customerid = Booking::where('booking_id', $bookingid)->value('customer_id');

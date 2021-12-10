@@ -119,6 +119,7 @@ use App\Models\Cleaner_review;
 
             @endif
         </div>
+        <div class="col-md-9">
             <div id='calendar'></div>
             <?php
             $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
