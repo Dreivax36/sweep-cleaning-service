@@ -448,7 +448,10 @@ td{
 h4{
     margin: 2% 2%;
 }
-
+.starts1 {
+    text-align: left;
+    font-size: small;
+}
 .today{
     background-color: #ffe385;
 }
@@ -576,3 +579,18 @@ h4{
 
 
 
+.mobile-nav{
+    box-shadow: 0 -.125rem .55rem rgba(0,0,0,.075)!important;
+    display: block;
+    background-color: #DBF1FC !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 0;
+    overflow: hidden;
+}

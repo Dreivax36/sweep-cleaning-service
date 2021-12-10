@@ -200,7 +200,7 @@ class BookingController extends Controller
                 $notifications->location = 'accepted';
             } elseif ($status == 'On-the-Way') {
                 $notifications->location = 'on_the_way';
-            } elseif ($status == 'On-Progress') {
+            } elseif ($status == 'In-Progress') {
                 $notifications->location = 'on_progress';
             } elseif ($status == 'Done') {
                 $notifications->location = 'done';

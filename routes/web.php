@@ -99,6 +99,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/cleaner/cleaner_register_step2/{id}',[MainController::class, 'cleaner_register_step2'])->name('cleaner.cleaner_register_step2');
     Route::get('/cleaner/cleaner_register_step3/{id}',[MainController::class, 'cleaner_register_step3'])->name('cleaner.cleaner_register_step3');
     Route::get('/cleaner/cleaner_dashboard',[MainController::class, 'cleaner_dashboard'])->name('cleaner.cleaner_dashboard');
+    Route::get('/cleaner/cleaner_reports',[MainController::class, 'cleaner_reports'])->name('cleaner.cleaner_reports');
     Route::get('/cleaner/cleaner_profile',[MainController::class, 'cleaner_profile'])->name('cleaner.cleaner_profile');
     Route::get('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');
     Route::post('/updateCleaner',[MainController::class, 'updateCleaner'])->name('updateCleaner');

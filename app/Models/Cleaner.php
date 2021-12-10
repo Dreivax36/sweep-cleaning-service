@@ -12,6 +12,6 @@ class Cleaner extends Model
     protected $primaryKey = 'cleaner_id';
 
     protected $fillable = [
-        'age', 'address', 'user_id'
+        'birthday', 'address', 'user_id'
     ];
 }

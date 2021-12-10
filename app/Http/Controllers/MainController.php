@@ -337,6 +337,12 @@ class MainController extends Controller
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_dashboard', $data);
     }
+
+    function cleaner_reports(){
+        $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
+        return view('cleaner.cleaner_reports', $data);
+    }
+    
     //Customer profile page
     function customer_profile(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
@@ -424,7 +430,7 @@ class MainController extends Controller
             //Insert to cleaner table
              $cleaners = new Cleaner;
              $cleaners->user_id = $request->user_id;
-             $cleaners->age = $request->age;
+             $cleaners->birthday = $request->birthday;
              $cleaners->address = $request->address;
              $cleaner_save = $cleaners->save();
              $id = $cleaners->cleaner_id;

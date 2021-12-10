@@ -15,7 +15,7 @@ class CreateCleanersTable extends Migration
     {
         Schema::create('cleaners', function (Blueprint $table) {
             $table->bigIncrements('cleaner_id');
-            $table->integer('age');
+            $table->date('birthday');
             $table->String('address');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users')

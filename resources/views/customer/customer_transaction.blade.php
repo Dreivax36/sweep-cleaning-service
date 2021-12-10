@@ -297,8 +297,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer customer_trans_modal_footer">
-                                    <!-- Show if the status not equal to On-Progress and done -->
-                                    @if($value->status != "On-Progress" && $value->status != "Done")
+                                    <!-- Show if the status not equal to In-Progress and done -->
+                                    @if($value->status != "In-Progress" && $value->status != "Done")
                                     <button type="button" class="btn btn-block btn-primary big_cancel_btn" data-dismiss="modal" data-toggle="modal" data-target="#canceltransaction-{{ $value->booking_id }}">
                                         CANCEL
                                     </button>
@@ -541,7 +541,7 @@
     
     <!-- Get all active booking   -->
     <?php
-        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
+        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'In-Progress')->orWhere('status', 'Done')->get();
         $items = array();
         $count = 0;
     ?>

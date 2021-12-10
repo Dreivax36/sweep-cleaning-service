@@ -54,7 +54,7 @@ use App\Models\Notification;
                 <!-- Notification Data -->
                 <?php
                 $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
+                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at', 'DESC')->get();
                 ?>
                 <a id="navbarDropdown cleaner" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <i class="fa fa-bell"></i>
@@ -78,12 +78,13 @@ use App\Models\Notification;
             <ul class="navbar-nav ml-auto">
                 <a href="{{ url('/cleaner/cleaner_dashboard') }}" class="nav-link">Home</a>
                 <a id="service" class="nav-link" href="{{ url('/cleaner/cleaner_job') }}" role="button">Jobs</a>
-                <a id="hostory" class="nav-link active" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
+                <a id="history" class="nav-link active" href="{{ url('/cleaner/cleaner_history') }}" role="button">History</a>
+                <a id="report" class="nav-link active" href="{{ url('/cleaner/cleaner_reports') }}" role="button">Report</a>
                 <li class="nav-item dropdown" id="cleaner">
                     <!-- Notification Data -->
                     <?php
                     $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
+                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at', 'DESC')->get();
                     ?>
                     <a id="navbarDropdown cleaner" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         <i class="fa fa-bell"></i>
@@ -127,6 +128,10 @@ use App\Models\Notification;
                 <a class="nav-button" href="{{ url('/cleaner/cleaner_job') }}">
                     <i class="fas fa-hand-sparkles"></i>
                     <h6>Jobs</h6>
+                </a>
+                <a class="nav-button" href="{{ url('/cleaner/cleaner_reports') }}">
+                    <i class="fas fa-file-alt"></i>
+                    <h6>Reports</h6>
                 </a>
                 <a class="nav-button active" href="{{ url('/cleaner/cleaner_history') }}">
                     <i class="fas fa-history fas-active"></i>

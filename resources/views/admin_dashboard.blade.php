@@ -126,7 +126,7 @@ use App\Models\Service_review;
       </div>
       <!-- Get active booking -->
       <?php
-      $booking_data = Booking::Where('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->get();
+      $booking_data = Booking::Where('status', 'Accepted')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->get();
       ?>
       @if($booking_data != null)
       @foreach($booking_data as $key => $value)
@@ -277,7 +277,7 @@ use App\Models\Service_review;
       <div class="container mt-5 calendar_con">
         <div id='calendar'></div>
         <?php
-        $booking = Booking::Where('status', 'Accepted')->orwhere('status', 'On-Progress')->orwhere('status', 'On-the-Way')->get();
+        $booking = Booking::Where('status', 'Accepted')->orwhere('status', 'In-Progress')->orwhere('status', 'On-the-Way')->get();
         ?>
       </div>
     </div>

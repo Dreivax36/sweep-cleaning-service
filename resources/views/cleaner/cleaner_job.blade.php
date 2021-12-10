@@ -46,10 +46,10 @@ use App\Models\Assigned_cleaner;
             </div>
             @endif
             @if($bookingID != null)
-            <!-- Get booking with status Pending, Accepted, On-the-Way, On-Progress, and Done -->
+            <!-- Get booking with status Pending, Accepted, On-the-Way, In-Progress, and Done -->
             @foreach($bookingID as $key => $booking)
             <?php
-            $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orderBy('updated_at', 'DESC')->get();
+            $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orderBy('updated_at', 'DESC')->get();
             ?>
             @foreach($booking_data as $key => $value)
             <!-- Check if job assigned to cleaner and booking is equal -->
@@ -195,7 +195,7 @@ use App\Models\Assigned_cleaner;
                                 <?php
                                 $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();
                                 $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
-                                $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-Progress")->count();
+                                $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "In-Progress")->count();
                                 $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();
                                 $idcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->orderBy('cleaner_id', 'ASC')->first();
                                 ?>
@@ -217,12 +217,12 @@ use App\Models\Assigned_cleaner;
                                     @endif
                                     <!-- Check if transaction status is On-the-Way and status in assigned cleaner table is On-the-Way -->
                                     @if($value->status == "On-the-Way" && $onprogresscount != $price_data->number_of_cleaner)
-                                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress">
+                                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="In-Progress">
                                         START CLEANING
                                     </button>
                                     @endif
-                                    <!-- Check if transaction status is On-Progress and status in assigned cleaner table is On-Progres -->
-                                    @if($value->status == "On-Progress" && $donecount != $price_data->number_of_cleaner)
+                                    <!-- Check if transaction status is In-Progress and status in assigned cleaner table is On-Progres -->
+                                    @if($value->status == "In-Progress" && $donecount != $price_data->number_of_cleaner)
                                     <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="Done">
                                         CLEANING COMPLETE
                                     </button>

@@ -48,9 +48,43 @@ use App\Models\Service_review;
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet" />
     <link href="{{ asset('css/customer_services.css') }}" rel="stylesheet">
     <link href="{{ asset('css/popup.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style_welcome.css') }}" rel="stylesheet">
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
+                SWEEP
+            </a>
+            <!-- Notification -->
+            <ul class="navbar-nav mx-auto">
+                <a id="home" class="nav-link active" href="/" role="button">Home</a>
+                <a id="services" class="nav-link" href="services" role="button">Services</a>
+                <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
+                <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
+                <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
+            </ul>
+            <ul class="navbar-nav login-web d-flex">
+                <!-- Authentication Links -->
+                @if (Route::has('customer.customer_login'))
+                <a class="btn login_btn-top" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
+                @endif
+            </ul>
+            <!-- Mobile -->
+            <ul class="mobile-nav sticky-bottom">
+                <a class="nav-button active" href="{{ url('/') }}">
+                    <i class="fas fa-home"></i>
+                    <h6>Home</h6>
+                </a>
+                <a class="nav-button" href="{{ url('/cleaning') }}">
+                    <i class="fas fa-hand-sparkles fas-active"></i>
+                    <h6>Services</h6>
+                </a>
+            </ul>
+        </div>
+    </nav>
+    <div class="mobile-bg">
 <div class="banner-container">
         <div class="banner">
             <div class="text">
@@ -100,7 +134,7 @@ use App\Models\Service_review;
                         <div class="row">
                             <div class="col">
                                 <div class="pricing">
-                                    <h4 class="starts">Starts for as low as </h4>
+                                    <h4 class="starts1">Starts for as low as </h4>
                                     <div class="row pricing">
                                         <div class="col-md-6 col-sm-6 price1">
                                             <h3 class="price">
@@ -336,7 +370,7 @@ use App\Models\Service_review;
 
     <!-- Get all active booking   -->
     <?php
-    $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
+    $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'In-Progress')->orWhere('status', 'Done')->get();
     $items = array();
     $count = 0;
     ?>
@@ -399,11 +433,5 @@ use App\Models\Service_review;
     <!-- Mobile -->
     <div class="mobile-spacer">
     </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <div class="sweep-title">
-            SWEEP © 2021. All Rights Reserved.
-        </div>
     </div>
 </body>

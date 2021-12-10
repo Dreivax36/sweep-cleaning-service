@@ -45,10 +45,10 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div>
-                        <h5>Age</h5>
-                        <input type="number" class="input" name="age" value="{{ old('age') }}">
+                        <h5>Birthday</h5>
+                        <input type="date" class="input" name="birthday" value="{{ old('birthday') }}">
                         <span class="text-danger">
-                            @error('age'){{ $message }} @enderror
+                            @error('birthday'){{ $message }} @enderror
                         </span>
                     </div>
                 </div>                    

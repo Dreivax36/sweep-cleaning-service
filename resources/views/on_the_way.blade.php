@@ -92,7 +92,7 @@ use App\Models\Notification;
 
     <?php
     $booking_data = Booking::Where('status', 'On-the-Way')->orderBy('updated_at', 'DESC')->get();
-    $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
+    $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
     $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
     <div class="row">
@@ -122,7 +122,7 @@ use App\Models\Notification;
                 $pendingSub = Booking::where('status', 'Pending')->count();
                 $acceptedSub = Booking::where('status', 'Accepted')->count();
                 $onthewaySub = Booking::where('status', 'On-the-Way')->count();
-                $onprogressSub = Booking::where('status', 'On-Progress')->count();
+                $onprogressSub = Booking::where('status', 'In-Progress')->count();
                 $doneSub = Booking::where('status', 'Done')->count();
             ?>
             <a class="user_type_btn" href="admin_transaction">
@@ -397,12 +397,12 @@ use App\Models\Notification;
                     
                     <?php
                     $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
-                    $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-Progress")->count();
+                    $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "In-Progress")->count();
                     $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
                     $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
                     @if($value->status == "On-the-Way" && $statusOnProgress == $price_data->number_of_cleaner )
-                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-Progress">
+                    <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="In-Progress">
                         ON-PROGRESS
                     </button>
                     @endif

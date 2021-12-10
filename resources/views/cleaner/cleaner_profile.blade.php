@@ -55,7 +55,7 @@ use App\Models\Address;
                 </div>
                 <div class="cleaner_profile_info_con">
                     <h5 class="cleaner_profile_info">
-                        {{$value->age}}
+                        {{$value->birthday}}
                     </h5>
                 </div>
                 @endforeach
@@ -121,9 +121,9 @@ use App\Models\Address;
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control w-100 add_service_form" id="age" name="age" placeholder="Age" value="{{ old('age',$value->age) }}" required>
+                                    <input type="date" class="form-control w-100 add_service_form" id="birthday" name="birthday" placeholder="Birthday" value="{{ old('birthday',$value->birthday) }}" required>
                                     <span class="text-danger">
-                                        @error('age'){{ $message }} @enderror
+                                        @error('birthday'){{ $message }} @enderror
                                     </span>
                                 </div>
                             
