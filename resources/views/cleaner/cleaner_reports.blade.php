@@ -12,7 +12,7 @@ use App\Models\Event;
 use App\Models\Cleaner_review;
 ?>
 
-@extends('cleaner/cleaner-nav/head_extention_cleaner-home')
+@extends('cleaner/cleaner-nav/head_extention_cleaner-reports')
 
 @section('content')
 
