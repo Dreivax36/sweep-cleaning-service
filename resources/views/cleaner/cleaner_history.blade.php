@@ -11,6 +11,9 @@
     use App\Models\Service_review;
     use App\Models\Cleaner_review;
 ?>
+@extends('cleaner/cleaner-nav/head_extention_cleaner-history')
+
+@section('content')
 <title>
     Cleaner History Page
 </title>
@@ -342,7 +345,7 @@
         </div>
     </footer>
 </body>
-
+@endsection
 <script type="text/javascript">
 function getPageList(totalPages, page, maxLength){
   function range(start, end){
