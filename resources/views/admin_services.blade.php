@@ -144,7 +144,7 @@ use App\Models\Notification;
                                         Description
                                     </label>
 
-                                    <textarea required class="form-control w-100 add_service_form" id="myInput" name="description" value="{{ old('description') }}" required></textarea>
+                                    <input required class="form-control w-100 add_service_form" id="myInput" name="description" value="{{ old('description') }}" required>
                                     <span class="text-danger">@error('description'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -156,7 +156,7 @@ use App\Models\Notification;
                                             These are the things used during a service that are not consumable. Eg. Vaccuum Cleaner.
                                         </i>
                                     </h6>
-                                    <textarea required class="form-control w-100 add_service_form" id="myInput" name="equipment" value="{{ old('equipment') }}" required></textarea>
+                                    <input required class="form-control w-100 add_service_form" id="myInput" name="equipment" value="{{ old('equipment') }}" required>
                                     <span class="text-danger">@error('equipment'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -168,7 +168,7 @@ use App\Models\Notification;
                                             These are the things used during a service that are consumable. Eg. Soap.
                                         </i>
                                     </h6>
-                                    <textarea required class="form-control w-100 add_service_form" id="myInput" name="material" value="{{ old('material') }}" required></textarea>
+                                    <input required class="form-control w-100 add_service_form" id="myInput" name="material" value="{{ old('material') }}" required>
                                     <span class="text-danger">@error('material'){{ $message }} @enderror</span>
                                 </div>
 
