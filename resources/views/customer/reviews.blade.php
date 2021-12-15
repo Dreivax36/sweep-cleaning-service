@@ -7,9 +7,9 @@
     use App\Models\Customer;
     use App\Models\User;
 ?>
+@extends('customer/customer-nav/head_extention_customer-services')
 
-<!DOCTYPE html>
-<html lang="en">
+@section('content')
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -37,32 +37,6 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
-        <div class="container-fluid">
-
-            <button class="navbar-toggler" onclick="history.back()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-
-            <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
-                SWEEP
-            </a>
-            <!-- Notification -->
-            <ul class="navbar-nav mx-auto">
-                <a id="home" class="nav-link active" href="/" role="button">Home</a>
-                <a id="services" class="nav-link" href="services" role="button">Services</a>
-                <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
-                <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
-            </ul>
-            <ul class="navbar-nav login-web d-flex">
-                <!-- Authentication Links -->
-                @if (Route::has('customer.customer_login'))
-                <a class="btn login_btn-top" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
-                @endif
-            </ul>
-        </div>
-    </nav>
     <?php
         $servicename = Service::where('service_id', $service_id)->value('service_name');
         $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $service_id)->value('price');
@@ -122,3 +96,4 @@
     </div>
 
 </body>
+@endsection

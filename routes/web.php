@@ -220,3 +220,11 @@ Route::get('/index', function () {
 Route::get('/reviews/{id}', function (Request $request) {
     return view('reviews')->with('service_id', $request->route('id'));
 });
+
+Route::get('/customer/reviews/{id}', function (Request $request) {
+    return view('/customer/reviews')->with('service_id', $request->route('id'));
+});
+
+Route::get('/admin_reviews/{id}', function (Request $request) {
+    return view('admin_reviews')->with('service_id', $request->route('id'));
+});
