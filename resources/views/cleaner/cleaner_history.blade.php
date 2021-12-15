@@ -11,9 +11,7 @@
     use App\Models\Service_review;
     use App\Models\Cleaner_review;
 ?>
-@extends('cleaner/cleaner-nav/head_extention_cleaner-history')
 
-@section('content')
 <title>
     Cleaner History Page
 </title>
@@ -79,7 +77,17 @@
         </h1>
     </div>
     <div class="body">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center card-content">
+        <div class="pagination">
+          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
+        </div>
         <!-- Get job history - status with completed, declined, cancelled -->
         <?php
             $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
@@ -320,16 +328,7 @@
             @endforeach
             @endforeach
             @endif
-            <div class="pagination">
-          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
-          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
-          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
-        </div>
+     
         </div>
     </div>
     <!-- Mobile -->

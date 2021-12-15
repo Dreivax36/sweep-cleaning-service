@@ -143,13 +143,57 @@ use App\Models\Service_review;
 
     <div class="container">
       <div class="card-content" style="display: none">
-       @foreach($booking_data as $key => $value)
+       @foreach($booking_data as $key => $booking)
         <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
+                <h5 class="cleaner_job_status float-right">
+                    {{ $booking->status }}
+                </h5>
+                <div class="d-flex card_body">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3 class="service_title_trans">
+                    
+                    </h3>
+                </div>
+                <div>
+                    <h6 class="booking_date">
+                        <b>Transaction ID:</b> {{ $booking->booking_id }}
+                    </h6>
+                </div>
+                <table class="table table-striped user_info_table">
+                    <tbody>
+                        <tr class="user_table_row">
+                           
+                        </tr>
+                        <tr class="user_table_row">
+                            <th scope="row" class="user_table_header">
+                                Schedule:
+                            </th>
+                            <td class="user_table_data">
+                                {{ date('F d, Y', strtotime($booking->schedule_date)) }} {{ date('h:i A', strtotime($booking->schedule_time)) }}
+                            </td>
+                        </tr>
+                        <tr class="user_table_row">
+                            <th scope="row" class="user_table_header">
+                                Property:
+                            </th>
+                            <td class="user_table_data">
+                                {{ $booking->property_type}}
+                            </td>
+                        </tr>
+                        <tr class="user_table_row">
+                            <th scope="row" class="user_table_header">
+                                Price:
+                            </th>
+                           
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="buttons">
+                    <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $booking->booking_id }}">
+                        View Details
+                    </button>
+                </div>
         </div>
        @endforeach
         <div class="pagination">
