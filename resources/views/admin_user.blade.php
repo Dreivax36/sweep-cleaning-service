@@ -171,7 +171,9 @@ use App\Models\Notification;
         <script src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.min.js"></script>
         <!-- Datatable -->
         <script>
-             
+            $(document).ready(function() {
+                $('#user_table').DataTable();
+            });
             // Enable pusher logging - don't include this in production
             Pusher.logToConsole = true;
 
