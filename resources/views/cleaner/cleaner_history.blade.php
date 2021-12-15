@@ -34,7 +34,7 @@
         box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
         }
 
-        .pagination li a{
+        .pagination .page-item a{
         color: #fff;
         text-decoration: none;
         font-size: 1.2em;
@@ -64,7 +64,7 @@
         cursor: pointer;
         }
 
-        .active{
+        .active1{
         background: #0AB1CE;
         }
 
@@ -72,7 +72,6 @@
         background: #ccc;
         }
      </style>   
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="utf-8"></script>
 
 <body>
     <div class="jobs">
@@ -389,7 +388,7 @@ $(function(){
 
     getPageList(totalPages, currentPage, paginationSize).forEach(item => {
       $("<li>").addClass("page-item").addClass(item ? "current-page" : "dots")
-      .toggleClass("active", item === currentPage).append($("<a>").addClass("page-link")
+      .toggleClass("active1", item === currentPage).append($("<a>").addClass("page-link")
       .attr({href: "javascript:void(0)"}).text(item || "...")).insertBefore(".next-page");
     });
 
@@ -406,7 +405,7 @@ $(function(){
   $(".card-content").show();
   showPage(1);
 
-  $(document).on("click", ".pagination li.current-page:not(.active)", function(){
+  $(document).on("click", ".pagination li.current-page:not(.active1)", function(){
     return showPage(+$(this).text());
   });
 
