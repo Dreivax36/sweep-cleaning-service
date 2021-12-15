@@ -79,7 +79,7 @@
         </h1>
     </div>
     <div class="body">
-        <div class="row justify-content-center card-content">
+        <div class="card-content row justify-content-center">
         <div class="pagination">
           <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
           <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
