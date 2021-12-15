@@ -21,6 +21,7 @@
 <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+
         .pagination{
         text-align: center;
         margin: 30px 30px 60px;
@@ -78,7 +79,7 @@
         </h1>
     </div>
     <div class="body">
-        <div class="row card-content justify-content-center">
+        <div class="row justify-content-center">
         <!-- Get job history - status with completed, declined, cancelled -->
         <?php
             $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
@@ -123,16 +124,7 @@
             $address = Address::Where('customer_id', $value->customer_id)->value('address');
             $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
         ?>
-        <div class="pagination">
-          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
-          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
-          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
-        </div>
+
         <div class="card job" style="width: 25rem;">
             <div class="card-body">
                 @if ($booking->status != 'Declined' || $booking->status != 'Cleaner-no-response' )
@@ -328,6 +320,16 @@
             @endforeach
             @endforeach
             @endif
+            <div class="pagination">
+          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
+        </div>
         </div>
     </div>
     <!-- Mobile -->
@@ -368,7 +370,7 @@ function getPageList(totalPages, page, maxLength){
 }
 
 $(function(){
-  var numberOfItems = $(".card-content .card").length;
+  var numberOfItems = $(".card .card-body").length;
   var limitPerPage = 3; //How many card items visible per a page
   var totalPages = Math.ceil(numberOfItems / limitPerPage);
   var paginationSize = 7; //How many page elements visible in the pagination
@@ -379,7 +381,7 @@ $(function(){
 
     currentPage = whichPage;
 
-    $(".card-content .card").hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
+    $(".card-body .card").hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
 
     $(".pagination li").slice(1, -1).remove();
 
@@ -399,7 +401,7 @@ $(function(){
     $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Next"))
   );
 
-  $(".card-content").show();
+  $(".card").show();
   showPage(1);
 
   $(document).on("click", ".pagination li.current-page:not(.active)", function(){

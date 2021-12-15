@@ -1,3 +1,18 @@
+<?php
+
+use App\Models\Booking;
+use App\Models\Customer;
+use App\Models\Service;
+use App\Models\Price;
+use App\Models\Address;
+use App\Models\User;
+use App\Models\Cleaner;
+use App\Models\Notification;
+use App\Models\Assigned_cleaner;
+use App\Models\Review;
+use App\Models\Cleaner_review;
+use App\Models\Service_review;
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -120,9 +135,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="utf-8"></script>
   </head>
   <body>
+  <?php
+    $booking_data = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->orderBy('updated_at', 'DESC')->get();
+    $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'In-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
+    $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
+    ?>
 
     <div class="container">
       <div class="card-content" style="display: none">
+       @foreach($booking_data as $key => $value)
         <div class="card">
           <div class="card-image"><img src="1.jpg" alt=""></div>
           <div class="card-info">
@@ -130,83 +151,7 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 02</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 03</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-image"><img src="1.jpg" alt=""></div>
-          <div class="card-info">
-            <h3>Card 01</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </div>
+       @endforeach
         <div class="pagination">
           <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
           <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
