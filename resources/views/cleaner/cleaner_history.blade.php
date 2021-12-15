@@ -369,7 +369,7 @@ function getPageList(totalPages, page, maxLength){
 }
 
 $(function(){
-  var numberOfItems = $(".card .card-body").length;
+  var numberOfItems = $(".card-content .card").length;
   var limitPerPage = 3; //How many card items visible per a page
   var totalPages = Math.ceil(numberOfItems / limitPerPage);
   var paginationSize = 7; //How many page elements visible in the pagination
@@ -380,7 +380,7 @@ $(function(){
 
     currentPage = whichPage;
 
-    $(".card-body .card").hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
+    $(".card-content .card").hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
 
     $(".pagination li").slice(1, -1).remove();
 
@@ -400,7 +400,7 @@ $(function(){
     $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Next"))
   );
 
-  $(".card").show();
+  $(".card-content").show();
   showPage(1);
 
   $(document).on("click", ".pagination li.current-page:not(.active)", function(){
