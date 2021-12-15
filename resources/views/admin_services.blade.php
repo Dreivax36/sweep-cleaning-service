@@ -136,7 +136,7 @@ use App\Models\Notification;
                                     <label class="upload_label">
                                         Service Name
                                     </label>
-                                    <input type="text" required class="form-control w-100 add_service_form" id="myInput" name="service_name" value="{{ old('service_name') }}" required>
+                                    <input type="text" required class="form-control w-100 add_service_form" name="service_name" value="{{ old('service_name') }}" required>
                                     <span class="text-danger">@error('service_name'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -144,7 +144,7 @@ use App\Models\Notification;
                                         Description
                                     </label>
 
-                                    <input required class="form-control w-100 add_service_form" id="myInput" name="description" value="{{ old('description') }}" required>
+                                    <textarea required class="form-control w-100 add_service_form" name="description" value="{{ old('description') }}" required></textarea>
                                     <span class="text-danger">@error('description'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -156,7 +156,7 @@ use App\Models\Notification;
                                             These are the things used during a service that are not consumable. Eg. Vaccuum Cleaner.
                                         </i>
                                     </h6>
-                                    <input required class="form-control w-100 add_service_form" id="myInput" name="equipment" value="{{ old('equipment') }}" required>
+                                    <textarea required class="form-control w-100 add_service_form" id="equipment" name="equipment" value="{{ old('equipment') }}" required></textarea>
                                     <span class="text-danger">@error('equipment'){{ $message }} @enderror</span>
                                 </div>
                                 <div class="form-group">
@@ -168,7 +168,7 @@ use App\Models\Notification;
                                             These are the things used during a service that are consumable. Eg. Soap.
                                         </i>
                                     </h6>
-                                    <input required class="form-control w-100 add_service_form" id="myInput" name="material" value="{{ old('material') }}" required>
+                                    <textarea required class="form-control w-100 add_service_form" id="material" name="material" value="{{ old('material') }}" required></textarea>
                                     <span class="text-danger">@error('material'){{ $message }} @enderror</span>
                                 </div>
 
@@ -184,7 +184,7 @@ use App\Models\Notification;
                                             These are neccesary protection for the cleaners for chemicals and particles. Eg. Gloves, Masks.
                                         </i>
                                     </h6>
-                                    <textarea required class="form-control w-100 add_service_form" id="myInput" name="personal_protection" value="{{ old('personal_protection') }}" required></textarea>
+                                    <textarea required class="form-control w-100 add_service_form" id="ppe" name="personal_protection" value="{{ old('personal_protection') }}" required></textarea>
                                     <span class="text-danger">@error('personal_protection'){{ $message }} @enderror</span>
                                 </div>
                                 <h5 class="pricing_title">
@@ -842,7 +842,9 @@ var material = [
 ];
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), material);
+autocomplete(document.getElementById("material"), material);
+autocomplete(document.getElementById("ppe"), material);
+autocomplete(document.getElementById("equipment"), material);
 </script>
 
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
