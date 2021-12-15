@@ -341,7 +341,6 @@
         </div>
     </footer>
 </body>
-@endsection
 
 <script type="text/javascript">
 function getPageList(totalPages, page, maxLength){
