@@ -12,6 +12,7 @@ use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\MailSend;
 use App\Models\User;
+use App\Models\Admin;
 use App\Notifications\NotifyUser;
 use Pusher\Pusher;
 use Illuminate\Http\Request;
@@ -221,10 +222,12 @@ Route::get('/reviews/{id}', function (Request $request) {
     return view('reviews')->with('service_id', $request->route('id'));
 });
 
-Route::get('/customer/reviews/{id}', function (Request $request) {
-    return view('/customer/reviews')->with('service_id', $request->route('id'));
+Route::get('/customer_reviews/{id}', function (Request $request) {
+    $data = ['LoggedUserInfo' => User::where('user_id', '=', session('LoggedUser'))->first()];
+    return view('customer_reviews', $data)->with('service_id', $request->route('id'));
 });
 
 Route::get('/admin_reviews/{id}', function (Request $request) {
-    return view('admin_reviews')->with('service_id', $request->route('id'));
+    $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
+    return view('admin_reviews', $data)->with('service_id', $request->route('id'));
 });

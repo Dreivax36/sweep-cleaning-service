@@ -1,4 +1,5 @@
 <?php
+    use App\Models\Notification;
     use App\Models\Service;
     use App\Models\Price;
     use App\Models\Service_review;
@@ -22,6 +23,9 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/navig.css') }}" rel="stylesheet">
 
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">

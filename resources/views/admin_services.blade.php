@@ -1,5 +1,4 @@
 <?php
-
 use App\Models\Service;
 use App\Models\Price;
 use App\Models\Service_review;
