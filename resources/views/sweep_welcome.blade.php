@@ -21,67 +21,7 @@ use App\Models\Service_review;
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-        *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-        }
-
-        .container{
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        }
-
-        .card-content{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        margin: 30px;
-        }
-
-        .card{
-        position: relative;
-        background: #fff;
-        max-width: 325px;
-        width: 325px;
-        height: auto;
-        margin: 25px;
-        box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
-        border-radius: 10px;
-        overflow: hidden;
-        }
-
-        .card-image{
-        max-height: 200px;
-        }
-
-        .card-image img{
-        max-width: 100%;
-        height: auto;
-        }
-
-        .card-info{
-        position: relative;
-        color: #222;
-        padding: 10px 20px 20px;
-        }
-
-        .card-info h3{
-        font-size: 1.8em;
-        font-weight: 800;
-        margin-bottom: 5px;
-        }
-
-        .card-info p{
-        font-size: 1em;
-        margin-bottom: 5px;
-        }
-
+    
         .pagination{
         text-align: center;
         margin: 30px 30px 60px;
@@ -132,18 +72,121 @@ use App\Models\Service_review;
         background: #ccc;
         }
      </style>   
+     <link href="{{ asset('css/cleaner_history.css') }}" rel="stylesheet">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="utf-8"></script>
   </head>
   <body>
   <?php
-    $booking_data = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->orderBy('updated_at', 'DESC')->get();
-    $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'In-Progress')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
-    $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
-    ?>
+              $userID = User::Where('email', 'duanexcleaner@gmail.com')->value('user_id');
+            $cleanerID = Cleaner::Where('user_id', $userID)->value('cleaner_id');
+            $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
+            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
+        ?>
 
-    <div class="container">
-      <div class="card-content" style="display: none">
-      <div class="pagination">
+    <div class="body">
+      <div class="card-content row justify-content-center" style="display: none">
+      
+        @if($bookingID != null)
+        @foreach($bookingID as $key => $booking)
+        <!-- Get transaction equal to the transaction assigned -->
+        @if($booking->status == 'Declined')
+        <?php
+            $booking_data = Booking::Where('booking_id', $booking->booking_id)->get();
+        ?>
+        @else
+        <?php
+            $booking_data = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->orWhere('status', 'Cancelled')->orderBy('updated_at','DESC')->get();
+        ?>
+        @endif
+        
+        @foreach($booking_data as $key => $value)
+        <!-- Check the transaction if it is equal to the transaction in assigned cleaner table  -->
+        @if($booking->booking_id == $value->booking_id || $booking->status == 'Declined')
+        <?php
+            $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
+            $serviceName = Service::Where('service_id', $value->service_id)->value('service_name');
+            $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+            $user_data = User::Where('user_id', $userID)->get();
+            $address = Address::Where('customer_id', $value->customer_id)->value('address');
+            $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
+        ?>
+        <div class="card job" style="width: 25rem;">
+        <div class="card-body">
+        @if ($booking->status != 'Declined' || $booking->status != 'Cleaner-no-response' )
+                <h5 class="cleaner_job_status float-right">
+                    {{ $value->status }}
+                </h5>
+                @else
+                <h5 class="cleaner_job_status float-right">
+                    {{ $booking->status }}
+                </h5>
+                @endif
+                <div class="d-flex card_body">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3 class="service_title_trans">
+                        {{ $serviceName}}
+                    </h3>
+                </div>
+                <div>
+                    <h6 class="booking_date">
+                        <b>Transaction ID:</b> {{ $booking_id }}
+                    </h6>
+                </div>
+                <table class="table table-striped user_info_table">
+                    <tbody>
+                        <tr class="user_table_row">
+                            @foreach($user_data as $key => $user)
+                            <th scope="row" class="user_table_header">
+                                Customer:
+                            </th>
+                            <td class="user_table_data">
+                                {{ $user->full_name }}
+                            </td>
+                            @endforeach
+                        </tr>
+                        <tr class="user_table_row">
+                            <th scope="row" class="user_table_header">
+                                Schedule:
+                            </th>
+                            <td class="user_table_data">
+                                {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                            </td>
+                        </tr>
+                        <tr class="user_table_row">
+                            <th scope="row" class="user_table_header">
+                                Property:
+                            </th>
+                            <td class="user_table_data">
+                                {{ $value->property_type}}
+                            </td>
+                        </tr>
+                        <tr class="user_table_row">
+                            <th scope="row" class="user_table_header">
+                                Price:
+                            </th>
+                            @foreach($price as $key => $price_data)
+                            <td class="user_table_data">
+                            ₱{{ $price_data->price }} 
+                            </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="buttons">
+                    <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
+                        View Details
+                    </button>
+                </div>
+        </div>
+    </div>
+        @endforeach
+            @endif
+            @endforeach
+            @endforeach
+            @endif
+            <div class="pagination">
           <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
           <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
           <li class="page-item dots"><a class="page-link" href="#">...</a></li>
@@ -153,60 +196,6 @@ use App\Models\Service_review;
           <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
           <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
         </div>
-       @foreach($booking_data as $key => $booking)
-        <div class="card">
-                <h5 class="cleaner_job_status float-right">
-                    {{ $booking->status }}
-                </h5>
-                <div class="d-flex card_body">
-                    <i class="fas fa-clipboard-list"></i>
-                    <h3 class="service_title_trans">
-                    
-                    </h3>
-                </div>
-                <div>
-                    <h6 class="booking_date">
-                        <b>Transaction ID:</b> {{ $booking->booking_id }}
-                    </h6>
-                </div>
-                <table class="table table-striped user_info_table">
-                    <tbody>
-                        <tr class="user_table_row">
-                           
-                        </tr>
-                        <tr class="user_table_row">
-                            <th scope="row" class="user_table_header">
-                                Schedule:
-                            </th>
-                            <td class="user_table_data">
-                                {{ date('F d, Y', strtotime($booking->schedule_date)) }} {{ date('h:i A', strtotime($booking->schedule_time)) }}
-                            </td>
-                        </tr>
-                        <tr class="user_table_row">
-                            <th scope="row" class="user_table_header">
-                                Property:
-                            </th>
-                            <td class="user_table_data">
-                                {{ $booking->property_type}}
-                            </td>
-                        </tr>
-                        <tr class="user_table_row">
-                            <th scope="row" class="user_table_header">
-                                Price:
-                            </th>
-                           
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="buttons">
-                    <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $booking->booking_id }}">
-                        View Details
-                    </button>
-                </div>
-        </div>
-       @endforeach
-        
       </div>
     </div>
 
