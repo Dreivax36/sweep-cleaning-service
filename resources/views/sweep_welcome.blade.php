@@ -1,24 +1,24 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Notification;
-use App\Models\Assigned_cleaner;
-use App\Models\Review;
-use App\Models\Cleaner_review;
-use App\Models\Service_review;
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Review;
+    use App\Models\Service_review;
+    use App\Models\Cleaner_review;
 ?>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Fully Functional Pagination | Working With Example UI Cards - HTML, CSS & Jquery</title>
-    <style>
+@extends('cleaner/cleaner-nav/head_extention_cleaner-history')
+
+@section('content')
+<title>
+    Cleaner History Page
+</title>
+<link href="{{ asset('css/cleaner_history.css') }}" rel="stylesheet">
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
     
@@ -34,7 +34,7 @@ use App\Models\Service_review;
         box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
         }
 
-        .pagination li a{
+        .pagination .page-item a{
         color: #fff;
         text-decoration: none;
         font-size: 1.2em;
@@ -64,7 +64,7 @@ use App\Models\Service_review;
         cursor: pointer;
         }
 
-        .active{
+        .active1{
         background: #0AB1CE;
         }
 
@@ -72,21 +72,46 @@ use App\Models\Service_review;
         background: #ccc;
         }
      </style>   
-     <link href="{{ asset('css/cleaner_history.css') }}" rel="stylesheet">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" charset="utf-8"></script>
-  </head>
-  <body>
-  <?php
-              $userID = User::Where('email', 'duanexcleaner@gmail.com')->value('user_id');
-            $cleanerID = Cleaner::Where('user_id', $userID)->value('cleaner_id');
-            $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
+<body>
+    <div class="jobs">
+        <h1 class="cleaner_cards_title">
+            History
+        </h1>
+    </div>
+    <div class="body">
+        <div class="card-content row justify-content-center">
+        <div class="pagination">
+          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
+        </div>
+        <!-- Get job history - status with completed, declined, cancelled -->
+        <?php
+          $userID = User::Where('email', 'duanexcleaner@gmail.com')->value('user_id');
+          $cleanerID = Cleaner::Where('user_id', $userID)->value('cleaner_id');           
+          $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
             $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
         ?>
+        <!-- No history display this -->
+        @if($cleanerCount == 0)
+        <div class="banner-container">
+            <div class="banner1">
+                <div class="text">
+                    <h1> You currently have no history.</h1>
+                </div>
+                <div class="image">
+                    <img src="/images/services/header_img.png" class="img-fluid">
+                </div>
 
-    <div class="body">
-      <div class="card-content row justify-content-center" style="display: none">
-      
+            </div>
+        </div>
+        @endif
         @if($bookingID != null)
         @foreach($bookingID as $key => $booking)
         <!-- Get transaction equal to the transaction assigned -->
@@ -111,9 +136,10 @@ use App\Models\Service_review;
             $address = Address::Where('customer_id', $value->customer_id)->value('address');
             $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
         ?>
+
         <div class="card job" style="width: 25rem;">
-        <div class="card-body">
-        @if ($booking->status != 'Declined' || $booking->status != 'Cleaner-no-response' )
+            <div class="card-body">
+                @if ($booking->status != 'Declined' || $booking->status != 'Cleaner-no-response' )
                 <h5 class="cleaner_job_status float-right">
                     {{ $value->status }}
                 </h5>
@@ -169,7 +195,6 @@ use App\Models\Service_review;
                             <td class="user_table_data">
                             ₱{{ $price_data->price }} 
                             </td>
-                            
                         </tr>
                     </tbody>
                 </table>
@@ -179,29 +204,27 @@ use App\Models\Service_review;
                         View Details
                     </button>
                 </div>
+            </div>
         </div>
-    </div>
-        @endforeach
+            @endforeach
             @endif
             @endforeach
             @endforeach
             @endif
-            <div class="pagination">
-          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
-          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
-          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
+   
         </div>
-      </div>
     </div>
-
-  </body>
-</html>
-
+    <!-- Mobile -->
+    <div class="mobile-spacer">
+    </div>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="sweep-title">
+            SWEEP © 2021. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+@endsection
 <script type="text/javascript">
 function getPageList(totalPages, page, maxLength){
   function range(start, end){
@@ -245,7 +268,7 @@ $(function(){
 
     getPageList(totalPages, currentPage, paginationSize).forEach(item => {
       $("<li>").addClass("page-item").addClass(item ? "current-page" : "dots")
-      .toggleClass("active", item === currentPage).append($("<a>").addClass("page-link")
+      .toggleClass("active1", item === currentPage).append($("<a>").addClass("page-link")
       .attr({href: "javascript:void(0)"}).text(item || "...")).insertBefore(".next-page");
     });
 
@@ -262,7 +285,7 @@ $(function(){
   $(".card-content").show();
   showPage(1);
 
-  $(document).on("click", ".pagination li.current-page:not(.active)", function(){
+  $(document).on("click", ".pagination li.current-page:not(.active1)", function(){
     return showPage(+$(this).text());
   });
 
