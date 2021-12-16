@@ -344,7 +344,7 @@
         </div>
     </footer>
 </body>
-@endsection
+
 <script type="text/javascript">
 function getPageList(totalPages, page, maxLength){
   function range(start, end){
@@ -418,3 +418,4 @@ $(function(){
   });
 });
 </script>
+@endsection
