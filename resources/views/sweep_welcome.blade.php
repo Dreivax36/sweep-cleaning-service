@@ -11,7 +11,9 @@
     use App\Models\Service_review;
     use App\Models\Cleaner_review;
 ?>
+@extends('cleaner/cleaner-nav/head_extention_cleaner-history')
 
+@section('content')
 <title>
     Cleaner History Page
 </title>
@@ -78,13 +80,22 @@
         </h1>
     </div>
     <div class="body">
-        <div class="card-content row justify-content-center" >
-        
+        <div class="card-content row justify-content-center">
+        <div class="pagination">
+          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
+          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
+          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
+          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
+        </div>
         <!-- Get job history - status with completed, declined, cancelled -->
         <?php
-          $userID = User::Where('email', 'duanexcleaner@gmail.com')->value('user_id');
-          $cleanerID = Cleaner::Where('user_id', $userID)->value('cleaner_id');           
-          $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
+            $userID = User::Where('email', 'duanexcleaner@gmail.com')->value('user_id');
+            $cleanerID = Cleaner::Where('user_id', $userID)->value('cleaner_id');
+            $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
             $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
         ?>
         <!-- No history display this -->
@@ -195,21 +206,133 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="details-{{$value->booking_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <input type="hidden" name="service_id" value="{{ $value->service_id }}">
+                <div class="modal-content p-4 cleaner_job_modal_content">
+                    <div class="modal-header cleaner_job_modal_header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="p-4">
+                            <button type="button" class="close-mobile" data-dismiss="modal">
+                                Back
+                            </button>
+                            <h4 class="cleaner_job_modal_title">
+                                {{ $serviceName }}
+                            </h4>
+                            <h6 class="cleaner_job_modal_date_1_1">
+                                {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                            </h6>
+                            <h6 class="cleaner_job_modal_amount_1">
+                                Total Amount: ₱{{ $price_data->price }}
+                            </h6>
+                        </div>
+                    </div>
+                        <div class="modal-body">
+                            <div class="cleaner_job_modal_body_1_con">
+                                <ul class="cleaner_detail">
+                                    @foreach($user_data as $key => $user)
+                                    <li>
+                                        <b>Customer:</b>
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Name:</b> {{ $user->full_name }}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Contact Number:</b> {{ $user->contact_number }}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Address:</b> {{ $address }}
+                                    </li>
+                                    <br>
+                                    <li><b>Service Details:</b></li>
+                                    <li class="list_booking_info">
+                                        <b>Property Type:</b> {{ $value->property_type}}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Cleaner/s:</b> {{ $price_data->number_of_cleaner}}
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Status:</b> {{ $value->status }}
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <b>Feedback:</b>
+                                    </li>
+                                    <li class="list_booking_info">
+                                        <b>Service:</b>
+                                        <!-- Services review -->
+                                        <?php
+                                            $review_id = Review::where('booking_id', $value->booking_id)->where('review_type', 'Service')->value('review_id');
+                                        ?>
+                                        @if($review_id != null)
+                                        
+                                    </li>
+                                    <div>
+                                            <?php
+                                                $total = Service_review::where('review_id', $review_id)->value('rate');
+                                                for ($i = 1; $i <= 5; $i++) {
+                                                    if ($total >= $i) {
+                                                        echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                    } else {
+                                                        echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                    }
+                                                }
+                                                $comment = Service_review::where('review_id', $review_id)->value('comment');
+                                            ?>
+                                        </div>
+                                    <li class="list_booking_info">
+                                        <b>Comment:</b> {{$comment}}
+                                    </li>
+                                        @endif
+                                    <li class="list_booking_info">
+                                        <b>Review for you:</b>
+                                        <!-- Cleaner review -->
+                                        <?php
+                                            $reviewId = Review::where('booking_id', $value->booking_id)->where('review_type', 'Cleaner')->get();
+                                        ?>
+                                        @if($reviewId != null)
+                                        @foreach($reviewId as $review)
+                                        <?php
+                                            $total = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('rate');
+                                        ?>
+                                        @if($total != null)
+                                        
+                                    </li>
+                                    <div>
+                                            <?php
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                if ($total >= $i) {
+                                                    echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                } else {
+                                                    echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                }
+                                            }
+                                            $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
+                                            ?>
+                                        </div>
+                                    <li class="list_booking_info">
+                                        <b>Comment:</b> {{$comment}}
+                                    </li>
+                                    @endif
+                                    @endforeach
+                                    @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- End of Modal Content -->
+                </div>
+            </div> <!-- End of Modal -->
             @endforeach
             @endif
             @endforeach
             @endforeach
             @endif
-            <div class="pagination">
-          <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
-          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
-          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
-        </div>
+   
         </div>
     </div>
     <!-- Mobile -->
@@ -296,3 +419,4 @@ $(function(){
   });
 });
 </script>
+@endsection
