@@ -22,59 +22,6 @@ use App\Models\Cleaner_review;
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-
-    .pagination {
-        text-align: center;
-        margin: 30px 30px 30px;
-        user-select: none;
-        display: block;
-    }
-
-    .pagination li {
-        display: inline-block;
-        margin: 5px;
-        box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
-    }
-
-    .pagination .page-item a {
-        color: #000;
-        text-decoration: none;
-        font-size: 1.2em;
-        line-height: 45px;
-    }
-
-    .previous-page,
-    .next-page {
-        background: #0AB1CE;
-        width: 80px;
-        border-radius: 45px;
-        cursor: pointer;
-        transition: 0.3s ease;
-    }
-
-    .previous-page:hover {
-        transform: translateX(-5px);
-    }
-
-    .next-page:hover {
-        transform: translateX(5px);
-    }
-
-    .current-page,
-    .dots {
-        background: #ccc;
-        width: 45px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
-    .active1 {
-        background: #0AB1CE;
-    }
-
-    .disable {
-        background: #ccc;
-    }
 </style>
 
 <body>
@@ -377,7 +324,7 @@ use App\Models\Cleaner_review;
 
     $(function() {
         var numberOfItems = $(".card-content .card").length;
-        var limitPerPage = 3; //How many card items visible per a page
+        var limitPerPage = 10; //How many card items visible per a page
         var totalPages = Math.ceil(numberOfItems / limitPerPage);
         var paginationSize = 7; //How many page elements visible in the pagination
         var currentPage;
