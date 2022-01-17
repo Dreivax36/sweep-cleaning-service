@@ -30,6 +30,7 @@
     <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
+            
             <a class="navbar-brandname" href="{{ url('/') }}">
                 SWEEP
             </a>
@@ -39,12 +40,12 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <a href="admin_dashboard" class="nav-link">Home</a>
-                    <a class="nav-link" href="admin_services" role="button" id="active">Services</a>
-                    <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-                    <a class="nav-link" href="admin_user" role="button">User</a>
-                    <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                    <a class="nav-link" href="admin_reports" role="button">Reports</a>
+                    <a href="admin_dashboard" class="nav-link"></a>
+                    <a class="nav-link" href="admin_services" role="button" id="active"></a>
+                    <a class="nav-link" href="admin_transaction" role="button"></a>
+                    <a class="nav-link" href="admin_user" role="button"></a>
+                    <a class="nav-link" href="admin_payroll" role="button"></a>
+                    <a class="nav-link" href="admin_reports" role="button"></a>
                     <!-- Notification -->
                     <li class="nav-item dropdown" id="admin">
                         <?php
@@ -94,7 +95,9 @@
     <div class="modal-header customer_services_modal_header">
 
         <div class="p-4">
-
+            <button class="navbar-toggler" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
             <h4 class="modal_customer_services_title">
                 {{$servicename}}
             </h4>
