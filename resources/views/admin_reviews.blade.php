@@ -30,7 +30,9 @@
     <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
-            
+        <button class="navbar-toggler" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+        </button>
             <a class="navbar-brandname" href="{{ url('/') }}">
                 SWEEP
             </a>
@@ -95,9 +97,7 @@
     <div class="modal-header customer_services_modal_header">
         
         <div class="p-4">
-        <button class="navbar-toggler" onclick="history.back()">
-                <i class="fas fa-arrow-left"></i>
-        </button>
+        
             <h4 class="modal_customer_services_title">
                 {{$servicename}}
             </h4>
