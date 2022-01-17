@@ -107,8 +107,7 @@
                 <i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
             </a>
         </div>
-        <button class="button btn-primary" onclick="history.back()">
-            back
+         <button type="button" class="btn-close" onclick="history.back()">
         </button>
     </div>
 
