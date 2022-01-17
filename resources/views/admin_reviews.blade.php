@@ -93,11 +93,13 @@
         $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $service_id)->value('price');
     ?>
     <div class="modal-header customer_services_modal_header">
-            
+        
         <div class="p-4">
-            <button class="navbar-toggler" onclick="history.back()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
+            <div class="customer_cards_title">
+                <button class="navbar-toggler" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
             <h4 class="modal_customer_services_title">
                 {{$servicename}}
             </h4>
