@@ -67,9 +67,7 @@ Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/admin_reports',[MainController::class, 'admin_reports'])->name('admin_reports'); 
     Route::get('/admin_user_employees',[MainController::class, 'admin_user_employees'])->name('admin_user_employees'); 
     Route::post('/addEmployee',[MainController::class, 'addEmployee'])->name('addEmployee');
-    Route::post('/admin_reviews/{id}',[MainController::class, 'admin_reviews'])->name('admin_reviews');
 
-    
     //Route for Customer Pages
     Route::get('/customer/customer_login',[MainController::class, 'customer_login'])->name('customer.customer_login');
     Route::get('/customer/customer_register',[MainController::class, 'customer_register'])->name('customer.customer_register');
@@ -229,3 +227,7 @@ Route::get('/customer_reviews/{id}', function (Request $request) {
     return view('customer_reviews', $data)->with('service_id', $request->route('id'));
 });
 
+Route::get('/admin_reviews/{id}', function (Request $request) {
+    $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
+    return view('admin_reviews', $data)->with('service_id', $request->route('id'));
+});

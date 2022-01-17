@@ -109,11 +109,6 @@ class MainController extends Controller
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user_customer', $data);
     }
-
-    function admin_reviews(Request $request){
-        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
-        return view('admin_reviews', $data)->with('service_id', $request->route('id'));
-    }
     //View Admin User Cleaner Page
     function admin_user_cleaner(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];

@@ -27,7 +27,7 @@
     <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
     <link href="{{ asset('css/navig.css') }}" rel="stylesheet">
 
-<div id="app">
+    <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brandname" href="{{ url('/') }}">
