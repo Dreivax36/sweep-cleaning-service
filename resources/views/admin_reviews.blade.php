@@ -107,7 +107,7 @@
                 <i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
             </a>
         </div>
-        <button class="navbar-toggler btn-primary" onclick="history.back()">
+        <button class="button btn-primary" onclick="history.back()">
             back
         </button>
     </div>
