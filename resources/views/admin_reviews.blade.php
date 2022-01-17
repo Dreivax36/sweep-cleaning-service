@@ -95,9 +95,7 @@
     <div class="modal-header customer_services_modal_header">
 
         <div class="p-4">
-            <button class="navbar-toggler" onclick="history.back()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
+            
             <h4 class="modal_customer_services_title">
                 {{$servicename}}
             </h4>
@@ -110,6 +108,9 @@
             </a>
 
         </div>
+        <button class="navbar-toggler float-right" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i>
+        </button>
     </div>
 
     <div class="rating-cont">
