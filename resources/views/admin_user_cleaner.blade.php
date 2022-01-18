@@ -159,7 +159,7 @@ use App\Models\Employee;
                         @foreach($user_data as $value)
                         <?php
                         $id = Cleaner::Where('user_id', $value->user_id)->value('cleaner_id');
-                        $age = Cleaner::Where('user_id', $value->user_id)->value('age');
+                        $bday = Cleaner::Where('user_id', $value->user_id)->value('birthday');
                         $address = Cleaner::Where('user_id', $value->user_id)->value('address');
                         $description = Clearance::Where('cleaner_id', $id)->value('description');
                         $requirement = Clearance::Where('cleaner_id', $id)->value('requirement');
@@ -171,7 +171,7 @@ use App\Models\Employee;
                                 {{ $value->full_name }}
                             </td>
                             <td class="user_table_data">
-                                {{ $age }}
+                                {{ $bday }}
                             </td>
                             <td class="user_table_data">
                                 {{ $address }}

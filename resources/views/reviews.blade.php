@@ -1,11 +1,12 @@
 <?php
-    use App\Models\Service;
-    use App\Models\Price;
-    use App\Models\Service_review;
-    use App\Models\Review;
-    use App\Models\Booking;
-    use App\Models\Customer;
-    use App\Models\User;
+
+use App\Models\Service;
+use App\Models\Price;
+use App\Models\Service_review;
+use App\Models\Review;
+use App\Models\Booking;
+use App\Models\Customer;
+use App\Models\User;
 ?>
 
 <!DOCTYPE html>
@@ -64,9 +65,9 @@
         </div>
     </nav>
     <?php
-        $servicename = Service::where('service_id', $service_id)->value('service_name');
-        $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $service_id)->value('price');
-        $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $service_id)->value('price');
+    $servicename = Service::where('service_id', $service_id)->value('service_name');
+    $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $service_id)->value('price');
+    $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $service_id)->value('price');
     ?>
     <div class="modal-header customer_services_modal_header">
 
@@ -89,20 +90,20 @@
     <div class="rating-cont">
         <h2>Customer Ratings</h2>
         <div class="row justify-content-center">
-            <?php 
-                $reviews = Service_review::where('service_id', $service_id)->get();
+            <?php
+            $reviews = Service_review::where('service_id', $service_id)->get();
             ?>
             @foreach($reviews as $review)
             <div class="card" style="width: 25rem;">
-                <?php 
-                    $bookingid = Review::where('review_id', $review->review_id)->value('booking_id');
-                    $customerid = Booking::where('booking_id', $bookingid)->value('customer_id');
-                    $user_id = Customer::where('customer_id', $customerid)->value('user_id');
-                    $fullname = User::where('user_id', $user_id)->value('full_name');
+                <?php
+                $bookingid = Review::where('review_id', $review->review_id)->value('booking_id');
+                $customerid = Booking::where('booking_id', $bookingid)->value('customer_id');
+                $user_id = Customer::where('customer_id', $customerid)->value('user_id');
+                $fullname = User::where('user_id', $user_id)->value('full_name');
                 ?>
                 <h5>{{$fullname}}</h5>
-                <h6>Total Rating: 
-                <?php             
+                <h6>Total Rating:
+                    <?php
                     $avg = (int)$review->rate;
                     for ($i = 1; $i <= 5; $i++) {
                         if ($avg >= $i) {
@@ -112,8 +113,8 @@
                         }
                     }
                     echo '</span>';
-                ?>
-                </h6>    
+                    ?>
+                </h6>
                 <h6>Comments:</h6>
                 <p>{{$review->comment}}</p>
             </div>

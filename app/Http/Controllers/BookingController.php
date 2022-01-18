@@ -34,24 +34,28 @@ class BookingController extends Controller
         $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
         return view('admin_transaction', $data);
     }
+
     //View customer transaction page
     function customer_transaction()
     {
         $data = ['LoggedUserInfo' => User::where('user_id', '=', session('LoggedUser'))->first()];
         return view('customer.customer_transaction', $data);
     }
+
     //View customer history page
     function customer_history()
     {
         $data = ['LoggedUserInfo' => User::where('user_id', '=', session('LoggedUser'))->first()];
         return view('customer.customer_history', $data);
     }
+
     //View cleaner job page
     function cleaner_job()
     {
         $data = ['LoggedUserInfo' => User::where('user_id', '=', session('LoggedUser'))->first()];
         return view('cleaner.cleaner_job', $data);
     }
+
     //View cleaner history page
     function cleaner_history()
     {
@@ -62,7 +66,6 @@ class BookingController extends Controller
     //Customer Book a service
     function book(Request $request)
     {
-
         //Validate Requests
         $request->validate([
             'property_type' => 'required',
@@ -233,6 +236,7 @@ class BookingController extends Controller
         $notifications->user_id = $user;
         if ($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled') {
             $notifications->location = 'customer/customer_history';
+
         } else {
             $notifications->location = 'customer/customer_transaction';
         }
@@ -261,6 +265,7 @@ class BookingController extends Controller
                 //Update the status of asssigned_cleaner table 
                 if ($status == 'Completed' || $status == 'Declined' || $status == 'Cancelled') {
                     $assign = Assigned_cleaner::Where('booking_id', '=', $bookingID)->Where('cleaner_id', '=', $cleanerID->cleaner_id)->update(['status' => $status]);
+                    $notifdelete = Notification::Where('booking_id', $request->booking_id)->delete();
                 }
                 //Add Cleaner Notification
                 $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner_id)->value('user_id');
