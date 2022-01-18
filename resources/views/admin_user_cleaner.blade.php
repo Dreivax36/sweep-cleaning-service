@@ -127,7 +127,7 @@ use App\Models\Employee;
                                 Full Name
                             </th>
                             <th class="text-center user_table_header">
-                                Age
+                                Birthday
                             </th>
                             <th class="text-center user_table_header">
                                 Address

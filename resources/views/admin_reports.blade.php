@@ -625,7 +625,12 @@ use App\Models\Employee;
                                                 @foreach($service as $id)
                                                 <?php
                                                 $requested = Booking::where('service_id', $id->service_id)->where('status', '!=', 'Cancelled')->count();
-                                                $serviceRequested = ($requested / $totalRequested) * 100;
+                                                if($totalRequested != 0){
+                                                    $serviceRequested = ($requested / $totalRequested) * 100;
+                                                }
+                                                else{
+                                                    $serviceRequested = 0;
+                                                }
                                                 ?> '{{$serviceRequested}}',
                                                 @endforeach
                                             ],
@@ -702,7 +707,12 @@ use App\Models\Employee;
                                             <td class="user_table_data">
                                                 <?php
                                                 $requested = Booking::where('service_id', $serviceNames->service_id)->whereMonth('created_at', $month)->where('status', '!=', 'Cancelled')->count();
-                                                $serviceRequested = ($requested / $totalRequested) * 100;
+                                                if($totalRequested != 0){
+                                                    $serviceRequested = ($requested / $totalRequested) * 100;
+                                                }
+                                                else{
+                                                    $serviceRequested = 0;
+                                                }
                                                 ?>
                                                 {{ number_format((float)$serviceRequested, 2, '.', '')}}
                                             </td>
