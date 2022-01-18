@@ -752,8 +752,12 @@ use App\Models\Employee;
                         $completed = Booking::where('status', 'Completed')->whereMonth('created_at', $month)->count();
                         $cancelled = Booking::where('status', 'Cancelled')->whereMonth('created_at', $month)->count();
                         $totalBook = $completed + $cancelled;
-                        $completed = ($completed / $totalBook) * 100;
-                        $cancelled = ($cancelled / $totalBook) * 100;
+                        if($completed == 0 && $totalBook == 0){
+                            $completed = ($completed / $totalBook) * 100;
+                        }
+                        if($cancelled == 0 && $totalBook == 0){
+                            $cancelled = ($cancelled / $totalBook) * 100;
+                        }
                         ?>
                         <div class="justify-content-center">
                             <canvas id="ratio"></canvas>
