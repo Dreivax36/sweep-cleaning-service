@@ -49,6 +49,7 @@
             <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
                 SWEEP
             </a>
+           
             <!-- Notification -->
             <ul class="navbar-nav mx-auto">
                 <a id="home" class="nav-link active" href="/" role="button">Home</a>

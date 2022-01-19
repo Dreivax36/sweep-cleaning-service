@@ -51,10 +51,6 @@
     .navbar .navbar-nav{
         display: none;
     }
-
-    .login_btn-top {
-        display: none;
-    }
     
     .mobile-nav {
         box-shadow: 0 -0.225rem 1.2rem rgba(0,0,0,0.3)!important;

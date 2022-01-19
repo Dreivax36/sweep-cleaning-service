@@ -625,7 +625,7 @@ use App\Models\Employee;
                                                 @foreach($service as $id)
                                                 <?php
                                                 $requested = Booking::where('service_id', $id->service_id)->where('status', '!=', 'Cancelled')->count();
-                                                if($totalRequested != 0){
+                                                if($totalRequested > 0){
                                                     $serviceRequested = ($requested / $totalRequested) * 100;
                                                 }
                                                 else{
@@ -707,7 +707,7 @@ use App\Models\Employee;
                                             <td class="user_table_data">
                                                 <?php
                                                 $requested = Booking::where('service_id', $serviceNames->service_id)->whereMonth('created_at', $month)->where('status', '!=', 'Cancelled')->count();
-                                                if($totalRequested != 0){
+                                                if($totalRequested > 0){
                                                     $serviceRequested = ($requested / $totalRequested) * 100;
                                                 }
                                                 else{
@@ -752,11 +752,13 @@ use App\Models\Employee;
                         $completed = Booking::where('status', 'Completed')->whereMonth('created_at', $month)->count();
                         $cancelled = Booking::where('status', 'Cancelled')->whereMonth('created_at', $month)->count();
                         $totalBook = $completed + $cancelled;
-                        if($completed == 0 && $totalBook == 0){
+                        if($totalBook > 0){
                             $completed = ($completed / $totalBook) * 100;
-                        }
-                        if($cancelled == 0 && $totalBook == 0){
                             $cancelled = ($cancelled / $totalBook) * 100;
+                        }
+                        else{
+                            $completed = 0;
+                            $cancelled = 0;
                         }
                         ?>
                         <div class="justify-content-center">
