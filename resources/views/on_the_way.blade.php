@@ -403,7 +403,7 @@ use App\Models\Notification;
                     ?>
                     @if($value->status == "On-the-Way" && $statusOnProgress == $price_data->number_of_cleaner )
                     <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="In-Progress">
-                        ON-PROGRESS
+                        IN-PROGRESS
                     </button>
                     @endif
                     
