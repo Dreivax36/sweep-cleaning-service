@@ -150,7 +150,7 @@ use App\Models\Notification;
                 @endif
             </a>
             <a class="user_type_btn"  href="on_progress">
-                ON-PROGRESS
+                IN-PROGRESS
                 @if($onprogressSub != 0)
                 <p class="total_value1">
                     ({{$onprogressSub}})
