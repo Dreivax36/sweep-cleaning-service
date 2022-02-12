@@ -27,23 +27,24 @@
     </div>
     <div class="body">
         <div class="row justify-content-center">
-        <!-- Get job history - status with completed, declined, cancelled -->
+        <!-- Display job history with completed, declined or cancelled statuses -->
         <?php
             $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
             $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
             $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at','DESC')->get();
         ?>
-        <!-- No history display this -->
+        <!-- This will display if has no job history -->
         @if($cleanerCount == 0)
         <div class="banner-container">
             <div class="banner1">
                 <div class="text">
-                    <h1> You currently have no history.</h1>
+                    <h1> 
+                        You currently have no history.
+                    </h1>
                 </div>
                 <div class="image">
                     <img src="/images/services/header_img.png" class="img-fluid">
                 </div>
-
             </div>
         </div>
         @endif
@@ -61,7 +62,7 @@
         @endif
         
         @foreach($booking_data as $key => $value)
-        <!-- Check the transaction if it is equal to the transaction in assigned cleaner table  -->
+        <!-- Check the transaction if it is equal to the transaction in assigned cleaner table -->
         @if($booking->booking_id == $value->booking_id || $booking->status == 'Declined')
         <?php
             $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
@@ -238,7 +239,7 @@
                                         
                                     </li>
                                     <div>
-                                            <?php
+                                        <?php
                                             for ($i = 1; $i <= 5; $i++) {
                                                 if ($total >= $i) {
                                                     echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
@@ -247,8 +248,8 @@
                                                 }
                                             }
                                             $comment = Cleaner_review::where('review_id', $review->review_id)->where('cleaner_id', $cleanerID)->value('comment');
-                                            ?>
-                                        </div>
+                                        ?>
+                                    </div>
                                     <li class="list_booking_info">
                                         <b>Comment:</b> {{$comment}}
                                     </li>
@@ -259,7 +260,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div><!-- End of Modal Content -->
+                    </div>
                 </div>
             </div> <!-- End of Modal -->
             @endforeach
@@ -269,9 +270,11 @@
             @endif
         </div>
     </div>
+    
     <!-- Mobile -->
-    <div class="mobile-spacer">
-    </div>
+        <div class="mobile-spacer">
+        </div>
+
     <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">

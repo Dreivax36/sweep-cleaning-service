@@ -1,20 +1,20 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Event;
-use App\Models\Notification;
-use Carbon\Carbon;
-use App\Models\Service_review;
+  use App\Models\Booking;
+  use App\Models\Customer;
+  use App\Models\Service;
+  use App\Models\Price;
+  use App\Models\Address;
+  use App\Models\User;
+  use App\Models\Cleaner;
+  use App\Models\Event;
+  use App\Models\Notification;
+  use Carbon\Carbon;
+  use App\Models\Service_review;
 ?>
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
   Admin Dashboard Page
 </title>
@@ -41,17 +41,29 @@ use App\Models\Service_review;
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <a href="admin_dashboard" class="nav-link" id="active">Home</a>
-          <a class="nav-link" href="admin_services" role="button">Services</a>
-          <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-          <a class="nav-link" href="admin_user" role="button">User</a>
-          <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-          <a class="nav-link" href="admin_reports" role="button">Reports</a>
+          <a href="admin_dashboard" class="nav-link" id="active">
+            Home
+          </a>
+          <a class="nav-link" href="admin_services" role="button">
+            Services
+          </a>
+          <a class="nav-link" href="admin_transaction" role="button">
+            Transactions
+          </a>
+          <a class="nav-link" href="admin_user" role="button">
+            User
+          </a>
+          <a class="nav-link" href="admin_payroll" role="button">
+            Payroll
+          </a>
+          <a class="nav-link" href="admin_reports" role="button">
+            Reports
+          </a>
           <!-- Notification -->
           <li class="nav-item dropdown" id="admin">
             <?php
-            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+              $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+              $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
             ?>
             <a id="navbarDropdown admin" class="nav-link admin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               <i class="fa fa-bell"></i>
@@ -119,14 +131,14 @@ use App\Models\Service_review;
       </div>
       <!-- Get active booking -->
       <?php
-      $booking_data = Booking::Where('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->get();
+        $booking_data = Booking::Where('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'On-the-Way')->get();
       ?>
       @if($booking_data != null)
       @foreach($booking_data as $key => $value)
       <?php
-      $service_data = Service::Where('service_id', $value->service_id)->get();
-      $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-      $user_data = User::Where('user_id', $userID)->get();
+        $service_data = Service::Where('service_id', $value->service_id)->get();
+        $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+        $user_data = User::Where('user_id', $userID)->get();
       ?>
       @foreach($service_data as $key => $data)
       @foreach($user_data as $key => $user)
@@ -166,29 +178,29 @@ use App\Models\Service_review;
     <div class="col-md-9">
       <!-- Compute daily revenue, total revenue, sweep customer, sweep cleaner -->
       <?php
-      $decline = Booking::where('status', 'Cancelled')->where('status', 'Declined')->count();
-      $complete = Booking::where('status', 'Completed')->count();
-      $services = Service::count();
-      $satisfaction = Service_review::avg('rate');
-      $total = 0;
-      $revenue = 0;
-      $totalToday = 0;
-      $revenueToday = 0;
-      $cleaner = User::where('user_type', 'Cleaner')->where('account_status', 'Validated')->count();
-      $customer = User::where('user_type', 'Customer')->where('account_status', 'Validated')->count();
-      $bookingRevenue = Booking::Where('status', 'Completed')->get();
-      foreach ($bookingRevenue as $bookingRevenue) {
-        $price = Price::where('service_id', $bookingRevenue->service_id)->where('property_type', $bookingRevenue->property_type)->value('price');
-        $total = $total + $price;
-      }
-      $revenue = $total * 0.70;
+        $decline = Booking::where('status', 'Cancelled')->where('status', 'Declined')->count();
+        $complete = Booking::where('status', 'Completed')->count();
+        $services = Service::count();
+        $satisfaction = Service_review::avg('rate');
+        $total = 0;
+        $revenue = 0;
+        $totalToday = 0;
+        $revenueToday = 0;
+        $cleaner = User::where('user_type', 'Cleaner')->where('account_status', 'Validated')->count();
+        $customer = User::where('user_type', 'Customer')->where('account_status', 'Validated')->count();
+        $bookingRevenue = Booking::Where('status', 'Completed')->get();
+        foreach ($bookingRevenue as $bookingRevenue) {
+          $price = Price::where('service_id', $bookingRevenue->service_id)->where('property_type', $bookingRevenue->property_type)->value('price');
+          $total = $total + $price;
+        }
+        $revenue = $total * 0.70;
 
-      $bookingToday = Booking::where('status', 'Completed')->where('schedule_date', Carbon::today())->get();
-      foreach ($bookingToday as $bookingToday) {
-        $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
-        $totalToday = $totalToday + $priceToday;
-      }
-      $revenueToday = $totalToday * 0.70;
+        $bookingToday = Booking::where('status', 'Completed')->where('schedule_date', Carbon::today())->get();
+        foreach ($bookingToday as $bookingToday) {
+          $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
+          $totalToday = $totalToday + $priceToday;
+        }
+        $revenueToday = $totalToday * 0.70;
       ?>
       <!-- Reports -->
       <div class="row justify-content-center" id="report">
@@ -282,7 +294,9 @@ use App\Models\Service_review;
       <div class="modal-content">
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">
+              ×
+            </span>
           </button>
           <div class="icon">
             <i class="fa fa-sign-out-alt"></i>
@@ -292,14 +306,18 @@ use App\Models\Service_review;
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-          <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">
+            No
+          </button>
+          <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+            Yes
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Calendar -->
+  <!-- Calendar Scripts -->
   <script>
     $(document).ready(function() {
 

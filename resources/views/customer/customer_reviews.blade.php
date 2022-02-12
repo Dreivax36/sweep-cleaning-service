@@ -18,11 +18,11 @@
     <title>
         Customer Reviews Page
     </title>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -33,9 +33,7 @@
     <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
     <link href="{{ asset('css/navig.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
-
 </head>
-
 <body>
     <?php
         $servicename = Service::where('service_id', $service_id)->value('service_name');
@@ -45,7 +43,6 @@
     <div class="modal-header customer_services_modal_header">
 
         <div class="p-4">
-
             <h4 class="modal_customer_services_title">
                 {{$servicename}}
             </h4>
@@ -56,7 +53,6 @@
                 <!-- Service Rating -->
                 <i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star" style="color:yellow" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
             </a>
-
         </div>
     </div>
 
@@ -75,25 +71,27 @@
                     $fullname = User::where('user_id', $user_id)->value('full_name');
                 ?>
                 <h5>{{$fullname}}</h5>
-                <h6>Total Rating: 
-                <?php             
-                    $avg = (int)$review->rate;
-                    for ($i = 1; $i <= 5; $i++) {
-                        if ($avg >= $i) {
-                            echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                        } else {
-                            echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                <h6>
+                    Total Rating: 
+                    <?php             
+                        $avg = (int)$review->rate;
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($avg >= $i) {
+                                echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                            } else {
+                                echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                            }
                         }
-                    }
-                    echo '</span>';
-                ?>
+                        echo '</span>';
+                    ?>
                 </h6>    
-                <h6>Comments:</h6>
+                <h6>
+                    Comments:
+                </h6>
                 <p>{{$review->comment}}</p>
             </div>
             @endforeach
         </div>
     </div>
-
 </body>
 @endsection

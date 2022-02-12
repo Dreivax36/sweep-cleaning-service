@@ -33,16 +33,14 @@
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
-
-
     <title>
         Welcome Page
     </title>
+
     <link href="{{ asset('css/style_welcome.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -51,11 +49,21 @@
             </a>
             <!-- Notification -->
             <ul class="navbar-nav mx-auto">
-                <a id="home" class="nav-link active" href="/" role="button">Home</a>
-                <a id="services" class="nav-link" href="services" role="button">Services</a>
-                <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
-                <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
+                <a id="home" class="nav-link active" href="/" role="button">
+                    Home
+                </a>
+                <a id="services" class="nav-link" href="services" role="button">
+                    Services
+                </a>
+                <a id="jobs" class="nav-link" href="jobs" role="button">
+                    Jobs
+                </a>
+                <a id="about_us" class="nav-link" href="about_us" role="button">
+                    About Us
+                </a>
+                <a id="contact_us" class="nav-link" href="contact_us" role="button">
+                    Contact Us
+                </a>
             </ul>
             <ul class="navbar-nav login-web d-flex">
                 <!-- Authentication Links -->
@@ -80,8 +88,12 @@
     <div class="banner-container">
         <div class="banner">
             <div class="text">
-                <h1>The Road to Cleanliness has never been easier.</h1>
-                <p>Making your comfort zones squeaky clean one step at a time.</p>
+                <h1>
+                    The Road to Cleanliness has never been easier.
+                </h1>
+                <p>
+                    Making your comfort zones squeaky clean one step at a time.
+                </p>
                 <a class="btn btn-primary signup_btn" href="/customer/customer_register">{{ __('Sign Up') }}</a>
 
             </div>
@@ -96,21 +108,27 @@
             <div class="row gx-5">
                 <div class="text col-sm-4">
                     <i class="fas fa-money-bill-wave fa-2x"></i>
-                    <h4 class="title">Affordable</h4>
+                    <h4 class="title">
+                        Affordable
+                    </h4>
                     <p>
                         Sweep focuses on you. With various services offered, there is one that is perfect for you.
                     </p>
                 </div>
                 <div class="text col-sm-4">
                     <i class="fas fa-hand-sparkles fa-2x"></i>
-                    <h4 class="title">Quality Assured</h4>
+                    <h4 class="title">
+                        Quality Assured
+                    </h4>
                     <p class="desc">
                         All plans have there respective points checklist provided for you. This make sure that an availed service is of good quality.
                     </p>
                 </div>
                 <div class="text col-sm-4">
                     <i class="fas fa-business-time fa-2x"></i>
-                    <h4 class="title">Convenient</h4>
+                    <h4 class="title">
+                        Convenient
+                    </h4>
                     <p class="desc">
                         We lift your burdens by providing an extra set of hands enabling you to carry on with your lives with ease.
                     </p>
@@ -119,13 +137,18 @@
         </div>
     </div>
 
-
     <div class="more-info">
         <div class="row1">
             <div class="foryou">
-                <h5 class="for-you">For You</h5>
-                <h2 class="title1">We're all about<br>cleanliness and<br>convenience.</h2>
-                <p class="for-you-text">Save yourself the hassle by booking cleaning services. Our goal is to to make sure everyone would live and work in a clean, safe, and enjoyable environment.</p>
+                <h5 class="for-you">
+                    For You
+                </h5>
+                <h2 class="title1">
+                    We're all about<br>cleanliness and<br>convenience.
+                </h2>
+                <p class="for-you-text">
+                    Save yourself the hassle by booking cleaning services. Our goal is to to make sure everyone would live and work in a clean, safe, and enjoyable environment.
+                </p>
                 <a class="btn btn-primary learn_btn" href="{{ 'about_us' }}">{{ __('Learn More') }}</a>
             </div>
             <div class="col-7">
@@ -137,9 +160,15 @@
                 <img src="images/home/services.jpg" class="img-fluid">
             </div>
             <div class="services">
-                <h5 class="for-you2">Services</h5>
-                <h2 class="title2">Longing for <br>Cleanliness? Easy.</h2>
-                <p class="for-you-text">Sweep provides quality cleaning and sanitation services ready for you to avail.</p>
+                <h5 class="for-you2">
+                    Services
+                </h5>
+                <h2 class="title2">
+                    Longing for <br>Cleanliness? Easy.
+                </h2>
+                <p class="for-you-text">
+                    Sweep provides quality cleaning and sanitation services ready for you to avail.
+                </p>
                 <a class="btn btn-primary learn_srvbtn" href="{{ 'about_us' }}">{{ __('Learn More') }}</a>
             </div>
         </div>
@@ -223,8 +252,12 @@
     <div class="download">
         <div class="row3">
             <div class="dcont">
-                <h2 class="dtitle">Download our App</h2>
-                <p class="d-text">Download the app and get your homes clean with just a click of a button. Now available on the Google Play Store.</p>
+                <h2 class="dtitle">
+                    Download our App
+                </h2>
+                <p class="d-text">
+                    Download the app and get your homes clean with just a click of a button. Now available on the Google Play Store.
+                </p>
                 <a class="btn btn-primary down_btn" href="{{ 'about_us' }}">{{ __('Download Now') }}</a>
             </div>
         </div>
@@ -341,11 +374,8 @@
             </div>
         </div>
 
-
-
         <!-- Mobile -->
         <div class="mobile-spacer">
         </div>
     </div>
-
 </body>

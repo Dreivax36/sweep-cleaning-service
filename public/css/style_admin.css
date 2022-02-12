@@ -16,7 +16,10 @@ body {
     align-items: center;
 
 }
+
+
 /* Admin Search Bar */
+
 
 .search_con {
     margin-top: 40px;
@@ -62,6 +65,8 @@ body {
 
 
 /* Admin Login and Register Page */
+
+
 .login_body, 
 .reg_body {
     background-color: #bdcae0;
@@ -276,6 +281,9 @@ body {
 
 
 /* Admin User Page */
+
+
+
 .user_type_btn{
     color: #04192E;
     font-weight: bolder;
@@ -345,7 +353,6 @@ body {
 } 
 .head_user {
     background-color: #0069f5;
-
 }
 .center{
     position: absolute;
@@ -372,6 +379,8 @@ body {
 
 
  /* Admin Cleaner Page */
+
+
 
  .verify_btn {
     width: 100%;
@@ -407,6 +416,9 @@ body {
 
 
 /* Admin Services Page */
+
+
+
 .customer_search_con {
     position: relative;
     float: right;
@@ -426,18 +438,15 @@ body {
     font-size: 22px;
     font-family: 'Raleway', sans-serif;
 }
-
 .service-card{
     width: 25rem; 
     height: 20rem; 
     margin: 10px;
     border-radius: 20px;
 }
-
 .card-footer:last-child{
     border-radius: 0px 0px 20px 20px;
 }
-
 .service-header{
     margin: 20px;
 }
@@ -558,7 +567,6 @@ body {
     font-size: 15px;
     font-family: 'Raleway', sans-serif;
 }
-
 .update_btn {
     background-color: #BEE7FD;
     border: #BEE7FD;
@@ -591,9 +599,11 @@ body {
 
 
 
-
-
 /* Admin Transaction Page */
+
+
+
+
 
 .check_icon_outside {
     color: #FB8500;
@@ -606,7 +616,6 @@ body {
     color: #FB8500;  
     margin-top: -5px;
 }
-
 .service_status {
     float: right;
     margin-top: 5px;
@@ -667,6 +676,8 @@ body {
 
 /* Admin Transaction History Page */
 
+
+
 .trans_his_con {
     margin-top: 40px;
     margin-left: auto;
@@ -686,12 +697,13 @@ body {
 .user_table_trans_his_header {
     background-color: rgb(177, 224, 243);
 }
-
 #card-lists {
     margin-left: 0px;
 }
 
+
 /* Responsiveness */
+
 
 @media (max-width: 991px){
     header {
@@ -723,47 +735,21 @@ body {
 }
 
 
-/* lost
-
-.trans-history-btn {
-    width: 200px;
-    background-color: #FB8500;
-    border: #FB8500;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    border-radius: 10px; 
-}
-.trans-history {
-    padding-left: 695px;
-}
-.trans-view-details-btn {
-    width:300px;
-    background-color: #BEE7FD;
-    border: #BEE7FD;
-    color: black;
-    font-weight: bold;
-    border-radius: 15px; 
-    font-size: 13px;
-}
-
-*/
 
 .stars {
     color: #ff7501;
     font-size: 1.2em;
 }
-.sweep-title{
+.sweep-title {
     font-size: clamp(15px, 4vw, 17px);
     font-weight:400;
     color: #F7f7f7;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-
 .footer{
     background-color: #061835;
     padding: .75%;
 }
-
 #footer {
     margin-top: 30px;
     background-color: #061835;
@@ -774,7 +760,6 @@ body {
     bottom: 0px;
     padding: .75%;
 }
-
 .modal-title {
     font-size: 20px;
     font-weight: bold;
@@ -808,7 +793,6 @@ body {
     position: absolute !important;
     width: 1px !important
 }
-
 .select2-container--default .select2-selection--single,
 .select2-selection .select2-selection--single {
     border: 1px solid #d2d6de;
@@ -816,13 +800,11 @@ body {
     padding: 6px 12px;
     height: 34px
 }
-
 .select2-container--default .select2-selection--single {
     background-color: #fff;
     border: 1px solid #aaa;
     border-radius: 4px
 }
-
 .select2-container .select2-selection--single {
     box-sizing: border-box;
     cursor: pointer;
@@ -831,23 +813,19 @@ body {
     user-select: none;
     -webkit-user-select: none
 }
-
 .select2-container .select2-selection--single .select2-selection__rendered {
     padding-right: 10px
 }
-
 .select2-container .select2-selection--single .select2-selection__rendered {
     padding-left: 0;
     padding-right: 0;
     height: auto;
     margin-top: -3px
 }
-
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #444;
     line-height: 28px
 }
-
 .select2-container--default .select2-selection--single,
 .select2-selection .select2-selection--single {
     border: 1px solid #d2d6de;
@@ -855,7 +833,6 @@ body {
     padding: 6px 12px;
     height: 40px !important
 }
-
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 26px;
     position: absolute;
@@ -863,7 +840,6 @@ body {
     right: 1px;
     width: 20px
 }
-
 .notification {         
     max-height: 400px;
     overflow-y: auto;
@@ -879,13 +855,11 @@ body {
     max-height: 400px;
     overflow-y: auto;
 }
-
 .banner-container{
     align-items: center;
     font-size: 30px;
     background-size: cover;
 }
-
 .banner{
     background-color: #F7f7f7;
     height: max-content;
@@ -893,18 +867,15 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 .banner-container .banner .image{
     flex:1 1 250px;
     padding: 35px;
     text-align: left;
     margin-bottom: 50px;
 }
-
 .banner-container .banner .image img{
     width: clamp(80%, 4vw, 90%);
 }
-
 .banner-container .banner .text{
     flex:1 1 250px;
     padding: clamp(60px, 4vw, 10%);
@@ -912,7 +883,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 .icon {
     margin: 5px 0px;
     width: 50px;
@@ -926,30 +896,25 @@ body {
     margin-left: 40%;
     margin-right: 40%;
 }
-
 .icon i.fa {
     font-size: 30px;
     color: #34f234;
 }
-
 .icon i.fa {
     font-size: 30px;
     color: #34f234;
 }
-
 .title {
     margin: 5px 0px;
     font-size: 30px;
     font-weight: 600;
     text-align: center;
 }
-
 .description{
     color: #222;
     font-size: 15px;
     padding: 5px;
 }
-
 .starRate{
     margin-left: 30px;
 }

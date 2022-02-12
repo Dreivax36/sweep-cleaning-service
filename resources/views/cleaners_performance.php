@@ -7,7 +7,6 @@ use Carbon\Carbon;
 // Include the main TCPDF library (search for installation path).
 require_once('library/tcpdf.php');
 
-
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF
 {
@@ -61,19 +60,15 @@ class MYPDF extends TCPDF
 ob_clean();
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-
-
 // set header and footer fonts
 $pdf->setPrintHeader(false);
 $pdf->setPrintFooter(false);
-
 
 // set default monospaced font
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
 $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-
 
 // set auto page breaks
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
@@ -102,8 +97,6 @@ $pdf->SetFont('times', '', 12);
 $month = Carbon::now()->month;
 $year = Carbon::now()->year;
 $pdf->Cell(189,5,"For " .date("F", mktime(0, 0, 0, $month, 1))." " .$year,0,1,'C');
-
-
 
 $pdf->Ln(18);
 
@@ -156,8 +149,6 @@ $pdf->Cell(189,5,"This file was generated on ". date('F d, Y', strtotime(Carbon:
 
 //Close and output PDF document
 $pdf->Output('Cleaner_Performance.pdf', 'D');
-
-
 
 ob_flush();
 exit;

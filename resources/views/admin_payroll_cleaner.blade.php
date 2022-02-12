@@ -10,72 +10,74 @@
 @extends('head_extention_admin') 
 
 @section('content')
-    <title>
-        Admin Payroll Cleaner Page
-    </title>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
 
-    <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brandname" href="{{ url('/') }}">
-                    SWEEP
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class= "navbar-nav ml-auto">    
-                        <a href="admin_dashboard" class="nav-link">Home</a>
-                        <a class="nav-link" href="admin_services" role="button" >Services</a>
-                        <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-                        <a class="nav-link" href="admin_user" role="button" >User</a>
-                        <a class="nav-link" href="admin_payroll" role="button" id="active">Payroll</a>
-                        <a class="nav-link" href="admin_reports" role="button">Reports</a>
-                        <!-- Notification -->
-                        <li class="nav-item dropdown" id="admin">
-                            <?php
-                                  $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                                  $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
-                              ?>
-                           <a id="navbarDropdown admin" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-bell"></i> 
-                                @if($notifCount != 0)
-                                    <span class="badge alert-danger pending">{{$notifCount}}</span>
-                                @endif
-                            </a>    
-                            <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-                                @forelse ($notif as $notification)
-                                <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
-                                    {{ $notification->message}}
-                                </a>                   
-                                @empty
-                                <a class="dropdown-item">
-                                    No record found
-                                </a>
-                                @endforelse 
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ $LoggedUserInfo['email'] }}
+<title>
+    Admin Payroll Cleaner Page
+</title>
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+
+<div id="app">
+    <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brandname" href="{{ url('/') }}">
+                SWEEP
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class= "navbar-nav ml-auto">    
+                    <a href="admin_dashboard" class="nav-link">Home</a>
+                    <a class="nav-link" href="admin_services" role="button" >Services</a>
+                    <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
+                    <a class="nav-link" href="admin_user" role="button" >User</a>
+                    <a class="nav-link" href="admin_payroll" role="button" id="active">Payroll</a>
+                    <a class="nav-link" href="admin_reports" role="button">Reports</a>
+                    <!-- Notification -->
+                    <li class="nav-item dropdown" id="admin">
+                        <?php
+                            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+                        ?>
+                        <a id="navbarDropdown admin" class="nav-link"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <i class="fa fa-bell"></i> 
+                            @if($notifCount != 0)
+                                <span class="badge alert-danger pending">{{$notifCount}}</span>
+                            @endif
+                        </a>    
+                        <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
+                            @forelse ($notif as $notification)
+                            <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
+                                {{ $notification->message}}
+                            </a>                   
+                            @empty
+                            <a class="dropdown-item">
+                                No record found
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                            @endforelse 
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ $LoggedUserInfo['email'] }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" data-dismiss="modal" data-toggle="modal" data-target="#logout">
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
 
 <body >
     <?php
@@ -83,27 +85,27 @@
         $employee = Employee::all()->count();
     ?>
     <div class="row head">
-    <div class="col-md-8">
-    <div class="row user_btn_con"> <!-- Sub Header --> 
-        <a class="user_type_btn_cleaner" href="admin_payroll">
-            EMPLOYEE
-            <p class="total_value">
-                ({{ $employee}})
-            </p>
-        </a>
-        <a class="user_type_btn_cleaner active_sub" href="admin_payroll_cleaner">
-            CLEANER 
-            <p class="total_value">
-                ({{ $cleaner }})
-            </p>
-        </a>
-</div>
-</div>
+        <div class="col-md-8">
+            <div class="row user_btn_con"> <!-- Sub Header --> 
+                <a class="user_type_btn_cleaner" href="admin_payroll">
+                    EMPLOYEE
+                    <p class="total_value">
+                        ({{ $employee}})
+                    </p>
+                </a>
+                <a class="user_type_btn_cleaner active_sub" href="admin_payroll_cleaner">
+                    CLEANER 
+                    <p class="total_value">
+                        ({{ $cleaner }})
+                    </p>
+                </a>
+            </div>
+        </div>
         <div class="col-md-4">
             <button type="button" class="btn btn-block btn-primary add_service_btn float-right" onclick="document.location='{{ route('cleaner_salary') }}'">
                 Generate Report
             </button>
-    </div>
+        </div>
     </div>
     
     <div class="user_table_con" > <!-- Payroll Cleaner Table -->
@@ -142,26 +144,25 @@
                 ?>
                 @foreach($cleaner as $key => $cleaner)
                     <?php
-                    $totalSalary = 0;
-                    $price = 0;
-                    $total = 0;
-                    $totalJob = 0; 
-                    $booking = Assigned_cleaner::Where('cleaner_id', $cleaner)->get();
-                    foreach($booking as $key => $booking){
-                        $book = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->get();
-                        foreach($book as $key => $book){
-                        $price = Price::Where('service_id', $book->service_id)->Where('property_type', $book->property_type)->get();
-                            foreach($price as $key => $price){
-                            $salary = $price->price / $price->number_of_cleaner;   
-                            $totalSalary = $totalSalary + ($salary - ($salary * 0.50));
-                            $total = $total + $salary; 
-                            }
-                            $totalJob++;
-                        }  
-                    }
-                    $id = Cleaner::Where('cleaner_id', $cleaner)->value('user_id'); 
-                    $fullname = User::Where('user_id', $id)->value('full_name'); 
-                
+                        $totalSalary = 0;
+                        $price = 0;
+                        $total = 0;
+                        $totalJob = 0; 
+                        $booking = Assigned_cleaner::Where('cleaner_id', $cleaner)->get();
+                        foreach($booking as $key => $booking){
+                            $book = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->get();
+                            foreach($book as $key => $book){
+                            $price = Price::Where('service_id', $book->service_id)->Where('property_type', $book->property_type)->get();
+                                foreach($price as $key => $price){
+                                $salary = $price->price / $price->number_of_cleaner;   
+                                $totalSalary = $totalSalary + ($salary - ($salary * 0.50));
+                                $total = $total + $salary; 
+                                }
+                                $totalJob++;
+                            }  
+                        }
+                        $id = Cleaner::Where('cleaner_id', $cleaner)->value('user_id'); 
+                        $fullname = User::Where('user_id', $id)->value('full_name'); 
                     ?>
                     <tr class="user_table_row">
                         <td class="user_table_data">{{ $fullname }}</td>
@@ -180,7 +181,9 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true">
+                        ×
+                    </span>
                     </button>
                     <div class="icon">
                         <i class="fa fa-sign-out-alt"></i>
@@ -190,8 +193,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+                        Yes
+                    </button>
                 </div>
             </div>
         </div>
@@ -254,7 +261,5 @@
             $('#status').load(window.location.href + " #status");
         });
     </script>
-
-    <!-- Footer -->
 </body>
 @endsection

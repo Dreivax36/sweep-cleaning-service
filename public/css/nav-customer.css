@@ -2,14 +2,12 @@
 body{
     overflow-x: hidden;
 }
-
 .navbar{
     background-color: #DBF1FC !important;
     position:sticky;
     width: 100%;
     box-shadow: 0 .125rem .55rem rgba(0,0,0,.075)!important;
 }
-
 .navbar-brandname {
     color: #042A6B;
     height: 50px;
@@ -22,8 +20,6 @@ body{
 .bell{
     display: none;       
 }
-
-
 .navbar .nav-item .nav-link::before{
     content: '';
     position: fixed;
@@ -35,7 +31,6 @@ body{
     transition: all 0.5s ease;
     transform: scale(0);
 }
-
 .navbar-light .navbar-nav .nav-link:hover {
     text-decoration: none;
     color: #FFB703;
@@ -45,7 +40,6 @@ body{
     color: #1A5184 ;
     font-weight:700;
 }
-
 .login_btn {
     background-color: #1A5184;
     border: #1A5184;
@@ -54,7 +48,6 @@ body{
     font-size: 16px;
     width: 100x;
 }
-
 .nav-link{
     font-weight: 600;
 }
@@ -101,24 +94,20 @@ body{
         color: #1A5184 ;
         font-weight:700;
     }
-
     .dropdown{
         position: relative;
         list-style: none;
     }
-    
 }
 @media only screen and (max-width: 800px){
     .bell{
         display: block;
     }
 }
-
 .notification {         
     max-height: 400px;
     overflow-y: auto;
 }
-
 .icon {
     margin: 5px 0px;
     width: 50px;
@@ -132,30 +121,25 @@ body{
     margin-left: 40%;
     margin-right: 40%;
 }
-
 .icon i.fa {
     font-size: 30px;
     color: #34f234;
 }
-
 .icon i.fa {
     font-size: 30px;
     color: #34f234;
 }
-
 .title {
     margin: 5px 0px;
     font-size: 30px;
     font-weight: 600;
     text-align: center;
 }
-
 .description{
     color: #222;
     font-size: 15px;
     padding: 5px;
 }
-
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;

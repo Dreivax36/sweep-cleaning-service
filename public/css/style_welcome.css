@@ -5,7 +5,6 @@
     font-size: 30px;
     background-size: cover;
 }
-
 .banner {
     background-color: #F7f7f7;
     height: max-content;
@@ -13,17 +12,14 @@
     align-items: center;
     justify-content: center;
 }
-
 .banner-container .banner .image {
     flex: 1 1 250px;
     padding: 35px;
     text-align: center;
 }
-
 .banner-container .banner .image img {
     width: clamp(80%, 4vw, 90%);
 }
-
 .banner-container .banner .text {
     flex: 1 1 250px;
     padding: clamp(60px, 4vw, 10%);
@@ -31,24 +27,20 @@
     align-items: center;
     justify-content: center;
 }
-
 .signup_btn {
     background-color: #FB8500;
     border: #FB8500;
 }
-
 .text h1 {
     color: #1A5184;
     font-weight: bolder;
     font-size: clamp(30px, 4vw, 50px);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
-
 .banner-container .banner .text p {
     text-align: center;
     font-size: clamp(15px, 2vw, 30px);
 }
-
 .three_reason {
     width: 100%;
     background-color: #1A5184;
@@ -56,58 +48,47 @@
     color: #fff;
     height: 25%;
 }
-
 .container {
     padding: 10px;
     margin-top: 10px;
 }
-
 .row {
     margin: auto;
     display: flex;
     align-items: center;
 }
-
 .text {
     text-align: center;
 }
-
 .col {
     text-align: center;
 }
-
 .text h4 {
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: 22px;
     font-weight: 400;
 }
-
 .text p {
     font-size: 15px;
 }
-
 .fas {
     color: #fff;
 }
-
 .more-info {
     display: flow-root;
     background: linear-gradient(-10deg, #fcd3b4, #fdf1e8, #bbdff1, #BEE7FD);
 }
-
 .row1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 100px 0;
 }
-
 .col-5 {
     flex-basis: 30%;
     margin-left: 7%;
 }
-
 .for-you {
     font-size: clamp(15px, 2vw, 26px);
     font-weight: 900;
@@ -116,7 +97,6 @@
     margin-bottom: 25px;
     text-transform: uppercase;
 }
-
 .title1 {
     font-size: clamp(35px, 4vw, 55px);
     font-weight: bold;
@@ -125,22 +105,18 @@
     margin-bottom: 35px;
     line-height: clamp(50px, 4vw, 70px);
 }
-
 .br {
     margin-bottom: 25px;
 }
-
 .for-you-text {
     font-size: clamp(22px, 3vw, 26px);
     font-weight: 400;
     margin-bottom: 70px;
     color: #4d4d4d;
 }
-
 .learn_btn {
     background: #2B81B0
 }
-
 .col-7 {
     margin-left: 4%;
     position: relative;
@@ -148,11 +124,9 @@
     display: flex;
     align-items: center;
 }
-
 .col-7 .img-fluid {
     width: 80%;
 }
-
 .color-box {
     position: absolute;
     right: 0;
@@ -163,35 +137,29 @@
     z-index: -1;
     transform: translateX(0px) translateY(0px);
 }
-
 .row2 {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 100px 0;
 }
-
 .col-6 {
     position: relative;
     flex-basis: 60%;
     display: flex;
     align-items: center;
 }
-
 .col-6 .img-fluid {
     height: 100%;
 }
-
 .foryou {
     margin-left: 8%;
     flex-basis: 70%;
 }
-
 .services {
     margin-left: 2%;
     flex-basis: 30%;
 }
-
 .for-you2 {
     font-size: clamp(10px, 2vw, 26px);
     font-weight: 900;
@@ -200,7 +168,6 @@
     margin-bottom: 5px;
     text-transform: uppercase;
 }
-
 .title2 {
     font-size: clamp(35px, 4vw, 55px);
     font-weight: bold;
@@ -209,11 +176,9 @@
     margin-bottom: 35px;
     line-height: 70px;
 }
-
 .learn_srvbtn {
     background: #f8b571
 }
-
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -222,7 +187,6 @@
     align-items: center;
     height: 100%;
 }
-
 .fixed_footer {
     width: 100%;
     background-color: #042A6B;
@@ -231,7 +195,6 @@
     height: 25% auto;
     bottom: 0;
 }
-
 .footer_info_con {
     width: 25%;
     margin-left: 100px;
@@ -240,51 +203,42 @@
     text-align: center;
     font-size: 14px;
 }
-
 .contact_no {
     color: #FFB703;
 }
-
 .footer_sign_con {
     width: 250px;
     margin-top: 30px;
     margin-left: 100px;
     float: right;
 }
-
 .signup_field:focus {
     outline: none;
 }
-
 .footer_signup_btn {
     margin-top: 15px;
     font-weight: bold;
 }
-
 .footer_content {
     float: right;
     margin-right: 20px;
     margin-top: 10px;
     font-size: 14px;
 }
-
 .row3 {
     display: flex;
     justify-content: left;
     align-items: center;
 }
-
 .dcont {
     margin-left: 2%;
     flex-basis: 40%;
 }
-
 .download {
     display: flow-root;
     background: #6DCFF6;
     padding: 4%;
 }
-
 .dtitle {
     font-size: clamp(35px, 4vw, 60px);
     font-weight: 700;
@@ -292,7 +246,6 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-bottom: 25px;
 }
-
 .d-text {
     font-size: clamp(15px, 4vw, 25px);
     font-weight: 400;
@@ -301,25 +254,21 @@
     margin-bottom: 35px;
     line-height: 40px;
 }
-
 .footer {
     background-color: #061835;
     padding: .75%;
 }
-
 .row4 {
     display: flex;
     justify-content: left;
     align-items: center;
 }
-
 .sweep-title {
     font-size: clamp(15px, 4vw, 17px);
     font-weight: 400;
     color: #F7f7f7;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-
 .copyright {
     font-size: clamp(15px, 4vw, 15px);
     font-weight: 400;
@@ -327,53 +276,12 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-align: right;
 }
-
 .mobile-bg {
     display: none;
 }
-/*
-@media (max-width:425px) {
-    .banner-container .banner .image {
-        display: none;
-    }
-    .row1 {
-        flex-direction: column-reverse;
-        margin: 50px 0;
-    }
-    .row2 {
-        flex-direction: column;
-        margin: 50px 0;
-    }
-    .row3 {
-        flex-direction: column;
-    }
-    .col-5 {
-        margin: 2%;
-    }
-    .foryou {
-        padding: 7%;
-    }
-    .services {
-        padding: 7%;
-    }
-    .title2 {
-        font-size: 35px;
-        font-weight: bold;
-        color: #FB8500;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        margin-bottom: 5px;
-        line-height: 20px;
-    }
-    .for-you-text {
-        margin-bottom: 35px;
-    }
-}
-*/
-@media (width: 801px) {}
+
 
 @media (max-width:800px) {
-    
-
     .mobile-nav{
         box-shadow: 0 -.125rem .55rem rgba(0,0,0,.075)!important;
         display: block;
@@ -399,7 +307,6 @@
         color: #1A5184 ;
         font-weight:700;
     }
-
     .title1 {
         font-size: clamp(22px, 4vw, 35px);
         font-weight: bold;
@@ -514,15 +421,12 @@
     .bg-img1 {
         display: none;
     }
-    
     .bg-img {
         display: none;
     }
-    
     .reco-service {
         padding: 15px;
     }
-    
     .reco-service1 {
         padding: 15px;
     }
@@ -566,11 +470,9 @@
         display: block;
         text-decoration: none;
     }
-
     a:hover {
         text-decoration: none;
     }
-
     .other{
         padding: 10px;
         border-radius: 20px;
@@ -595,36 +497,30 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
-
 .about_title {
     text-align: center;
     font-weight: bold;
     color: #042A6B;
 }
-
 .team_img_con {
     margin: 0 auto;
     margin-top: 10%;
     width: 200px;
     height: 200px;
 }
-
 .team_img {
     width: 100%;
     height: 100%;
 }
-
 .about_caption {
     text-align: center;
     font-size: 14px;
 }
-
 .story_title {
     text-align: center;
     font-weight: bold;
     margin-top: 50px;
 }
-
 .story_con {
     margin: 0 auto;
     margin-top: 5%;
@@ -632,7 +528,6 @@
     height: 400px;
     padding: 20px;
 }
-
 .story_paragraph {
     font-size: 14px;
 }
@@ -644,27 +539,21 @@
     font-weight: bold;
     color: #042A6B;
 }
-
 .faqs_con {
     margin: 20px;
 }
-
 .answer {
     font-size: medium;
 }
-
 .qna {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
-
 .qna_block {
     border-bottom: 1px solid #003464;
 }
-
 .question_title {}
-
 .question {
     margin: 1rem 0rem;
     display: flex;
@@ -683,25 +572,21 @@
     height: 500px;
     padding: 20px;
 }
-
 .side_img_con {
     float: left;
     width: 400px;
     height: 380px;
 }
-
 .side_img {
     width: 100%;
     height: 100%;
 }
-
 .contact_title {
     margin-left: 50px;
     font-size: 50px;
     font-weight: bold;
     color: #042A6B;
 }
-
 .contact_form_con {
     margin-left: 50px;
     width: 550px;
@@ -710,11 +595,9 @@
     border: 2px black solid;
     padding: 20px;
 }
-
 .contact_form_main_con {
     width: 250px;
 }
-
 .contact_fields {
     border: none;
     border-bottom: 2px solid black;
@@ -723,7 +606,6 @@
     width: 250px;
     padding: 3px;
 }
-
 .contact_us_btn {
     width: 250px;
     background-color: #FFB703;
@@ -734,18 +616,15 @@
     font-size: 13px;
     margin-top: 30px;
 }
-
 .contact_side_con {
     width: 180px;
     margin-left: 30px;
 }
-
 .contact_side_con_title {
     font-size: 20px;
     font-weight: bold;
     margin-top: 30px;
 }
-
 .contact_side_info {
     font-size: 15px;
 }

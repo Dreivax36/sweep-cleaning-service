@@ -41,7 +41,9 @@
             <div class="user-details">
                 <div class="req-cont">
                     <h5>Requirement:</h5>
-                    <p style="font-size: 14px;">Please upload your NBI Clearance.</p>
+                    <p style="font-size: 14px;">
+                        Please upload your NBI Clearance.
+                    </p>
                 </div> 
                 <div class="form-group">
                     <input type="file" name="requirement" class="form-control upload_file">

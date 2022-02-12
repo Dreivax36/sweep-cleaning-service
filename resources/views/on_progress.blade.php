@@ -1,17 +1,15 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Assigned_cleaner;
-use App\Models\Review;
-use App\Models\Notification;
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Review;
+    use App\Models\Notification;
 ?>
-
 @extends('head_extention_admin')
 
 @section('content')
@@ -23,9 +21,9 @@ use App\Models\Notification;
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_transactions.css')}}">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
     
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
@@ -39,16 +37,28 @@ use App\Models\Notification;
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <a href="admin_dashboard" class="nav-link">Home</a>
-                    <a class="nav-link" href="admin_services" role="button">Services</a>
-                    <a class="nav-link" href="admin_transaction" role="button" id="active">Transactions</a>
-                    <a class="nav-link" href="admin_user" role="button">User</a>
-                    <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                    <a class="nav-link" href="admin_reports" role="button">Reports</a>
+                    <a href="admin_dashboard" class="nav-link">
+                        Home
+                    </a>
+                    <a class="nav-link" href="admin_services" role="button">
+                        Services
+                    </a>
+                    <a class="nav-link" href="admin_transaction" role="button" id="active">
+                        Transactions
+                    </a>
+                    <a class="nav-link" href="admin_user" role="button">
+                        User
+                    </a>
+                    <a class="nav-link" href="admin_payroll" role="button">
+                        Payroll
+                    </a>
+                    <a class="nav-link" href="admin_reports" role="button">
+                        Reports
+                    </a>
                     <li class="nav-item dropdown" id="admin">
                         <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                        $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+                            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                         ?>
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
@@ -79,7 +89,6 @@ use App\Models\Notification;
                                 Logout
                             </a>
                         </div>
-
                     </li>
                 </ul>
             </div>
@@ -88,12 +97,10 @@ use App\Models\Notification;
 </div>
 
 <body>
-
-
     <?php
-    $booking_data = Booking::Where('status', 'In-Progress')->orderBy('updated_at', 'DESC')->get();
-    $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
-    $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
+        $booking_data = Booking::Where('status', 'In-Progress')->orderBy('updated_at', 'DESC')->get();
+        $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
+        $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
     <div class="row">
         <div class="header">
@@ -165,7 +172,6 @@ use App\Models\Notification;
                 </p>
                 @endif
             </a>
-           
         </div>
     </div>
 
@@ -173,18 +179,18 @@ use App\Models\Notification;
         @if($booking_data != null )
         @foreach($booking_data as $key => $value)
         <?php
-        $service_data = Service::Where('service_id', $value->service_id)->get();
-        $customerid = $value->customer_id;
-        $userId = Customer::Where('customer_id', $customerid)->value('user_id');
-        $user_data = User::Where('user_id', $userId)->get();
-        $address = Address::Where('customer_id', $customerid)->value('address');
+            $service_data = Service::Where('service_id', $value->service_id)->get();
+            $customerid = $value->customer_id;
+            $userId = Customer::Where('customer_id', $customerid)->value('user_id');
+            $user_data = User::Where('user_id', $userId)->get();
+            $address = Address::Where('customer_id', $customerid)->value('address');
         ?>
         <div class="card card_transaction mb-3" style="width: 25rem;" >
             <div class="card_body">
                 <?php
-                $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
-                $admin_transaction = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
-                $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
+                    $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
+                    $admin_transaction = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
+                    $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                 ?>
                 <div class="status">
                     <h5 class="service_trans_status">
@@ -254,7 +260,6 @@ use App\Models\Notification;
                     </table>
                 </div>
             </div>
-
 
             <div class="card-footer">
                 <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
@@ -380,24 +385,21 @@ use App\Models\Notification;
 
                         </ul>
 
-
-
                         <?php
-                        $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
-                        $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
-                        $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->count();
-                        $admin_transactioncount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
-                        $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
-
+                            $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
+                            $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
+                            $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->count();
+                            $admin_transactioncount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
+                            $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
                         ?>
                 </div>
+
                 <div class="modal-footer trans_modal_footer">
-                   
                     <?php
-                    $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
-                    $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "In-Progress")->count();
-                    $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
-                    $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
+                        $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
+                        $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "In-Progress")->count();
+                        $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
+                        $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
                     
                     @if($value->status == "In-Progress" && $statusdone == $price_data->number_of_cleaner)
@@ -420,12 +422,13 @@ use App\Models\Notification;
     <div class="banner-container">
         <div class="banner">
             <div class="text">
-                <h1> Currently no transaction.</h1>
+                <h1> 
+                    Currently no transaction.
+                </h1>
             </div>
             <div class="image">
                 <img src="/images/services/header_img.png" class="img-fluid">
             </div>
-
         </div>
     </div>
     @endif
@@ -474,7 +477,6 @@ use App\Models\Notification;
                     icon: 'success',
                     title: JSON.stringify(result),
                 })
-            
         });
     </script>
 
@@ -493,8 +495,12 @@ use App\Models\Notification;
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+                        Yes
+                    </button>
                 </div>
             </div>
         </div>
@@ -527,6 +533,5 @@ use App\Models\Notification;
         });
     </script>
     @endif
-
 </body>
 @endsection

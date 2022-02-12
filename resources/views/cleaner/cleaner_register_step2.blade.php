@@ -39,13 +39,14 @@
             @csrf
             <input type="hidden" name="user_id" value="{{$user_id}}">
             <div class="user-details">
-
-            <div class="input-div">
+                <div class="input-div">
                     <div class="icon">
                         <i class="fas fa-user"></i>
                     </div>
                     <div>
-                        <h5>Birthday</h5>
+                        <h5>
+                            Birthday
+                        </h5>
                         <input type="date" class="input" name="birthday" value="{{ old('birthday') }}">
                         <span class="text-danger">
                             @error('birthday'){{ $message }} @enderror
@@ -57,7 +58,9 @@
                         <i class="fas fa-address-card"></i>
                     </div>
                     <div>
-                        <h5>Address</h5>
+                        <h5>
+                            Address
+                        </h5>
                         <input type="text" class="input" name="address" value="{{ old('address') }}">
                         <span class="text-danger">
                             @error('address'){{ $message }} @enderror
@@ -65,8 +68,12 @@
                     </div>
                 </div>
                 <div class="id-cont">
-                    <h5>Acceptable Valid ID's:</h5>
-                    <p>UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, School ID, PhilSys ID</p>
+                    <h5>
+                        Acceptable Valid ID's:
+                    </h5>
+                    <p>
+                        UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, School ID, PhilSys ID
+                    </p>
                 </div> 
                 <div class="form-group">
                     <label class="upload_label">

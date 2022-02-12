@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
 
@@ -34,7 +33,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link href="{{ asset('css/services2.css') }}" rel="stylesheet">
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
         <div>
@@ -46,15 +44,27 @@
             </a>
             <!-- Notification -->
             <ul class="navbar-nav ml-auto">
-                <a id="home" class="nav-link active" href="/" role="button">Home</a>
-                <a id="services" class="nav-link" href="services" role="button">Services</a>
-                <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
-                <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
+                <a id="home" class="nav-link active" href="/" role="button">
+                    Home
+                </a>
+                <a id="services" class="nav-link" href="services" role="button">
+                    Services
+                </a>
+                <a id="jobs" class="nav-link" href="jobs" role="button">
+                    Jobs
+                </a>
+                <a id="about_us" class="nav-link" href="about_us" role="button">
+                    About Us
+                </a>
+                <a id="contact_us" class="nav-link" href="contact_us" role="button">
+                    Contact Us
+                </a>
             </ul>
             <!-- Mobile -->
             <ul class="mobile-nav sticky-bottom">
-                <p class="login-text">Cheers to a cleaner lifestyle!</p>
+                <p class="login-text">
+                    Cheers to a cleaner lifestyle!
+                </p>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <ul class="navbar-nav d-flex">
@@ -63,7 +73,6 @@
                             <a class="btn login_btn" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
                             @endif
                         </ul>
-
                     </div>
                     <div class="col-md-6">
                         <ul class="navbar-nav d-flex">
@@ -81,18 +90,25 @@
     <div class="container-fluid">
         <div class="col-md-6">
             <div class="title">
-                <h1> Services </h1>
+                <h1> 
+                    Services 
+                </h1>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="card ">
                 <div class="card-body">
-                    <h3 class="card-title">Sanitation and Germ Proofing</h3>
-                    <p class="card-text">This service will emphasize thorough sanitation, which will include disinfectant spray and antimicrobial fogging.</p>
+                    <h3 class="card-title">
+                        Sanitation and Germ Proofing
+                    </h3>
+                    <p class="card-text">
+                        This service will emphasize thorough sanitation, which will include disinfectant spray and antimicrobial fogging.
+                    </p>
                     <!-- <a class="btn btn-primary" href="/customer/customer_login">Learn More</a> -->
                 </div>
             </div>
         </div>
+        
         <!-- Mobile -->
         <div class="mobile-spacer">
         </div>

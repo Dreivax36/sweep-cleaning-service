@@ -23,41 +23,15 @@ use App\Models\Time_entry;
 
 class MainController extends Controller
 {
-    //View Landing Page
+    //View landing page
     function sweep_welcome(){
         return view('sweep_welcome');
     }
     function login(){
         return view('auth.login');
     }
-    function register(){
-        return view('auth.register');
-    }
-    //Create admin account
-    function save(Request $request){
-        
-        //Validate Requests
-        $request->validate([
-            'name'=>'required',
-            'email'=>'required|email|unique:admins',
-            'password'=>'required|min:5|max:12'
-        ]);
-
-        //Insert data into database
-        $admin = new Admin;
-        $admin->name = $request->name;
-        $admin->email = $request->email;
-        $admin->password = Hash::make($request->password);
-        $save = $admin->save();
-
-        if($save){
-            return back()->with('success', 'New Admin User has been successfully added to database');
-        }
-        else {
-            return back()->with('fail','Something went wrong, try again later ');
-        }
-    }
-    //Verify Admin Login
+    
+    //Verify Admin's login attempt
     function check(Request $request){
         //Validate requests
         $request->validate([
@@ -70,7 +44,7 @@ class MainController extends Controller
         if(!$userInfo){
             return back()->with('fail', 'We do not recognize your email address');
         }else{
-            //check password
+            //Check Admin's password
             if(Hash::check($request->password, $userInfo->password)){
                 $request->session()->put('LoggedUser', $userInfo->admin_id);
                 return redirect('/admin_dashboard');
@@ -79,7 +53,8 @@ class MainController extends Controller
             }
         }
     }
-    //Logout of Admin and Customer
+
+    //Customer and Admin logout
     function logout(){
         if(session()->has('LoggedUser')){
             session()->pull('LoggedUser');
@@ -88,64 +63,65 @@ class MainController extends Controller
         return redirect('/');
     }
 
-    function home(){
-        //Get the data of user logged in
-        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
-        return view('employee.home', $data);
-    }
-    //View Admin Dashboard Page
+    //View Admin dashboard page
     function admin_dashboard(){
-        //Get the data of user logged in
+        //Get the data of logged in user
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_dashboard', $data);
     }
-    //View Admin User Page
+
+    //View all the User page
     function admin_user(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user', $data);
     }
-    //View Admin User Customer Page
+
+    //View all the Customer page
     function admin_user_customer(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user_customer', $data);
     }
-    //View Admin User Cleaner Page
+
+    //View all the Cleaner page
     function admin_user_cleaner(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user_cleaner', $data);
     }
-    //View Admin Payroll Page
-    /*function admin_payroll(){
-        $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
-        return view('admin_payroll', $data);
-    }*/
 
-    //View Admin User Employee Page
+    //View all the Employee page
     function admin_user_employees(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_user_employees', $data);
     }
+
+    //View all the relevant business reports
     function admin_reports(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_reports', $data);
     }
 
+    //View the payroll of all the employee
     function admin_payroll_employee(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll_employee', $data);
     }
+
+    //View the payroll of all the cleaner
     function admin_payroll_cleaner(){
         $data = ['LoggedUserInfo'=>Admin::where('admin_id','=', session('LoggedUser'))->first()];
         return view('admin_payroll_cleaner', $data);
     }
+
     //Customer registration page
     function customer_register(){
         return view('customer.customer_register');
     }
+
     function customer_register_step2(Request $request){
         return view('customer.customer_register_step2')->with('user_id', $request->route('id'));
     }
-    //Register customer account
+
+    //Submit the initial Customer registration 
     function customer_save(Request $request){
         
         //Validate Requests
@@ -155,9 +131,9 @@ class MainController extends Controller
             'email'=>'required|email|unique:users',
             'contact_number'=>'required|numeric|digits:11',
             'password'=>'required|confirmed|min:5|max:12',
-            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg',// Only allow .jpg, .bmp and .png file types.
+            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,svg', // Only allow .jpg, .bmp and .png file types.
         ]);
-           // Save the file in the /public/ folder under a new folder named /images
+           //Save the file in the /public/ folder under a new folder named /images
            $profile = time().'.'.$request->profile_picture->extension();
            $request->profile_picture->move(public_path('images'),$profile);
            
@@ -168,19 +144,19 @@ class MainController extends Controller
            $users->email = $request->email;
            $users->contact_number = $request->contact_number;
            $users->password = Hash::make($request->password);
-           // Store the record, using the new file hashname which will be it's new filename identity.
+           //Store the record, using the new file hashname which will be its new filename identity.
            $users->profile_picture = $profile;
            $users->account_status = 'To_validate';
            $users->user_type = 'Customer';
            $usersave = $users->save();
            $id = $users->user_id;
           
-           //Insert to Customer table
+           //Insert to customer table
            $customers = new Customer;
            $customers->user_id = $id;
            $customer_save = $customers->save();
 
-           //Insert to Address table
+           //Insert to address table
            $id = $customers->customer_id;
            $addresses = new Address;
            $addresses->address = $request->address;
@@ -208,22 +184,23 @@ class MainController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+
+    //Submit the next Customer registration
     function customer_save_step2(Request $request){
         
-        //Validate Requests
+        //Validate requests
         $request->validate([
             'valid_id' => 'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
 
            $validID = time().'.'.$request->valid_id->extension();
            $request->valid_id->move(public_path('images'),$validID);
-           //Insert to Identification table
+           //Insert to identification table
            $identifications = new Identification;
            $identifications->user_id = $request->user_id;
            $identifications->valid_id =  $validID;
            $identificationsave = $identifications->save();
           
-
         if($identificationsave){
             return redirect('customer/customer_register')->with('success', 'Successfully created an account. Please check your email to verify it.');
         }
@@ -231,7 +208,9 @@ class MainController extends Controller
             return redirect('customer/customer_register')->with('fail','Something went wrong, try again later ');
         }
     }
-    //Update Customer user table that email address is verified
+
+    //Update Customer's user table 
+    //Email is now verified
     function verify(Request $request){
         $verify = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
@@ -242,18 +221,22 @@ class MainController extends Controller
             return redirect('customer/customer_login')->with('fail','Something went wrong, try again later ');
         }
     }
+
     //Customer login page
     function customer_login(){
         return view('customer.customer_login');
     }
+
     //Customer login validation
     function customer_check(Request $request){
+
         //Validate requests
         $request->validate([
             'email'=>'required|email',
             'password'=>'required|min:5|max:12'
         ]);
-        //Check if the email inputted exist in user table, user is a customer and email verified
+        //Check if the email inputted exist in user table
+        //A user is a customer which the email is already verified
         $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Customer')->where('email_verified_at','!=', null)->first();
         $email =  User::where('email','=', $request->email)->get();
         $verified =  User::where('email_verified_at','!=', null)->get();
@@ -267,7 +250,7 @@ class MainController extends Controller
                 return back()->with('fail', 'We do not recognize your email address');
             }
         }else{
-            //check password
+            //Check password
             if(Hash::check($request->password, $userInfo->password)){
                 $request->session()->put('LoggedUser', $userInfo->user_id);
                 return redirect('customer/customer_dashboard');
@@ -277,7 +260,7 @@ class MainController extends Controller
         }
     }
 
-    //Customer update information 
+    //Customer update his/her information 
     public function updateProfile(Request $request)
     {
         $request->validate([
@@ -286,9 +269,9 @@ class MainController extends Controller
             'contact_number'=>'required|numeric|digits:11',
 
         ]);
-        //Update User table
+        //Update user table
         $update= User::Where('user_id', $request->user_id )->update(['full_name' => $request->full_name, 'email' => $request->email,'contact_number' => $request->contact_number]);
-        //Update Address table
+        //Update address table
         $count = 0;  
         foreach($request->input('address_id') AS $address_id){
             $address = $request->input('address')[$count];
@@ -321,7 +304,7 @@ class MainController extends Controller
              return back()->with('fail','Something went wrong, try again later ');
          }
      }
-     //Customer delete address
+     //Customer delete an address
      function deleteAddress(Request $request){
             $deleteAddress= Address::Where('address_id', $request->address_id )->delete();
          
@@ -337,7 +320,8 @@ class MainController extends Controller
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('customer.customer_dashboard', $data);
     }
-
+ 
+    //Cleaner report page
     function cleaner_reports(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('cleaner.cleaner_reports', $data);
@@ -349,18 +333,22 @@ class MainController extends Controller
         return view('customer.customer_profile', $data);
     }
 
-
-    //Cleaner registration page
+    //Cleaner initial registration process
     function cleaner_register(){
         return view('cleaner.cleaner_register');
     }
+
+    //Cleaner next registration process
     function cleaner_register_step2(Request $request){
         return view('cleaner.cleaner_register_step2')->with('user_id', $request->route('id'));
     }
+
+    //Cleaner last registration process
     function cleaner_register_step3(Request $request){
         return view('cleaner.cleaner_register_step3')->with('cleaner_id', $request->route('id'));
     }
-    //Register cleaner account
+
+    //Submit initial Cleaner registration
     function cleaner_save(Request $request){
         
         //Validate Requests
@@ -376,7 +364,6 @@ class MainController extends Controller
              $profile = time().'.'.$request->profile_picture->extension();
              $request->profile_picture->move(public_path('images'),$profile);
              
- 
              //Insert data into database
              $users = new User;
              $users->full_name = $request->full_name;
@@ -409,6 +396,8 @@ class MainController extends Controller
                 return back()->with('fail','Something went wrong, try again later ');
             }
     }
+
+    //Submit next Cleaner registration
     function cleaner_save_step2(Request $request){
         
         //Validate Requests
@@ -417,8 +406,7 @@ class MainController extends Controller
             'age' => 'required|numeric',
             'address'=>'required',
         ]);
-
-             // Save the file in the /public/ folder under a new folder named /images
+             //Save the file in the /public/ folder under a new folder named /images
              $validId = time().'.'.$request->valid_id->extension();
              $request->valid_id->move(public_path('images'),$validId);
 
@@ -442,6 +430,8 @@ class MainController extends Controller
                 return back()->with('fail','Something went wrong, try again later ');
             }
     }
+
+    //Submit last Cleaner registration
     function cleaner_save_step3(Request $request){
         
         //Validate Requests
@@ -449,7 +439,7 @@ class MainController extends Controller
             'requirement' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
 
-             // Save the file in the /public/ folder under a new folder named /images
+             //Save the file in the /public/ folder under a new folder named /images
              $require = time().'.'.$request->requirement->extension();
              $request->requirement->move(public_path('images'),$require);
              //Insert to clearance table
@@ -459,7 +449,6 @@ class MainController extends Controller
              $clearances->description = 'NBI Clearance';
              $cleaner_save = $clearances->save();
 
-
             if($cleaner_save){
                 return redirect('cleaner/cleaner_register')->with('success', 'Successfully created an account. Please check your email to verify it.');
             }
@@ -467,7 +456,7 @@ class MainController extends Controller
                 return back()->with('fail','Something went wrong, try again later ');
             }
     }
-    //Update Cleaner user table that email address is verified
+    //Update Cleaner's user table that email address is now verified
     function verify_cleaner(Request $request){
         $verify_cleaner = User::Where('user_id', $request->route('id') )->update(['email_verified_at' => now()]);
         
@@ -488,7 +477,8 @@ class MainController extends Controller
             'email'=>'required|email',
             'password'=>'required|min:5|max:12'
         ]);
-        //Check if the email inputted exist in user table, user type is cleaner and email verified 
+        //Check if the email inputted exist in user table
+        //A user is a cleaner with a verified email
         $userInfo = User::where('email','=', $request->email)->where('user_type','=', 'Cleaner')->where('email_verified_at','!=', null)->first();
         $email =  User::where('email','=', $request->email)->get();
         $verified =  User::where('email_verified_at','!=', null)->get();
@@ -503,7 +493,7 @@ class MainController extends Controller
                 return back()->with('fail', 'We do not recognize your email address');
             }
         }else{
-            //check password
+            //Check password
             if(Hash::check($request->password, $userInfo->password)){
                 $request->session()->put('LoggedUser', $userInfo->user_id);
                 return redirect('cleaner/cleaner_dashboard');
@@ -517,12 +507,12 @@ class MainController extends Controller
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('cleaner.cleaner_dashboard', $data);
     }
-    //Cleaner Profile
+    //Cleaner profile page
     function cleaner_profile(){
         $data = ['LoggedUserInfo'=>User::where('user_id','=', session('LoggedUser'))->first()];
         return view('cleaner.cleaner_profile', $data);
     }
-    //Cleaner update information
+    //Cleaner update his/her information
     public function updateCleaner(Request $request)
     {
         $request->validate([
@@ -568,6 +558,7 @@ class MainController extends Controller
         return redirect('contact_us');
     }
 
+    //Admin add a new employee
     function addEmployee(Request $request){
         
         //Validate Requests
@@ -595,10 +586,12 @@ class MainController extends Controller
             }
     }
 
+    //View Employee timein/timeout page
     function employee_login(){
         return view('employee.login');
     }
 
+    //Employee time in
     function timeIn(Request $request){
         $request->validate([
             'employee_code'=>'required'
@@ -625,11 +618,15 @@ class MainController extends Controller
             return back()->with('fail','Something went wrong, try again later ');
         }
     }
+
+    //Employee generate his/her payslip
     function payslip(Request $request)
     {
         $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
         return view('payslip', $data)->with('id', $request->route('id'));
     }
+
+    //Generate top performing Cleaners report
     function cleaners_performance()
     {
         $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
@@ -639,6 +636,7 @@ class MainController extends Controller
         return redirect('/');
     }
 
+    //Generate top performing Employees report
     function employees_performance()
     {
         $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];
@@ -647,6 +645,8 @@ class MainController extends Controller
         }
         return redirect('/');
     }
+
+    //Generate the total commission or salary of the Cleaner
     function cleaner_salary()
     {
         $data = ['LoggedUserInfo' => Admin::where('admin_id', '=', session('LoggedUser'))->first()];

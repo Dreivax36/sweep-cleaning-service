@@ -1,8 +1,7 @@
 <?php
-
-use App\Models\User;
-use App\Models\Event;
-use App\Models\Notification;
+    use App\Models\User;
+    use App\Models\Event;
+    use App\Models\Notification;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,11 +23,11 @@ use App\Models\Notification;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -44,7 +43,6 @@ use App\Models\Notification;
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -54,8 +52,8 @@ use App\Models\Notification;
             <!-- Notification -->
             <li class="nav-item dropdown bell" id="customer">
                 <?php
-                $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
+                    $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
+                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
                 ?>
                 <a id="navbarDropdown customer" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     <i class="fa fa-bell"></i>
@@ -84,8 +82,8 @@ use App\Models\Notification;
                 <!-- Notification -->
                 <li class="nav-item dropdown" id="customer">
                     <?php
-                    $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
-                    $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
+                        $notifCount = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->count();
+                        $notif = Notification::where('isRead', false)->where('user_id',  $LoggedUserInfo['user_id'])->orderBy('created_at','DESC')->get();
                     ?>
                     <a id="navbarDropdown customer" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         <i class="fa fa-bell"></i>
@@ -124,23 +122,33 @@ use App\Models\Notification;
             <ul class="mobile-nav sticky-bottom">
                 <a class="nav-button" href="{{ url('/customer/customer_dashboard') }}">
                     <i class="fas fa-home"></i>
-                    <h6>Home</h6>
+                    <h6>
+                        Home
+                    </h6>
                 </a>
                 <a class="nav-button" href="{{ url('/customer/customer_services') }}">
                     <i class="fas fa-hand-sparkles"></i>
-                    <h6>Services</h6>
+                    <h6>
+                        Services
+                    </h6>
                 </a>
                 <a class="nav-button" href="{{ url('/customer/customer_transaction') }}">
                     <i class="fas fa-clipboard-list"></i>
-                    <h6>Transactions</h6>
+                    <h6>
+                        Transactions
+                    </h6>
                 </a>
                 <a class="nav-button" href="{{ url('/customer/customer_history') }}">
                     <i class="fas fa-history"></i>
-                    <h6>History</h6>
+                    <h6>
+                        History
+                    </h6>
                 </a>
                 <a class="nav-button" href="customer_profile">
                     <i class="fas fa-user-circle"></i>
-                    <h6>Profile</h6>
+                    <h6>
+                        Profile
+                    </h6>
                 </a>
             </ul>
         </div>
@@ -152,7 +160,9 @@ use App\Models\Notification;
             <div class="modal-content">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">
+                            ×
+                        </span>
                     </button>
                     <div class="icon">
                         <i class="fa fa-sign-out-alt"></i>
@@ -162,8 +172,12 @@ use App\Models\Notification;
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+                        Yes
+                    </button>
                 </div>
             </div>
         </div>
@@ -173,6 +187,7 @@ use App\Models\Notification;
         @yield('content')
     </main>
 
+    <!-- Notification Scripts -->
     <script>
         // Enable pusher logging 
         Pusher.logToConsole = true;
@@ -199,7 +214,6 @@ use App\Models\Notification;
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('customer-notif', function(data) {

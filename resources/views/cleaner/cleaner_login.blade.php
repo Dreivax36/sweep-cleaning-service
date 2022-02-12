@@ -17,7 +17,6 @@
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/customer_login.css')}}">
 </head>
-
 <body class="reg_customer_body flex-row align-items-center">
     <div class="register_con">
         <h4 class="signin_label">
@@ -43,7 +42,9 @@
                     <i class="fas fa-envelope"></i>
                 </div>
                 <div>
-                    <h5>Email</h5>
+                    <h5>
+                        Email
+                    </h5>
                     <input type="text" class="input" name="email" value="{{ old('email') }}">
                     <span class="text-danger">
                         @error('email'){{ $message }} @enderror
@@ -55,7 +56,9 @@
                     <i class="fas fa-lock"></i>
                 </div>
                 <div>
-                    <h5>Password</h5>
+                    <h5>
+                        Password
+                    </h5>
                     <input type="password" class="input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                     <span class="text-danger">
                         @error('password'){{ $message }} @enderror

@@ -2,29 +2,23 @@
     color: rgba(0,0,0,.5);
     border-color: rgba(0,0,0,.1);
 }
-
 .navbar .container-fluid{
     justify-content: left;
 }
-
 .navbar-brandname{
     margin-left: 10px;
 }
-
 .card{
     padding: 20px;
     margin: 10px 0;
     text-align: justify;
 }
-
 .row{
     margin: 0;
 }
-
 p{
     margin-bottom: 0;
 }
-
 .rating-cont{
     padding: 25px;
 }

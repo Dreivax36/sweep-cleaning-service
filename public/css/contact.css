@@ -4,7 +4,6 @@
     background-size: cover;
     background-color: #f3f3f3;
 }
-
 .banner{
     height: max-content;
     display: flex;
@@ -13,8 +12,7 @@
 }
 .get-touch{
     padding: 40px;
-    align-items: center;
-    
+    align-items: center;  
 }
 .title{
     padding-left: 30px;
@@ -45,15 +43,12 @@
     text-align: center;
     align-content: center;
 }
-
 .contact_fields{
     height: 300px;
 }
-
 textarea {
     height: 150px;
 }
-
 .message{
     height: 530px;
     border-radius: 30px;
@@ -78,23 +73,18 @@ textarea {
     margin-bottom: 35px;
     line-height: 70px;
 }
-
 .learn_srvbtn{
     background: #f8b571
 }
-
-
 .dcont{
     margin-left: 2%;
-    flex-basis: 40%;
-    
+    flex-basis: 40%;   
 }
 .download{
     display:flow-root;
     background: #6DCFF6;
     padding: 4%;
 }
-
 .dtitle{
     font-size: clamp(35px, 4vw, 60px);
     font-weight: 700;
@@ -110,12 +100,10 @@ textarea {
     margin-bottom: 35px;
     line-height: 40px;
 }
-
 .footer{
     background-color: #061835;
     padding: .75%;
 }
-
 .sweep-title{
     font-size: clamp(15px, 4vw, 17px);
     font-weight:400;
@@ -129,7 +117,6 @@ textarea {
         align-items: center;
         
     }
-
     .text{
         text-align: justify;
         font-size: 20px;
@@ -140,10 +127,8 @@ textarea {
 
 @media (max-width:750px){
     .row{
-        flex-direction: column;
-        
+        flex-direction: column; 
     }
-
     .col-5{
         flex-basis: 30%;
         margin-left: 7%;
@@ -155,21 +140,17 @@ textarea {
     .text h1 p{
         text-align: center;
     }
-
     .p{
         text-align: center;
     }
     .h1{
         text-align: center;
     }
-
     .card-img{
         height: 265px;
         object-fit:fill;
-        border-radius: 0.75rem;
-        
+        border-radius: 0.75rem;  
     }
-
     .row2{
         flex-direction: column-reverse;
     }

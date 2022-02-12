@@ -1,5 +1,4 @@
 <?php
-
     use App\Models\Booking;
     use App\Models\Service;
     use App\Models\Price;
@@ -10,26 +9,27 @@
     use App\Models\Notification;
     use App\Models\Payment;
     use App\Models\Salary;
-
 ?>
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
     Admin Reports Page
 </title>
+
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_reports.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" integrity="sha512-t2JWqzirxOmR9MZKu+BMz0TNHe55G5BZ/tfTmXMlxpUY8tsTo3QMD27QGoYKZKFAraIPDhFv56HLdN11ctmiTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -41,17 +41,29 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <a href="admin_dashboard" class="nav-link">Home</a>
-                    <a class="nav-link" href="admin_services" role="button">Services</a>
-                    <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-                    <a class="nav-link" href="admin_user" role="button">User</a>
-                    <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                    <a class="nav-link" href="admin_reports" role="button" id="active">Reports</a>
+                    <a href="admin_dashboard" class="nav-link">
+                        Home
+                    </a>
+                    <a class="nav-link" href="admin_services" role="button">
+                        Services
+                    </a>
+                    <a class="nav-link" href="admin_transaction" role="button">
+                        Transactions
+                    </a>
+                    <a class="nav-link" href="admin_user" role="button">
+                        User
+                    </a>
+                    <a class="nav-link" href="admin_payroll" role="button">
+                        Payroll
+                    </a>
+                    <a class="nav-link" href="admin_reports" role="button" id="active">
+                        Reports
+                    </a>
                     <!-- Notification -->
                     <li class="nav-item dropdown" id="admin">
                         <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                        $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+                            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                         ?>
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
@@ -60,7 +72,9 @@
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-                            <h4 class="notif">Notifications</h4>
+                            <h4 class="notif">
+                                Notifications
+                            </h4>
                             @forelse ($notif as $notification)
                             <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
@@ -89,7 +103,6 @@
 </div>
 
 <body>
-   
     <div class="row user_btn_con1">
         <!-- Sub Header -->
         <a class="user_type_btn_cleaner" style="font-size:25px; color: #FFB703; margin-top:50px; margin-left:85px;">
@@ -97,10 +110,10 @@
         </a>
     </div>
     <?php
-    $mytime = Carbon\Carbon::now();
+        $mytime = Carbon\Carbon::now();
     ?>
     <?php
-    $serviceName = Service::orderBy('service_id', 'DESC')->get();
+        $serviceName = Service::orderBy('service_id', 'DESC')->get();
     ?>
     <div class="row justify-content-center" id="status">
         <div class="card  mb-3" style="width: 40rem;">
@@ -110,7 +123,6 @@
                         Average Monthly Income
                     </h3>
                 </div>
-
                 <div>
                     <h6 class="booking_date">
                         <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
@@ -118,10 +130,10 @@
                 </div>
             </div>
             <?php
-            $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * .05 as amount')
-                ->groupBy('month')
-                ->orderByRaw('min(created_at) asc')
-                ->get();
+                $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * .05 as amount')
+                    ->groupBy('month')
+                    ->orderByRaw('min(created_at) asc')
+                    ->get();
             ?>
             <div>
                 <div class="card-body">
@@ -215,7 +227,9 @@
                                 <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
                             </h6>
                         </div>
-                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <button type="button" class="close" data-dismiss="modal">
+                            ×
+                        </button>
                     </div>
                     <div class="modal-body p-4">
                         <div class="customer_trans_modal_body_1_con">
@@ -252,10 +266,10 @@
             </div>
         </div>
         <?php
-        $customerCount = Booking::selectRaw('extract(month from created_at) as month, count(customer_id) as customer')
-            ->groupBy('month')
-            ->orderByRaw('min(created_at) asc')
-            ->get();
+            $customerCount = Booking::selectRaw('extract(month from created_at) as month, count(customer_id) as customer')
+                ->groupBy('month')
+                ->orderByRaw('min(created_at) asc')
+                ->get();
         ?>
         <div class="card  mb-3" style="width: 40rem;">
             <div class="card-header">
@@ -264,7 +278,6 @@
                         Average Booking Per Month
                     </h3>
                 </div>
-
                 <div>
                     <h6 class="booking_date">
                         <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
@@ -515,7 +528,9 @@
                                     <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
                                 </h6>
                             </div>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <button type="button" class="close" data-dismiss="modal">
+                                ×
+                            </button>
                         </div>
                         <div class="modal-body p-4">
                             <div class="customer_trans_modal_body_1_con">
@@ -675,7 +690,9 @@
                                 <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
                             </h6>
                         </div>
-                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <button type="button" class="close" data-dismiss="modal">
+                            ×
+                        </button>
                     </div>
                     <div class="modal-body p-4">
                         <div class="customer_trans_modal_body_1_con">
@@ -866,29 +883,29 @@
             <div>
                 <div class="card-body">
                     <?php
-                    $month = $mytime->month;
+                        $month = $mytime->month;
 
-                    $cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
-                            ->whereMonth('created_at', $month)
-                            ->groupBy('cleaner_id')
-                            ->orderBy('rate','ASC')
-                            ->get();
+                        $cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
+                                ->whereMonth('created_at', $month)
+                                ->groupBy('cleaner_id')
+                                ->orderBy('rate','ASC')
+                                ->get();
 
-                            $cleanerArray = array();
-                            $counter = 0;
-                        foreach($cleaner as $cleaners){
-                            $cleanerArray[$counter++] = array(
-                            "cleaner_id" => $cleaners->cleaner_id,
-                            "rate" => $cleaners->rate,
-                            "completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
-                            "cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
-                        );
-                        }
-                        array_multisort(array_column($cleanerArray, 'completed'),      SORT_DESC,
-                                        array_column($cleanerArray, 'rate'), SORT_DESC,
-                                        $cleanerArray);
+                                $cleanerArray = array();
+                                $counter = 0;
+                            foreach($cleaner as $cleaners){
+                                $cleanerArray[$counter++] = array(
+                                "cleaner_id" => $cleaners->cleaner_id,
+                                "rate" => $cleaners->rate,
+                                "completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
+                                "cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
+                            );
+                            }
+                            array_multisort(array_column($cleanerArray, 'completed'),      SORT_DESC,
+                                            array_column($cleanerArray, 'rate'), SORT_DESC,
+                                            $cleanerArray);
 
-                    $counter = 1;
+                        $counter = 1;
                     ?>
                     <table class="table table-striped user_info_table">
                         <tbody>
@@ -939,9 +956,7 @@
                         </tbody>
                     </table>
                     <!-- Check if the customer already review booking -->
-
                 </div>
-
             </div>
             <div class="card-footer">
                 <div class="buttons">
@@ -992,7 +1007,7 @@
                                             </td>
                                         </tr>
                                         <?php
-                                        $count = 1;
+                                            $count = 1;
                                         ?>
                                         @foreach($cleanerArray as $cleaners)
                                         <?php
@@ -1046,7 +1061,6 @@
             </div>
             <div>
                 <div class="card-body">
-
                     <table class="table table-striped user_info_table">
                         <tbody>
                             <tr class="user_table_row">
@@ -1121,7 +1135,9 @@
                                     <b>As of:</b> {{ date('F d, Y', strtotime($mytime->toDateTimeString()))}}
                                 </h6>
                             </div>
-                            <button type="button" class="close" data-dismiss="modal">×</button>
+                            <button type="button" class="close" data-dismiss="modal">
+                                ×
+                            </button>
                         </div>
                         <div class="modal-body p-4">
                             <div class="customer_trans_modal_body_1_con">
@@ -1175,13 +1191,14 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">
+                            ×
+                        </span>
                     </button>
                     <div class="icon">
                         <i class="fa fa-sign-out-alt"></i>
@@ -1191,8 +1208,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+                        Yes
+                    </button>
                 </div>
             </div>
         </div>

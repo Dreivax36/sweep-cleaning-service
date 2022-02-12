@@ -104,7 +104,7 @@ class BookingController extends Controller
         $events->end = $enddate;
         $events->booking_id = $bookings->booking_id;
         $book = $events->save();
-        //Add admin notification
+        //Add Admin notification
         $notifications = new Notification();
         $notifications->message = 'New Booking';
         $notifications->booking_id = $id;
@@ -137,7 +137,6 @@ class BookingController extends Controller
     //Assign cleaner
     function assignCleaner(Request $request)
     {
-
         foreach ($request->input('cleaner_id') as $cleaner_id) {
             //Insert data to assigned_cleaner table    
             $cleaner = $cleaner_id;
@@ -148,7 +147,7 @@ class BookingController extends Controller
             $assigned_cleaners->status = $request->status;
             $assigned_cleaners->cleaner_id = $id;
             $assign = $assigned_cleaners->save();
-            //Add Cleaner Notification
+            //Add Cleaner notification
             $notifications = new Notification();
             $notifications->user_id = $cleaner;
             $notifications->message = 'New Job';
@@ -183,12 +182,11 @@ class BookingController extends Controller
     //Update the transaction status or the book table
     function updateStatus(Request $request)
     {
-
         //Update transaction status
         $bookingID = $request->booking_id;
         $status = $request->status;
         $updateStatus = Booking::Where('booking_id', $bookingID)->update(['status' => $status]);
-
+        
         //Add Admin notification
         $notifications = new Notification();
         $notifications->message = "Status of Transaction $bookingID is $status.";
@@ -267,7 +265,7 @@ class BookingController extends Controller
                     $assign = Assigned_cleaner::Where('booking_id', '=', $bookingID)->Where('cleaner_id', '=', $cleanerID->cleaner_id)->update(['status' => $status]);
                     $notifdelete = Notification::Where('booking_id', $request->booking_id)->delete();
                 }
-                //Add Cleaner Notification
+                //Add Cleaner notification
                 $userCleaner = Cleaner::Where('cleaner_id', $cleanerID->cleaner_id)->value('user_id');
                 $notifications = new Notification();
                 $notifications->message = "Status of Transaction $bookingID is $status.";
@@ -317,7 +315,7 @@ class BookingController extends Controller
     //Change the customer address in the booking
     function updateAddress(Request $request)
     {
-        //Update data into database
+        //Update the new address in the database
         $count = 0;
         foreach ($request->input('address_id') as $address_id) {
             $updateAddress = Booking::Where('booking_id', $request->booking_id)->update(['address_id' => $address_id]);
@@ -336,7 +334,7 @@ class BookingController extends Controller
         //Update status
         $status = $request->status;
         $updateCleaner = Assigned_cleaner::Where('booking_id', '=', $request->booking_id)->Where('cleaner_id', '=', $request->cleaner_id)->update(['status' => $status]);
-        //Add Admin Notification
+        //Add Admin notification
         $notifications = new Notification();
         $id = Cleaner::where('cleaner_id', $request->cleaner_id)->value('user_id');
         $name = User::where('user_id', $id)->value('full_name');
@@ -372,13 +370,11 @@ class BookingController extends Controller
         }
     }
 
-
+    //View checkout page
     function customer_pay(Request $request)
     {
         $data = ['LoggedUserInfo' => User::where('user_id', '=', session('LoggedUser'))->first()];
         return view('customer.customer_checkout', $data)->with('booking_id', $request->route('id'));
-        // return redirect()->route('paypal.checkout', $request->route('id'));
-        // $updatePayment= Booking::Where('booking_id', $request->booking_id )->update(['mode_of_payment' => $request->mode_of_payment]);
     }
 
     //View customer rating page
@@ -387,6 +383,7 @@ class BookingController extends Controller
         $data = ['LoggedUserInfo' => User::where('user_id', '=', session('LoggedUser'))->first()];
         return view('customer.customer_rating', $data)->with('booking_id', $request->route('id'));
     }
+
     //Customer rate the service and cleaner/s
     function rate(Request $request)
     {
@@ -431,7 +428,7 @@ class BookingController extends Controller
             $rate = $cleaner_reviews->save();
             $counter++;
         }
-        //Add admin notification
+        //Add Admin notification
         $notifications = new Notification();
         $notifications->message = 'Customer submit reviews';
         $notifications->booking_id = $request->booking_id;
@@ -456,7 +453,8 @@ class BookingController extends Controller
 
         return redirect('customer/customer_transaction')->with('success-rate', 'Rate Successful');
     }
-    //Paypal payment and store the data to payment table
+
+    //Customer pay with Paypal and store the data to payment table
     function checkout(Request $request)
     {
         //Add new payment
@@ -465,7 +463,7 @@ class BookingController extends Controller
         $payments->amount = $_GET['amount'];
         $payments->transaction_id = $_GET['paypal_id'];
         $checkout = $payments->save();
-        //Add admin notification
+        //Add Admin notification
         $notifications = new Notification();
         $notifications->message = 'Customer paid';
         $notifications->booking_id = $_GET['booking_id'];
@@ -494,7 +492,8 @@ class BookingController extends Controller
             return back()->with('fail', 'Something went wrong, try again later ');
         }
     }
-    //Onsite Payment - Cleaner update the payment of the customer
+    //Customer pay onsite 
+    //Cleaner will update the payment of the customer
     function onsitePayment(Request $request)
     {
         //Add new payment
@@ -505,7 +504,7 @@ class BookingController extends Controller
         $onsitePayment = $payments->save();
         //Update the booking table
         $onsitePayment = Booking::Where('booking_id', $booking)->update(['is_paid' => true]);
-        //Add admin notification
+        //Add Admin notification
         $notifications = new Notification();
         $notifications->message = 'Customer pay to the cleaner';
         $notifications->booking_id = $booking;
@@ -535,6 +534,7 @@ class BookingController extends Controller
         }
     }
 
+    //Admim verified the payment of the Customer
     function paid(Request $request)
     {
         $paid = Booking::Where('booking_id', $request->booking_id)->update(['is_paid' => true]);
@@ -572,6 +572,7 @@ class BookingController extends Controller
         }
     }
 
+    //Customer pay with gcash
     function gcash(Request $request)
     {
         //Add new payment
@@ -581,7 +582,7 @@ class BookingController extends Controller
         $payments->amount = $request->amount;
         $payments->transaction_id = $request->transaction_id;
         $onsitePayment = $payments->save();
-        //Add admin notification
+        //Add Admin notification
         $notifications = new Notification();
         $notifications->message = 'Customer paid';
         $notifications->booking_id = $booking;
@@ -610,12 +611,12 @@ class BookingController extends Controller
             return back()->with('fail', 'Something went wrong, try again later ');
         }
     }
-    //Customer Update new schedule date and time
+    //Customer updated new schedule date and time
     function newDate(Request $request)
     {
         //Update booking table
         $newDate = Booking::Where('booking_id', $request->booking_id)->update(['schedule_date' => $request->schedule_date, 'schedule_time' => $request->schedule_time, 'status' => 'Pending']);
-        //Add admin notification
+        //Add Admin notification
         $notifications = new Notification();
         $notifications->message = 'Customer choose new schedule';
         $notifications->booking_id = $request->booking_id;
@@ -659,10 +660,10 @@ class BookingController extends Controller
             return back()->with('fail', 'Something went wrong, try again later ');
         }
     }
-    //Read Notification
+    //User acknowledged the notification
     function read(Request $request)
     {
-        //Update notification isRead to true
+        //Update isRead to true
         $notif = Notification::where('id', $request->route('id'))->update(['isRead' => true]);
         $location = Notification::where('id', $request->route('id'))->value('location');
 
@@ -673,30 +674,7 @@ class BookingController extends Controller
         }
     }
 
-    public function Webhook()
-    {
-        $webhook = new \PayPal\Api\Webhook();
-
-        // Set webhook notification URL
-        $webhook->setUrl("https://f615ef32.ngrok.io");
-
-        // Set webhooks to subscribe to
-        $webhookEventTypes = array();
-        $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
-            '{
-            "name":"PAYMENT.SALE.COMPLETED"
-          }'
-        );
-
-        $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
-            '{
-            "name":"PAYMENT.SALE.DENIED"
-          }'
-        );
-
-        $webhook->setEventTypes($webhookEventTypes);
-    }
-
+    //Admim compute the salary of an employee
     public function computeSalary()
     {
         $employee = Employee::all();

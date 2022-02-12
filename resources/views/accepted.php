@@ -1,31 +1,32 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Assigned_cleaner;
-use App\Models\Review;
-use App\Models\Notification;
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Review;
+    use App\Models\Notification;
 ?>
-
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
     Admin Transaction
 </title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
-    
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_transactions.css')}}">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/admin_transactions.css')}}">
+
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -38,16 +39,28 @@ use App\Models\Notification;
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <a href="admin_dashboard" class="nav-link">Home</a>
-                    <a class="nav-link" href="admin_services" role="button">Services</a>
-                    <a class="nav-link" href="admin_transaction" role="button" id="active">Transactions</a>
-                    <a class="nav-link" href="admin_user" role="button">User</a>
-                    <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                    <a class="nav-link" href="admin_reports" role="button">Reports</a>
+                    <a href="admin_dashboard" class="nav-link">
+                        Home
+                    </a>
+                    <a class="nav-link" href="admin_services" role="button">
+                        Services
+                    </a>
+                    <a class="nav-link" href="admin_transaction" role="button" id="active">
+                        Transactions
+                    </a>
+                    <a class="nav-link" href="admin_user" role="button">
+                        User
+                    </a>
+                    <a class="nav-link" href="admin_payroll" role="button">
+                        Payroll
+                    </a>
+                    <a class="nav-link" href="admin_reports" role="button">
+                        Reports
+                    </a>
                     <li class="nav-item dropdown" id="admin">
                         <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                        $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+                            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                         ?>
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
@@ -78,7 +91,6 @@ use App\Models\Notification;
                                 Logout
                             </a>
                         </div>
-
                     </li>
                 </ul>
             </div>
@@ -88,9 +100,9 @@ use App\Models\Notification;
 
 <body>
     <?php
-    $booking_data = Booking::Where('status', 'Accepted')->orderBy('updated_at', 'DESC')->get();
-    $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
-    $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
+        $booking_data = Booking::Where('status', 'Accepted')->orderBy('updated_at', 'DESC')->get();
+        $transaction_count = Booking::Where('status', 'Pending')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orWhere('status', 'No-Available-Cleaner')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->count();
+        $history_count = Booking::Where('status', 'Completed')->orWhere('status', 'Declined')->orWhere('status', 'Cancelled')->count();
     ?>
     <div class="row">
         <div class="header">
@@ -170,18 +182,18 @@ use App\Models\Notification;
         @if($booking_data == null )
         @foreach($booking_data as $key => $value)
         <?php
-        $service_data = Service::Where('service_id', $value->service_id)->get();
-        $customerid = $value->customer_id;
-        $userId = Customer::Where('customer_id', $customerid)->value('user_id');
-        $user_data = User::Where('user_id', $userId)->get();
-        $address = Address::Where('customer_id', $customerid)->value('address');
+            $service_data = Service::Where('service_id', $value->service_id)->get();
+            $customerid = $value->customer_id;
+            $userId = Customer::Where('customer_id', $customerid)->value('user_id');
+            $user_data = User::Where('user_id', $userId)->get();
+            $address = Address::Where('customer_id', $customerid)->value('address');
         ?>
         <div class="card card_transaction mb-3" style="width: 25rem;">
             <div class="card_body">
                 <?php
-                $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
-                $admin_transaction = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
-                $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
+                    $numberOfCleaner = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('number_of_cleaner');
+                    $admin_transaction = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Pending')->count();
+                    $accept = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                 ?>
                 <div class="status">
                     <h5 class="service_trans_status">
@@ -252,7 +264,6 @@ use App\Models\Notification;
                 </div>
             </div>
         
-
             <div class="card-footer">
                 <button type="button" class="btn btn-block btn-primary view_details_btn_trans" data-toggle="modal" data-target="#details-{{ $value->booking_id }}">
                     View Details
@@ -272,7 +283,6 @@ use App\Models\Notification;
                             {{ $data->service_name }}
                         </h4>
                     </div>
-
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -300,7 +310,6 @@ use App\Models\Notification;
                         <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                         <input type="hidden" name="service_id" value="{{ $value->service_id }}">
 
-
                         <ul class="customer_detail">
                             <li>
                                 <b>Customer:</b>
@@ -322,7 +331,7 @@ use App\Models\Notification;
                                 <b>Date:</b> {{ date('F d, Y', strtotime($value->schedule_date)) }} {{ date('h:i A', strtotime($value->schedule_time)) }}
                             </li>
                             <?php
-                            $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
+                                $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
                             ?>
                             @foreach($price as $price_data)
                             <li class="list_booking_info">
@@ -356,46 +365,38 @@ use App\Models\Notification;
                             @endif
                             <br>
                             <?php
-                            $id = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
+                                $id = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->get();
                             ?>
-
                             <li>
                                 <b>Cleaners:</b>
                             </li>
                             @if($id != null)
                             @foreach($id as $cleaner)
                             <?php
-
-                            $user_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id)->value('user_id');
-                            $full = User::Where('user_id', $user_id)->value('full_name');
-
+                                $user_id = Cleaner::Where('cleaner_id', $cleaner->cleaner_id)->value('user_id');
+                                $full = User::Where('user_id', $user_id)->value('full_name');
                             ?>
                             <li class="list_booking_info">
                                 <b>Name:</b> {{ $full }}
                             </li>
                             @endforeach
                             @endif
-
                         </ul>
 
-
-
                         <?php
-                        $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
-                        $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
-                        $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->count();
-                        $admin_transactioncount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
-                        $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
-
+                            $bookingcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->count();
+                            $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Accepted")->count();
+                            $declinecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Declined")->count();
+                            $admin_transactioncount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Pending")->count();
+                            $timeLimit = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Time-Limit-Reach")->count();
                         ?>
                 </div>
                 <div class="modal-footer trans_modal_footer">
-                    
                     <?php
-                    $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
-                    $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "In-Progress")->count();
-                    $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
-                    $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
+                        $statusOnTheWay = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "On-the-Way")->count();
+                        $statusOnProgress = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "In-Progress")->count();
+                        $statusdone = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->count();
+                        $reviews = Review::Where('booking_id', '=', $value->booking_id)->count();
                     ?>
                    @if($value->status == "Accepted" && $statusOnTheWay == $price_data->number_of_cleaner )
                     <button class="btn btn-block btn-primary on_progress_btn" type="submit" name="status" value="On-the-Way">
@@ -447,12 +448,12 @@ use App\Models\Notification;
                         @csrf
 
                         <?php
-                        $total = $price_data->number_of_cleaner;
-                        $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->count();
-                        $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->get();
-                        $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->get();
-                        $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
-                        $acceptedCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
+                            $total = $price_data->number_of_cleaner;
+                            $cleanerSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->count();
+                            $bookingSchedule = Booking::Where('schedule_date', $value->schedule_date)->where('schedule_time', $value->schedule_time)->where('booking_id', '!=', $value->booking_id)->get();
+                            $cleaner_data = User::Where('user_type', 'Cleaner')->Where('account_status', 'Validated')->get();
+                            $cleanerCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->count();
+                            $acceptedCount = Assigned_cleaner::Where('booking_id', $value->booking_id)->where('status', 'Accepted')->count();
                         ?>
                         @if($acceptedCount == 0)
                         <?php $total = $total; ?>
@@ -475,7 +476,7 @@ use App\Models\Notification;
                             <!-- Check if Validated Cleaner exist-->
                             @foreach($cleaner_data as $key => $cleaner)
                             <?php
-                            $fullname = User::Where('user_id', $cleaner->user_id)->value('full_name');
+                                $fullname = User::Where('user_id', $cleaner->user_id)->value('full_name');
                             ?>
                             <option value="{{  $cleaner->user_id }}">{{ $fullname }}</option>
                             @endforeach
@@ -483,23 +484,23 @@ use App\Models\Notification;
                             @else
                             <!-- Booking has the same Schedule -->
                             <?php
-                            $items = array();
-                            $count = 0;
-                            $itemExist = array();
-                            $counter = 0;
+                                $items = array();
+                                $count = 0;
+                                $itemExist = array();
+                                $counter = 0;
                             ?>
                             @if($cleaner_data != null)
                             <!-- Check if Validated Cleaner exist-->
                             @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                             <?php
-                            $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
+                                $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->get();
                             ?>
                             @if($cleanerID != null)
                             <!-- Check if booking already have a cleaner-->
                             @foreach($cleaner_data as $key => $cleaner)
                             @foreach($cleanerID as $key => $assignCleaner)
                             <?php
-                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
+                                $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
                             ?>
                             @if($cleaner->user_id == $assignUser)
                             <?php $itemExist[$counter++] =  $cleaner->user_id; ?>
@@ -512,14 +513,14 @@ use App\Models\Notification;
                             @endif
                             @endforeach
                             <?php
-                            $items = array_unique($items);
-                            $itemExist = array_unique($itemExist);
-                            $final = array_diff($items, $itemExist);
+                                $items = array_unique($items);
+                                $itemExist = array_unique($itemExist);
+                                $final = array_diff($items, $itemExist);
                             ?>
                             @if($final != null)
                             @foreach($final as $userID)
                             <?php
-                            $fullname = User::Where('user_id', $userID)->value('full_name');
+                                $fullname = User::Where('user_id', $userID)->value('full_name');
                             ?>
                             <option value="{{  $userID }}">{{ $fullname }}</option>
                             @endforeach
@@ -530,23 +531,21 @@ use App\Models\Notification;
                             @endif
                             @else
                             <?php
-                            $items = array();
-                            $count = 0;
-
+                                $items = array();
+                                $count = 0;
                             ?>
                             @if($cleanerSchedule == 0)
                             <!-- Check if the booking have the no same Schedule -->
                             @if($cleaner_data != null)
                             <!-- Check if Validated Cleaner exist-->
                             <?php
-                            $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();
-
+                                $cleanerID = Assigned_cleaner::Where('booking_id', $value->booking_id)->Where('status', 'Accepted')->orWhere('status', 'Declined')->orWhere('status', 'Pending')->get();
                             ?>
 
                             @foreach($cleaner_data as $key => $cleaner)
                             @foreach($cleanerID as $key => $assignCleaner)
                             <?php
-                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
+                                $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
                             ?>
                             @if($cleaner->user_id != $assignUser)
                             <?php $items[$count++] =  $cleaner->user_id; ?>
@@ -561,33 +560,35 @@ use App\Models\Notification;
                             @if($items != null)
                             @foreach($items as $userID)
                             <?php
-                            $fullname = User::Where('user_id', $userID)->value('full_name');
+                                $fullname = User::Where('user_id', $userID)->value('full_name');
                             ?>
                             <option value="{{  $userID }}">{{ $fullname }}</option>
                             @endforeach
                             @else
-                            <option value="">No Cleaner</option>
+                            <option value="">
+                                No Cleaner
+                            </option>
                             @endif
 
                             @endif
                             @else
                             <?php
-                            $items = array();
-                            $count = 0;
-                            $itemExist = array();
-                            $counter = 0;
+                                $items = array();
+                                $count = 0;
+                                $itemExist = array();
+                                $counter = 0;
                             ?>
                             @if($cleaner_data != null)
                             @foreach($bookingSchedule as $key => $cleanerWithSchedule)
                             <?php
-                            $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->orWhere('booking_id', $value->booking_id)->get();
+                                $cleanerID = Assigned_cleaner::Where('booking_id', $cleanerWithSchedule->booking_id)->orWhere('booking_id', $value->booking_id)->get();
                             ?>
                             @if($cleanerID != null)
                             <!-- Check if booking already have a cleaner-->
                             @foreach($cleaner_data as $key => $cleaner)
                             @foreach($cleanerID as $key => $assignCleaner)
                             <?php
-                            $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
+                                $assignUser = Cleaner::Where('cleaner_id', $assignCleaner->cleaner_id)->value('user_id');
                             ?>
                             @if($cleaner->user_id != $assignUser)
                             <?php $items[$count++] =  $cleaner->user_id; ?>
@@ -600,26 +601,28 @@ use App\Models\Notification;
                             @endif
                             @endforeach
                             <?php
-                            $items = array_unique($items);
-                            $itemExist = array_unique($itemExist);
-                            $final = array_diff($items, $itemExist);
+                                $items = array_unique($items);
+                                $itemExist = array_unique($itemExist);
+                                $final = array_diff($items, $itemExist);
                             ?>
                             @if($final != null)
                             @foreach($final as $userID)
                             <?php
-                            $fullname = User::Where('user_id', $userID)->value('full_name');
+                                $fullname = User::Where('user_id', $userID)->value('full_name');
                             ?>
                             <option value="{{  $userID }}">{{ $fullname }}</option>
                             @endforeach
                             @else
-                            <option value="">No Cleaner</option>
+                            <option value="">
+                                No Cleaner
+                            </option>
                             @endif
                             @endif
                             @endif
                             @endif
                         </select> <br>
                         <?php
-                        $total--;
+                            $total--;
                         ?>
                         @endwhile
                         <br>
@@ -679,7 +682,7 @@ use App\Models\Notification;
                 </form>
             </div>
         </div>
-    </div><!-- End of Modal -->
+    </div> <!-- End of Modal -->
 
     @endforeach
     @endforeach
@@ -687,7 +690,9 @@ use App\Models\Notification;
     <div class="banner-container">
         <div class="banner">
             <div class="text">
-                <h1> Currently no transaction.</h1>
+                <h1> 
+                    Currently no transaction.
+                </h1>
             </div>
             <div class="image">
                 <img src="/images/services/header_img.png" class="img-fluid">
@@ -698,6 +703,7 @@ use App\Models\Notification;
     @endif
     </div>
 
+    <!-- Notificatiom Scripts-->
     <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -748,7 +754,9 @@ use App\Models\Notification;
             <div class="modal-content">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">
+                            ×
+                        </span>
                     </button>
                     <div class="icon">
                         <i class="fa fa-sign-out-alt"></i>
@@ -758,8 +766,12 @@ use App\Models\Notification;
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+                        Yes
+                    </button>
                 </div>
             </div>
         </div>
@@ -793,6 +805,7 @@ use App\Models\Notification;
     </script>
     @endif
 
+    <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

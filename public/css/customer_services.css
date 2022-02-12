@@ -436,10 +436,8 @@
     font-size: 20px;
 }
 .table{
-    table-layout: fixed;
-    
+    table-layout: fixed; 
 }
-
 td{
     width: 33%;
     justify-content: center;
@@ -455,19 +453,15 @@ h4{
 .today{
     background-color: #ffe385;
 }
-
 .blocked{
     background-color: #ffaeae;
 }
-
 .table td{
     padding: 2%;
 }
-
 .table th{
     padding: 2%;
 }
-
 .btn1 {
     font-weight: 400;
     color: #212529;
@@ -486,32 +480,28 @@ h4{
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
-
 .modal-cont{
     padding: 0;
 }
+
 
 @media (max-width:750px){
     .banner-container .banner .image{
         display: none;
     }
-
     .text h1 p{
         text-align: center;
     }
-
     .p{
         text-align: center;
     }
     .h1{
         text-align: center;
     }
-
     .card-img{
         height: 265px;
         object-fit:fill;
-        border-radius: 0.75rem;
-        
+        border-radius: 0.75rem; 
     }
     .modal-dialog{
         margin: 0;
@@ -537,23 +527,19 @@ h4{
     .banner-container .banner .image{
         display: none;
     }
-
     .text h1 p{
         text-align: center;
     }
-
     .p{
         text-align: center;
     }
     .h1{
         text-align: center;
     }
-
     .card-img{
         height: 265px;
         object-fit:fill;
-        border-radius: 0.75rem;
-        
+        border-radius: 0.75rem; 
     }
 }
 
@@ -576,9 +562,6 @@ h4{
     padding: .75%;
     color: white;
 }
-
-
-
 .mobile-nav{
     box-shadow: 0 -.125rem .55rem rgba(0,0,0,.075)!important;
     display: block;

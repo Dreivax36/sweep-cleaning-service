@@ -1,21 +1,21 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Event;
-use App\Models\Notification;
-use Carbon\Carbon;
-use App\Models\Service_review;
-use App\Models\Time_entry;
+  use App\Models\Booking;
+  use App\Models\Customer;
+  use App\Models\Service;
+  use App\Models\Price;
+  use App\Models\Address;
+  use App\Models\User;
+  use App\Models\Cleaner;
+  use App\Models\Event;
+  use App\Models\Notification;
+  use Carbon\Carbon;
+  use App\Models\Service_review;
+  use App\Models\Time_entry;
 ?>
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
  Employee Dashboard Page
 </title>
@@ -113,7 +113,9 @@ use App\Models\Time_entry;
           ?>
           <input type="hidden" name="id" value="{{$id}}">
         <div class="buttons">
-          <p>Time IN/Time OUT</p>
+          <p>
+            Time IN/Time OUT
+          </p>
           @if($start == 0 && $end == 0)
           <button type="submit" class="btn btn-block btn-primary timein_btn" name="timeIn" value="{{now()->toDateTimeString()}}">
             TIME IN
@@ -168,7 +170,7 @@ use App\Models\Time_entry;
     </div>
   </div>
 
-  <!-- Calendar -->
+  <!-- Calendar Scripts -->
   <script>
     $(document).ready(function() {
 

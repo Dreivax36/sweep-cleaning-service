@@ -31,14 +31,6 @@
     </div>
     <div class="body">
         <div class="pagination justify-content-center">
-            <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
-          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
-          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
         </div>
         <!-- Get the Transaction with the status of Completed, Done, Declined and Cancelled -->
         <div class="card-content row justify-content-center">
@@ -51,7 +43,9 @@
             <div class="banner-container">
                 <div class="banner">
                     <div class="text">
-                        <h1> You currently have no history.</h1>
+                        <h1> 
+                            You currently have no history.
+                        </h1>
                     </div>
                     <div class="image">
                         <img src="/images/services/header_img.png" class="img-fluid">
@@ -150,19 +144,27 @@
                                     </p>
                                     <ul class="customer_package_list">
                                         <li>
-                                            <b>Equipment:</b> {{ $data->equipment }}
+                                            <b>
+                                                Equipment:
+                                            </b> {{ $data->equipment }}
                                         </li>
                                         <br>
                                         <li>
-                                            <b>Materials:</b> {{ $data->material }}
+                                            <b>
+                                                Materials:
+                                            </b> {{ $data->material }}
                                         </li>
                                         <br>
                                         <li>
-                                            <b>Personal Protection:</b> {{ $data->personal_protection }}
+                                            <b>
+                                                Personal Protection:
+                                            </b> {{ $data->personal_protection }}
                                         </li>
                                         <br>
                                         <li>
-                                            <b>Property Type:</b> {{ $value->property_type }}
+                                            <b>
+                                                Property Type:
+                                            </b> {{ $value->property_type }}
                                         </li>
                                         <!-- Get assigned cleaner/s for that transaction -->
                                         <?php
@@ -170,7 +172,9 @@
                                         ?>
                                         <br>
                                         <li>
-                                            <b>Cleaners:</b>
+                                            <b>
+                                                Cleaners:
+                                            </b>
                                         </li>
                                         @if($id != null)
                                             @foreach($id as $cleaner)
@@ -179,7 +183,9 @@
                                                 $full = User::Where('user_id', $user_id)->value('full_name');
                                             ?>
                                             <li class="list_booking_info">
-                                                <b>Name:</b> {{ $full }}
+                                                <b>
+                                                    Name:
+                                                </b> {{ $full }}
                                             </li>
                                             @endforeach
                                         @endif
@@ -209,6 +215,7 @@
     </div>
 </body>
 
+<!-- Pagination Scripts -->
 <script type="text/javascript">
     function getPageList(totalPages, page, maxLength) {
         function range(start, end) {

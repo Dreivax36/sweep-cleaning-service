@@ -12,7 +12,6 @@
         Customer Profile Page
     </title>
 </head>
-
 <body>
     <div class="customer_profile_title_con">
         <div>

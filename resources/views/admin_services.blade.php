@@ -1,23 +1,24 @@
 <?php
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Service_review;
-use App\Models\Notification;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Service_review;
+    use App\Models\Notification;
 ?>
-
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
     Admin Services Page
 </title>
+
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_services.css')}}">
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
 
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
@@ -31,17 +32,29 @@ use App\Models\Notification;
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <a href="admin_dashboard" class="nav-link">Home</a>
-                    <a class="nav-link" href="admin_services" role="button" id="active">Services</a>
-                    <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-                    <a class="nav-link" href="admin_user" role="button">User</a>
-                    <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                    <a class="nav-link" href="admin_reports" role="button">Reports</a>
+                    <a href="admin_dashboard" class="nav-link">
+                        Home
+                    </a>
+                    <a class="nav-link" href="admin_services" role="button" id="active">
+                        Services
+                    </a>
+                    <a class="nav-link" href="admin_transaction" role="button">
+                        Transactions
+                    </a>
+                    <a class="nav-link" href="admin_user" role="button">
+                        User
+                    </a>
+                    <a class="nav-link" href="admin_payroll" role="button">
+                        Payroll
+                    </a>
+                    <a class="nav-link" href="admin_reports" role="button">
+                        Reports
+                    </a>
                     <!-- Notification -->
                     <li class="nav-item dropdown" id="admin">
                         <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                        $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+                            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                         ?>
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
@@ -93,14 +106,15 @@ use App\Models\Notification;
         </div>
     </div>
 
-
     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" style="max-width: 70%;">
             <div class="modal-content service_modal_content">
                 <div class="modal-header customer_services_modal_header">
                     <div>
                         <h4 class="modal_customer_services_title modal-title">
-                            <b> Add New Service</b>
+                            <b> 
+                                Add New Service
+                            </b>
                         </h4>
                     </div>
                     <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
@@ -142,7 +156,6 @@ use App\Models\Notification;
                                     <label class="upload_label">
                                         Description
                                     </label>
-
                                     <textarea required class="form-control w-100 add_service_form" name="description" value="{{ old('description') }}" required></textarea>
                                     <span class="text-danger">@error('description'){{ $message }} @enderror</span>
                                 </div>
@@ -170,8 +183,6 @@ use App\Models\Notification;
                                     <textarea required class="form-control w-100 add_service_form" id="material" name="material" value="{{ old('material') }}" required></textarea>
                                     <span class="text-danger">@error('material'){{ $message }} @enderror</span>
                                 </div>
-
-
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -267,7 +278,6 @@ use App\Models\Notification;
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </form>
@@ -285,9 +295,8 @@ use App\Models\Notification;
     </div>
     <!-- End of Add Service -->
 
-
     <?php
-    $service_data = Service::orderby('updated_at', 'desc')->get();
+        $service_data = Service::orderby('updated_at', 'desc')->get();
     ?>
 
     <div class="row justify-content-center">
@@ -300,18 +309,18 @@ use App\Models\Notification;
                         {{ $value->service_name }}
                     </h3>
                     <?php
-                    $reviewscount = Service_review::where('service_id', $value->service_id)->count();
-                    $total = Service_review::where('service_id', $value->service_id)->avg('rate');
-                    $avg = (int)$total;
+                        $reviewscount = Service_review::where('service_id', $value->service_id)->count();
+                        $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                        $avg = (int)$total;
 
-                    for ($i = 1; $i <= 5; $i++) {
-                        if ($avg >= $i) {
-                            echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                        } else {
-                            echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($avg >= $i) {
+                                echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                            } else {
+                                echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                            }
                         }
-                    }
-                    echo '</span>';
+                        echo '</span>';
                     ?>
                     <a href="admin_reviews/{{$value->service_id}}" role="button" style="font-weight:bold;">( {{$reviewscount}} Reviews )</a>
                 </div>
@@ -332,7 +341,6 @@ use App\Models\Notification;
                             <div class="modal-content service_modal_content">
                                 <!-- Modal Content -->
                                 <div class="modal-header customer_services_modal_header">
-
                                     <div class="p-4">
                                         <h4 class="modal_customer_services_title">
                                             <b>{{ $value->service_name }}</b>
@@ -340,17 +348,17 @@ use App\Models\Notification;
                                         <div>
                                             <!-- Service Rating -->
                                             <?php
-                                            $total = Service_review::where('service_id', $value->service_id)->avg('rate');
-                                            $avg = (int)$total;
+                                                $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                                                $avg = (int)$total;
 
-                                            for ($i = 1; $i <= 5; $i++) {
-                                                if ($avg >= $i) {
-                                                    echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                                                } else {
-                                                    echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                for ($i = 1; $i <= 5; $i++) {
+                                                    if ($avg >= $i) {
+                                                        echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                    } else {
+                                                        echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                    }
                                                 }
-                                            }
-                                            echo '</span>';
+                                                echo '</span>';
                                             ?>
                                             <a href="admin_reviews/{{$value->service_id}}" role="button" style="font-weight:bold;">( {{$reviewscount}} Reviews )</a>
                                         </div>
@@ -382,7 +390,7 @@ use App\Models\Notification;
                                             <ul class="package_list">
                                                 <!-- Retrieve Price Data from Database -->
                                                 <?php
-                                                $price_data = Price::Where('service_id', $value->service_id)->get();
+                                                    $price_data = Price::Where('service_id', $value->service_id)->get();
                                                 ?>
                                                 <div class="price">
                                                     @foreach($price_data as $key => $value)
@@ -423,7 +431,9 @@ use App\Models\Notification;
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Delete
+                        </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -464,9 +474,8 @@ use App\Models\Notification;
 
         <!-- Modal for Updating a Service -->
         <div class="modal fade" id="updateService-{{ $value->service_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
             <?php
-            $service_data = Service::Where('service_id', $value->service_id)->get();
+                $service_data = Service::Where('service_id', $value->service_id)->get();
             ?>
             @foreach($service_data as $key => $value)
 
@@ -475,7 +484,9 @@ use App\Models\Notification;
                     <div class="modal-header customer_services_modal_header">
                         <div class="p-4">
                             <h4 class="modal_customer_services_title">
-                                <b>Update Service</b>
+                                <b>
+                                    Update Service
+                                </b>
                             </h4>
                         </div>
                         <button type="button" class="close close-web" data-dismiss="modal">&times;</button>
@@ -571,12 +582,12 @@ use App\Models\Notification;
                                         </span>
                                     </div>
                                     <?php
-                                    $resident_price = Price::Where('service_id', $value->service_id)->Where('property_type', 'Medium-Upper Class Residential Areas')->value('price');
-                                    $resident_cleaner = Price::Where('service_id', $value->service_id)->Where('property_type', 'Medium-Upper Class Residential Areas')->value('number_of_cleaner');
-                                    $apartment_price = Price::Where('service_id', $value->service_id)->Where('property_type', 'Apartments')->value('price');
-                                    $apartment_cleaner = Price::Where('service_id', $value->service_id)->Where('property_type', 'Apartments')->value('number_of_cleaner');
-                                    $condo_price = Price::Where('service_id', $value->service_id)->Where('property_type', 'Condominiums')->value('price');
-                                    $condo_cleaner = Price::Where('service_id', $value->service_id)->Where('property_type', 'Condominiums')->value('number_of_cleaner');
+                                        $resident_price = Price::Where('service_id', $value->service_id)->Where('property_type', 'Medium-Upper Class Residential Areas')->value('price');
+                                        $resident_cleaner = Price::Where('service_id', $value->service_id)->Where('property_type', 'Medium-Upper Class Residential Areas')->value('number_of_cleaner');
+                                        $apartment_price = Price::Where('service_id', $value->service_id)->Where('property_type', 'Apartments')->value('price');
+                                        $apartment_cleaner = Price::Where('service_id', $value->service_id)->Where('property_type', 'Apartments')->value('number_of_cleaner');
+                                        $condo_price = Price::Where('service_id', $value->service_id)->Where('property_type', 'Condominiums')->value('price');
+                                        $condo_cleaner = Price::Where('service_id', $value->service_id)->Where('property_type', 'Condominiums')->value('number_of_cleaner');
                                     ?>
                                     <h5 class="pricing_title">
                                         Residential Areas
@@ -671,7 +682,6 @@ use App\Models\Notification;
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                     </div>
@@ -690,6 +700,7 @@ use App\Models\Notification;
         </div> <!-- End of Modal for Updating a Service -->
         @endforeach
     </div>
+
     <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -710,10 +721,8 @@ use App\Models\Notification;
             }
         })
 
-
         var channel = pusher.subscribe('my-channel');
         channel.bind('admin-notif', function(data) {
-
 
             var result = data.messages;
 
@@ -722,7 +731,6 @@ use App\Models\Notification;
                 icon: 'success',
                 title: JSON.stringify(result),
             })
-
 
             var pending = parseInt($('#admin').find('.pending').html());
             if (pending) {
@@ -733,8 +741,8 @@ use App\Models\Notification;
             $('#refresh').load(window.location.href + " #refresh");
         });
     </script>
-
 <script>
+
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -861,8 +869,12 @@ autocomplete(document.getElementById("equipment"), material);
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+                        Yes
+                    </button>
                 </div>
             </div>
         </div>

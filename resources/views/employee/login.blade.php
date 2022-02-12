@@ -1,12 +1,10 @@
 <?php
-
-use Carbon\Carbon;
-use App\Models\Time_entry;
+    use Carbon\Carbon;
+    use App\Models\Time_entry;
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>
         Employee Time In/Out
@@ -17,13 +15,12 @@ use App\Models\Time_entry;
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <!-- Scripts -->
-    
-
     {{-- Scripts --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
@@ -43,9 +40,7 @@ use App\Models\Time_entry;
         refreshTime();
       }
   </script> 
-
 </head>
-
 <body class="reg_customer_body flex-row align-items-center" onload="display_dateTime();">
     <div class="register_con">
         <h4 class="signin_label">
@@ -125,5 +120,4 @@ use App\Models\Time_entry;
     </div>
     <script type="text/javascript" src="{{ asset('js/register.js')}}"></script>
 </body>
-
 </html>

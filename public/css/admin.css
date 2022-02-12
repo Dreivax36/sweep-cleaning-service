@@ -104,8 +104,6 @@ a:hover {
 .dropdown-menu a:hover {background-color: #ddd;}
 
 
-
-
 /* Admin Search Bar */
 
 .search_con {
@@ -153,6 +151,7 @@ a:hover {
 
 
 /* Admin Login and Register Page */
+
 
 .login_body, 
 .reg_body {
@@ -418,14 +417,8 @@ a:hover {
 }
 
 
-
-
-
-/* Admin Bar Graph */
-
-
-
 /* Admin User Page */
+
 
 .user_type_btn, 
 .user_type_btn_cleaner, 
@@ -485,6 +478,7 @@ a:hover {
 
  /* Admin Cleaner Page */
 
+
 .verify_btn {
     margin-right: -10px;
     width: 100px;
@@ -506,8 +500,8 @@ a:hover {
 }
                                                         
 
-
 /* Admin Services Page */
+
 
 .cards_title {
     display: block;
@@ -658,11 +652,8 @@ a:hover {
 }
 
 
-
-
-
-
 /* Admin Transaction Page */
+
 
 .check_icon_outside {
     color: #FB8500;
@@ -734,9 +725,8 @@ a:hover {
 }
 
 
-
-
 /* Admin Transaction History Page */
+
 
 .trans_his_con {
     margin-top: 40px;
@@ -754,32 +744,8 @@ a:hover {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Responsiveness */
+
 
 @media (max-width: 991px){
     header {
@@ -826,27 +792,3 @@ a:hover {
         margin-left: 20px;
     }
 }
-
-
-/* lost
-.trans-history-btn {
-    width: 200px;
-    background-color: #FB8500;
-    border: #FB8500;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    border-radius: 10px; 
-}
-.trans-history {
-    padding-left: 695px;
-}
-.trans-view-details-btn {
-    width:300px;
-    background-color: #BEE7FD;
-    border: #BEE7FD;
-    color: black;
-    font-weight: bold;
-    border-radius: 15px; 
-    font-size: 13px;
-}
-*/

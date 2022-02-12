@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
 
@@ -33,10 +32,7 @@
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <link href="{{ asset('css/jobs.css') }}" rel="stylesheet">
 </head>
-
-
 <body>
-
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -50,13 +46,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Center Of Navbar -->
                     <ul class="navbar-nav mx-auto">
-                        <a id="home" class="nav-link" href="/" role="button">Home</a>
-                        <a id="services" class="nav-link" href="services" role="button">Services</a>
-                        <a id="jobs" class="nav-link active" href="jobs" role="button">Jobs</a>
-                        <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                        <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
+                        <a id="home" class="nav-link" href="/" role="button">
+                            Home
+                        </a>
+                        <a id="services" class="nav-link" href="services" role="button">
+                            Services
+                        </a>
+                        <a id="jobs" class="nav-link active" href="jobs" role="button">
+                            Jobs
+                        </a>
+                        <a id="about_us" class="nav-link" href="about_us" role="button">
+                            About Us
+                        </a>
+                        <a id="contact_us" class="nav-link" href="contact_us" role="button">
+                            Contact Us
+                        </a>
                     </ul>
-
                     <ul class="navbar-nav d-flex">
                         <!-- Authentication Links -->
                         @if (Route::has('customer.customer_login'))
@@ -70,45 +75,54 @@
     <div class="banner-container">
         <div class="banner">
             <div class="text">
-                <h1>Join our Team</h1>
-                <p>Join us in our mission on making homes clean one step at a time</p>
+                <h1>
+                    Join our Team
+                </h1>
+                <p>
+                    Join us in our mission on making homes clean one step at a time
+                </p>
                 <a class="btn btn-primary get_started_btn" href="/cleaner/cleaner_register">{{ __('Get Started') }}</a>
             </div>
             <div class="image">
                 <img src="/images/jobs/jobs-header.png" class="img-fluid">
             </div>
-
         </div>
     </div>
 
     <div class="more-info">
         <div class="row2">
             <div class="services">
-                <h2 class="title2">Why join Sweep?</h2>
-                <p class="for-you-text">Cleanliness starts with us. Specializing in various cleaning and assisting services, that would help lessen people’s burden by providing an extra set of hands enabling them to carry on with their lives with ease. </p>
+                <h2 class="title2">
+                    Why join Sweep?
+                </h2>
+                <p class="for-you-text">
+                    Cleanliness starts with us. Specializing in various cleaning and assisting services, that would help lessen people’s burden by providing an extra set of hands enabling them to carry on with their lives with ease. 
+                </p>
             </div>
             <div class="col-6">
                 <img src="images/jobs/headhome.png" class="img-fluid">
             </div>
-
         </div>
     </div>
-
 
     <div class="download">
         <div class="row3">
             <div class="dcont">
-                <h2 class="dtitle">Download our App</h2>
-                <p class="d-text">Download the app and get your homes clean with just a click of a button. Now available on the Google Play Store.</p>
+                <h2 class="dtitle">
+                    Download our App
+                </h2>
+                <p class="d-text">
+                    Download the app and get your homes clean with just a click of a button. Now available on the Google Play Store.
+                </p>
                 <a class="btn btn-primary down_btn" href="{{ 'about_us' }}">{{ __('Download Now') }}</a>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.
         </div>
     </div>
-
 </body>

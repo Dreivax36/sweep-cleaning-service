@@ -6,7 +6,6 @@
     use App\Models\Customer;
     use App\Models\User;
 ?>
-
 @extends('customer/customer-nav/head_extention_customer-transactions')
 
 @section('content')
@@ -24,14 +23,13 @@
         crossorigin="anonymous">
     </script>
 </head>
-
 <body>
     <!-- Get Details of booking -->
     <?php
         $booking = Booking::where('booking_id', $booking_id)->get();
-        ?>
-        @foreach($booking as $value)
-        <?php
+    ?>
+    @foreach($booking as $value)
+    <?php
         $serviceName = Service::where('service_id', $value->service_id)->value('service_name');
         $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->value('price');
         $userId = Customer::Where('customer_id', $value->customer_id )->value('user_id');
@@ -107,7 +105,9 @@
                             </tr>
                             <tr class="user_table_row">
                                 <th scope="row" class="user_table_header">
-                                    <h3>Subtotal:</h3>
+                                    <h3>
+                                        Subtotal:
+                                    </h3>
                                 </th>
                                 <td class="user_table_data float-right">
                                     <h3><b>{{ $price }} Pesos</b></h3>
@@ -125,6 +125,7 @@
    
     <!-- Paypal Integration -->
     <script type="text/javascript" src="https://www.paypal.com/sdk/js?client-id=AXR1Mw2TTniagpmnaDLAt1gRjNhCtpRhlerD1xbxBamBRdZQjBvZeoKGMYVMOFn-Z_1xGtSoAccCa1wf&currency=PHP&locale=en_PH&disable-funding=credit,card"></script>
+    
     <!-- Paypal Button -->
     <script>
         paypal.Buttons({
@@ -144,7 +145,7 @@
                 });
             },
             onApprove: function(data, actions) {
-                // This function captures the funds from the transaction.
+            // This function captures the funds from the transaction.
             return actions.order.capture().then(function(orderData) {
                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                 var transaction = orderData.purchase_units[0].payments.captures[0];
@@ -169,7 +170,6 @@
                         }
                     });
                     //Redirect to customer transaction when success
-                   
                     window.location.href = "{{ url('/customer/customer_transaction') }}";
                 });
             },

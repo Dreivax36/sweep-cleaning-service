@@ -1,15 +1,14 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Assigned_cleaner;
-use App\Models\Event;
-use App\Models\Cleaner_review;
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Event;
+    use App\Models\Cleaner_review;
 ?>
 
 @extends('cleaner/cleaner-nav/head_extention_cleaner-reports')
@@ -20,7 +19,6 @@ use App\Models\Cleaner_review;
     <title>
         Cleaner Dashboard
     </title>
-
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
@@ -46,46 +44,46 @@ use App\Models\Cleaner_review;
 
 <body onload="display_dateTime();">
     <?php
-    $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-    $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
-    $bookingCount = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
+        $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+        $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
+        $bookingCount = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
     ?>
     <div class="row cleaner_row_dashboard">
         <div class="col-md-9">
             <?php
-            $rating = Cleaner_review::where('cleaner_id', $cleaner)->avg('rate');
-            $canceljobs = 0;
-            $totaljobs = 0;
-            $pendingjobs = 0;
-            $booking = Booking::Where('status', '!=', 'Cancelled')->get();
-            foreach ($booking as $booking) {
-                $id = $booking->booking_id;
-                $cancel = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Declined')->count();
-                $done = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Completed')->count();
-                $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
-                if ($cancel == 1) {
-                    $canceljobs++;
-                }
-                if ($done == 1) {
-                    $totaljobs++;
-                }
-                if ($pending == 1) {
-                    $pendingjobs++;
-                }
-            }
-
-            $totalSalary = 0;
-            $booking = Assigned_cleaner::Where('cleaner_id', $cleaner)->get();
-            foreach ($booking as $key => $booking) {
-                $book = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->get();
-                foreach ($book as $key => $book) {
-                    $price = Price::Where('service_id', $book->service_id)->Where('property_type', $book->property_type)->get();
-                    foreach ($price as $key => $price) {
-                        $salary = $price->price / $price->number_of_cleaner;
-                        $totalSalary = $totalSalary + $salary * 0.50;
+                $rating = Cleaner_review::where('cleaner_id', $cleaner)->avg('rate');
+                $canceljobs = 0;
+                $totaljobs = 0;
+                $pendingjobs = 0;
+                $booking = Booking::Where('status', '!=', 'Cancelled')->get();
+                foreach ($booking as $booking) {
+                    $id = $booking->booking_id;
+                    $cancel = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Declined')->count();
+                    $done = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', 'Completed')->count();
+                    $pending = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('booking_id', $id)->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
+                    if ($cancel == 1) {
+                        $canceljobs++;
+                    }
+                    if ($done == 1) {
+                        $totaljobs++;
+                    }
+                    if ($pending == 1) {
+                        $pendingjobs++;
                     }
                 }
-            }
+
+                $totalSalary = 0;
+                $booking = Assigned_cleaner::Where('cleaner_id', $cleaner)->get();
+                foreach ($booking as $key => $booking) {
+                    $book = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->get();
+                    foreach ($book as $key => $book) {
+                        $price = Price::Where('service_id', $book->service_id)->Where('property_type', $book->property_type)->get();
+                        foreach ($price as $key => $price) {
+                            $salary = $price->price / $price->number_of_cleaner;
+                            $totalSalary = $totalSalary + $salary * 0.50;
+                        }
+                    }
+                }
             ?>
 
             <div class="row justify-content-center" id="report">
@@ -132,9 +130,12 @@ use App\Models\Cleaner_review;
                 </div>
             </div> <!-- End of Reports -->
 
+    <!-- Mobile -->
     <div class="mobile-spacer">
         <br>
     </div>
+
+    <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

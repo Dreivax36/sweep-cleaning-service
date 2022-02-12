@@ -17,7 +17,6 @@
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/customer_reg.css')}}">
 </head>
-
 <body class="reg_customer_body">
     <div class="register_con">
         <h4 class="register_label">
@@ -41,8 +40,12 @@
             <input type="hidden" name="user_id" value="{{$user_id}}">
             <div class="user-details">
                 <div class="id-cont">
-                    <h5>Acceptable Valid ID's:</h5>
-                    <p>UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, PhilSys ID</p>
+                    <h5>
+                        Acceptable Valid ID's:
+                    </h5>
+                    <p>
+                        UMID, Driver'sLicense, Philhealth Card, SSS ID, Passport, PhilSys ID
+                    </p>
                 </div>
                 <div class="form-group">
                     <label class="upload_label">

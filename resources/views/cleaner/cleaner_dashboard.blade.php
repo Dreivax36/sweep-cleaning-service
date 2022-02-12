@@ -1,27 +1,22 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Assigned_cleaner;
-use App\Models\Event;
-use App\Models\Cleaner_review;
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Event;
+    use App\Models\Cleaner_review;
 ?>
-
 @extends('cleaner/cleaner-nav/head_extention_cleaner-home')
 
 @section('content')
-
 <head>
     <title>
         Cleaner Dashboard
     </title>
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
     {{-- Scripts --}}
@@ -30,6 +25,7 @@ use App\Models\Cleaner_review;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link href="{{ asset('css/cleaner.css') }}" rel="stylesheet">
+
     <script>
         function refreshTime() {
             var refresh = 1000;
@@ -43,9 +39,7 @@ use App\Models\Cleaner_review;
         }
     </script>
 </head>
-
 <body onload="display_dateTime();">
-
     <div class="row cleaner_row_dashboard">
         <!-- Sidebar -->
         <div class="col-md-3 cleaner_side_con">
@@ -53,7 +47,6 @@ use App\Models\Cleaner_review;
                 <div id="pst-container">
                     <div class="local_time_title">
                         Philippine Standard Time
-
                         <h3 id="time"></h3>
                         <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
                     </div>
@@ -64,10 +57,11 @@ use App\Models\Cleaner_review;
             </h2>
 
             <?php
-            $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
-            $bookingCount = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
+                $cleaner = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+                $bookingID = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
+                $bookingCount = Assigned_cleaner::Where('cleaner_id', $cleaner)->Where('status', '!=', 'Pending')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->count();
             ?>
+
             @if($bookingCount == 0)
             <div class="no-jobs">
                 <h3>
@@ -78,14 +72,14 @@ use App\Models\Cleaner_review;
             @if($bookingID != null)
             @foreach($bookingID as $key => $id)
             <?php
-            $booking_data = Booking::Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->Where('booking_id', $id->booking_id)->get();
+                $booking_data = Booking::Where('status', '!=', 'Declined')->Where('status', '!=', 'Pending')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->Where('booking_id', $id->booking_id)->get();
             ?>
             @foreach($booking_data as $key => $value)
             <?php
-            $service_data = Service::Where('service_id', $value->service_id)->get();
-            $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-            $user_data = User::Where('user_id', $userID)->get();
-            $address = Address::Where('customer_id', $value->customer_id)->value('address');
+                $service_data = Service::Where('service_id', $value->service_id)->get();
+                $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+                $user_data = User::Where('user_id', $userID)->get();
+                $address = Address::Where('customer_id', $value->customer_id)->value('address');
             ?>
             @foreach($service_data as $key => $data)
             @foreach($user_data as $key => $user)
@@ -122,11 +116,12 @@ use App\Models\Cleaner_review;
         <div class="col-md-9">
             <div id='calendar'></div>
             <?php
-            $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
+                $bookingEvent = Booking::Where('status', '!=', 'Pending')->Where('status', '!=', 'Done')->Where('status', '!=', 'Declined')->Where('status', '!=', 'Cancelled')->Where('status', '!=', 'Completed')->get();
             ?>
-
         </div>
     </div>
+
+    <!-- Calendar Scripts -->
     <script>
         $(document).ready(function() {
 
@@ -166,7 +161,6 @@ use App\Models\Cleaner_review;
                 ],
                 eventColor: '#FFB703'
             });
-
         });
 
         function displayMessage(message) {
@@ -174,10 +168,12 @@ use App\Models\Cleaner_review;
         }
     </script>
 
-
+    <!--  -->
     <div class="mobile-spacer">
         <br>
     </div>
+
+    <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

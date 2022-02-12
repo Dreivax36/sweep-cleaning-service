@@ -8,36 +8,34 @@
     use App\Models\Customer;
     use App\Models\User;
 ?>
-
-
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
     Admin Services Page
 </title>
+
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_services.css')}}">
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/navig.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/nav.css') }}" rel="stylesheet">
+<link href="{{ asset('css/navig.css') }}" rel="stylesheet">
 
-    <div id="app">
+<div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
-       
             <a class="navbar-brandname" href="{{ url('/') }}">
                 SWEEP
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <a href="admin_dashboard" class="nav-link"></a>
@@ -49,8 +47,8 @@
                     <!-- Notification -->
                     <li class="nav-item dropdown" id="admin">
                         <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                        $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+                            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                         ?>
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
@@ -93,7 +91,6 @@
         $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $service_id)->value('price');
     ?>
     <div class="modal-header customer_services_modal_header">
-        
         <div class="p-4">
             <div class="customer_cards_title">
                 <button class="navbar-toggler" onclick="history.back()">
@@ -117,7 +114,9 @@
     </div>
 
     <div class="rating-cont">
-        <h2>Customer Ratings</h2>
+        <h2>
+            Customer Ratings
+        </h2>
         <div class="row justify-content-center">
             <?php 
                 $reviews = Service_review::where('service_id', $service_id)->get();
@@ -131,25 +130,27 @@
                     $fullname = User::where('user_id', $user_id)->value('full_name');
                 ?>
                 <h5>{{$fullname}}</h5>
-                <h6>Total Rating: 
-                <?php             
-                    $avg = (int)$review->rate;
-                    for ($i = 1; $i <= 5; $i++) {
-                        if ($avg >= $i) {
-                            echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                        } else {
-                            echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                <h6>
+                    Total Rating: 
+                    <?php             
+                        $avg = (int)$review->rate;
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($avg >= $i) {
+                                echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                            } else {
+                                echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                            }
                         }
-                    }
-                    echo '</span>';
-                ?>
+                        echo '</span>';
+                    ?>
                 </h6>    
-                <h6>Comments:</h6>
+                <h6>
+                    Comments:
+                </h6>
                 <p>{{$review->comment}}</p>
             </div>
             @endforeach
         </div>
     </div>
-
 </body>
 @endsection

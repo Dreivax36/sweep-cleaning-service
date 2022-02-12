@@ -1,11 +1,9 @@
 <?php
-
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Booking;
-use App\Models\Service_review;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Booking;
+    use App\Models\Service_review;
 ?>
-
 @extends('customer/customer-nav/head_extention_customer-services')
 
 @section('content')
@@ -20,18 +18,20 @@ use App\Models\Service_review;
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
-
 <body>
     <div class="banner-container">
         <div class="banner">
             <div class="text">
-                <h1>The Road to Cleanliness has never been easier.</h1>
-                <p>Making your comfort zones squeaky clean one step at a time.</p>
+                <h1>
+                    The Road to Cleanliness has never been easier.
+                </h1>
+                <p>
+                    Making your comfort zones squeaky clean one step at a time.
+                </p>
             </div>
             <div class="image">
                 <img src="/images/services/header_img.png" class="img-fluid">
@@ -50,7 +50,7 @@ use App\Models\Service_review;
     <!-- Get all sweep services -->
     <div class="row justify-content-center">
         <?php
-        $service_data = Service::all();
+            $service_data = Service::all();
         ?>
         @foreach($service_data as $key => $value)
         <div class="card">
@@ -60,8 +60,8 @@ use App\Models\Service_review;
                 </div>
                 <div class="col-md-7 col-sm-7">
                     <?php
-                    $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $value->service_id)->value('price');
-                    $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $value->service_id)->value('price');
+                        $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $value->service_id)->value('price');
+                        $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $value->service_id)->value('price');
                     ?>
                     <div class="card-body">
                         <h3 class="card-title">
@@ -76,7 +76,9 @@ use App\Models\Service_review;
                         <div class="row">
                             <div class="col">
                                 <div class="pricing">
-                                    <h4 class="starts">Starts for as low as </h4>
+                                    <h4 class="starts">
+                                        Starts for as low as 
+                                    </h4>
                                     <div class="row pricing">
                                         <div class="col-md-6 col-sm-6 price1">
                                             <h3 class="price">
@@ -135,7 +137,9 @@ use App\Models\Service_review;
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="customer_services_modal_body_1_con">
-                                                <h4>Service Details:</h4>
+                                                <h4>
+                                                    Service Details:
+                                                </h4>
                                                 <p class="customer_services_description">
                                                     {{ $value->service_description }}
                                                 </p>
@@ -157,7 +161,7 @@ use App\Models\Service_review;
                                         <!-- Service Pricing  -->
                                         <div class="col-md-6">
                                             <?php
-                                            $price_data = Price::Where('service_id', $value->service_id)->get();
+                                                $price_data = Price::Where('service_id', $value->service_id)->get();
                                             ?>
                                             <div class="d-flex flex-column modal_body_2_con">
                                                 <ul class="customer_package_pricing">
@@ -313,18 +317,18 @@ use App\Models\Service_review;
 
     <!-- Get all active booking   -->
     <?php
-    $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
-    $items = array();
-    $count = 0;
+        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'On-Progress')->orWhere('status', 'Done')->get();
+        $items = array();
+        $count = 0;
     ?>
     @if ($scheduledate != null)
     @foreach($scheduledate as $schedule)
     <!-- Check Schedule date and time -->
     <?php
-    $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
-    if ($scheduleCount == 2) {
-        $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
-    }
+        $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
+        if ($scheduleCount == 2) {
+            $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
+        }
     ?>
     @endforeach
     <!-- Disable same schedule date and time have five bookings -->

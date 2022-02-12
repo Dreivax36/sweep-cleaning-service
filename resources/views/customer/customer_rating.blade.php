@@ -6,7 +6,6 @@
     use App\Models\Cleaner;
     use Illuminate\Http\Request;
 ?>
-
 @extends('customer/customer-nav/head_extention_customer-transactions')
 
 @section('content')
@@ -17,7 +16,6 @@
         Customer Services Page
     </title>
 </head>
-
 <body>
     <!-- Get details of booking -->
     <?php
@@ -70,7 +68,9 @@
         </div>
         <br>
         <div class="input-div">
-            <h5 class="title2">Would you like to share more?</h5>
+            <h5 class="title2">
+                Would you like to share more?
+            </h5>
             <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="service_comment" placeholder="Message" value="{{ old('message') }}" required></textarea>
             <span class="text-danger">
                 @error('message'){{ $message }} @enderror
@@ -104,7 +104,9 @@
             </fieldset>
             <br>
             <br>
-            <h5 class="title2">Would you like to share more?</h5>
+            <h5 class="title2">
+                Would you like to share more?
+            </h5>
             <textarea type="text" rows="8" cols="50" class="form-control contact_fields" name="cleaner_comment[]" placeholder="Message" value="{{ old('message') }}" required></textarea>
             <span class="text-danger">
                 @error('message'){{ $message }} @enderror

@@ -1,13 +1,11 @@
 <?php
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Booking;
-use App\Models\Service_review;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Booking;
+    use App\Models\Service_review;
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
 
@@ -43,7 +41,6 @@ use App\Models\Service_review;
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet" />
     <link href="{{ asset('css/customer_services.css') }}" rel="stylesheet">
@@ -52,18 +49,28 @@ use App\Models\Service_review;
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
                 SWEEP
             </a>
             <!-- Notification -->
             <ul class="navbar-nav mx-auto">
-                <a id="home" class="nav-link active" href="/" role="button">Home</a>
-                <a id="services" class="nav-link" href="services" role="button">Services</a>
-                <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
-                <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
+                <a id="home" class="nav-link active" href="/" role="button">
+                    Home
+                </a>
+                <a id="services" class="nav-link" href="services" role="button">
+                    Services
+                </a>
+                <a id="jobs" class="nav-link" href="jobs" role="button">
+                    Jobs
+                </a>
+                <a id="about_us" class="nav-link" href="about_us" role="button">
+                    About Us
+                </a>
+                <a id="contact_us" class="nav-link" href="contact_us" role="button">
+                    Contact Us
+                </a>
             </ul>
             <ul class="navbar-nav login-web d-flex">
                 <!-- Authentication Links -->
@@ -75,21 +82,29 @@ use App\Models\Service_review;
             <ul class="mobile-nav sticky-bottom">
                 <a class="nav-button active" href="{{ url('/') }}">
                     <i class="fas fa-home"></i>
-                    <h6>Home</h6>
+                    <h6>
+                        Home
+                    </h6>
                 </a>
                 <a class="nav-button" href="{{ url('/cleaning') }}">
                     <i class="fas fa-hand-sparkles fas-active"></i>
-                    <h6>Services</h6>
+                    <h6>
+                        Services
+                    </h6>
                 </a>
             </ul>
         </div>
     </nav>
     <div class="mobile-bg">
-<div class="banner-container">
+    <div class="banner-container">
         <div class="banner">
             <div class="text">
-                <h1>The Road to Cleanliness has never been easier.</h1>
-                <p>Making your comfort zones squeaky clean one step at a time.</p>
+                <h1>
+                    The Road to Cleanliness has never been easier.
+                </h1>
+                <p>
+                    Making your comfort zones squeaky clean one step at a time.
+                </p>
             </div>
             <div class="image">
                 <img src="/images/services/header_img.png" class="img-fluid">
@@ -108,7 +123,7 @@ use App\Models\Service_review;
     <!-- Get all sweep services -->
     <div class="row justify-content-center">
         <?php
-        $service_data = Service::all();
+            $service_data = Service::all();
         ?>
         @foreach($service_data as $key => $value)
         <div class="card">
@@ -118,8 +133,8 @@ use App\Models\Service_review;
                 </div>
                 <div class="col-md-7 col-sm-7">
                     <?php
-                    $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $value->service_id)->value('price');
-                    $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $value->service_id)->value('price');
+                        $price_start = Price::Where('property_type', 'Apartments')->Where('service_id', $value->service_id)->value('price');
+                        $price_end = Price::Where('property_type', 'Medium-Upper Class Residential Areas')->Where('service_id', $value->service_id)->value('price');
                     ?>
                     <div class="card-body">
                         <h3 class="card-title">
@@ -173,17 +188,17 @@ use App\Models\Service_review;
                                         <div>
                                             <!-- Service Rating -->
                                             <?php
-                                            $total = Service_review::where('service_id', $value->service_id)->avg('rate');
-                                            $reviewscount = Service_review::where('service_id', $value->service_id)->count();
-                                            $avg = (int)$total;
-                                            for ($i = 1; $i <= 5; $i++) {
-                                                if ($avg >= $i) {
-                                                    echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
-                                                } else {
-                                                    echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                $total = Service_review::where('service_id', $value->service_id)->avg('rate');
+                                                $reviewscount = Service_review::where('service_id', $value->service_id)->count();
+                                                $avg = (int)$total;
+                                                for ($i = 1; $i <= 5; $i++) {
+                                                    if ($avg >= $i) {
+                                                        echo "<i class='fa fa-star' style='color:yellow'></i>"; //fas fa-star for v5
+                                                    } else {
+                                                        echo "<i class='fa fa-star-o'></i>"; //far fa-star for v5
+                                                    }
                                                 }
-                                            }
-                                            echo '</span>';
+                                                echo '</span>';
                                             ?>
                                             <a href="reviews/{{$value->service_id}}" role="button" style="font-weight:bold;">( {{$reviewscount}} Reviews )</a>
                                         </div>
@@ -193,7 +208,9 @@ use App\Models\Service_review;
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="customer_services_modal_body_1_con">
-                                                <h4>Service Details:</h4>
+                                                <h4>
+                                                    Service Details:
+                                                </h4>
                                                 <p class="customer_services_description">
                                                     {{ $value->service_description }}
                                                 </p>
@@ -215,7 +232,7 @@ use App\Models\Service_review;
                                         <!-- Service Pricing  -->
                                         <div class="col-md-6">
                                             <?php
-                                            $price_data = Price::Where('service_id', $value->service_id)->get();
+                                                $price_data = Price::Where('service_id', $value->service_id)->get();
                                             ?>
                                             <div class="d-flex flex-column modal_body_2_con">
                                                 <ul class="customer_package_pricing">
@@ -239,7 +256,6 @@ use App\Models\Service_review;
                                         BOOK NOW
                                     </button>
                                 </div>
-                               
                             </div>
                         </div>
                     </div>
@@ -370,20 +386,21 @@ use App\Models\Service_review;
 
     <!-- Get all active booking   -->
     <?php
-    $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'In-Progress')->orWhere('status', 'Done')->get();
-    $items = array();
-    $count = 0;
+        $scheduledate = Booking::where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'In-Progress')->orWhere('status', 'Done')->get();
+        $items = array();
+        $count = 0;
     ?>
     @if ($scheduledate != null)
     @foreach($scheduledate as $schedule)
     <!-- Check Schedule date and time -->
     <?php
-    $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
-    if ($scheduleCount == 2) {
-        $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
-    }
+        $scheduleCount = Booking::where('schedule_date', $schedule->schedule_date)->Where('schedule_time', $schedule->schedule_time)->count();
+        if ($scheduleCount == 2) {
+            $items[$count++] = $schedule->schedule_date . ' ' . $schedule->schedule_time;
+        }
     ?>
     @endforeach
+
     <!-- Disable same schedule date and time have five bookings -->
     <script>
         var fakeDisabledTimes = <?php echo json_encode($items); ?>;
@@ -430,7 +447,7 @@ use App\Models\Service_review;
     </script>
     @endif
 
-    <!-- Mobile -->
+    <!-- Mobile Spacer -->
     <div class="mobile-spacer">
     </div>
     </div>

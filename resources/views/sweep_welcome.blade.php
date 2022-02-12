@@ -33,8 +33,6 @@
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
-
-
     <title>
         Welcome Page
     </title>
@@ -42,21 +40,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg sticky-top navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brandname" href="{{ url('/customer/customer_dashboard') }}">
                 SWEEP
             </a>
-           
+
             <!-- Notification -->
             <ul class="navbar-nav mx-auto">
-                <a id="home" class="nav-link active" href="/" role="button">Home</a>
-                <a id="services" class="nav-link" href="services" role="button">Services</a>
-                <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
-                <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
+                <a id="home" class="nav-link active" href="/" role="button">
+                    Home
+                </a>
+                <a id="services" class="nav-link" href="services" role="button">
+                    Services
+                </a>
+                <a id="jobs" class="nav-link" href="jobs" role="button">
+                    Jobs
+                </a>
+                <a id="about_us" class="nav-link" href="about_us" role="button">
+                    About Us
+                </a>
+                <a id="contact_us" class="nav-link" href="contact_us" role="button">
+                    Contact Us
+                </a>
             </ul>
             <ul class="navbar-nav login-web d-flex">
                 <!-- Authentication Links -->
@@ -68,11 +75,15 @@
             <ul class="mobile-nav sticky-bottom">
                 <a class="nav-button active" href="{{ url('/') }}">
                     <i class="fas fa-home fas-active"></i>
-                    <h6>Home</h6>
+                    <h6>
+                        Home
+                    </h6>
                 </a>
                 <a class="nav-button" href="{{ url('/cleaning') }}">
                     <i class="fas fa-hand-sparkles"></i>
-                    <h6>Services</h6>
+                    <h6>
+                        Services
+                    </h6>
                 </a>
             </ul>
         </div>
@@ -81,10 +92,13 @@
     <div class="banner-container">
         <div class="banner">
             <div class="text">
-                <h1>The Road to Cleanliness has never been easier.</h1>
-                <p>Making your comfort zones squeaky clean one step at a time.</p>
+                <h1>
+                    The Road to Cleanliness has never been easier.
+                </h1>
+                <p>
+                    Making your comfort zones squeaky clean one step at a time.
+                </p>
                 <a class="btn btn-primary signup_btn" href="/customer/customer_register">{{ __('Sign Up') }}</a>
-
             </div>
             <div class="image">
                 <img src="images/home/home_header.png" class="img-fluid">
@@ -342,11 +356,8 @@
             </div>
         </div>
 
-
-
         <!-- Mobile -->
         <div class="mobile-spacer">
         </div>
     </div>
-
 </body>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
 
@@ -39,7 +38,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <div class="dashboard">
         <div class="row">
@@ -48,8 +46,12 @@
                     <img src="/images/home/home_header.png" class="img-fluid">
                 </div>
                 <div class="text">
-                    <h1>Sweep Cleaners Account</h1>
-                    <p>Join us in our mission on making homes clean one step at a time</p>
+                    <h1>
+                        Sweep Cleaners Account
+                    </h1>
+                    <p>
+                        Join us in our mission on making homes clean one step at a time
+                    </p>
                     <a class="btn btn-primary signup_btn" href="/customer/customer_register">{{ __('Sign Up') }}</a>
                 </div>
             </div>
@@ -72,7 +74,9 @@
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div>
-                                <h5>Email</h5>
+                                <h5>
+                                    Email
+                                </h5>
                                 <input type="text" class="input" name="email" value="{{ old('email') }}">
                                 <span class="text-danger">
                                     @error('email'){{ $message }} @enderror
@@ -84,7 +88,9 @@
                                 <i class="fas fa-lock"></i>
                             </div>
                             <div>
-                                <h5>Password</h5>
+                                <h5>
+                                    Password
+                                </h5>
                                 <input type="password" class="input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                 <span class="text-danger">
                                     @error('password'){{ $message }} @enderror
@@ -105,6 +111,7 @@
         </div>
     </div>
 
+    <!-- Mobile Version -->
     <div class="mobile-bg">
         <div class="row justify-content-center">
             <div class="recommendation">
@@ -117,8 +124,12 @@
                                         <img src="/images/home/home_header.png" class="img-fluid img">
                                     </div>
                                     <div class="text">
-                                        <h1>Sweep Cleaner Accounts</h1>
-                                        <p>Join us in our mission on making homes clean one step at a time</p>
+                                        <h1>
+                                            Sweep Cleaner Accounts
+                                        </h1>
+                                        <p>
+                                            Join us in our mission on making homes clean one step at a time
+                                        </p>
                                     </div>
                                 </div>
                             </div>

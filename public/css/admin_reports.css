@@ -206,8 +206,6 @@ body{
     display: hidden !important;
 }
 
-
-
 @media (max-width:800px){
     .card{
         margin: 10px 20px !important;
@@ -311,7 +309,6 @@ body{
     }
 }
 
-
 .modal{
     margin: 0 !important;
     padding: 0 !important;
@@ -394,8 +391,6 @@ body{
     }
 }
 
-
-
 @media (max-width: 325px){
     .price{
         font-size: 25px !important;
@@ -422,7 +417,6 @@ body{
 .card-header {
     border-radius: 0.75rem 0.75rem 0px 0px !important; 
 }
-
 
 .card-header, .card-footer{
     background-color:#daf1fd !important;

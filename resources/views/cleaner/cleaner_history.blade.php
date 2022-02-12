@@ -1,16 +1,15 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Assigned_cleaner;
-use App\Models\Review;
-use App\Models\Service_review;
-use App\Models\Cleaner_review;
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Review;
+    use App\Models\Service_review;
+    use App\Models\Cleaner_review;
 ?>
 @extends('cleaner/cleaner-nav/head_extention_cleaner-history')
 
@@ -21,7 +20,6 @@ use App\Models\Cleaner_review;
 <link href="{{ asset('css/cleaner_history.css') }}" rel="stylesheet">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 </style>
 
 <body>
@@ -32,34 +30,26 @@ use App\Models\Cleaner_review;
     </div>
     <div class="body">
         <div class="pagination justify-content-center">
-            <!--<li class="page-item previous-page disable"><a class="page-link" href="#">Prev</a></li>
-          <li class="page-item current-page active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">5</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">6</a></li>
-          <li class="page-item dots"><a class="page-link" href="#">...</a></li>
-          <li class="page-item current-page"><a class="page-link" href="#">10</a></li>
-          <li class="page-item next-page"><a class="page-link" href="#">Next</a></li>-->
         </div>
         <div class="card-content row justify-content-center">
-
-            <!-- Get job history - status with completed, declined, cancelled -->
+            <!-- Display job history with completed, declined or cancelled statuses -->
             <?php
-            $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
-            $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
-            $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at', 'DESC')->get();
+                $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
+                $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->where('status', 'Declined')->orwhere('status', 'Completed')->orwhere('status', 'Cancelled')->count();
+                $bookingID = Assigned_cleaner::Where('cleaner_id', $cleanerID)->orderBy('updated_at', 'DESC')->get();
             ?>
-            <!-- No history display this -->
+            <!-- This will display if has no job history -->
             @if($cleanerCount == 0)
             <div class="banner-container">
                 <div class="banner1">
                     <div class="text">
-                        <h1> You currently have no history.</h1>
+                        <h1> 
+                            You currently have no history.
+                        </h1>
                     </div>
                     <div class="image">
                         <img src="/images/services/header_img.png" class="img-fluid">
                     </div>
-
                 </div>
             </div>
             @endif
@@ -68,11 +58,11 @@ use App\Models\Cleaner_review;
             <!-- Get transaction equal to the transaction assigned -->
             @if($booking->status == 'Declined')
             <?php
-            $booking_data = Booking::Where('booking_id', $booking->booking_id)->get();
+                $booking_data = Booking::Where('booking_id', $booking->booking_id)->get();
             ?>
             @else
             <?php
-            $booking_data = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->orWhere('status', 'Cancelled')->orderBy('updated_at', 'DESC')->get();
+                $booking_data = Booking::Where('booking_id', $booking->booking_id)->Where('status', 'Completed')->orWhere('status', 'Cancelled')->orderBy('updated_at', 'DESC')->get();
             ?>
             @endif
 
@@ -80,12 +70,12 @@ use App\Models\Cleaner_review;
             <!-- Check the transaction if it is equal to the transaction in assigned cleaner table  -->
             @if($booking->booking_id == $value->booking_id || $booking->status == 'Declined')
             <?php
-            $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
-            $serviceName = Service::Where('service_id', $value->service_id)->value('service_name');
-            $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-            $user_data = User::Where('user_id', $userID)->get();
-            $address = Address::Where('customer_id', $value->customer_id)->value('address');
-            $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
+                $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
+                $serviceName = Service::Where('service_id', $value->service_id)->value('service_name');
+                $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+                $user_data = User::Where('user_id', $userID)->get();
+                $address = Address::Where('customer_id', $value->customer_id)->value('address');
+                $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
             ?>
 
             <div class="card job" style="width: 25rem;">
@@ -275,7 +265,7 @@ use App\Models\Cleaner_review;
                                 </ul>
                             </div>
                         </div>
-                    </div><!-- End of Modal Content -->
+                    </div>
                 </div>
             </div> <!-- End of Modal -->
             @endforeach
@@ -286,9 +276,11 @@ use App\Models\Cleaner_review;
 
         </div>
     </div>
+
     <!-- Mobile -->
     <div class="mobile-spacer">
     </div>
+
     <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">
@@ -297,6 +289,7 @@ use App\Models\Cleaner_review;
     </footer>
 </body>
 
+<!-- Pagination Scripts -->
 <script type="text/javascript">
     function getPageList(totalPages, page, maxLength) {
         function range(start, end) {

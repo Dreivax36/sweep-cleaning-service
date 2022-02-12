@@ -41,7 +41,9 @@
                     <i class="fas fa-envelope"></i>
                 </div>
                 <div>
-                    <h5>Email</h5>
+                    <h5>
+                        Email
+                    </h5>
                     <input type="text" class="input" name="email" value="{{ old('email') }}">
                     <span class="text-danger">
                         @error('email'){{ $message }} @enderror
@@ -53,7 +55,9 @@
                     <i class="fas fa-lock"></i>
                 </div>
                 <div>
-                    <h5>Password</h5>
+                    <h5>
+                        Password
+                    </h5>
                     <input type="password" class="input @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                     <span class="text-danger">
                         @error('password'){{ $message }} @enderror

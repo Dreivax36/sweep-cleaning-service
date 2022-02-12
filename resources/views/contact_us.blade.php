@@ -33,9 +33,7 @@
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
     <link href="{{ asset('css/contact.css') }}" rel="stylesheet">
 </head>
-
 <body>
-
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
             <div class="container-fluid">
@@ -69,7 +67,9 @@
     <div class="banner-container">
         <div class="row">
             <div class="col-md-5 get-touch">
-                <h1 class="title">Get in Touch.</h1>
+                <h1 class="title">
+                    Get in Touch.
+                </h1>
                 <div class="text">
                     We are committed in hearing your thoughts.
                     If you need help or have any comments, questions or suggestions.
@@ -77,7 +77,9 @@
                     Send us a message or contact us directly.
                 </div>
                 <div class="sweep">
-                    <b class="sweepinc">SWEEP Inc.</b>
+                    <b class="sweepinc">
+                        SWEEP Inc.
+                    </b>
                     <br>
                     <div class="address">
                         B4, L2, Narra St. Palestina, Pili, Cam. Sur
@@ -85,7 +87,9 @@
                     </div>
                 </div>
                 <div class="support">
-                    <b class="sweepinc"> SUPPORT </b>
+                    <b class="sweepinc"> 
+                        SUPPORT 
+                    </b>
                     <br>
                     <div class="address">
                         email.support@gmail.com
@@ -151,13 +155,18 @@
     <div class="download">
         <div class="row3">
             <div class="dcont">
-                <h2 class="dtitle">Download our App</h2>
-                <p class="d-text">Download the app and get your homes clean with just a click of a button. Now available on the Google Play Store.</p>
+                <h2 class="dtitle">
+                    Download our App
+                </h2>
+                <p class="d-text">
+                    Download the app and get your homes clean with just a click of a button. Now available on the Google Play Store.
+                </p>
                 <a class="btn btn-primary down_btn" href="{{ 'about_us' }}">{{ __('Download Now') }}</a>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
     <div class="footer">
         <div class="sweep-title">
             SWEEP © 2021. All Rights Reserved.

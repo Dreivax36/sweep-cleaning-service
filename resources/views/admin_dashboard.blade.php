@@ -1,20 +1,20 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Event;
-use App\Models\Notification;
-use Carbon\Carbon;
-use App\Models\Service_review;
+  use App\Models\Booking;
+  use App\Models\Customer;
+  use App\Models\Service;
+  use App\Models\Price;
+  use App\Models\Address;
+  use App\Models\User;
+  use App\Models\Cleaner;
+  use App\Models\Event;
+  use App\Models\Notification;
+  use Carbon\Carbon;
+  use App\Models\Service_review;
 ?>
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
   Admin Dashboard Page
 </title>
@@ -22,7 +22,6 @@ use App\Models\Service_review;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 
 {{-- Scripts --}}
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
@@ -31,21 +30,22 @@ use App\Models\Service_review;
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/admin_dashboard.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/toast.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/notif.css')}}">
 
-  <script>
-      function refreshTime(){
-        var refresh = 1000;
-        mytime = setTimeout('display_dateTime()', refresh);
-      }
+<script>
+    function refreshTime(){
+      var refresh = 1000;
+      mytime = setTimeout('display_dateTime()', refresh);
+    }
 
-      function display_dateTime(){
-        var date = new Date();
-        document.getElementById("time").innerHTML = date.toLocaleTimeString();
-        refreshTime();
-      }
-  </script>  
+    function display_dateTime(){
+      var date = new Date();
+      document.getElementById("time").innerHTML = date.toLocaleTimeString();
+      refreshTime();
+    }
+</script>  
+
 <div id="app">
   <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
     <div class="container-fluid">
@@ -57,17 +57,29 @@ use App\Models\Service_review;
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <a href="admin_dashboard" class="nav-link" id="active">Home</a>
-          <a class="nav-link" href="admin_services" role="button">Services</a>
-          <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-          <a class="nav-link" href="admin_user" role="button">User</a>
-          <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-          <a class="nav-link" href="admin_reports" role="button">Reports</a>
+          <a href="admin_dashboard" class="nav-link" id="active">
+            Home
+          </a>
+          <a class="nav-link" href="admin_services" role="button">
+            Services
+          </a>
+          <a class="nav-link" href="admin_transaction" role="button">
+            Transactions
+          </a>
+          <a class="nav-link" href="admin_user" role="button">
+            User
+          </a>
+          <a class="nav-link" href="admin_payroll" role="button">
+            Payroll
+          </a>
+          <a class="nav-link" href="admin_reports" role="button">
+            Reports
+          </a>
           <!-- Notification -->
           <li class="nav-item dropdown" id="admin">
             <?php
-            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+              $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+              $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
             ?>
             <a id="navbarDropdown admin" class="nav-link admin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               <i class="fa fa-bell"></i>
@@ -110,7 +122,6 @@ use App\Models\Service_review;
         <div id="pst-container">
           <div class="local_time_title">
             Philippine Standard Time
-          
           <h3 id="time"></h3>
           <h6><?php echo \Carbon\Carbon::now()->format('l, F d, Y'); ?></h6>
           </div>
@@ -126,14 +137,14 @@ use App\Models\Service_review;
       </div>
       <!-- Get active booking -->
       <?php
-      $booking_data = Booking::Where('status', 'Accepted')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->get();
+        $booking_data = Booking::Where('status', 'Accepted')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->get();
       ?>
       @if($booking_data != null)
       @foreach($booking_data as $key => $value)
       <?php
-      $service_data = Service::Where('service_id', $value->service_id)->get();
-      $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-      $user_data = User::Where('user_id', $userID)->get();
+        $service_data = Service::Where('service_id', $value->service_id)->get();
+        $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+        $user_data = User::Where('user_id', $userID)->get();
       ?>
       @foreach($service_data as $key => $data)
       @foreach($user_data as $key => $user)
@@ -173,29 +184,29 @@ use App\Models\Service_review;
     <div class="col-sm-9">
       <!-- Compute daily revenue, total revenue, sweep customer, sweep cleaner -->
       <?php
-      $decline = Booking::where('status', 'Cancelled')->where('status', 'Declined')->count();
-      $complete = Booking::where('status', 'Completed')->count();
-      $services = Service::count();
-      $satisfaction = Service_review::avg('rate');
-      $total = 0;
-      $revenue = 0;
-      $totalToday = 0;
-      $revenueToday = 0;
-      $cleaner = User::where('user_type', 'Cleaner')->where('account_status', 'Validated')->count();
-      $customer = User::where('user_type', 'Customer')->where('account_status', 'Validated')->count();
-      $bookingRevenue = Booking::Where('status', 'Completed')->get();
-      foreach ($bookingRevenue as $bookingRevenue) {
-        $price = Price::where('service_id', $bookingRevenue->service_id)->where('property_type', $bookingRevenue->property_type)->value('price');
-        $total = $total + $price;
-      }
-      $revenue = $total * 0.70;
+        $decline = Booking::where('status', 'Cancelled')->where('status', 'Declined')->count();
+        $complete = Booking::where('status', 'Completed')->count();
+        $services = Service::count();
+        $satisfaction = Service_review::avg('rate');
+        $total = 0;
+        $revenue = 0;
+        $totalToday = 0;
+        $revenueToday = 0;
+        $cleaner = User::where('user_type', 'Cleaner')->where('account_status', 'Validated')->count();
+        $customer = User::where('user_type', 'Customer')->where('account_status', 'Validated')->count();
+        $bookingRevenue = Booking::Where('status', 'Completed')->get();
+        foreach ($bookingRevenue as $bookingRevenue) {
+          $price = Price::where('service_id', $bookingRevenue->service_id)->where('property_type', $bookingRevenue->property_type)->value('price');
+          $total = $total + $price;
+        }
+        $revenue = $total * 0.70;
 
-      $bookingToday = Booking::where('status', 'Completed')->where('updated_at', Carbon::today())->get();
-      foreach ($bookingToday as $bookingToday) {
-        $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
-        $totalToday = $totalToday + $priceToday;
-      }
-      $revenueToday = $totalToday - ($totalToday * 0.50);
+        $bookingToday = Booking::where('status', 'Completed')->where('updated_at', Carbon::today())->get();
+        foreach ($bookingToday as $bookingToday) {
+          $priceToday = Price::where('service_id', $bookingToday->service_id)->where('property_type', $bookingToday->property_type)->value('price');
+          $totalToday = $totalToday + $priceToday;
+        }
+        $revenueToday = $totalToday - ($totalToday * 0.50);
       ?>
       <!-- Reports -->
       <div class="row justify-content-center" id="report">
@@ -289,7 +300,9 @@ use App\Models\Service_review;
       <div class="modal-content">
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">
+              ×
+            </span>
           </button>
           <div class="icon">
             <i class="fa fa-sign-out-alt"></i>
@@ -299,14 +312,18 @@ use App\Models\Service_review;
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-          <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">Yes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">
+            No
+          </button>
+          <button type="button" class="btn btn-danger" onclick="document.location='{{ route('auth.logout') }}'">
+            Yes
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Calendar -->
+  <!-- Calendar Scripts -->
   <script>
     $(document).ready(function() {
 
@@ -345,7 +362,7 @@ use App\Models\Service_review;
     }
   </script>
 
-
+  <!-- Notification Scripts-->
   <script>
     // Enable pusher logging 
     Pusher.logToConsole = true;
@@ -365,7 +382,6 @@ use App\Models\Service_review;
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
     })
-
 
     var channel = pusher.subscribe('my-channel');
     channel.bind('admin-notif', function(data) {
@@ -390,6 +406,5 @@ use App\Models\Service_review;
       $('#refresh').load(window.location.href + " #refresh");
     });
   </script>
- 
 </body>
 @endsection

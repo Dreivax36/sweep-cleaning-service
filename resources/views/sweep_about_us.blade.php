@@ -1,10 +1,10 @@
 @extends('head_extention_welcome') 
 
 @section('content')
-    <title>
-        About Us Page
-    </title>
 
+<title>
+    About Us Page
+</title>
 <body>
     <header> <!-- Navbar --> 
         <div class="logo"> 
@@ -57,7 +57,9 @@
                 <img src="/img/team.jpg" class="d-block team_img" alt="..."> 
             </div>
         </div>
-        <p class="about_caption">Co-owners, Duane, Lyka and Paul.</p>
+        <p class="about_caption">
+            Co-owners, Duane, Lyka and Paul.
+        </p>
         <h4 class="story_title">
             OUR STORY
         </h4>
@@ -66,14 +68,10 @@
                 Sweep is an application tailored to help busy people to maintain cleanliness and orderliness whether at home, in an apartment, or in an office. Our mission is to provide quality cleaning and assistance services that would lessen people’s burden by providing an extra set of hands enabling them to carry on with their lives with ease.
             </p>
             <p class="story_paragraph">
-            Our vision is to establish ourselves as Bicolanos' first choice for online cleaning services in the city and, eventually, throughout the Bicol Region. Our objective is that everyone has the right to live and work in a clean, safe, and enjoyable environment.
+                Our vision is to establish ourselves as Bicolanos' first choice for online cleaning services in the city and, eventually, throughout the Bicol Region. Our objective is that everyone has the right to live and work in a clean, safe, and enjoyable environment.
             </p>
         </div>
-       
-
     </div>
-
-
 
     <div class="fixed_footer"> <!-- Footer --> 
         <div class="d-flex">
@@ -101,6 +99,5 @@
             Copyright &copy; 2021 Ateneo de Naga University
         </div>        
     </div> <!-- End of Footer -->
-    
 </body>
 @endsection

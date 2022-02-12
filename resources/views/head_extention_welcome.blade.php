@@ -30,41 +30,47 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
-
-
-
 </head>
 <body> 
 <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brandname" href="{{ url('/') }}">
-                    SWEEP
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brandname" href="{{ url('/') }}">
+                SWEEP
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Center Of Navbar -->
-                    <ul class="navbar-nav mx-auto">
-                        <a id="home" class="nav-link" href="/" role="button">Home</a>
-                        <a id="services" class="nav-link" href="services" role="button">Services</a>
-                        <a id="jobs" class="nav-link" href="jobs" role="button">Jobs</a>
-                        <a id="about_us" class="nav-link" href="about_us" role="button">About Us</a>
-                        <a id="contact_us" class="nav-link" href="contact_us" role="button">Contact Us</a>
-                    </ul>
-
-                    <ul class="navbar-nav d-flex">
-                        <!-- Authentication Links -->   
-                            @if (Route::has('customer.customer_login'))
-                                    <a class="btn login_btn" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
-                            @endif
-                    </ul>
-                </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Center Of Navbar -->
+                <ul class="navbar-nav mx-auto">
+                    <a id="home" class="nav-link" href="/" role="button">
+                        Home
+                    </a>
+                    <a id="services" class="nav-link" href="services" role="button">
+                        Services
+                    </a>
+                    <a id="jobs" class="nav-link" href="jobs" role="button">
+                        Jobs
+                    </a>
+                    <a id="about_us" class="nav-link" href="about_us" role="button">
+                        About Us
+                    </a>
+                    <a id="contact_us" class="nav-link" href="contact_us" role="button">
+                        Contact Us
+                    </a>
+                </ul>
+                <ul class="navbar-nav d-flex">
+                    <!-- Authentication Links -->   
+                        @if (Route::has('customer.customer_login'))
+                                <a class="btn login_btn" href="{{ route('customer.customer_login') }}">{{ __('Login') }}</a>
+                        @endif
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
 
     
     <main>

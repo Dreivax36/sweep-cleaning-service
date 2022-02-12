@@ -29,7 +29,6 @@
     border-radius: 100px;
     margin: 20px;
 }
-
 .customer_profile_name_con {
     width: 70%;
     height: 60px;
@@ -74,25 +73,20 @@
 .customer_update_btn:focus {
     box-shadow: none;
 } 
-
 .customer_profile_title_con{
     text-align: center;
     align-items: center;
     margin: 20px;
 }
-
 .cancel_confirm_con{
     padding-top: 10px;
 }
-
-
 .logout_btn{
     background-color: #F6A06F;
     border: #F6A06F;
     color: white;
     border-radius: 5px;
 }
-
 .logout_btn:hover{
     background-color: #ec5757;
     border: black;
@@ -145,7 +139,6 @@
     padding: .75%;
     color: white;
 }    
-
 .customer_cards_title{
     font-family: 'Raleway', sans-serif;
 }

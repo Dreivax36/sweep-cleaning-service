@@ -223,31 +223,6 @@ body {
     }
 }
 
-/* lost
-
-.trans-history-btn {
-    width: 200px;
-    background-color: #FB8500;
-    border: #FB8500;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    border-radius: 10px; 
-}
-.trans-history {
-    padding-left: 695px;
-}
-.trans-view-details-btn {
-    width:300px;
-    background-color: #BEE7FD;
-    border: #BEE7FD;
-    color: black;
-    font-weight: bold;
-    border-radius: 15px; 
-    font-size: 13px;
-}
-
-*/
-
 .stars {
     color: #ff7501;
     font-size: 1.2em;

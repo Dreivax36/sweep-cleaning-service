@@ -1,7 +1,6 @@
 <?php
-
-use App\Models\Cleaner;
-use App\Models\Address;
+    use App\Models\Cleaner;
+    use App\Models\Address;
 ?>
 @extends('cleaner/cleaner-nav/head_extention_cleaner-profile')
 
@@ -14,7 +13,6 @@ use App\Models\Address;
         Cleaner Profile Page
     </title>
 </head>
-
 <body>
     <div class="cleaner_profile_title_con">
         <div>
@@ -66,7 +64,6 @@ use App\Models\Address;
                 </button>
                 <a class="btn btn-block btn-primary logout_btn" data-dismiss="modal" data-toggle="modal" data-target="#logout" >LOGOUT</a>
             </div>
-
             <!-- Modal for Updating a Profile -->
             <div class="modal fade" id="updateProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -126,7 +123,6 @@ use App\Models\Address;
                                         @error('birthday'){{ $message }} @enderror
                                     </span>
                                 </div>
-                            
                         </div>
                         <div class="modal-footer service_modal_header">
                             <button type="submit" class="btn btn-primary update_btn" class="close-modal">
@@ -154,6 +150,7 @@ use App\Models\Address;
         });
     </script>
     @endif
+
     <!-- Fail Popup -->
     @if(!empty(Session::get('fail')))
     <script>
@@ -171,7 +168,9 @@ use App\Models\Address;
             <div class="modal-content">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">
+                            ×
+                        </span>
                     </button>
                     <div class="icon">
                         <i class="fa fa-sign-out-alt"></i>
@@ -181,15 +180,21 @@ use App\Models\Address;
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('logout_cleaner') }}'">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        No
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="document.location='{{ route('logout_cleaner') }}'">
+                        Yes
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Mobile -->
     <div class="mobile-spacer">
     </div>
+    
     <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">

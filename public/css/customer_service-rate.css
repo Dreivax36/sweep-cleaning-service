@@ -3,7 +3,6 @@
     font-size: 30px;
     background-size: cover;
 }
-
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
@@ -20,17 +19,14 @@
     display: flex;
     align-items: center;
 }
-
 .banner-container .banner .image{
     flex:1 1 250px;
     padding: 35px;
     text-align: left;
 }
-
 .banner-container .banner .image img{
     width: clamp(80%, 4vw, 90%);
 }
-
 .banner-container .banner .text{
     flex:1 1 250px;
     padding: clamp(30px, 2vw, 5%);
@@ -38,13 +34,14 @@
     align-items: center;
     justify-content: center;
 }
-
 .customer_cards_title{
     margin: 50px;
 }
 
 
 /* rating */
+
+
 .rating-css div {
     color: #ffe400;
     font-size: 30px;
@@ -82,7 +79,6 @@
     /* the style for a selected star */
     content: '\2605';  /* filled star */
   }
-  
   .stars{
       counter-reset: rateme 0;   
       font-size: 2.0rem;
@@ -98,7 +94,6 @@
   margin:0px 0px 0px 50px;
   float: left;
 }
-
 .rating > input { display: none; } 
 .rating > label:before { 
   margin-top: 2px;
@@ -108,12 +103,10 @@
   display: inline-block;
   content: "\f005";
 }
-
 .rating > .half:before { 
   content: "\f089";
   position: absolute;
 }
-
 .rating > label { 
 	color: #fff; 
 	float: right;
@@ -149,11 +142,9 @@
     border-radius: 20px;
     width: 100%;
 }
-
 .contact_fields{
     height: 300px;
 }
-
 .text h1{
     color: #1A5184;
     font-weight:bolder;
@@ -161,7 +152,6 @@
     font-size: clamp(30px, 4vw, 50px);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
 }
-
 .banner-container .banner .text p{
     text-align: left;
     margin: 4%;
@@ -172,29 +162,24 @@
     .banner-container .banner .image{
         display: none;
     }
-
     .text h1 p{
         text-align: center;
     }
-
     .p{
         text-align: center;
     }
     .h1{
         text-align: center;
     }
-
     .card-img{
         height: 265px;
         object-fit:fill;
         border-radius: 0.75rem;
-        
     }
     .customer_services_modal_content_inside{
         height: 100%;
     }
 }
-
 .card{
     margin: 10px;
     background-color: #FFEDDF;
@@ -203,76 +188,58 @@
     border-radius: 0.75rem;
     max-width: 540px;
 }
-
 .card-body{
     align-content: space-between;
 }
-
 .pricing{
 
 }
-
 .button-left{
 
 }
-
 .price{
     font-weight:bolder;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-
 .starts{
     font-size: small;
 }
-
 .price{
     font-size: 30px;
 }
 .btn-align-left{
     align-items: flex-end;
 }
-
 .row{
     justify-content: space-between;
     margin-right: 0;
     margin-left: 0;
 }
-
 .col{
     justify-content: end;
 }
-
 .card-img{
     height: 265px;
     object-fit:fill;
-    border-radius: 0.75rem;
-    
+    border-radius: 0.75rem; 
 }
-
 .card-img-top{
     object-fit:fill;
     border-radius: 0.75rem;
 }
-
 .col-lg-3 .col-md-5{
     padding-right: 0px;
     padding-left: 0px;
 }
-
-
 .head{
     align-items: center;
-
 }
-
 .service_title{
     padding: 0px 50px 10px 50px;
 }
-
 .customer_search_con{
     padding: 20px;
 }
-
 .customer_search_field {
     width: 97%;
     height: 40px;
@@ -282,12 +249,9 @@
     border: none;
     background-color: #DAE1EC;
 }
-
 .customer_services_modal_content {
-    border-radius: 15px;
-    
+    border-radius: 15px;   
 }
-
 .customer_services_broom_2_1_img, 
 .customer_services_broom_2_5_img,
 .customer_trans_broom_2_1_img,
@@ -298,12 +262,10 @@
     background-color: #FFB703;  
     border-radius: 10px; 
 }
-
 .five_stars_img {
     width: 120px;
     height: 50px;
 }
-
 .modal-header{
     background-image: url(/images/home/header.jpg);
     background-position: center;
@@ -312,7 +274,6 @@
     box-shadow: 0 .55rem .5rem rgba(0,0,0,.07)!important;
     border-radius: 0.75rem;
 }
-
 .close-mobile{
     width: 70px;
     height: 30px;
@@ -324,7 +285,6 @@
     border-radius: 5px;
     align-items: center;
 }
-
 
 
 @media (max-width:800px){
@@ -367,10 +327,8 @@
     }
     .customer_cards_title{
         margin: 15px;
-    }
-    
+    }  
 }
-
 .book_now_btn, .confirm_btn {
     background-color: #397fa5;
     border: #219EBC;
@@ -378,14 +336,12 @@
     font-weight: bold;
     border-radius: 5px; 
 }
-
 .btn-primary{
     background-color: #F6A06F;
     border: #F6A06F;
     color: white;
     border-radius: 5px;
 }
-
 .btn-primary:hover{
     background-color: #ffc7a7;
     border: black;
@@ -393,10 +349,8 @@
     border-radius: 5px;
     transition-duration: 0.4s;
 }
-
 .customer_trans_status,
 .customer_trans_his_status {
-    
     margin-top: 5px;
     font-size: 18px;
     font-style: italic;
@@ -404,15 +358,12 @@
     color: #178ac9;
     text-align: right;
 }
-
 .service_title_trans{
     font-size: 25px;
 }
-
 .card-body{
     align-content: space-between;
 }
-
 .customer_services_modal{
     width: 100%;
     margin: 0;
@@ -426,7 +377,6 @@
 .customer_services_modal_footer{
     padding: 16px;
 }
-
 .modal-header {
     display: block;
 }
@@ -439,6 +389,7 @@
 .modal_customer_services_title, .customer_rating_title,.title2{
     font-family: 'Raleway', sans-serif;
 }
+
 
 @media (min-width:801px) {
     .customer_services_modal_con{
@@ -468,21 +419,16 @@
         opacity: 1;
     }
 }
-
-
 .modal{
     margin: 0;
     padding: 0;
 }
-
 .customer_services_description, .customer_package_list{
     text-align: justify;
 }
-
 .customer_package_pricing{
     margin: 0%;
 }
-
 .confirm_btn:hover{
     background-color: #6ef184;
     border: black;
@@ -491,7 +437,6 @@
     transition-duration: 0.4s;
     font-weight: 500;
 }
-
 .cancel_btn:hover{
     background-color: #f17d6e;
     border: black;
@@ -500,41 +445,36 @@
     transition-duration: 0.4s;
     font-weight: 500;
 }
-
 .pricing{
     margin-right: -15px;
     margin-left: -15px;
 }
-
 .place{
     align-content: space-between;
     padding: 10px;
 }
+.form-check{
 
-.form-check{}
+}
 
 
 @media (max-width:750px){
     .banner-container .banner .image{
         display: none;
     }
-
     .text h1 p{
         text-align: center;
     }
-
     .p{
         text-align: center;
     }
     .h1{
         text-align: center;
     }
-
     .card-img{
         height: 265px;
         object-fit:fill;
-        border-radius: 0.75rem;
-        
+        border-radius: 0.75rem;  
     }
     .modal-dialog{
         margin: 0;
@@ -557,29 +497,24 @@
     .banner-container .banner .image{
         display: none;
     }
-
     .text h1 p{
         text-align: center;
     }
-
     .p{
         text-align: center;
     }
     .h1{
         text-align: center;
     }
-
     .card-img{
         height: 265px;
         object-fit:fill;
-        border-radius: 0.75rem;
-        
+        border-radius: 0.75rem; 
     }
     .customer_cards_title{
         margin: 15px;
     }
 }
-
 .title2{
 
 }

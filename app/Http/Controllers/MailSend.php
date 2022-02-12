@@ -8,9 +8,9 @@ use App\Models\User;
 
 class MailSend extends Controller
 {
-    
+    //Email verification
     public function mailsend(Request $request){
-        //Notify the user that their account is validated
+        //Notify the user that their account is now validated
         $name = User::Where('user_id', $request->route('id'))->value('full_name');
         $details = [
             'title' => 'Good day!',

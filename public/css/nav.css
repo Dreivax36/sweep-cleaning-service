@@ -1,7 +1,6 @@
 .sweep-nav{
     background-color: #DBF1FC !important;
-  }
-
+}
 .navbar-brandname {
     color: #042A6B;
     height: 50px;
@@ -11,17 +10,14 @@
     font-style: italic;
     margin-top: 5px;
 }
-
 .login_btn {
     background-color: #1A5184;
     border: #1A5184;
     color: white;
     border-radius: 5px; 
     font-size: 16px;
-    width: 130px;
-    
+    width: 130px; 
 }
-
 .reg_btn{
     background-color: #ffbf76;
     border: #ffbf76;
@@ -30,19 +26,16 @@
     font-size: 16px;
     width: 130px;
 }
-
 .mobile-nav {
     display: none;
 }
-
 .login_btn-top {
     background-color: #1A5184;
     border: #1A5184;
     color: white;
     border-radius: 5px; 
     font-size: 16px;
-    width: 130px;
-    
+    width: 130px;  
 }
 
 
@@ -51,7 +44,6 @@
     .navbar .navbar-nav{
         display: none;
     }
-    
     .mobile-nav {
         box-shadow: 0 -0.225rem 1.2rem rgba(0,0,0,0.3)!important;
         display: block;
@@ -96,10 +88,8 @@
         color: #1A5184 ;
         font-weight:700;
     }
-
     .dropdown{
         position: relative;
         list-style: none;
     }
-    
 }

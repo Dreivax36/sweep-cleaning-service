@@ -1,9 +1,11 @@
 @extends('head_extention_welcome') 
 
 @section('content')
-    <title>
-        FAQs Page
-    </title>
+
+<title>
+    FAQs Page
+</title>
+
 <body>
     <header> <!-- Navbar --> 
         <div class="logo"> 
@@ -119,6 +121,5 @@
             Copyright &copy; 2021 Ateneo de Naga University
         </div>        
     </div> <!-- End of Footer -->
-    
 </body>
 @endsection

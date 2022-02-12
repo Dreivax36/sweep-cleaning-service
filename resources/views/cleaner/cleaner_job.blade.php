@@ -1,13 +1,12 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\Address;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Assigned_cleaner;
+    use App\Models\Booking;
+    use App\Models\Customer;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\Address;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Assigned_cleaner;
 ?>
 
 @extends('cleaner/cleaner-nav/head_extention_cleaner-jobs')
@@ -27,7 +26,7 @@ use App\Models\Assigned_cleaner;
     </div>
     <div class="body">
         <div class="row justify-content-center" id="status">
-            <!-- Get job data assigned to cleaner -->
+            <!-- Get job data assigned to a cleaner -->
             <?php
             $cleanerID = Cleaner::Where('user_id', $LoggedUserInfo['user_id'])->value('cleaner_id');
             $cleanerCount = Assigned_cleaner::Where('cleaner_id', $cleanerID)->Where('status', '!=', 'Declined')->Where('status', '!=', 'Completed')->Where('status', '!=', 'Cancelled')->count();
@@ -46,21 +45,21 @@ use App\Models\Assigned_cleaner;
             </div>
             @endif
             @if($bookingID != null)
-            <!-- Get booking with status Pending, Accepted, On-the-Way, In-Progress, and Done -->
+            <!-- Display job history with pending, accepted, on-the-way, in-progress or done statuses -->
             @foreach($bookingID as $key => $booking)
             <?php
-            $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orderBy('updated_at', 'DESC')->get();
+                $booking_data = Booking::Where('status', 'Pending')->orWhere('status', 'Accepted')->orWhere('status', 'Done')->orWhere('status', 'In-Progress')->orWhere('status', 'On-the-Way')->orderBy('updated_at', 'DESC')->get();
             ?>
             @foreach($booking_data as $key => $value)
             <!-- Check if job assigned to cleaner and booking is equal -->
             @if($booking->booking_id == $value->booking_id)
             <?php
-            $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
-            $service_name = Service::Where('service_id', $value->service_id)->value('service_name');
-            $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
-            $user_data = User::Where('user_id', $userID)->get();
-            $address = Address::Where('customer_id', $value->customer_id)->value('address');
-            $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
+                $booking_id = Booking::where('booking_id', $booking->booking_id)->value('booking_id');
+                $service_name = Service::Where('service_id', $value->service_id)->value('service_name');
+                $userID = Customer::Where('customer_id', $value->customer_id)->value('user_id');
+                $user_data = User::Where('user_id', $userID)->get();
+                $address = Address::Where('customer_id', $value->customer_id)->value('address');
+                $price = Price::Where('property_type', $value->property_type)->Where('service_id', $value->service_id)->get();
             ?>
 
             <div class="card job" style="width: 25rem;">
@@ -193,11 +192,11 @@ use App\Models\Assigned_cleaner;
                                 <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
                                 <!-- Cleaner button query -->
                                 <?php
-                                $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();
-                                $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
-                                $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "In-Progress")->count();
-                                $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();
-                                $idcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->orderBy('cleaner_id', 'ASC')->first();
+                                    $statuscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Accepted")->count();
+                                    $otwcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "On-the-Way")->count();
+                                    $onprogresscount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "In-Progress")->count();
+                                    $donecount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('cleaner_id', '=', $cleanerID)->Where('status', '=', "Done")->count();
+                                    $idcount = Assigned_cleaner::Where('booking_id', '=', $value->booking_id)->Where('status', '=', "Done")->orderBy('cleaner_id', 'ASC')->first();
                                 ?>
                                 <div class="modal-footer cleaner_job_modal_footer">
                                     <!-- Check if transaction status is pending and status in assigned cleaner table is Pending -->
@@ -236,10 +235,11 @@ use App\Models\Assigned_cleaner;
                                     @endif
                                 </div>
                             </form>
-                        </div><!-- End of Modal Content -->
+                        </div>
                     </div>
                 </div>
-            </div><!-- End of Modal -->
+            </div> <!-- End of Modal -->
+
             <!-- Decline Job Modal -->
             <div class="modal fade" id="decline-{{ $value->booking_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -273,8 +273,12 @@ use App\Models\Assigned_cleaner;
                                 <input type="hidden" name="cleaner_id" value="{{ $cleanerID }}">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                            <button type="submit" class="btn btn-danger" name="status" value="Declined">YES</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                NO
+                            </button>
+                            <button type="submit" class="btn btn-danger" name="status" value="Declined">
+                                YES
+                            </button>
                         </div>
                         </form>
                     </div>
@@ -329,6 +333,7 @@ use App\Models\Assigned_cleaner;
             @endif
         </div>
     </div>
+
     <!-- Decline Popup -->
     @if(!empty(Session::get('success-decline')))
     <script>
@@ -339,6 +344,7 @@ use App\Models\Assigned_cleaner;
         });
     </script>
     @endif
+
     <!-- Success Popup -->
     @if(!empty(Session::get('success')))
     <script>
@@ -349,6 +355,7 @@ use App\Models\Assigned_cleaner;
         });
     </script>
     @endif
+
     <!-- Success cleaner Popup -->
     @if(!empty(Session::get('success-cleaner')))
     <script>
@@ -359,6 +366,7 @@ use App\Models\Assigned_cleaner;
         });
     </script>
     @endif
+
     <!-- Fail Popup -->
     @if(!empty(Session::get('fail')))
     <script>
@@ -373,6 +381,7 @@ use App\Models\Assigned_cleaner;
     <!-- Mobile -->
     <div class="mobile-spacer">
     </div>
+    
     <!-- Footer -->
     <footer id="footer">
         <div class="sweep-title">

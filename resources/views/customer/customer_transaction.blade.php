@@ -9,12 +9,14 @@
     use App\Models\Address;
     use App\Models\Review;
 ?>
-
 @extends('customer/customer-nav/head_extention_customer-transactions')
 
 @section('content')
 
 <head>
+    <title>
+        Customer Transaction Page
+    </title>
     <link href="{{ asset('css/customer_trans.css') }}" rel="stylesheet">
     <link href="{{ asset('css/gcash.css') }}" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -22,14 +24,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css" rel="stylesheet"/>
-    <title>
-        Customer Transaction Page
-    </title>
 </head>
-
 <body>
     <div class="row head">
         <div class="col-md-8">
@@ -53,7 +50,9 @@
             <div class="banner-container">
                 <div class="banner">
                     <div class="text">
-                        <h1> You currently have no transaction.</h1>
+                        <h1> 
+                            You currently have no transaction.
+                        </h1>
                     </div>
                     <div class="image">
                         <img src="/images/services/header_img.png" class="img-fluid">
@@ -194,17 +193,25 @@
                                     @csrf
                                     <input type="hidden" name="booking_id" value="{{$value->booking_id}}">
                                             <div class="gcashqr">
-                                                <h6>Scan the QR Code below using your GCash App</h6>
+                                                <h6>
+                                                    Scan the QR Code below using your GCash App
+                                                </h6>
                                                 <img src="/images/gcashqr.png" class="img-gcash">
                                             </div>
                                             <div class="customer_services_modal_body_1_con">
-                                                <h5>Amount:</h5>
+                                                <h5>
+                                                    Amount:
+                                                </h5>
                                                 <input type="text" class="form-control input" name="amount" placeholder="₱{{ $price_data->price }}" value="{{ $price_data->price }}" readonly>
                                                 
                                             </div>
                                             <div class="customer_services_modal_body_1_con">
-                                                <h5>Reference Number:</h5>
-                                                <p>Please input the Reference Number of the GCash Payment Below</p>
+                                                <h5>
+                                                    Reference Number:
+                                                </h5>
+                                                <p>
+                                                    Please input the Reference Number of the GCash Payment Below
+                                                </p>
                                                 <input type="text" class="form-control input" name="transaction_id" placeholder="Transaction ID" required>
                                             </div>
                                         </div>
@@ -401,7 +408,9 @@
                                         <?php
                                             $addressname = Address::where('address_id', $value->address_id)->value('address');
                                         ?>
-                                        <h3> Current Address :  <b> {{$addressname}} </b></h3>
+                                        <h3> 
+                                            Current Address :  <b> {{$addressname}} </b>
+                                        </h3>
                                         <input type="hidden" name="booking_id" value="{{$value->booking_id}}">    
                                         <select class="form-control form-control-lg" name="address_id[]">
                                         @foreach($addressData as $key => $add)
@@ -499,14 +508,21 @@
                                     @csrf
                                     <input type="hidden" name="booking_id" value="{{ $value->booking_id }}">
                                 
-                                   
-                                    <h5> There is no cleaner available for your booking on 
+                                    <h5> 
+                                        There is no cleaner available for your booking on 
                                         {{ date('F d, Y', strtotime($value->schedule_date)) }} at {{ date('h:i A', strtotime($value->schedule_time)) }} 
-                                        with the Booking number {{$value->booking_id}}. </h5>
-                                    <h5> Please select a different date and time. </h5> 
-                                    <h5> Thank you! </h5> 
+                                        with the Booking number {{$value->booking_id}}. 
+                                    </h5>
+                                    <h5> 
+                                        Please select a different date and time. 
+                                    </h5> 
+                                    <h5> 
+                                        Thank you! 
+                                    </h5> 
                                     <br>
-                                    <h4 class="place-type"> Schedule: </h4>   
+                                    <h4 class="place-type"> 
+                                        Schedule: 
+                                    </h4>   
                                     <div class="place"> 
                                     <label for="appt">
                                         Date:
@@ -526,7 +542,7 @@
                                     CONFIRM NEW SCHEDULE
                                 </button>
                             </div>
-                                </form>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -621,6 +637,7 @@
         });
     </script>
     @endif
+
     <!-- Popup when updating address successful -->
     @if(Session::has('success-address'))
     <script>
@@ -631,6 +648,7 @@
         });
     </script>
     @endif
+
     <!-- Popup when cancel booking successful -->
     @if(Session::has('success-decline'))
     <script>
@@ -641,6 +659,7 @@
         });
     </script>
     @endif
+
     <!-- Popup when status updated successful -->
     @if(Session::has('success'))
     <script>
@@ -651,6 +670,7 @@
         });
     </script>
     @endif
+
     <!-- Popup when error occur -->
     @if(session('fail'))
     <script>
@@ -661,6 +681,7 @@
         });
     </script>
     @endif
+
     <!-- Popup when rating successful -->
     @if(session('success-rate'))
     <script>
@@ -672,6 +693,7 @@
         });
     </script>
     @endif
+    
     <!-- Popup when payment successful -->
     @if(session('success-pay'))
     <script>

@@ -9,7 +9,6 @@
     background-color: #fff;
     border-radius: 20px;
 }
-
 .cleaner_profile_avatar_con {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     width: 13rem;
@@ -18,7 +17,6 @@
     border-radius: 100px;
     margin: 20px;
 }
-
 .cleaner_profile_name_con {
     width: 70%;
     height: 60px;
@@ -27,7 +25,6 @@
     align-items: center;
     text-align: center;
 }
-
 .cleaner_profile_name {
     color: #FFB703;
     font-weight: bold;
@@ -37,7 +34,6 @@
     text-align: center;
     font-family: 'Raleway', sans-serif;
 }
-
 .cleaner_profile_info_con {
     width: 90%;
     height: 50px;
@@ -48,7 +44,6 @@
     border-bottom: 2px solid #FFEDDF;
     background-color: #fff;
 }
-
 .cleaner_profile_info {
     font-size: 15px;
     margin-top: 5px;
@@ -62,23 +57,19 @@
     width: 120px;
     height: 60px;
 }
-
 .cleaner_update_btn {
     width: 105px;
     color: #042A6B;
     font-size: 18px;
 }
-
 .cleaner_update_btn:focus {
     box-shadow: none;
 }
-
 .cleaner_profile_title_con {
     text-align: center;
     align-items: center;
     margin: 20px;
 }
-
 .profile_avatar_con, .cleaner_profile_avatar_con {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     width: 13rem;
@@ -87,15 +78,12 @@
     border-radius: 100px;
     margin: 20px;
 }
-
-
 .logout_btn{
     background-color: #F6A06F;
     border: #F6A06F;
     color: white;
     border-radius: 5px;
 }
-
 .logout_btn:hover{
     background-color: #ec5757;
     border: black;
@@ -107,6 +95,8 @@
 
 
 /* Responsiveness */
+
+
 @media (max-width:800px){
     .mobile-spacer{
         display: block;
@@ -151,7 +141,6 @@
     padding: .75%;
     color: white;
 } 
-
 .read {
     background-color:#f2f3f4; 
     border:1px solid #dcdcdc;
@@ -159,13 +148,10 @@
     padding: 5px;
     margin: 7px;
 }
-
 .cleaner_cards_title {
     font-family: 'Raleway', sans-serif;
 }
-
-
- .icon {
+.icon {
     margin: 5px 0px;
     width: 50px;
     height: 50px;
@@ -178,18 +164,14 @@
     margin-left: 40%;
     margin-right: 40%;
 }
-
 .icon i.fa {
     font-size: 30px;
     color: #34f234;
 }
-
 .icon i.fa {
     font-size: 30px;
     color: #34f234;
 }
-
-
 .title {
     margin: 5px 0px;
     font-size: 30px;

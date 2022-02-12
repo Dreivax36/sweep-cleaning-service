@@ -1,23 +1,24 @@
 <?php
-
-use App\Models\Booking;
-use App\Models\Service;
-use App\Models\Price;
-use App\Models\User;
-use App\Models\Cleaner;
-use App\Models\Cleaner_review;
-use App\Models\Assigned_cleaner;
-use App\Models\Notification;
-use App\Models\Payment;
-use App\Models\Salary;
-use App\Models\Employee;
+    use App\Models\Booking;
+    use App\Models\Service;
+    use App\Models\Price;
+    use App\Models\User;
+    use App\Models\Cleaner;
+    use App\Models\Cleaner_review;
+    use App\Models\Assigned_cleaner;
+    use App\Models\Notification;
+    use App\Models\Payment;
+    use App\Models\Salary;
+    use App\Models\Employee;
 ?>
 @extends('head_extention_admin')
 
 @section('content')
+
 <title>
     Admin Reports Page
 </title>
+
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
@@ -28,11 +29,11 @@ use App\Models\Employee;
 
 <head>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" integrity="sha512-t2JWqzirxOmR9MZKu+BMz0TNHe55G5BZ/tfTmXMlxpUY8tsTo3QMD27QGoYKZKFAraIPDhFv56HLdN11ctmiTQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
 </head>
+
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light sweep-nav shadow-sm">
         <div class="container-fluid">
@@ -44,17 +45,29 @@ use App\Models\Employee;
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <a href="admin_dashboard" class="nav-link">Home</a>
-                    <a class="nav-link" href="admin_services" role="button">Services</a>
-                    <a class="nav-link" href="admin_transaction" role="button">Transactions</a>
-                    <a class="nav-link" href="admin_user" role="button">User</a>
-                    <a class="nav-link" href="admin_payroll" role="button">Payroll</a>
-                    <a class="nav-link" href="admin_reports" role="button" id="active">Reports</a>
+                    <a href="admin_dashboard" class="nav-link">
+                        Home
+                    </a>
+                    <a class="nav-link" href="admin_services" role="button">
+                        Services
+                    </a>
+                    <a class="nav-link" href="admin_transaction" role="button">
+                        Transactions
+                    </a>
+                    <a class="nav-link" href="admin_user" role="button">
+                        User
+                    </a>
+                    <a class="nav-link" href="admin_payroll" role="button">
+                        Payroll
+                    </a>
+                    <a class="nav-link" href="admin_reports" role="button" id="active">
+                        Reports
+                    </a>
                     <!-- Notification -->
                     <li class="nav-item dropdown" id="admin">
                         <?php
-                        $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
-                        $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
+                            $notifCount = Notification::where('isRead', false)->where('user_id', null)->count();
+                            $notif = Notification::where('isRead', false)->where('user_id', null)->orderBy('id', 'DESC')->get();
                         ?>
                         <a id="navbarDropdown admin" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-bell"></i>
@@ -63,7 +76,9 @@ use App\Models\Employee;
                             @endif
                         </a>
                         <div class="dropdown-menu dropdown-menu-right notification" aria-labelledby="navbarDropdown">
-                            <h4 class="notif">Notifications</h4>
+                            <h4 class="notif">
+                                Notifications
+                            </h4>
                             @forelse ($notif as $notification)
                             <a class="dropdown-item read" id="refresh" href="/{{$notification->location}}/{{$notification->id}}">
                                 {{ $notification->message}}
@@ -91,20 +106,19 @@ use App\Models\Employee;
     </nav>
 </div>
 
-<body>
-    
-        <div class="row user_btn_con1">
-            <!-- Sub Header -->
-            <a class="user_type_btn_cleaner" style="font-size:25px; color: #FFB703; margin-top:50px; margin-left:85px;">
-                REPORTS
-            </a>
-        </div>
+<body> 
+    <div class="row user_btn_con1">
+        <!-- Sub Header -->
+        <a class="user_type_btn_cleaner" style="font-size:25px; color: #FFB703; margin-top:50px; margin-left:85px;">
+            REPORTS
+        </a>
+    </div>
         <?php
-        $mytime = Carbon\Carbon::now();
-        $month = $mytime->month;
+            $mytime = Carbon\Carbon::now();
+            $month = $mytime->month;
         ?>
         <?php
-        $serviceName = Service::orderBy('service_id', 'DESC')->get();
+            $serviceName = Service::orderBy('service_id', 'DESC')->get();
         ?>
         <div class="row justify-content-center" id="status">
             <div class="card  mb-3" style="width: 40rem;">
@@ -114,7 +128,6 @@ use App\Models\Employee;
                             Average Monthly Income
                         </h3>
                     </div>
-
                     <div>
                         <h6 class="booking_date">
                             <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
@@ -122,10 +135,10 @@ use App\Models\Employee;
                     </div>
                 </div>
                 <?php
-                $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * 0.12 as amount')
-                    ->groupBy('month')
-                    ->orderByRaw('min(created_at) asc')
-                    ->get();
+                    $payments = Payment::selectRaw('extract(month from created_at) as month, sum(amount) * 0.12 as amount')
+                        ->groupBy('month')
+                        ->orderByRaw('min(created_at) asc')
+                        ->get();
                 ?>
                 <div>
                     <div class="card-body">
@@ -256,10 +269,10 @@ use App\Models\Employee;
                 </div>
             </div>
             <?php
-            $customerCount = Booking::selectRaw('extract(month from created_at) as month, count(customer_id) as customer')
-                ->groupBy('month')
-                ->orderByRaw('min(created_at) asc')
-                ->get();
+                $customerCount = Booking::selectRaw('extract(month from created_at) as month, count(customer_id) as customer')
+                    ->groupBy('month')
+                    ->orderByRaw('min(created_at) asc')
+                    ->get();
             ?>
             <div class="card  mb-3" style="width: 40rem;">
                 <div class="card-header">
@@ -268,7 +281,6 @@ use App\Models\Employee;
                             Average Booking Per Month
                         </h3>
                     </div>
-
                     <div>
                         <h6 class="booking_date">
                             <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
@@ -568,9 +580,8 @@ use App\Models\Employee;
         </div>
         <!-- Modal for details -->
         <?php
-        $serviceName = Service::orderBy('service_id', 'DESC')->get();
+            $serviceName = Service::orderBy('service_id', 'DESC')->get();
         ?>
-
         <div class="row justify-content-center" id="status">
             <div class="card  mb-3" style="width: 30rem; height: 39rem;">
                 <div class="card-header">
@@ -579,7 +590,6 @@ use App\Models\Employee;
                             Most Requested Service
                         </h3>
                     </div>
-
                     <div>
                         <h6 class="booking_date">
                             <b>As of:</b> {{ \Carbon\Carbon::now()->format('l, F d, Y') }}
@@ -587,9 +597,9 @@ use App\Models\Employee;
                     </div>
                 </div>
                 <?php
-                $month = $mytime->month;
-                $service = Service::orderBy('service_id', 'DESC')->get();
-                $totalRequested = Booking::where('status', '!=', 'Cancelled')->whereMonth('created_at', $month)->count();
+                    $month = $mytime->month;
+                    $service = Service::orderBy('service_id', 'DESC')->get();
+                    $totalRequested = Booking::where('status', '!=', 'Cancelled')->whereMonth('created_at', $month)->count();
                 ?>
                 <div>
                     <div class="card-body">
@@ -730,7 +740,11 @@ use App\Models\Employee;
                     </div>
                 </div>
             </div>
-
+            <?php                                    
+                $completed = Booking::where('status', 'Completed')->whereMonth('created_at', $month)->count();
+                $cancelled = Booking::where('status', 'Cancelled')->whereMonth('created_at', $month)->count();
+            ?>
+            @if($completed == 0 && $cancelled == 0)
             <div class="card  mb-3" style="width: 30rem; height: 39rem;">
                 <div class="card-header">
                     <div class="card_body">
@@ -748,18 +762,16 @@ use App\Models\Employee;
                 <div>
                     <div class="card-body">
                         <?php
-                        $month = $mytime->month;
-                        $completed = Booking::where('status', 'Completed')->whereMonth('created_at', $month)->count();
-                        $cancelled = Booking::where('status', 'Cancelled')->whereMonth('created_at', $month)->count();
-                        $totalBook = $completed + $cancelled;
-                        if($totalBook > 0){
-                            $completed = ($completed / $totalBook) * 100;
-                            $cancelled = ($cancelled / $totalBook) * 100;
-                        }
-                        else{
-                            $completed = 0;
-                            $cancelled = 0;
-                        }
+                            $month = $mytime->month;
+                            $totalBook = $completed + $cancelled;
+                            if($totalBook > 0){
+                                $completed = ($completed / $totalBook) * 100;
+                                $cancelled = ($cancelled / $totalBook) * 100;
+                            }
+                            else{
+                                $completed = 0;
+                                $cancelled = 0;
+                            }
                         ?>
                         <div class="justify-content-center">
                             <canvas id="ratio"></canvas>
@@ -867,8 +879,8 @@ use App\Models\Employee;
                 </div>
             </div>
         </div>
+        @endif
         <div class="row justify-content-center" id="status2">
-
             <!-- Count active transaction and completed, declined, and cancelled transaction -->
             <!-- Display when no transaction -->
             <!-- Get transaction details -->
@@ -888,33 +900,33 @@ use App\Models\Employee;
                 <div>
                     <div class="card-body">
                         <?php
-                        $month = $mytime->month;
+                            $month = $mytime->month;
 
-                        $cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
-                            ->whereMonth('created_at', $month)
-                            ->groupBy('cleaner_id')
-                            ->orderBy('rate', 'ASC')
-                            ->get();
+                            $cleaner = Cleaner_review::selectraw('cleaner_id, avg(rate) as rate')
+                                ->whereMonth('created_at', $month)
+                                ->groupBy('cleaner_id')
+                                ->orderBy('rate', 'ASC')
+                                ->get();
 
-                        $cleanerArray = array();
-                        $counter = 0;
-                        foreach ($cleaner as $cleaners) {
-                            $cleanerArray[$counter++] = array(
-                                "cleaner_id" => $cleaners->cleaner_id,
-                                "rate" => $cleaners->rate,
-                                "completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
-                                "cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
+                            $cleanerArray = array();
+                            $counter = 0;
+                            foreach ($cleaner as $cleaners) {
+                                $cleanerArray[$counter++] = array(
+                                    "cleaner_id" => $cleaners->cleaner_id,
+                                    "rate" => $cleaners->rate,
+                                    "completed" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Completed')->count(),
+                                    "cancelled" => Assigned_cleaner::where('cleaner_id', $cleaners->cleaner_id)->whereMonth('created_at', $month)->where('status', 'Cancelled')->count()
+                                );
+                            }
+                            array_multisort(
+                                array_column($cleanerArray, 'completed'),
+                                SORT_DESC,
+                                array_column($cleanerArray, 'rate'),
+                                SORT_DESC,
+                                $cleanerArray
                             );
-                        }
-                        array_multisort(
-                            array_column($cleanerArray, 'completed'),
-                            SORT_DESC,
-                            array_column($cleanerArray, 'rate'),
-                            SORT_DESC,
-                            $cleanerArray
-                        );
 
-                        $counter = 1;
+                            $counter = 1;
                         ?>
                         <table class="table table-striped user_info_table">
                             <tbody>
@@ -937,9 +949,9 @@ use App\Models\Employee;
                                 </tr>
                                 @foreach($cleanerArray as $cleaners)
                                 <?php
-                                $cleaner_id = $cleaners['cleaner_id'];
-                                $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
-                                $users = User::where('user_id', $cleanerID)->value('full_name');
+                                    $cleaner_id = $cleaners['cleaner_id'];
+                                    $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
+                                    $users = User::where('user_id', $cleanerID)->value('full_name');
                                 ?>
                                 <tr class="user_table_row">
                                     <th scope="row" class="user_table_header">
@@ -965,9 +977,7 @@ use App\Models\Employee;
                             </tbody>
                         </table>
                         <!-- Check if the customer already review booking -->
-
                     </div>
-
                 </div>
                 <div class="card-footer">
                     <div class="buttons">
@@ -1018,13 +1028,13 @@ use App\Models\Employee;
                                                 </td>
                                             </tr>
                                             <?php
-                                            $count = 1;
+                                                $count = 1;
                                             ?>
                                             @foreach($cleanerArray as $cleaners)
                                             <?php
-                                            $cleaner_id = $cleaners['cleaner_id'];
-                                            $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
-                                            $users = User::where('user_id', $cleanerID)->value('full_name');
+                                                $cleaner_id = $cleaners['cleaner_id'];
+                                                $cleanerID = Cleaner::where('cleaner_id', $cleaner_id)->value('user_id');
+                                                $users = User::where('user_id', $cleanerID)->value('full_name');
                                             ?>
                                             <tr class="user_table_row">
                                                 <th scope="row" class="user_table_header">
@@ -1071,7 +1081,6 @@ use App\Models\Employee;
                     </div>
                 </div>
                     <div class="card-body">
-
                         <table class="table table-striped user_info_table">
                             <tbody>
                                 <tr class="user_table_row">
@@ -1086,30 +1095,30 @@ use App\Models\Employee;
                                     </td>
                                 </tr>
                                 <?php
-                                $countEmployee = 1;
-                                $monthToday = $mytime->month;
-                                $salary = Employee::all();
-                                $employeeArray = array();
-                                $counter = 0;
-                                foreach ($salary as $salary) {
-                                    $employeeArray[$counter++] = array(
-                                        "employee_code" => $salary->employee_code,
-                                        "hours" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $monthToday)->sum('totalHour'),
-                                        "days" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $monthToday)->sum('totalDay')
+                                    $countEmployee = 1;
+                                    $monthToday = $mytime->month;
+                                    $salary = Employee::all();
+                                    $employeeArray = array();
+                                    $counter = 0;
+                                    foreach ($salary as $salary) {
+                                        $employeeArray[$counter++] = array(
+                                            "employee_code" => $salary->employee_code,
+                                            "hours" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $monthToday)->sum('totalHour'),
+                                            "days" => Salary::where('employee_code', $salary->employee_code)->whereMonth('created_at', $monthToday)->sum('totalDay')
+                                        );
+                                    }
+                                    array_multisort(
+                                        array_column($employeeArray, 'hours'),
+                                        SORT_DESC,
+                                        array_column($employeeArray, 'days'),
+                                        SORT_DESC,
+                                        $employeeArray
                                     );
-                                }
-                                array_multisort(
-                                    array_column($employeeArray, 'hours'),
-                                    SORT_DESC,
-                                    array_column($employeeArray, 'days'),
-                                    SORT_DESC,
-                                    $employeeArray
-                                );
                                 ?>
                                 @foreach($employeeArray as $employees)
 
                                 <?php
-                                $employeeName = Employee::where('employee_code', $employees['employee_code'])->value('full_name');
+                                    $employeeName = Employee::where('employee_code', $employees['employee_code'])->value('full_name');
                                 ?>
                                 <tr class="user_table_row">
                                     <th scope="row" class="user_table_header">
@@ -1121,7 +1130,6 @@ use App\Models\Employee;
                                     <td class="user_table_data">
                                         {{$employees['hours']}}
                                     </td>
-                                   
                                 </tr>
                                 @if($countEmployee > 3)
                                 @break
@@ -1176,11 +1184,11 @@ use App\Models\Employee;
                                                 </td>
                                             </tr>
                                             <?php
-                                            $employeeCounter = 1;
+                                                $employeeCounter = 1;
                                             ?>
                                             @foreach($employeeArray as $employees)
                                             <?php
-                                            $employeeName = Employee::where('employee_code', $employees['employee_code'])->value('full_name');
+                                                $employeeName = Employee::where('employee_code', $employees['employee_code'])->value('full_name');
                                             ?>
                                             <tr class="user_table_row">
                                                 <th scope="row" class="user_table_header">
@@ -1340,5 +1348,4 @@ use App\Models\Employee;
                 pdf4.save('Service-Completion-Ratio.pdf');
             }
         </script>
-    
 </body>

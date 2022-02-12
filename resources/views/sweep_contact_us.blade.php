@@ -1,9 +1,11 @@
 @extends('head_extention_welcome') 
 
 @section('content')
-    <title>
-        FAQs Page
-    </title>
+
+<title>
+    FAQs Page
+</title>
+
 <body>
     <header> <!-- Navbar --> 
         <div class="logo"> 

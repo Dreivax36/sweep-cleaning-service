@@ -12,7 +12,6 @@ body {
     align-items: center;
 
 }
-
 .modal-header {
     background-image: url(/images/home/add-header1.jpg);
     background-position: center;
@@ -21,13 +20,13 @@ body {
     box-shadow: 0 .55rem .5rem rgba(0,0,0,.07)!important;
     border-radius: 0.75rem;
 }
-
 .modal-body{
     padding: 20px 40px 0px 40px;
     max-height: 75vh;
 }
 
 /* Admin Services Page */
+
 .customer_search_con {
     position: relative;
     float: right;
@@ -47,18 +46,15 @@ body {
     font-size: 22px;
     font-family: 'Raleway', sans-serif;
 }
-
 .service-card{
     width: 25rem; 
     height: 20rem; 
     margin: 10px;
     border-radius: 20px;
 }
-
 .card-footer:last-child{
     border-radius: 0px 0px 20px 20px;
 }
-
 .service-header{
     margin: 20px;
 }
@@ -179,7 +175,6 @@ body {
     font-size: 15px;
     font-family: 'Raleway', sans-serif;
 }
-
 .update_btn {
     background-color: #BEE7FD;
     border: #BEE7FD;
@@ -206,11 +201,9 @@ body {
 .service_modal_content{ 
     border-radius: 15px;
 }
-
 .desc{
     font-size: 11px;
 }
-
 #footer {
     margin-top: 30px;
     background-color: #061835;
@@ -220,13 +213,10 @@ body {
     bottom: 0px;
     padding: .75%;
 }
-
-
 .cleaner{
     padding-right: 5px;
     padding-left: 15px;
 }
-
 .price{
     padding-left: 5px;
     padding-right: 15px;

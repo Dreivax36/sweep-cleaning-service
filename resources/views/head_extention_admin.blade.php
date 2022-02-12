@@ -36,9 +36,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style_admin.css')}}">
     <link href="{{ asset('css/nav.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/4fc7b0e350.js" crossorigin="anonymous"></script>
+
     <main>
         @yield('content')
     </main>
-    
 </head>
  
